@@ -1,0 +1,17 @@
+<div class='subject' data-index='<%- @index %>'>
+  <div class='image'>
+    <img alt='warpin your mind' src='<%- @url %>' />
+  </div>
+  <div class='controls'>
+    <div class='control' data-type='heart'>
+      <div class='icon'></div>
+    </div>
+    <div class='control' data-type='discuss'>
+      <div class='icon'></div>
+    </div>
+    <div class='control' data-type='dashboard'>
+      <div class='icon'></div>
+    </div>
+    <div class='control' data-type='finish'>Nothing interesting</div>
+  </div>
+</div>

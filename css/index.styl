@@ -1,0 +1,103 @@
+
+$white = #FFF
+
+$nav-width = 200px
+
+@import './mixin'
+
+@import '../node_modules/zooniverse/css/browser_check'
+@import '../node_modules/zooniverse/css/top_bar_alt'
+@import '../node_modules/zooniverse/css/login_dialog'
+@import '../node_modules/zooniverse/css/dialog_defaults'
+
+@import './classifier'
+@import './science'
+
+a
+  text-decoration none
+  &:link
+    color $white
+  &:visited
+    color $white
+  &:hover
+    color $white
+  &:active
+    color $white
+
+
+.bam
+  font-size 300px
+  font-weight 100
+  transform rotateZ(-20deg)
+  position relative
+  top -150px
+  overflow hidden
+
+body
+  background url('images/blue.jpg') repeat
+  margin 0 auto
+  font-family helvetica neue, helvetica, sans-serif
+  color $white
+  width 100%
+  height 100%
+  
+  // Display control for Spine stack
+  .main
+    > div
+      display none
+    > .active
+      display block
+      margin-left 350px
+  
+  .main
+    clear both
+    position absolute
+    top 0
+    height 100%
+    width 100%
+  
+  nav
+    background rgb(0, 12, 24)
+    position absolute
+    top 0
+    left 0
+    bottom 0
+    right auto
+    z-index 2
+    
+    float left
+    width $nav-width
+    height 100%
+    margin 0
+    padding 0
+    
+    a
+      display block
+      box-sizing border-box
+      width $nav-width
+      height 120px
+      border-top 1px solid rgb(0, 30, 54)
+      border-bottom 1px solid rgb(0, 30, 54)
+      text-align center
+      font-size 11px
+      padding-top 90px
+    
+    a[data-page="home"]
+      text-transform uppercase
+      margin-top 50px
+      font-size 14px
+      font-weight 700
+      height 80px
+      padding 0
+      border none
+    a[data-page="classify"]
+      background url('images/classify.png') no-repeat center 30px
+    a[data-page="science"]
+      background url('images/science.png') no-repeat center 30px
+    a[data-page="dashboard"]
+      background url('images/dashboard.png') no-repeat center 30px
+    a[data-page="profile"]
+      background url('images/profile.png') no-repeat center 30px
+    a[data-page="discuss"]
+      background url('images/discuss.png') no-repeat center 30px
+

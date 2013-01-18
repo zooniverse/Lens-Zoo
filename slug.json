@@ -1,0 +1,24 @@
+{
+  "dependencies": [
+    "es5-shimify",
+    "json2ify",
+    "jqueryify",
+    
+    "spine",
+    "spine/lib/route",
+    "spine/lib/manager",
+    
+    "zooniverse/lib/controllers/browser_check",
+    "zooniverse/lib/api",
+    "zooniverse/lib/controllers/top_bar",
+    "zooniverse/lib/models/user",
+    "zooniverse/lib/models/recent",
+    "zooniverse/lib/models/favorite",
+    "zooniverse/lib/google_analytics",
+    "underscore/underscore",
+    
+    "zootorial"
+  ],
+  "libs": []
+}
+
