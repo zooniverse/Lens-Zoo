@@ -1,7 +1,7 @@
-{Controller} = require 'spine'
+Page  = require 'controllers/page'
 
 
-class Profile extends Controller
+class Profile extends Page
   className: 'profile'
   template: require 'views/profile'
     

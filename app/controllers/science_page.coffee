@@ -1,7 +1,7 @@
-{Controller} = require 'spine'
+Page  = require 'controllers/page'
 
 
-class SciencePage extends Controller
+class SciencePage extends Page
   className: 'science'
   template: require 'views/science_page'
   

@@ -1,7 +1,7 @@
-{Controller} = require 'spine'
+Page  = require 'controllers/page'
 
 
-class Dashboard extends Controller
+class Dashboard extends Page
   className: 'dashboard'
   template: require 'views/dashboard'
   

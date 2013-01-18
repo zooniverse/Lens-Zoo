@@ -1,7 +1,8 @@
-{Controller} = require 'spine'
-_ = require 'underscore/underscore'
+Page  = require 'controllers/page'
+_     = require 'underscore/underscore'
 
-class Classifier extends Controller
+
+class Classifier extends Page
   className: 'classifier'
   template: require 'views/classifier'
   subjectTemplate: require 'views/subject'
