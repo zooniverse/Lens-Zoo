@@ -1,6 +1,15 @@
 
 .classifier
   
+  .mask
+    position absolute
+    top 0
+    right 0
+    width 30%
+    height 100%
+    background -webkit-linear-gradient(right, rgba(10, 10, 10, 255), rgba(0, 0, 0, 0))
+    z-index 2
+  
   .stats
     margin-top 55px
     border-left 1px solid rgb(0, 52, 96)
@@ -32,33 +41,37 @@
   .overflow
     width 100%
     overflow hidden
+    padding 0
     
     .subjects
       width 400%
       margin-top 64px
       white-space nowrap
+      z-index 0
+      padding 0
       
       .subject
         display inline-block
-        width 401px
+        width $img-dim
         background rgb(219, 219, 219)
         margin-right 100px
-        padding 0
         
-        transition all 800ms cubic-bezier(0.770, 0.000, 0.175, 1.000)
+        transition margin-left 700ms cubic-bezier(0.770, 0.000, 0.175, 1.000)
         -webkit-transition-timing-function cubic-bezier(0.770, 0.000, 0.175, 1.000)
         -moz-transition-timing-function cubic-bezier(0.770, 0.000, 0.175, 1.000)
         transition-timing-function cubic-bezier(0.770, 0.000, 0.175, 1.000)
         
-        &.to-remove
-          width 0
-          margin-right 0
+        &.current
+          margin-left 0
         
-        .image
-          height 401px
+        &.to-remove
+          margin-left -1 * $img-dim - 100px
+        
+        &:first-child
+          cursor crosshair
         
         .controls
-          width 401px
+          width $img-dim
           height 50px
           white-space nowrap
           color #000
@@ -70,8 +83,8 @@
             cursor pointer
             width 90px
             height 50px
-            border-right 1px solid rgb(0, 52, 96)
             box-sizing border-box
+            border-right 1px solid rgb(0, 52, 96)
             
             &:last-child
               border none
@@ -82,9 +95,9 @@
                 color rgb(226, 86, 0)
             
             .icon
+              position relative
               width 30px
               height 30px
-              position relative
               top 14px
               left 35px
               
@@ -93,11 +106,13 @@
                 background url('images/icon-sprite.png') 0 -34px no-repeat
                 &:hover
                   background-position 0 2px
+              
             &[data-type='discuss']
               .icon
                 background url('images/icon-sprite.png') -40px -34px no-repeat
                 &:hover
                   background-position -40px 2px
+              
             &[data-type='dashboard']
               .icon
                 background url('images/icon-sprite.png') -78px -34px no-repeat
