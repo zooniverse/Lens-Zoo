@@ -1,5 +1,7 @@
+
 _     = require 'underscore/underscore'
 Page  = require 'controllers/page'
+Mark  = require 'controllers/Mark'
 
 
 class Classifier extends Page
@@ -9,14 +11,16 @@ class Classifier extends Page
   nSubjectCache: 5
   waitToRemove: 1000
   nSubjects: 0
+  markings: []
+  maxMarkings: 5
   
   # TEMP CODE:
   ids: [1..30]
   
   elements:
-    '[data-type="classified"]'    : 'nClassified'
-    '[data-type="potentials"]'    : 'nPotentials'
-    '[data-type="favorites"]'     : 'nFavorites'
+    '[data-type="classified"]'    : 'nClassifiedEl'
+    '[data-type="potentials"]'    : 'nPotentialsEl'
+    '[data-type="favorites"]'     : 'nFavoritesEl'
     '.subjects'                   : 'subjects'
   
   events:
@@ -24,7 +28,8 @@ class Classifier extends Page
     'click div:nth(0)[data-type="discuss"]'   : 'onDiscuss'
     'click div:nth(0)[data-type="dashboard"]' : 'onDashboard'
     'click div:nth(0)[data-type="finish"]'    : 'onFinish'
-    'click .current img'                      : 'onMark'
+    'click .current .image svg'               : 'onMarking'
+    'click circle'                            : 'onCircle'
   
   
   constructor: ->
@@ -33,22 +38,29 @@ class Classifier extends Page
     @html @template
     
     # Get stats from API
-    @setClassified(123)
-    @setPotentials(321)
-    @setFavorites(987)
+    @nClassified = 123
+    @nPotentials = 321
+    @nFavorites = 987
+    @setClassified()
+    @setPotentials()
+    @setFavorites()
     
     @initSubjects()
+    @getCurrentSVG()
   
-  setClassified: (n) =>
-    @nClassified.text(n)
+  setClassified: =>
+    @nClassifiedEl.text(@nClassified)
   
-  setPotentials: (n) =>
-    @nPotentials.text(n)
+  setPotentials: =>
+    @nPotentialsEl.text(@nPotentials)
   
-  setFavorites: (n) =>
-    @nFavorites.text(n)
+  setFavorites: =>
+    @nFavoritesEl.text(@nFavorites)
   
-  # Select five random subjects
+  getCurrentSVG: =>
+    @svg = @el.find('.current').find('svg')
+  
+  # Select five random subjects.  This method is meant to be run once on init.
   initSubjects: =>
     # Check that there are enough subjects
     if @ids.length < 1
@@ -56,6 +68,8 @@ class Classifier extends Page
       return null
     
     @getSubject() for i in [1..5]
+    @warn = true
+    @hasMarking = false
     @el.find('.subject').first().addClass('current')
   
   getSubject: =>
@@ -69,20 +83,27 @@ class Classifier extends Page
       url: url
     @subjects.append @subjectTemplate(params)
   
-  onMark: (e) =>
-    console.log e
+  onMarking: (e) =>
     
-    # TEMP: Not really gonna do it this way.
-    x = e.offsetX
-    y = e.offsetY
-    img = document.createElement('img')
-    img.src = 'images/marker.png'
-    img.onload = ->
-      img.style.position = 'relative'
-      img.style.top = "#{y - 12}px"
-      img.style.left = "#{x - 12}px"
-      document.querySelector('.current').appendChild(img)
+    # Create marking and push to array
+    mark = new Mark({el: @svg, x: e.offsetX, y: e.offsetY})
+    @markings.push mark
     
+    # Replace text on interface
+    unless @hasMarking
+      console.log 'replace text'
+      @el.find('.current [data-type="finish"]').text('Finished marking!')
+      @hasMarking = true
+    
+    # Warn user of over marking if exceeding maxMarkings
+    return unless @markings.length > @maxMarkings
+    random = Math.random()
+    if random < 0.1 and @warn
+      @warn = false
+      alert("Whoa buddy!  Remember gravitional lenses are very rare astronomical objects.  There usually won't be this many interesting objects in an image.  If you think this is an exception, please discuss this image in Talk so that the science team can take a look!")
+  
+  # Prevent markings over SVG elements
+  onCircle: (e) -> e.stopPropagation()
   
   onFavorite: (e) =>
     console.log 'onFavorite'
@@ -94,22 +115,34 @@ class Classifier extends Page
     console.log 'onDashboard'
   
   onFinish: (e) =>
+    
+    # Get the marking info and push to API
+    for mark in @markings
+      console.log "#{mark.x}px #{mark.y}px"
+    
+    # Get DOM elements
     target = $(e.currentTarget)
     subject = target.parent().parent()
     sibling = subject.siblings().first()
     
+    # Change classes
     subject.addClass('to-remove')
     subject.removeClass('current')
     
     sibling.addClass('current')
     sibling.removeClass('right')
     
+    # Remove subject from DOM
     setTimeout ->
       subject.remove()
     , @waitToRemove
     
-    if @ids.length > 1
-      @getSubject()
+    # Request new subject and reset
+    @getSubject() if @ids.length > 1
+    @getCurrentSVG()
+    @markings = []
+    @warn = true
+    @hasMarking = false
 
 
 module.exports = Classifier
