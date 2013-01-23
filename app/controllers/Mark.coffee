@@ -7,63 +7,100 @@
 
 
 class Mark extends Controller
-  # color: "#E05502"
-  # overColor: "#FF4500"
-  # selectColor: "#FF8C00"
-  
-  color: 'red'
-  overColor: 'green'
-  selectColor: 'blue'
+  color: "#E05502"
+  overColor: "#FF4500"
+  selectColor: "#FF8C00"
   
   radius: 10
+  p1: 6
+  p2: 14
   
   constructor: ->
     super
     svgns = 'http://www.w3.org/2000/svg'
     
-    # Create an SVG group element
-    g = document.createElementNS(svgns, "g")
-    g.setAttribute("transform", "translate(#{@x}, #{@y})")
+    # Create the root SVG group
+    gRoot = document.createElementNS(svgns, "g")
+    gRoot.setAttribute("transform", "translate(#{@x}, #{@y})")
+    
+    # Create the crosshair SVG group
+    gCross = document.createElementNS(svgns, "g")
+    gCross.setAttribute("stroke", @color)
+    gCross.setAttribute("stroke-width", 2)
+    gCross.setAttribute("fill-opacity", 0)
+    gCross.setAttribute("cursor", "move")
     
     # Create an SVG circle
     c = document.createElementNS(svgns, "circle")
     c.setAttribute("r", @radius)
-    c.setAttribute("stroke", @color)
-    c.setAttribute("stroke-width", 2)
-    c.setAttribute("fill-opacity", 0)
-    c.setAttribute("cursor", "move")
     
-    # Create an SVG group element to contain remove trigger
+    # Create the crosshair
+    l1 = document.createElementNS(svgns, "line")
+    l2 = document.createElementNS(svgns, "line")
+    l3 = document.createElementNS(svgns, "line")
+    l4 = document.createElementNS(svgns, "line")
+    
+    l1.setAttribute("x1", @p1)
+    l1.setAttribute("y1", 0)
+    l1.setAttribute("x2", @p2)
+    l1.setAttribute("y2", 0)
+    
+    l2.setAttribute("x1", -@p1)
+    l2.setAttribute("y1", 0)
+    l2.setAttribute("x2", -@p2)
+    l2.setAttribute("y2", 0)
+    
+    l3.setAttribute("x1", 0)
+    l3.setAttribute("y1", @p1)
+    l3.setAttribute("x2", 0)
+    l3.setAttribute("y2", @p2)
+    
+    l4.setAttribute("x1", 0)
+    l4.setAttribute("y1", -@p1)
+    l4.setAttribute("x2", 0)
+    l4.setAttribute("y2", -@p2)
+    
+    # Append elements to crosshair group
+    gCross.appendChild(c)
+    gCross.appendChild(l1)
+    gCross.appendChild(l2)
+    gCross.appendChild(l3)
+    gCross.appendChild(l4)
+    
+    # Create the remove SVG group
     gRemove = document.createElementNS(svgns, "g")
-    gRemove.setAttribute("transform", "translate(-14, -14)")
+    gRemove.setAttribute("transform", "translate(-#{@p2}, -#{@p2})")
     gRemove.setAttribute("cursor", "pointer")
     gRemove.setAttribute("visibility", "hidden")
     
     # Create an SVG circle
-    removeC = document.createElementNS(svgns, "circle")
-    removeC.setAttribute("r", 6)
-    removeC.setAttribute("fill", "#FAFAFA")
+    cRemove = document.createElementNS(svgns, "circle")
+    cRemove.setAttribute("r", @p1)
+    cRemove.setAttribute("fill", "#FAFAFA")
     
     # Create an SVG text element
-    t = document.createElementNS(svgns, "text")
-    t.textContent = "x"
-    t.setAttribute("font-size", 11)
-    t.setAttribute("font-weight", 700)
-    t.setAttribute("x", -3)
-    t.setAttribute("y", 3)
+    tRemove = document.createElementNS(svgns, "text")
+    tRemove.textContent = "x"
+    tRemove.setAttribute("font-size", 11)
+    tRemove.setAttribute("font-weight", 700)
+    tRemove.setAttribute("x", -@p1 / 2)
+    tRemove.setAttribute("y", @p1 / 2)
     
-    # Append all elements
-    gRemove.appendChild(removeC)
-    gRemove.appendChild(t)
+    # Append elements to remove group
+    gRemove.appendChild(cRemove)
+    gRemove.appendChild(tRemove)
     
-    g.appendChild(c)
-    g.appendChild(gRemove)
-    @el[0].appendChild(g)
+    # Append subgroups to root group
+    gRoot.appendChild(gCross)
+    gRoot.appendChild(gRemove)
+    
+    # Append SVG to DOM
+    @el[0].appendChild(gRoot)
     
     # Store SVG DOM elements
-    @g = g
-    @circle = c
-    @gRemove = gRemove
+    @gRoot    = gRoot
+    @gCross   = gCross
+    @gRemove  = gRemove
     
     # Control parameters
     @drag = false
@@ -73,10 +110,11 @@ class Mark extends Controller
     # Bind mouse events
     @el.bind('mousemove', @onmousemoveEl)
     @el.bind('mouseenter', @onmouseenterEl)
-    g.onmousedown = @onmousedown
-    g.onmouseup   = @onmouseup
-    g.onclick     = @onclick
-    @gRemove.onclick = @remove
+    
+    @gRoot.onmousedown  = @onmousedown
+    @gRoot.onmouseup    = @onmouseup
+    @gRoot.onclick      = @onclick
+    @gRemove.onclick    = @remove
   
   onmousemoveEl: (e) =>
     e.preventDefault()
@@ -91,7 +129,7 @@ class Mark extends Controller
     # Update instance variables
     @x = e.offsetX
     @y = e.offsetY
-    @g.setAttribute("transform", "translate(#{@x}, #{@y})")
+    @gRoot.setAttribute("transform", "translate(#{@x}, #{@y})")
   
   onmouseenterEl: (e) =>
     e.preventDefault()
@@ -101,32 +139,32 @@ class Mark extends Controller
     e.preventDefault()
     
     @drag = true
-    @circle.setAttribute("stroke", @overColor)
+    @gCross.setAttribute("stroke", @overColor)
   
   onmouseup: (e) =>
     e.preventDefault()
     @drag = false
-    @circle.setAttribute("stroke", @color)
+    @gCross.setAttribute("stroke", @color)
   
   onclick: (e) =>
     e.preventDefault()
       
     if @isRemoveVisible
       @gRemove.setAttribute("visibility", "hidden")
-      @circle.setAttribute("stroke", @color)
+      @gCross.setAttribute("stroke", @color)
     else
       @gRemove.removeAttribute("visibility")
-      @circle.setAttribute("stroke", @selectColor)
+      @gCross.setAttribute("stroke", @selectColor)
     @isRemoveVisible = not @isRemoveVisible
     
     if @hasDragged
       @gRemove.setAttribute("visibility", "hidden")
-      @circle.setAttribute("stroke", @color)
+      @gCross.setAttribute("stroke", @color)
       @hasDragged = false
       @isRemoveVisible = false
     
   remove: =>
-    @g.remove()
+    @gRoot.remove()
     @trigger 'remove', @
 
 
