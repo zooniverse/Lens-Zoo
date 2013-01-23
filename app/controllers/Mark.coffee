@@ -1,12 +1,9 @@
+
 {Controller} = require 'spine'
-
-# Behaviour
-# onclick shows the remove SVG
-# subsequent onclick hides the remove SVG
-
 
 
 class Mark extends Controller
+  svgns: 'http://www.w3.org/2000/svg'
   color: "#E05502"
   overColor: "#FF4500"
   selectColor: "#FF8C00"
@@ -17,28 +14,54 @@ class Mark extends Controller
   
   constructor: ->
     super
-    svgns = 'http://www.w3.org/2000/svg'
+    
+    # Create SVG elements
+    @gCross  = @initCross()
+    @gRemove = @initRemove()
     
     # Create the root SVG group
-    gRoot = document.createElementNS(svgns, "g")
-    gRoot.setAttribute("transform", "translate(#{@x}, #{@y})")
+    @gRoot = document.createElementNS(@svgns, "g")
+    @gRoot.setAttribute("transform", "translate(#{@x}, #{@y})")
+    
+    # Append elements to root group
+    @gRoot.appendChild(@gCross)
+    @gRoot.appendChild(@gRemove)
+    
+    # Append SVG to DOM
+    @el[0].appendChild(@gRoot)
+    
+    # Set control parameters
+    @drag = false
+    @hasDragged = false
+    @isRemoveVisible = false
+    
+    # Bind mouse events
+    @el.bind('mousemove', @onmousemoveEl)
+    @el.bind('mouseenter', @onmouseenterEl)
+    
+    @gRoot.onmousedown  = @onmousedown
+    @gRoot.onmouseup    = @onmouseup
+    @gRoot.onclick      = @onclick
+    @gRemove.onclick    = @remove
+  
+  initCross: =>
     
     # Create the crosshair SVG group
-    gCross = document.createElementNS(svgns, "g")
+    gCross = document.createElementNS(@svgns, "g")
     gCross.setAttribute("stroke", @color)
     gCross.setAttribute("stroke-width", 2)
     gCross.setAttribute("fill-opacity", 0)
     gCross.setAttribute("cursor", "move")
     
     # Create an SVG circle
-    c = document.createElementNS(svgns, "circle")
+    c = document.createElementNS(@svgns, "circle")
     c.setAttribute("r", @radius)
     
     # Create the crosshair
-    l1 = document.createElementNS(svgns, "line")
-    l2 = document.createElementNS(svgns, "line")
-    l3 = document.createElementNS(svgns, "line")
-    l4 = document.createElementNS(svgns, "line")
+    l1 = document.createElementNS(@svgns, "line")
+    l2 = document.createElementNS(@svgns, "line")
+    l3 = document.createElementNS(@svgns, "line")
+    l4 = document.createElementNS(@svgns, "line")
     
     l1.setAttribute("x1", @p1)
     l1.setAttribute("y1", 0)
@@ -67,19 +90,23 @@ class Mark extends Controller
     gCross.appendChild(l3)
     gCross.appendChild(l4)
     
+    return gCross
+  
+  initRemove: =>
+    
     # Create the remove SVG group
-    gRemove = document.createElementNS(svgns, "g")
+    gRemove = document.createElementNS(@svgns, "g")
     gRemove.setAttribute("transform", "translate(-#{@p2}, -#{@p2})")
     gRemove.setAttribute("cursor", "pointer")
     gRemove.setAttribute("visibility", "hidden")
     
     # Create an SVG circle
-    cRemove = document.createElementNS(svgns, "circle")
+    cRemove = document.createElementNS(@svgns, "circle")
     cRemove.setAttribute("r", @p1)
     cRemove.setAttribute("fill", "#FAFAFA")
     
     # Create an SVG text element
-    tRemove = document.createElementNS(svgns, "text")
+    tRemove = document.createElementNS(@svgns, "text")
     tRemove.textContent = "x"
     tRemove.setAttribute("font-size", 11)
     tRemove.setAttribute("font-weight", 700)
@@ -90,31 +117,7 @@ class Mark extends Controller
     gRemove.appendChild(cRemove)
     gRemove.appendChild(tRemove)
     
-    # Append subgroups to root group
-    gRoot.appendChild(gCross)
-    gRoot.appendChild(gRemove)
-    
-    # Append SVG to DOM
-    @el[0].appendChild(gRoot)
-    
-    # Store SVG DOM elements
-    @gRoot    = gRoot
-    @gCross   = gCross
-    @gRemove  = gRemove
-    
-    # Control parameters
-    @drag = false
-    @hasDragged = false
-    @isRemoveVisible = false
-    
-    # Bind mouse events
-    @el.bind('mousemove', @onmousemoveEl)
-    @el.bind('mouseenter', @onmouseenterEl)
-    
-    @gRoot.onmousedown  = @onmousedown
-    @gRoot.onmouseup    = @onmouseup
-    @gRoot.onclick      = @onclick
-    @gRemove.onclick    = @remove
+    return gRemove
   
   onmousemoveEl: (e) =>
     e.preventDefault()
@@ -133,7 +136,9 @@ class Mark extends Controller
   
   onmouseenterEl: (e) =>
     e.preventDefault()
-    @onmouseup(e)
+    if @drag
+      @onmouseup(e)
+      
   
   onmousedown: (e) =>
     e.preventDefault()
