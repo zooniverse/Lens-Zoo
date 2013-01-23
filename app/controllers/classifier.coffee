@@ -11,7 +11,7 @@ class Classifier extends Page
   nSubjectCache: 5
   waitToRemove: 1000
   nSubjects: 0
-  markings: []
+  markings: {}
   maxMarkings: 5
   
   # TEMP CODE:
@@ -47,6 +47,15 @@ class Classifier extends Page
     
     @initSubjects()
     @getCurrentSVG()
+  
+  removeMark: (m) =>
+    index = m.index
+    delete @markings[index]
+    
+    length = _.keys(@markings).length
+    if length is 0
+      @el.find('.current [data-type="finish"]').text('Nothing interesting')
+      @hasMarking = false
   
   setClassified: =>
     @nClassifiedEl.text(@nClassified)
@@ -86,17 +95,18 @@ class Classifier extends Page
   onMarking: (e) =>
     
     # Create marking and push to array
-    mark = new Mark({el: @svg, x: e.offsetX, y: e.offsetY})
-    @markings.push mark
+    index = _.keys(@markings).length
+    mark = new Mark({el: @svg, x: e.offsetX, y: e.offsetY, index: index})
+    mark.bind('remove', @removeMark)
+    @markings[index] = mark
     
     # Replace text on interface
     unless @hasMarking
-      console.log 'replace text'
       @el.find('.current [data-type="finish"]').text('Finished marking!')
       @hasMarking = true
     
     # Warn user of over marking if exceeding maxMarkings
-    return unless @markings.length > @maxMarkings
+    return unless index + 1 > @maxMarkings
     random = Math.random()
     if random < 0.1 and @warn
       @warn = false
@@ -117,7 +127,7 @@ class Classifier extends Page
   onFinish: (e) =>
     
     # Get the marking info and push to API
-    for mark in @markings
+    for index, mark of @markings
       console.log "#{mark.x}px #{mark.y}px"
     
     # Get DOM elements
@@ -140,7 +150,7 @@ class Classifier extends Page
     # Request new subject and reset
     @getSubject() if @ids.length > 1
     @getCurrentSVG()
-    @markings = []
+    @markings = {}
     @warn = true
     @hasMarking = false
 
