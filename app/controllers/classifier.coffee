@@ -45,17 +45,9 @@ class Classifier extends Page
     @setPotentials()
     @setFavorites()
     
+    # Get initial subjects and select SVG of current
     @initSubjects()
     @getCurrentSVG()
-  
-  removeMark: (m) =>
-    index = m.index
-    delete @markings[index]
-    
-    length = _.keys(@markings).length
-    if length is 0
-      @el.find('.current [data-type="finish"]').text('Nothing interesting')
-      @hasMarking = false
   
   setClassified: =>
     @nClassifiedEl.text(@nClassified)
@@ -95,6 +87,8 @@ class Classifier extends Page
   onMarking: (e) =>
     
     # Create marking and push to array
+    
+    # TODO: Index is not going to be unique
     index = _.keys(@markings).length
     mark = new Mark({el: @svg, x: e.offsetX, y: e.offsetY, index: index})
     mark.bind('remove', @removeMark)
@@ -111,6 +105,15 @@ class Classifier extends Page
     if random < 0.1 and @warn
       @warn = false
       alert("Whoa buddy!  Remember gravitional lenses are very rare astronomical objects.  There usually won't be this many interesting objects in an image.  If you think this is an exception, please discuss this image in Talk so that the science team can take a look!")
+  
+  removeMark: (m) =>
+    index = m.index
+    delete @markings[index]
+
+    length = _.keys(@markings).length
+    if length is 0
+      @el.find('.current [data-type="finish"]').text('Nothing interesting')
+      @hasMarking = false
   
   # Prevent markings over SVG elements
   onCircle: (e) -> e.stopPropagation()
@@ -131,20 +134,20 @@ class Classifier extends Page
       console.log "#{mark.x}px #{mark.y}px"
     
     # Get DOM elements
-    target = $(e.currentTarget)
-    subject = target.parent().parent()
-    sibling = subject.siblings().first()
+    target  = $(e.currentTarget)
+    current = $('.current')
+    next    = subject.siblings().first()
     
     # Change classes
-    subject.addClass('to-remove')
-    subject.removeClass('current')
+    current.addClass('to-remove')
+    current.removeClass('current')
     
-    sibling.addClass('current')
-    sibling.removeClass('right')
+    next.addClass('current')
+    next.removeClass('right')
     
     # Remove subject from DOM
     setTimeout ->
-      subject.remove()
+      current.remove()
     , @waitToRemove
     
     # Request new subject and reset

@@ -138,7 +138,6 @@ class Mark extends Controller
     e.preventDefault()
     if @drag
       @onmouseup(e)
-      
   
   onmousedown: (e) =>
     e.preventDefault()
