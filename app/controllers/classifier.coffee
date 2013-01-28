@@ -3,25 +3,25 @@ _     = require 'underscore/underscore'
 Page  = require 'controllers/page'
 Mark  = require 'controllers/Mark'
 
+User    = require 'zooniverse/models/user'
+Subject = require 'zooniverse/models/subject'
+
+Classification = require 'models/classification'
+
 
 class Classifier extends Page
-  className: 'classifier'
+  el: $('.classifier')
   template: require 'views/classifier'
   subjectTemplate: require 'views/subject'
-  nSubjectCache: 5
-  waitToRemove: 1000
-  nSubjects: 0
-  markings: {}
-  maxMarkings: 5
   
-  # TEMP CODE:
-  ids: [1..30]
+  subjects: []
+  maxMarkings: 5
   
   elements:
     '[data-type="classified"]'    : 'nClassifiedEl'
     '[data-type="potentials"]'    : 'nPotentialsEl'
     '[data-type="favorites"]'     : 'nFavoritesEl'
-    '.subjects'                   : 'subjects'
+    '.subjects'                   : 'subjectsEl'
   
   events:
     'click div:nth(0)[data-type="heart"]'     : 'onFavorite'
@@ -34,7 +34,6 @@ class Classifier extends Page
   
   constructor: ->
     super
-    
     @html @template
     
     # Get stats from API
@@ -45,9 +44,55 @@ class Classifier extends Page
     @setPotentials()
     @setFavorites()
     
-    # Get initial subjects and select SVG of current
-    @initSubjects()
-    @getCurrentSVG()
+    # Setup events
+    # User.on 'change', @onUserChange
+    Subject.on 'fetch', @onInitialFetch
+    Subject.on 'select', @onSubjectSelect
+    Subject.on 'no-more', @onNoMoreSubjects
+  
+  activate: =>
+    super
+    
+    # Request subjects only when user hits classify page the first time
+    Subject.fetch({limit: 5}) unless @hasVisited
+    @hasVisited = true
+  
+  # onUserChange: (e, user) =>
+  #   if user?.project.tutorial_done
+  #     if @classification.subject.metadata.tutorial
+  #       Subject.next()
+  #   else
+  #     Subject.next()
+  
+  reset: =>
+    @markings     = {}
+    @markingIndex = 0
+    @warn         = true
+    @hasMarking   = false
+    @createClassification()
+    @setCurrentSVG()
+  
+  onInitialFetch: (e, data) =>
+    for subject in data
+      @subjects.push(subject)
+      params = 
+        url: subject.location.standard
+      @subjectsEl.append @subjectTemplate(params)
+    
+    @reset()
+    
+    @el.find('.subject').first().addClass('current')
+    @setCurrentSVG()
+  
+  onSubjectSelect: (e, subject) =>
+    @subjects.push(subject)
+  
+  onNoMoreSubjects: =>
+    console.log 'onNoMoreSubjects'
+  
+  createClassification: =>
+    subject = @subjects.shift()
+    @classification = new Classification {subject}
   
   setClassified: =>
     @nClassifiedEl.text(@nClassified)
@@ -58,60 +103,36 @@ class Classifier extends Page
   setFavorites: =>
     @nFavoritesEl.text(@nFavorites)
   
-  getCurrentSVG: =>
+  setCurrentSVG: =>
     @svg = @el.find('.current').find('svg')
-  
-  # Select five random subjects.  This method is meant to be run once on init.
-  initSubjects: =>
-    # Check that there are enough subjects
-    if @ids.length < 1
-      alert 'Out of subjects'
-      return null
-    
-    @getSubject() for i in [1..5]
-    @warn = true
-    @hasMarking = false
-    @el.find('.subject').first().addClass('current')
-  
-  getSubject: =>
-    
-    # Get random number from array
-    n = _.random(0, @ids.length - 1)
-    id = String('0' + @ids[n]).slice(-2)
-    @ids = _.without(@ids, @ids[n])
-    url = "data/CFHTLS_#{id}.png"
-    params =
-      url: url
-    @subjects.append @subjectTemplate(params)
   
   onMarking: (e) =>
     
-    # Create marking and push to array
-    
-    # TODO: Index is not going to be unique
-    index = _.keys(@markings).length
-    mark = new Mark({el: @svg, x: e.offsetX, y: e.offsetY, index: index})
+    # Create marking and push to object
+    mark = new Mark({el: @svg, x: e.offsetX, y: e.offsetY, index: @markingIndex})
+    @markings[@markingIndex] = mark
+    @markingIndex += 1
     mark.bind('remove', @removeMark)
-    @markings[index] = mark
     
     # Replace text on interface
     unless @hasMarking
       @el.find('.current [data-type="finish"]').text('Finished marking!')
       @hasMarking = true
     
-    # Warn user of over marking if exceeding maxMarkings
-    return unless index + 1 > @maxMarkings
+    count = _.keys(@markings).length
+    return unless count + 1 > @maxMarkings
     random = Math.random()
     if random < 0.1 and @warn
       @warn = false
+      # TODO: Make this look nice.  Warn user of over marking if exceeding maxMarkings
       alert("Whoa buddy!  Remember gravitional lenses are very rare astronomical objects.  There usually won't be this many interesting objects in an image.  If you think this is an exception, please discuss this image in Talk so that the science team can take a look!")
   
   removeMark: (m) =>
     index = m.index
     delete @markings[index]
 
-    length = _.keys(@markings).length
-    if length is 0
+    count = _.keys(@markings).length
+    if count is 0
       @el.find('.current [data-type="finish"]').text('Nothing interesting')
       @hasMarking = false
   
@@ -129,14 +150,15 @@ class Classifier extends Page
   
   onFinish: (e) =>
     
-    # Get the marking info and push to API
+    # Process markings and push to API
     for index, mark of @markings
-      console.log "#{mark.x}px #{mark.y}px"
+      @classification.annotate(mark.toJSON())
+    @classification.send()
     
     # Get DOM elements
     target  = $(e.currentTarget)
     current = $('.current')
-    next    = subject.siblings().first()
+    next    = current.siblings().first()
     
     # Change classes
     current.addClass('to-remove')
@@ -148,14 +170,10 @@ class Classifier extends Page
     # Remove subject from DOM
     setTimeout ->
       current.remove()
-    , @waitToRemove
+    , 1000
     
-    # Request new subject and reset
-    @getSubject() if @ids.length > 1
-    @getCurrentSVG()
-    @markings = {}
-    @warn = true
-    @hasMarking = false
+    Subject.next()
+    @reset()
 
 
 module.exports = Classifier

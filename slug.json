@@ -8,13 +8,11 @@
     "spine/lib/route",
     "spine/lib/manager",
     
-    "zooniverse/lib/controllers/browser_check",
     "zooniverse/lib/api",
-    "zooniverse/lib/controllers/top_bar",
-    "zooniverse/lib/models/user",
-    "zooniverse/lib/models/recent",
-    "zooniverse/lib/models/favorite",
-    "zooniverse/lib/google_analytics",
+    "zooniverse/models/user",
+    "zooniverse/models/subject",
+    "zooniverse/models/classification",
+    "zooniverse/controllers/top-bar",
     "underscore/underscore",
     
     "zootorial"

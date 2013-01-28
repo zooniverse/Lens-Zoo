@@ -11,29 +11,12 @@ Dashboard   = require 'controllers/dashboard'
 Profile     = require 'controllers/profile'
 
 Api     = require 'zooniverse/lib/api'
-TopBar  = require 'zooniverse/lib/controllers/top_bar'
-User    = require 'zooniverse/lib/models/user'
+TopBar  = require 'zooniverse/controllers/top-bar'
+User    = require 'zooniverse/models/user'
 
-googleAnalytics = require 'zooniverse/lib/google_analytics'
-BrowserCheck    = require 'zooniverse/lib/controllers/browser_check'
-
-bc = new BrowserCheck
-bc.support.opera = 12
-bc.check()
-
-
-# googleAnalytics.init
-#   account: 'UA-XXXXXXX-XX'
-#   domain: 'spacewarps.org'
-
-
-# TODO: Setup proxy to dev/api
-
-app = {}
-
-$('.before-load').remove()
-app.stack = new Stack
-  className: "main #{Stack::className}"
+# Setup the stack
+stack = new Stack
+  el: $('.main')
   
   controllers:
     home: HomePage
@@ -51,21 +34,25 @@ app.stack = new Stack
   
   default: 'home'
   
-# # Load the top bar last since it fetches the user.
-# app.topBar = new TopBar
-#   app: 'spacewarps'
-#   appName: 'SpaceWarps'
-# 
-# $(window).on 'request-login-dialog', ->
-#   app.topBar.onClickSignUp()
-#   app.topBar.loginForm.signInButton.click()
-#   app.topBar.loginDialog.reattach()
+# Configure connection to Api
+api = new Api
+  project: 'spacewarp'
+  host: "http://localhost:3000"
+  path: '/proxy'
 
-app.stack.el.appendTo 'body'
-# app.topBar.el.prependTo 'body'
+
+# Load the top bar last since it fetches the user.
+topBar = new TopBar
+  app: 'spacewarp'
+  appName: 'SpaceWarps'
+
+# User.fetch()
+
+stack.el.appendTo 'body'
+# topBar.el.prependTo 'body'
 
 Route.setup()
 
 
-module.exports = app
+module.exports = {stack, api, topBar}
     

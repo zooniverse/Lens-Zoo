@@ -166,7 +166,13 @@ class Mark extends Controller
       @gCross.setAttribute("stroke", @color)
       @hasDragged = false
       @isRemoveVisible = false
-    
+  
+  toJSON: =>
+    annotation =
+      x: @x
+      y: @y
+    return annotation
+  
   remove: =>
     @gRoot.remove()
     @trigger 'remove', @

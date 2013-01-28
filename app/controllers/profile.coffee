@@ -2,7 +2,7 @@ Page  = require 'controllers/page'
 
 
 class Profile extends Page
-  className: 'profile'
+  el: $('.profile')
   template: require 'views/profile'
     
   constructor: ->

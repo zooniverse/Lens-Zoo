@@ -1,29 +1,51 @@
 <!DOCTYPE html>
-<html>
-<head>
-  <meta charset=utf-8>
-  <title>SpaceWarps</title>
-  <link rel="stylesheet" href="/application.css" type="text/css" charset="utf-8">
-  
-</head>
-<body>
-  
-  <nav>
-    <a data-page="home" href="#/home">Spacewarps</a>
-    <a data-page="classifier" href="#/classify">Classify</a>
-    <a data-page="science" href="#/science">Science</a>
-    <a data-page="dashboard" href="#/dashboard">Dashboard</a>
-    <a data-page="discuss" href="http://talk.spacewarps.org">Discuss</a>
-    <a data-page="profile" href="#/profile">Profile</a>
-  </nav>
 
-  <div class="before-load">
-    <p>Just a moment, please...</p>
-  </div>
+<html>
+  <head>
+    <title>SpaceWarps</title>
+    <link rel="stylesheet" href="/application.css" type="text/css" charset="utf-8">
+  </head>
   
-  <script src="./application.js"></script>
-  <script type="text/javascript">
-    window.app = require('index');
-  </script>
-</body>
+  <body>
+  
+    <nav>
+      <a data-page="home" href="#/home">Spacewarps</a>
+      <a data-page="classifier" href="#/classify">Classify</a>
+      <a data-page="science" href="#/science">Science</a>
+      <a data-page="dashboard" href="#/dashboard">Dashboard</a>
+      <a data-page="discuss" href="http://talk.spacewarps.org">Discuss</a>
+      <a data-page="profile" href="#/profile">Profile</a>
+    </nav>
+    
+    <div class="main">
+      <div class="home">
+        <p class='bam'>home</p>
+      </div>
+      <div class="classifier"></div>
+      <div class="science">
+        <h3>The Science</h3>
+
+        <div class='content'>
+          <h1>Lenses are very rare.</h1>
+
+          <h2>A gravitational lens refers to a distribution of matter (such as a cluster of galaxies) between a distant source (a background galaxy) and an observer, that is capable of bending (lensing) the light from the source, as it travels towards the observer.  The effect is known as gravitational lensing and is one of the predictions of Einstein's general theory of relativity.</h2>
+
+          <p>Before the end of 2012, Chris Sharma and Adam Ondra each made significant progress on La Dura Dura, their joint project in Oliana, Spain, thought to be 5.15c. Their tag-team effort to free the pitch was featured in a film of the same name in the latest Reel Rock Tour. Both climbers recently provided summaries of their efforts, as well as plans for this project and others. It’s a great look into the tactics and mental strengths of the world’s best sport climbers.</p>
+          <p>Sharma shared his views in a short interview at 8a.nu on January 11. "When trying such a hard long-term project it's really important to find and enjoy the small successes along the way," Sharma said. "Maybe it's just a certain feeling of lightness or a small bit of new beta, but if you can find ways to keep progressing then it can continue to be interesting and motivating."</p>
+          <p>Ondra wrote about his attempts on La Dura Dura at the Entre-Prises website on January 8. Ondra, who returned to his home in the Czech Republic at Christmas to rest and then resume training, said, "The project is there, not to be neglected. It is obsession. I will be back as soon as I will feel strong again."</p>
+        </div>
+      </div>
+      <div class="dashboard">
+        <p class='bam'>dashboard</p>
+      </div>
+      <div class="profile">
+        <p class='bam'>profile</p>
+      </div>
+    </div>
+    
+    <script src="./application.js"></script>
+    <script type="text/javascript">
+      window.app = require('index');
+    </script>
+  </body>
 </html>

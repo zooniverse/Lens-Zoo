@@ -2,12 +2,9 @@
 
 
 class HomePage extends Controller
-  className: 'home'
-  template: require 'views/home_page'
+  el: $('.home')
   
   constructor: ->
     super
-    
-    @html @template
     
 module.exports = HomePage
