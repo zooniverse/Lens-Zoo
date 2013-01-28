@@ -14,8 +14,8 @@ class Classifier extends Page
   template: require 'views/classifier'
   subjectTemplate: require 'views/subject'
   
-  subjects: []
   maxMarkings: 5
+  initialFetch: true
   
   elements:
     '[data-type="classified"]'    : 'nClassifiedEl'
@@ -46,15 +46,12 @@ class Classifier extends Page
     
     # Setup events
     # User.on 'change', @onUserChange
-    Subject.on 'fetch', @onInitialFetch
     Subject.on 'select', @onSubjectSelect
     Subject.on 'no-more', @onNoMoreSubjects
   
   activate: =>
     super
-    
-    # Request subjects only when user hits classify page the first time
-    Subject.fetch({limit: 5}) unless @hasVisited
+    Subject.next() unless @hasVisited
     @hasVisited = true
   
   # onUserChange: (e, user) =>
@@ -64,35 +61,35 @@ class Classifier extends Page
   #   else
   #     Subject.next()
   
-  reset: =>
+  onSubjectSelect: (e, subject) =>
+    
+    if @initialFetch
+      for subject in Subject.instances
+        params = 
+          url: subject.location.standard
+        @subjectsEl.append @subjectTemplate(params)
+      @initialFetch = false
+    else
+      params =
+        url: subject.location.standard
+      @subjectsEl.append @subjectTemplate(params)
+    
+    # Reset variables
     @markings     = {}
     @markingIndex = 0
     @warn         = true
     @hasMarking   = false
-    @createClassification()
-    @setCurrentSVG()
-  
-  onInitialFetch: (e, data) =>
-    for subject in data
-      @subjects.push(subject)
-      params = 
-        url: subject.location.standard
-      @subjectsEl.append @subjectTemplate(params)
     
-    @reset()
+    # Create new classification
+    subject = Subject.first()
+    @classification = new Classification {subject}
     
+    # Update DOM
     @el.find('.subject').first().addClass('current')
     @setCurrentSVG()
   
-  onSubjectSelect: (e, subject) =>
-    @subjects.push(subject)
-  
   onNoMoreSubjects: =>
     console.log 'onNoMoreSubjects'
-  
-  createClassification: =>
-    subject = @subjects.shift()
-    @classification = new Classification {subject}
   
   setClassified: =>
     @nClassifiedEl.text(@nClassified)
@@ -104,7 +101,8 @@ class Classifier extends Page
     @nFavoritesEl.text(@nFavorites)
   
   setCurrentSVG: =>
-    @svg = @el.find('.current').find('svg')
+    svg = @el.find('.current').find('svg')
+    @svg = svg
   
   onMarking: (e) =>
     
@@ -161,19 +159,15 @@ class Classifier extends Page
     next    = current.siblings().first()
     
     # Change classes
-    current.addClass('to-remove')
     current.removeClass('current')
-    
-    next.addClass('current')
+    current.addClass('removing')
     next.removeClass('right')
     
     # Remove subject from DOM
     setTimeout ->
       current.remove()
-    , 1000
-    
-    Subject.next()
-    @reset()
+      Subject.next()
+    , 400
 
 
 module.exports = Classifier

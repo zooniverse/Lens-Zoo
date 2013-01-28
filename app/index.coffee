@@ -43,16 +43,13 @@ api = new Api
 
 # Load the top bar last since it fetches the user.
 topBar = new TopBar
-  app: 'spacewarp'
-  appName: 'SpaceWarps'
 
 # User.fetch()
 
 stack.el.appendTo 'body'
-# topBar.el.prependTo 'body'
+topBar.el.appendTo 'body'
 
 Route.setup()
 
 
 module.exports = {stack, api, topBar}
-    
