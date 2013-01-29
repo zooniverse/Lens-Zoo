@@ -67,9 +67,6 @@ class Classifier extends Page
     else
       Subject.next()
   
-  onRecent: (e, recents) =>
-    
-  
   onSubjectSelect: (e, subject) =>
     if @initialFetch
       for subject in Subject.instances

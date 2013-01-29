@@ -1,0 +1,30 @@
+
+$thumbnail-dim = 160px
+
+.profile
+  h1
+    font-size 24px
+  
+  .subjects
+    .subject
+      position relative
+      
+      .overlay
+        display none
+        position absolute
+        width $thumbnail-dim
+        bottom -1 * $thumbnail-dim
+        height 30px
+        background $white
+        opacity 0.9
+        z-index 2
+        cursor pointer
+        
+      img
+        position absolute
+        display inline-block
+        margin-right 10px
+        z-index 1
+        
+        &:hover + .overlay
+          display block

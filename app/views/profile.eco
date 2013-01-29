@@ -1,1 +1,21 @@
-<p class='bam'>profile</p>
+<div class='favorites'>
+  <h1>Favorites</h1>
+  <ul>
+  <% for favorite in @favorites: %>
+    <li>
+      <img src="<%- favorite.subjects[0].location.thumbnail %>">
+    </li>
+  <% end %>
+  </ul>
+</div>
+<div class='recents'>
+  <h1>Recents</h1>
+  <div class='subjects'>
+    <% for recent in @recents: %>
+    <div class='subject'>
+      <img src="<%- recent.subjects[0].location.thumbnail %>">
+      <div class='overlay'></div>
+    </div>
+    <% end %>
+  </div>
+</div>

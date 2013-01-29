@@ -8,23 +8,25 @@ class Profile extends Page
   el: $('.profile')
   className: 'profile'
   template: require 'views/profile'
-    
+  
   constructor: ->
     super
-    
-    @html @template
     
     User.on 'change', @onUserChange
     Recent.on 'fetch', @onRecent
   
+  activate: =>
+    super
+    Recent.fetch() if User.current?
   
   onUserChange: (e, user) =>
-    if user?
-      # Fetch recents after user is resolved
-      Recent.fetch()
+    # Fetch recents after user is resolved
+    Recent.fetch() if user?
   
   onRecent: (e, recents) =>
-    for recent in recents
-      console.log recent
+    params =
+      recents: recents
+      favorites: [] # TODO: Get favorites
+    @html @template(params)
   
 module.exports = Profile
