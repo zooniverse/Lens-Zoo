@@ -3,5 +3,6 @@
 .fits.fz
 node_modules/
 public/data/
+public/subjects/
 public/application.js
 public/application.css

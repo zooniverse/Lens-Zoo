@@ -49,11 +49,12 @@ end
 (1..30).each do |index|
   
   # TODO: Use S3 location
-  location = "http://0.0.0.0:9294/data/CFHTLS_%02d.png" % index
+  standard = "http://0.0.0.0:9294/subjects/standard/CFHTLS_%02d.png" % index
+  thumbnail = "http://0.0.0.0:9294/subjects/thumbnail/CFHTLS_%02d.png" % index
   ProjectSubject.create({
     project_id: @project.id,
     workflow_ids: [@workflow.id],
-    location: {standard: location},
+    location: {standard: standard, thumbnail: thumbnail},
     coords: [],
     metadata: {}
   })

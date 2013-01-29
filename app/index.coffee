@@ -13,6 +13,7 @@ Profile     = require 'controllers/profile'
 Api     = require 'zooniverse/lib/api'
 TopBar  = require 'zooniverse/controllers/top-bar'
 User    = require 'zooniverse/models/user'
+Recent  = require 'zooniverse/models/recent'
 
 # Setup the stack
 stack = new Stack
@@ -44,7 +45,7 @@ api = new Api
 # Load the top bar last since it fetches the user.
 topBar = new TopBar
 
-# User.fetch()
+User.fetch()
 
 stack.el.appendTo 'body'
 topBar.el.appendTo 'body'

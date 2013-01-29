@@ -11,6 +11,7 @@ Classification = require 'models/classification'
 
 class Classifier extends Page
   el: $('.classifier')
+  className: 'classifier'
   template: require 'views/classifier'
   subjectTemplate: require 'views/subject'
   
@@ -37,32 +38,39 @@ class Classifier extends Page
     @html @template
     
     # Get stats from API
-    @nClassified = 123
     @nPotentials = 321
     @nFavorites = 987
-    @setClassified()
     @setPotentials()
     @setFavorites()
     
     # Setup events
-    # User.on 'change', @onUserChange
+    User.on 'change', @onUserChange
     Subject.on 'select', @onSubjectSelect
     Subject.on 'no-more', @onNoMoreSubjects
-  
+    
   activate: =>
     super
     Subject.next() unless @hasVisited
     @hasVisited = true
   
-  # onUserChange: (e, user) =>
-  #   if user?.project.tutorial_done
-  #     if @classification.subject.metadata.tutorial
-  #       Subject.next()
-  #   else
-  #     Subject.next()
+  onUserChange: (e, user) =>
+    
+    if user?
+      
+      @nClassified = user.project?.classification_count
+      @setClassified()
+    
+    # FIXME: User does not return tutorial_done key.
+    if user?.project.tutorial_done
+      if @classification.subject.metadata.tutorial
+        Subject.next()
+    else
+      Subject.next()
+  
+  onRecent: (e, recents) =>
+    
   
   onSubjectSelect: (e, subject) =>
-    
     if @initialFetch
       for subject in Subject.instances
         params = 
@@ -89,7 +97,7 @@ class Classifier extends Page
     @setCurrentSVG()
   
   onNoMoreSubjects: =>
-    console.log 'onNoMoreSubjects'
+    alert "We've run out of subjects."
   
   setClassified: =>
     @nClassifiedEl.text(@nClassified)
