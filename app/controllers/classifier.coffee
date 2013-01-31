@@ -19,18 +19,16 @@ class Classifier extends Page
   initialFetch: true
   
   elements:
-    '[data-type="classified"]'    : 'nClassifiedEl'
-    '[data-type="potentials"]'    : 'nPotentialsEl'
-    '[data-type="favorites"]'     : 'nFavoritesEl'
-    '.subjects'                   : 'subjectsEl'
+    'a[data-type="classified"]' : 'nClassifiedEl'
+    'a[data-type="potentials"]' : 'nPotentialsEl'
+    'a[data-type="favorites"]'  : 'nFavoritesEl'
+    '.subjects'                 : 'subjectsEl'
   
   events:
-    'click div:nth(0)[data-type="heart"]'     : 'onFavorite'
-    'click div:nth(0)[data-type="discuss"]'   : 'onDiscuss'
-    'click div:nth(0)[data-type="dashboard"]' : 'onDashboard'
-    'click div:nth(0)[data-type="finish"]'    : 'onFinish'
-    'click .current .image svg'               : 'onMarking'
-    'click circle'                            : 'onCircle'
+    'click div:nth(0)[data-type="heart"]'   : 'onFavorite'
+    'click div:nth(0)[data-type="finish"]'  : 'onFinish'
+    'click .current .image svg'             : 'onMarking'
+    'click circle'                          : 'onCircle'
   
   
   constructor: ->
@@ -72,6 +70,7 @@ class Classifier extends Page
       for subject in Subject.instances
         params = 
           url: subject.location.standard
+          zooId: subject.zooniverse_id
         @subjectsEl.append @subjectTemplate(params)
       @initialFetch = false
     else
@@ -143,15 +142,21 @@ class Classifier extends Page
   onCircle: (e) -> e.stopPropagation()
   
   onFavorite: (e) =>
-    console.log 'onFavorite'
-  
-  onDiscuss: (e) =>
-    console.log 'onDiscuss'
+    e.preventDefault()
+    el = $(e.target)
+    if el.hasClass('active')
+      el.removeClass('active')
+      @classification.favorite = false
+    else
+      el.addClass('active')
+      @classification.favorite = true
   
   onDashboard: (e) =>
     console.log 'onDashboard'
   
   onFinish: (e) =>
+    e.preventDefault()
+    console.log 'onFinish'
     
     # Process markings and push to API
     for index, mark of @markings

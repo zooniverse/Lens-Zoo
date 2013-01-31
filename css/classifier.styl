@@ -18,7 +18,7 @@
     .stat
       display inline-block
       margin 0
-      width 130px
+      width 143px
       border-right 1px solid rgb(0, 52, 96)
       
       .number
@@ -52,7 +52,7 @@
       .subject
         display inline-block
         width $img-dim
-        background rgb(219, 219, 219)
+        height $img-dim + 60
         margin-right 100px
         
         transition margin-left 450ms cubic-bezier(0.770, 0.000, 0.175, 1.000)
@@ -66,68 +66,20 @@
         &.removing
           margin-left -1 * $img-dim - 100px
         
-        &:first-child
-          cursor crosshair
-        
         .image
           position relative
           width $img-dim
           height $img-dim
-          
-          svg, img
-            position absolute
-            width 100%
-            height 100%
-            top 0
-            left 0
-          svg
-            z-index 2
         
-        .controls
-          width $img-dim
-          height 50px
-          white-space nowrap
-          color #000
-          font-size 12px
-          font-weight 700
-          
-          .control
-            display inline-block
-            cursor pointer
-            width 90px
-            height 50px
-            box-sizing border-box
-            border-right 1px solid rgb(0, 52, 96)
-            
-            &:last-child
-              border none
-              position relative
-              top -20px
-              left 5px
-              &:hover
-                color rgb(226, 86, 0)
-            
-            .icon
-              position relative
-              width 30px
-              height 30px
-              top 14px
-              left 35px
-              
-            &[data-type='heart']
-              .icon
-                background url('images/icon-sprite.png') 0 -34px no-repeat
-                &:hover
-                  background-position 0 2px
-              
-            &[data-type='discuss']
-              .icon
-                background url('images/icon-sprite.png') -40px -34px no-repeat
-                &:hover
-                  background-position -40px 2px
-              
-            &[data-type='dashboard']
-              .icon
-                background url('images/icon-sprite.png') -78px -34px no-repeat
-                &:hover
-                  background-position -78px 2px
+        &:first-child
+          .image
+            cursor crosshair
+        
+        svg, img
+          position absolute
+          width 100%
+          height 100%
+          top 0
+          left 0
+        svg
+          z-index 2

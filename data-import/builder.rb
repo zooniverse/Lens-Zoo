@@ -46,19 +46,22 @@ unless SpacewarpSubject.find(TutorialSubjectId)
 end
 
 # Create subjects
-(1..30).each do |index|
+dirname = File.dirname(__FILE__)
+standard_dir = File.join(File.dirname(__FILE__), 'beta', 'standard')
+
+Dir.entries(standard_dir).each do |file|
+  prefix = file.split('_gri.jpg')[0]
   
-  # TODO: Use S3 location
-  standard = "http://0.0.0.0:9294/subjects/standard/CFHTLS_%02d.png" % index
-  thumbnail = "http://0.0.0.0:9294/subjects/thumbnail/CFHTLS_%02d.png" % index
+  standard  = "http://www.spacewarps.org.s3.amazonaws.com/beta/subjects/standard/#{prefix}_gri.jpg"
+  thumbnail = "http://www.spacewarps.org.s3.amazonaws.com/beta/subjects/thumbnail/#{prefix}_gri.jpg"
+  
   ProjectSubject.create({
     project_id: @project.id,
     workflow_ids: [@workflow.id],
     location: {standard: standard, thumbnail: thumbnail},
     coords: [],
-    metadata: {}
+    metadata: {id: prefix}
   })
 end
-
 
 ProjectSubject.activate_randomly if Rails.env == "development"
