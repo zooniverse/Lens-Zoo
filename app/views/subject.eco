@@ -5,6 +5,9 @@
   </div>
   
   <div class='controls'>
-    <a target="_blank" href='' data-type='heart'><div class='icon' data-type='heart'></div></a><a target="_blank" href='http://talk.spacewarps.org/#/subjects/<%- @zooId %>'><div class='icon' data-type='discuss'></div></a><a target="_blank" href='http://tools.zooniverse.org/#/project/spacewarps/<%- @zooId %>'><div class='icon' data-type='dashboard'></div></a><a data-type='finish' href=''>Nothing interesting</a>
+    <a target="_blank" href='' data-type='heart'><div class='icon' data-icon='heart'></div></a>
+    <a target="_blank" href='http://talk.spacewarps.org/#/subjects/<%- @zooId %>'><div class='icon' data-icon='discuss'></div></a>
+    <a target="_blank" href='http://tools.zooniverse.org/#/project/spacewarps/<%- @zooId %>'><div class='icon' data-icon='dashboard'></div></a>
+    <a data-type='finish' href=''>Nothing interesting</a>
   </div>
 </div>

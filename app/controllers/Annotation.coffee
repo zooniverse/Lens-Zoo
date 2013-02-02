@@ -2,7 +2,7 @@
 {Controller} = require 'spine'
 
 
-class Mark extends Controller
+class Annotation extends Controller
   svgns: 'http://www.w3.org/2000/svg'
   color: "#E05502"
   overColor: "#FF4500"
@@ -178,4 +178,4 @@ class Mark extends Controller
     @trigger 'remove', @
 
 
-module.exports = Mark
+module.exports = Annotation

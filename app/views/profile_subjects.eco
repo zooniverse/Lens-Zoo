@@ -1,0 +1,7 @@
+<ul>
+  <% for subject in @subjects: %>
+  <li>
+    <img src="<%- subject.subjects[0].location.thumbnail %>">
+  </li>
+  <% end %>
+</ul>

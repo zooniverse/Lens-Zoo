@@ -7,7 +7,6 @@ Route   = require 'spine/lib/route'
 HomePage    = require 'controllers/home_page'
 SciencePage = require 'controllers/science_page'
 Classifier  = require 'controllers/classifier'
-Dashboard   = require 'controllers/dashboard'
 Profile     = require 'controllers/profile'
 
 Api     = require 'zooniverse/lib/api'
@@ -23,14 +22,12 @@ stack = new Stack
     home: HomePage
     classify: Classifier
     science: SciencePage
-    dashboard: Dashboard
     profile: Profile
   
   routes:
     '/home'       : 'home'
     '/classify'   : 'classify'
     '/science'    : 'science'
-    '/dashboard'  : 'dashboard'
     '/profile'    : 'profile'
   
   default: 'home'
@@ -38,7 +35,7 @@ stack = new Stack
 # Configure connection to Api
 api = new Api
   project: 'spacewarp'
-  host: "http://localhost:3000"
+  host: "https://dev.zooniverse.org"
   path: '/proxy'
 
 

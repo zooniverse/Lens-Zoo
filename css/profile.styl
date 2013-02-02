@@ -1,30 +1,55 @@
 
 $thumbnail-dim = 160px
 
+// @keyframes spin
+//   from {transform: rotate(0deg);   opacity: 0.2; }
+//   50%  { transform: rotate(180deg); opacity: 1.0; }
+//   to   { transform: rotate(360deg); opacity: 0.2; }
+
 .profile
   h1
     font-size 24px
   
+  p
+    font-size 12px
+    font-weight 100
+  
+  // .loading
+  //   display block
+  //   width 20px
+  //   height 20px
+  //   border-right-color transparent
+  //   border-radius 50%
+  //   box-shadow 0 0 25px 2px #FFF
+  //   animation spin 1s linear infinite
+  
   .subjects
-    .subject
-      position relative
-      
-      .overlay
-        display none
-        position absolute
-        width $thumbnail-dim
-        bottom -1 * $thumbnail-dim
-        height 30px
-        background $white
-        opacity 0.9
-        z-index 2
-        cursor pointer
-        
-      img
-        position absolute
+    ul
+      padding 0
+      li
         display inline-block
-        margin-right 10px
-        z-index 1
-        
-        &:hover + .overlay
-          display block
+        padding-top 10px
+        padding-right 10px
+    //   
+    // .subject
+    //   position relative
+    //   
+    //   .overlay
+    //     display none
+    //     position absolute
+    //     width $thumbnail-dim
+    //     bottom -1 * $thumbnail-dim
+    //     height 30px
+    //     background $white
+    //     opacity 0.9
+    //     z-index 2
+    //     cursor pointer
+    //     
+    //   img
+    //     position absolute
+    //     display inline-block
+    //     margin-right 10px
+    //     z-index 1
+    //     
+    //     &:hover + .overlay
+    //       display block
