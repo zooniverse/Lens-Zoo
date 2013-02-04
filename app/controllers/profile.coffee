@@ -43,7 +43,7 @@ class Profile extends Page
     @recents.html @subjectTemplate(params)
   
   onFavorite: (e, favorites) =>
-    console.log 'onFavorite'
+    console.log 'onFavorite', favorites
     @favorites.removeClass('loading')
     params =
       subjects: favorites

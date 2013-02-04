@@ -4,12 +4,12 @@ Page  = require 'controllers/page'
 
 Annotation  = require 'controllers/Annotation'
 
-User    = require 'zooniverse/models/user'
-Subject = require 'zooniverse/models/subject'
+User      = require 'zooniverse/models/user'
+Subject   = require 'zooniverse/models/subject'
+Favorite  = require 'zooniverse/models/favorite'
 
 Classification  = require 'models/classification'
 
-# TODO: Get numbers for number of potential lenses and favorite images.
 
 class Classifier extends Page
   el: $('.classifier')
@@ -37,17 +37,11 @@ class Classifier extends Page
     super
     @html @template
     
-    # Get stats from API
-    @nPotentials = 321
-    @nFavorites = 987
-    @setPotentials()
-    @setFavorites()
-    
     # Setup events
     User.on 'change', @onUserChange
     Subject.on 'select', @onSubjectSelect
     Subject.on 'no-more', @onNoMoreSubjects
-    
+  
   activate: =>
     super
     Subject.next() unless @hasVisited
@@ -57,17 +51,20 @@ class Classifier extends Page
     
     if user?
       if user.project?
-        @nClassified = user.project.classification_count or 0
-        @nPotentials = user.project.annotation_count or 0
+        @nClassified  = user.project.classification_count or 0
+        @nPotentials  = user.project.annotation_count or 0
+        @nFavorites   = user.project.favorite_count or 0
+        
         @setClassified()
         @setPotentials()
+        @setFavorites()
     
-    # FIXME: User does not return tutorial_done key.
-    if user?.project.tutorial_done
-      if @classification.subject.metadata.tutorial
-        Subject.next()
-    else
-      Subject.next()
+    # # FIXME: User does not return tutorial_done key.
+    # if user?.project.tutorial_done
+    #   if @classification.subject.metadata.tutorial
+    #     Subject.next()
+    # else
+    #   Subject.next()
   
   onSubjectSelect: (e, subject) =>
     if @initialFetch
@@ -138,8 +135,8 @@ class Classifier extends Page
       # TODO: Make this look nice.  Warn user of over marking if exceeding maxAnnotations
       alert("Whoa buddy!  Remember gravitional lenses are very rare astronomical objects.  There usually won't be this many interesting objects in an image.  If you think this is an exception, please discuss this image in Talk so that the science team can take a look!")
   
-  removeAnnotation: (m) =>
-    index = m.index
+  removeAnnotation: (annotation) =>
+    index = annotation.index
     delete @annotations[index]
     
     # Update stats

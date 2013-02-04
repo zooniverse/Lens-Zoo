@@ -1,7 +1,7 @@
 
 # Set up SpaceWarps project and workflow
 
-ProjectName = 'spacewarps'
+ProjectName = 'spacewarp'
 SubjectRoot = '/subjects/standard'
 
 ProjectId         = BSON::ObjectId('5101a1341a320ea77f000001')

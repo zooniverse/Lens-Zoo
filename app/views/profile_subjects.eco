@@ -2,6 +2,11 @@
   <% for subject in @subjects: %>
   <li>
     <img src="<%- subject.subjects[0].location.thumbnail %>">
+    <div class='controls'>
+      <a target="_blank" href='' data-type='heart'><div class='icon' data-icon='heart'></div></a>
+      <a target="_blank" href='http://talk.spacewarps.org/#/subjects/<%- @zooId %>'><div class='icon' data-icon='discuss'></div></a>
+      <a target="_blank" href='http://tools.zooniverse.org/#/project/spacewarps/<%- @zooId %>'><div class='icon' data-icon='dashboard'></div></a>
+    </div>
   </li>
   <% end %>
 </ul>
