@@ -1,14 +1,15 @@
 
 _     = require 'underscore/underscore'
-Page  = require 'controllers/page'
 
-Annotation  = require 'controllers/Annotation'
-
-User      = require 'zooniverse/models/user'
-Subject   = require 'zooniverse/models/subject'
-Favorite  = require 'zooniverse/models/favorite'
-
+User            = require 'zooniverse/models/user'
+Subject         = require 'zooniverse/models/subject'
+Favorite        = require 'zooniverse/models/favorite'
 Classification  = require 'models/classification'
+
+Page          = require 'controllers/page'
+Annotation    = require 'controllers/Annotation'
+{Tutorial}    = require 'zootorial'
+TutorialSteps = require 'lib/tutorial_steps'
 
 
 class Classifier extends Page
@@ -37,6 +38,9 @@ class Classifier extends Page
     super
     @html @template
     
+    @tutorial = new Tutorial
+      steps: TutorialSteps
+    
     # Setup events
     User.on 'change', @onUserChange
     Subject.on 'select', @onSubjectSelect
@@ -48,23 +52,38 @@ class Classifier extends Page
     @hasVisited = true
   
   onUserChange: (e, user) =>
-    
     if user?
-      if user.project?
-        @nClassified  = user.project.classification_count or 0
-        @nPotentials  = user.project.annotation_count or 0
-        @nFavorites   = user.project.favorite_count or 0
+      project = user.project
+      if project?
+        @nClassified  = project.classification_count or 0
+        @nPotentials  = project.annotation_count or 0
+        @nFavorites   = project.favorite_count or 0
         
-        @setClassified()
-        @setPotentials()
-        @setFavorites()
+        unless project.tutorial_done?
+          @startTutorial()
+    else
+      @nClassified  = 0
+      @nPotentials  = 0
+      @nFavorites   = 0
+      
+      @startTutorial()
     
-    # # FIXME: User does not return tutorial_done key.
-    # if user?.project.tutorial_done
-    #   if @classification.subject.metadata.tutorial
-    #     Subject.next()
-    # else
-    #   Subject.next()
+    @setClassified()
+    @setPotentials()
+    @setFavorites()
+  
+  startTutorial: ->
+    # Set the tutorial subject
+    subject = new Subject
+      id: '5101a1931a320ea77f000003'
+      location:
+        standard: '/images/tutorial-subject.png'
+      project_id: '5101a1341a320ea77f000001'
+      workflow_ids: ['5101a1361a320ea77f000002']
+      zooniverse_id: 'ASW0000001'
+    
+    @classification = new Classification {subject}
+    @tutorial.start()
   
   onSubjectSelect: (e, subject) =>
     if @initialFetch
@@ -154,16 +173,19 @@ class Classifier extends Page
   
   onFavorite: (e) ->
     e.preventDefault()
-    el = $(e.currentTarget).find('.icon')
-    if el.hasClass('active')
-      el.removeClass('active')
-      @classification.favorite = false
-      @nFavorites -= 1
+    if User.current?
+      el = $(e.currentTarget).find('.icon')
+      if el.hasClass('active')
+        el.removeClass('active')
+        @classification.favorite = false
+        @nFavorites -= 1
+      else
+        el.addClass('active')
+        @classification.favorite = true
+        @nFavorites += 1
+      @setFavorites()
     else
-      el.addClass('active')
-      @classification.favorite = true
-      @nFavorites += 1
-    @setFavorites()
+      alert ("Please sign in or make an account to save favourites.")
   
   onFinish: (e) ->
     e.preventDefault()
