@@ -42,7 +42,7 @@ class Classifier extends Page
     Subject.on 'select', @onSubjectSelect
     Subject.on 'no-more', @onNoMoreSubjects
   
-  activate: =>
+  activate: ->
     super
     Subject.next() unless @hasVisited
     @hasVisited = true
@@ -93,23 +93,23 @@ class Classifier extends Page
     @el.find('.subject').first().addClass('current')
     @setCurrentSVG()
   
-  onNoMoreSubjects: =>
+  onNoMoreSubjects: ->
     alert "We've run out of subjects."
   
-  setClassified: =>
+  setClassified: ->
     @nClassifiedEl.text(@nClassified)
   
-  setPotentials: =>
+  setPotentials: ->
     @nPotentialsEl.text(@nPotentials)
   
-  setFavorites: =>
+  setFavorites: ->
     @nFavoritesEl.text(@nFavorites)
   
-  setCurrentSVG: =>
+  setCurrentSVG: ->
     svg = @el.find('.current').find('svg')
     @svg = svg
   
-  onAnnotation: (e) =>
+  onAnnotation: (e) ->
     
     # Create annotation and push to object
     annotation = new Annotation({el: @svg, x: e.offsetX, y: e.offsetY, index: @annotationIndex})
@@ -152,17 +152,20 @@ class Classifier extends Page
   # Prevent annotations over SVG elements
   onCircle: (e) -> e.stopPropagation()
   
-  onFavorite: (e) =>
+  onFavorite: (e) ->
     e.preventDefault()
     el = $(e.currentTarget).find('.icon')
     if el.hasClass('active')
       el.removeClass('active')
       @classification.favorite = false
+      @nFavorites -= 1
     else
       el.addClass('active')
       @classification.favorite = true
+      @nFavorites += 1
+    @setFavorites()
   
-  onFinish: (e) =>
+  onFinish: (e) ->
     e.preventDefault()
     
     # Process annotations and push to API

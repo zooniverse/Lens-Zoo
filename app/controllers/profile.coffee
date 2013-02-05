@@ -25,28 +25,22 @@ class Profile extends Page
     Recent.on 'fetch', @onRecent
     Favorite.on 'fetch', @onFavorite
   
-  activate: =>
-    super
-  
-  onUserChange: (e, user) =>
-    # After user is resolved fetch recents and favorites
+  onUserChange: (e, user) ->
     if user?
       Recent.fetch()
       Favorite.fetch()
   
   onRecent: (e, recents) =>
-    console.log 'onRecent'
-    
     @recents.removeClass('loading')
     params =
       subjects: recents
     @recents.html @subjectTemplate(params)
   
   onFavorite: (e, favorites) =>
-    console.log 'onFavorite', favorites
     @favorites.removeClass('loading')
     params =
       subjects: favorites
     @favorites.html @subjectTemplate(params)
+
 
 module.exports = Profile
