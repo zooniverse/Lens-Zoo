@@ -53,6 +53,14 @@ class Classifier extends Page
     
     if user?
       project = user.project
+      
+      # Check if the tutorial subject is already loaded
+      if @classification?.subject.tutorial?
+        # End tutorial and move on to next subject if tutorial complete
+        if project.tutorial_done?
+          @tutorial.end()
+          $('a[data-type="finish"]:nth(0)').click()
+      
       @nClassified  = project.classification_count or 0
       @nPotentials  = project.annotation_count or 0
       @nFavorites   = project.favorite_count or 0
@@ -79,7 +87,7 @@ class Classifier extends Page
       workflow_ids: ['5101a1361a320ea77f000002']
       tutorial: true
       zooniverse_id: 'ASW0000001'
-  
+    
     @classification = new Classification {subject}
     @tutorial.start()
   
