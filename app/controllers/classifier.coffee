@@ -47,6 +47,12 @@ class Classifier extends Page
     Subject.on 'select', @onSubjectSelect
     Subject.on 'no-more', @onNoMoreSubjects
   
+  activate: ->
+    super
+    if @classification?
+      if @classification.subject.tutorial
+        @tutorial.start()
+  
   onUserChange: (e, user) =>
     # Get the initial stack of subject
     Subject.next() if @initialFetch
@@ -82,13 +88,24 @@ class Classifier extends Page
     subject = new Subject
       id: '5101a1931a320ea77f000003'
       location:
-        standard: '/images/tutorial-subject.png'
+        standard: 'images/tutorial-subject.png'
       project_id: '5101a1341a320ea77f000001'
       workflow_ids: ['5101a1361a320ea77f000002']
       tutorial: true
       zooniverse_id: 'ASW0000001'
     
     @classification = new Classification {subject}
+    
+    # This code is getting messy.
+    unless @initialFetch
+      # Inject tutorial subject
+      params =
+        url: subject.location.standard
+        zooId: subject.zooniverse_id
+      @subjectsEl.prepend @subjectTemplate(params)
+      # Move the current class
+      @el.find('.current').removeClass('current')
+      @el.find('.subject').first().addClass('current')
     @tutorial.start()
   
   onSubjectSelect: (e, subject) =>

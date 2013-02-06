@@ -64,4 +64,4 @@ Dir.entries(standard_dir).each do |file|
   })
 end
 
-ProjectSubject.activate_randomly if Rails.env == "development"
+# ProjectSubject.activate_randomly if Rails.env == "development"

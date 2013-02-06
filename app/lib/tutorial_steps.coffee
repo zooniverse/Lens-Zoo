@@ -7,7 +7,7 @@ module.exports = [
     header: 'Welcome to SpaceWarps!'
     content: 'This short tutorial will show you how to identify gravitational lenses.'
     attachment:
-      to: '.current'
+      to: '.subject'
       x: 0.5
       y: 0.5
   
