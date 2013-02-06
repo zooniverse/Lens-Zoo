@@ -8,6 +8,8 @@ module.exports = [
     content: 'This short tutorial will show you how to identify gravitational lenses.'
     attachment:
       to: '.current'
+      x: 0.5
+      y: 0.5
   
   new Step
     header: 'What are gravitational lenses?'

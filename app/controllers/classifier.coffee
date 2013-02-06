@@ -39,6 +39,7 @@ class Classifier extends Page
     @html @template
     
     @tutorial = new Tutorial
+      parent: '.classifier'
       steps: TutorialSteps
     
     # Setup events
@@ -46,21 +47,17 @@ class Classifier extends Page
     Subject.on 'select', @onSubjectSelect
     Subject.on 'no-more', @onNoMoreSubjects
   
-  activate: ->
-    super
-    Subject.next() unless @hasVisited
-    @hasVisited = true
-  
   onUserChange: (e, user) =>
+    # Get the initial stack of subject
+    Subject.next() if @initialFetch
+    
     if user?
       project = user.project
-      if project?
-        @nClassified  = project.classification_count or 0
-        @nPotentials  = project.annotation_count or 0
-        @nFavorites   = project.favorite_count or 0
-        
-        unless project.tutorial_done?
-          @startTutorial()
+      @nClassified  = project.classification_count or 0
+      @nPotentials  = project.annotation_count or 0
+      @nFavorites   = project.favorite_count or 0
+      
+      @startTutorial() unless project.tutorial_done?
     else
       @nClassified  = 0
       @nPotentials  = 0
@@ -80,8 +77,9 @@ class Classifier extends Page
         standard: '/images/tutorial-subject.png'
       project_id: '5101a1341a320ea77f000001'
       workflow_ids: ['5101a1361a320ea77f000002']
+      tutorial: true
       zooniverse_id: 'ASW0000001'
-    
+  
     @classification = new Classification {subject}
     @tutorial.start()
   

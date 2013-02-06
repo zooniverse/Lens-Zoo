@@ -35,18 +35,14 @@ stack = new Stack
 # Configure connection to Api
 api = new Api
   project: 'spacewarp'
-  host: "https://dev.zooniverse.org"
+  # host: "https://dev.zooniverse.org"
+  host: "http://0.0.0.0:3000"
   path: '/proxy'
 
-
-# Load the top bar last since it fetches the user.
 topBar = new TopBar
-
 User.fetch()
-
-stack.el.appendTo 'body'
 topBar.el.appendTo 'body'
-
+stack.el.appendTo 'body'
 Route.setup()
 
 
