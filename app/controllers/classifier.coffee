@@ -106,6 +106,7 @@ class Classifier extends Page
       # Move the current class
       @el.find('.current').removeClass('current')
       @el.find('.subject').first().addClass('current')
+      @setCurrentSVG()
     @tutorial.start()
   
   onSubjectSelect: (e, subject) =>
