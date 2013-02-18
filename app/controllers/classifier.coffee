@@ -17,6 +17,7 @@ class Classifier extends Page
   className: 'classifier'
   template: require 'views/classifier'
   subjectTemplate: require 'views/subject'
+  subjectDimension: 440
   
   maxAnnotations: 5
   initialFetch: true
@@ -91,6 +92,13 @@ class Classifier extends Page
         standard: 'images/tutorial-subject.png'
       project_id: '5101a1341a320ea77f000001'
       workflow_ids: ['5101a1361a320ea77f000002']
+      # Spoofing data to test synthetic notification
+      metadata:
+        synthetic:
+          # Types can be (0) double lensed quasar (1) quad lensed quasar (2) System of arcs around a cluster (3) No lens
+          type: 0
+          x: 0.5
+          y: 0.5
       tutorial: true
       zooniverse_id: 'ASW0000001'
     
@@ -127,6 +135,7 @@ class Classifier extends Page
     @annotationIndex  = 0
     @warn             = true
     @hasAnnotation    = false
+    @hasNotified      = false
     
     # Create new classification
     subject = Subject.first()
@@ -155,10 +164,13 @@ class Classifier extends Page
   onAnnotation: (e) ->
     
     # Create annotation and push to object
-    annotation = new Annotation({el: @svg, x: e.offsetX, y: e.offsetY, index: @annotationIndex})
+    x = e.offsetX
+    y = e.offsetY
+    annotation = new Annotation({el: @svg, x: x, y: y, index: @annotationIndex})
     @annotations[@annotationIndex] = annotation
     @annotationIndex += 1
     annotation.bind('remove', @removeAnnotation)
+    annotation.bind('move', @checkProximity)
     
     # Replace text on interface
     unless @hasAnnotation
@@ -168,6 +180,9 @@ class Classifier extends Page
     # Update stats
     @nPotentials += 1
     @setPotentials()
+    
+    # Check proximity to synthetic
+    @checkProximity(x, y)
     
     # Prompt message if too many annotations
     count = _.keys(@annotations).length
@@ -191,6 +206,32 @@ class Classifier extends Page
     if count is 0
       @el.find('.current [data-type="finish"]').text('Nothing interesting')
       @hasAnnotation = false
+  
+  checkProximity: (x, y) =>
+    # Normalize coordinates
+    x = x / @subjectDimension
+    y = y / @subjectDimension
+    
+    synthetic = @classification.subject.metadata.synthetic
+    if synthetic?
+      type = synthetic.type
+      syntheticX = synthetic.x
+      syntheticY = synthetic.y
+      isNear = @isNear(x, y, syntheticX, syntheticY)
+      @notify(type) if isNear
+  
+  # Check if annotation is near synthetic object (L2)
+  isNear: (x1, y1, x2, y2) ->
+    xd = (x1 - x2) * (x1 - x2)
+    yd = (y1 - y2) * (y1 - y2)
+    d = Math.sqrt(xd + yd)
+    console.log "d = ", d
+    return if d < 0.1 then true else false
+  
+  notify: (type) ->
+    unless @hasNotified
+      console.log 'annotation is near synthetic'
+      @hasNotified = true
   
   # Prevent annotations over SVG elements
   onCircle: (e) -> e.stopPropagation()

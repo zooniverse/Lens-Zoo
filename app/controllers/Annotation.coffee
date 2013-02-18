@@ -133,6 +133,9 @@ class Annotation extends Controller
     @x = e.offsetX
     @y = e.offsetY
     @gRoot.setAttribute("transform", "translate(#{@x}, #{@y})")
+    
+    # Broadcast the new position
+    @trigger 'move', @x, @y
   
   onmouseenterEl: (e) =>
     e.preventDefault()
