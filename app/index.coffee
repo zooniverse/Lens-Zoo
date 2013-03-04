@@ -49,7 +49,7 @@ stack.el.appendTo 'body'
 Route.setup()
 
 # Lazy loading of Guide images
-$('img.lazy').lazyload()
+$('img.lazy').lazyload({threshold : 200, effect: 'fadeIn'})
 
 
 module.exports = {stack, api, topBar}
