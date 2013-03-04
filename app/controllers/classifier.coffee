@@ -8,6 +8,7 @@ Classification  = require 'models/classification'
 
 Page          = require 'controllers/page'
 Annotation    = require 'controllers/Annotation'
+Viewer        = require 'controllers/viewer'
 {Tutorial}    = require 'zootorial'
 TutorialSteps = require 'lib/tutorial_steps'
 
@@ -29,10 +30,11 @@ class Classifier extends Page
     '.subjects'                 : 'subjectsEl'
   
   events:
-    'click a[data-type="heart"]:nth(0)'   : 'onFavorite'
-    'click a[data-type="finish"]:nth(0)'  : 'onFinish'
-    'click .current .image svg'           : 'onAnnotation'
-    'click circle'                        : 'onCircle'
+    'click a[data-type="heart"]:nth(0)'       : 'onFavorite'
+    'click a[data-type="dashboard"]:nth(0)'   : 'onDashboard'
+    'click a[data-type="finish"]:nth(0)'      : 'onFinish'
+    'click .current .image svg'               : 'onAnnotation'
+    'click circle'                            : 'onCircle'
   
   
   constructor: ->
@@ -42,6 +44,8 @@ class Classifier extends Page
     @tutorial = new Tutorial
       parent: '.classifier'
       steps: TutorialSteps
+    
+    @viewer = new Viewer({el: @el.find('.viewer')})
     
     # Setup events
     User.on 'change', @onUserChange
@@ -251,6 +255,12 @@ class Classifier extends Page
       @setFavorites()
     else
       alert ("Please sign in or make an account to save favourites.")
+  
+  onDashboard: (e) ->
+    e.preventDefault()
+    
+    # Get current subject
+    @viewer.load(@classification.subject.id)
   
   onFinish: (e) ->
     e.preventDefault()

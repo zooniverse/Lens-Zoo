@@ -7,7 +7,7 @@
   <div class='controls'>
     <a target="_blank" href='' data-type='heart'><div class='icon' data-icon='heart'></div></a>
     <a target="_blank" href='http://talk.spacewarps.org/#/subjects/<%- @zooId %>'><div class='icon' data-icon='discuss'></div></a>
-    <a target="_blank" href='http://localhost:3333/#/project/spacewarp/<%- @zooId %>'><div class='icon' data-icon='dashboard'></div></a>
+    <a target="_blank" href='http://localhost:3333/#/project/spacewarp/<%- @zooId %>' data-type='dashboard'><div class='icon' data-icon='dashboard'></div></a>
     <a data-type='finish' href=''>Nothing interesting</a>
   </div>
 </div>

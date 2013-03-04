@@ -6,6 +6,7 @@ Route   = require 'spine/lib/route'
 
 HomePage    = require 'controllers/home_page'
 SciencePage = require 'controllers/science_page'
+GuidePage   = require 'controllers/guide_page'
 Classifier  = require 'controllers/classifier'
 Profile     = require 'controllers/profile'
 
@@ -22,12 +23,14 @@ stack = new Stack
     home: HomePage
     classify: Classifier
     science: SciencePage
+    guide: GuidePage
     profile: Profile
   
   routes:
     '/home'       : 'home'
     '/classify'   : 'classify'
     '/science'    : 'science'
+    '/guide'      : 'guide'
     '/profile'    : 'profile'
   
   default: 'home'
