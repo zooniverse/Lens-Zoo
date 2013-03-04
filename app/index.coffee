@@ -48,5 +48,8 @@ topBar.el.appendTo 'body'
 stack.el.appendTo 'body'
 Route.setup()
 
+# Lazy loading of Guide images
+$('img.lazy').lazyload()
+
 
 module.exports = {stack, api, topBar}
