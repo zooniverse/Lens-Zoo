@@ -11,24 +11,24 @@
 
   WebFITS = {};
 
-  WebFITS.version = '0.1.3';
+  WebFITS.version = '0.1.6';
 
   this.astro.WebFITS = WebFITS;
 
   BaseApi = (function() {
 
-    BaseApi.prototype.nImages = 0;
-
     function BaseApi(el, dimension) {
+      this.el = el;
       this.wheelHandler = __bind(this.wheelHandler, this);
+
       this.width = this.height = dimension;
       this.canvas = document.createElement('canvas');
       this.canvas.setAttribute('width', this.width);
       this.canvas.setAttribute('height', this.height);
-      el.appendChild(this.canvas);
-      this.id = 0;
+      this.el.appendChild(this.canvas);
+      this.nImages = 0;
       this.lookup = {};
-      if (!this._getContext()) {
+      if (!this.getContext()) {
         return null;
       }
       this.xOffset = -this.width / 2;
@@ -132,14 +132,25 @@
       this.scaledArcsinh = __bind(this.scaledArcsinh, this);
 
       this.wheelHandler = __bind(this.wheelHandler, this);
-      return Api.__super__.constructor.apply(this, arguments);
+      this._reset();
+      Api.__super__.constructor.apply(this, arguments);
     }
 
-    Api.prototype.images = {};
+    Api.prototype._reset = function() {
+      this.images = {};
+      this.scales = {};
+      return this.calibrations = {};
+    };
 
-    Api.prototype.scales = {};
+    Api.prototype._applyTransforms = function() {
+      var transforms;
+      transforms = ["scaleX(" + this.zoom + ")", "scaleY(" + (-this.zoom) + ")", "translateX(" + this.xOffset + "px)", "translateY(" + this.yOffset + "px)"].join(' ');
+      this.canvas.style.transform = transforms;
+      this.canvas.style.webkitTransform = transforms;
+      return this.canvas.style.MozTransform = transforms;
+    };
 
-    Api.prototype._getContext = function() {
+    Api.prototype.getContext = function() {
       var parentStyle;
       parentStyle = this.canvas.parentElement.style;
       parentStyle.width = "" + this.canvas.width + "px";
@@ -151,14 +162,6 @@
       this.ctx = this.canvas.getContext('2d');
       this.draw = this.drawLinear;
       return this.ctx;
-    };
-
-    Api.prototype._applyTransforms = function() {
-      var transforms;
-      transforms = ["scaleX(" + this.zoom + ")", "scaleY(" + (-this.zoom) + ")", "translateX(" + this.xOffset + "px)", "translateY(" + this.yOffset + "px)"].join(' ');
-      this.canvas.style.transform = transforms;
-      this.canvas.style.webkitTransform = transforms;
-      return this.canvas.style.MozTransform = transforms;
     };
 
     Api.prototype.setupControls = function() {
@@ -196,9 +199,8 @@
 
     Api.prototype.loadImage = function(identifier, arr, width, height) {
       var index;
-      index = this.id;
-      this.lookup[identifier] = this.id;
-      this.id += 1;
+      index = this.nImages;
+      this.lookup[identifier] = this.nImages;
       this.images[identifier] = {
         arr: new Float32Array(arr),
         width: width,
@@ -244,6 +246,13 @@
       this.scales.r = r;
       this.scales.g = g;
       this.scales.b = b;
+      return this.draw();
+    };
+
+    Api.prototype.setCalibrations = function(r, g, b) {
+      this.calibrations.r = r;
+      this.calibrations.g = g;
+      this.calibrations.b = b;
       return this.draw();
     };
 
@@ -366,13 +375,15 @@
     };
 
     Api.prototype.drawLupton = function() {
-      var I, arr, b, bImage, bScale, canvas, ctx, factor, g, gImage, gScale, imgData, index, length, r, rImage, rScale;
+      var I, Q, alpha, arr, b, bFactor, bImage, canvas, ctx, factor, g, gFactor, gImage, imgData, index, length, r, rFactor, rImage;
       rImage = this.images[this.r].arr;
       gImage = this.images[this.g].arr;
       bImage = this.images[this.b].arr;
-      rScale = this.scales.r;
-      gScale = this.scales.g;
-      bScale = this.scales.b;
+      rFactor = this.scales.r * this.calibrations.r;
+      gFactor = this.scales.g * this.calibrations.g;
+      bFactor = this.scales.b * this.calibrations.b;
+      alpha = this.alpha;
+      Q = this.Q;
       canvas = document.createElement('canvas');
       canvas.width = this.width;
       canvas.height = this.height;
@@ -382,11 +393,11 @@
       length = arr.length;
       while (length -= 4) {
         index = length / 4;
-        r = rImage[index] * rScale;
-        g = gImage[index] * gScale;
-        b = bImage[index] * bScale;
+        r = rImage[index] * rFactor;
+        g = gImage[index] * gFactor;
+        b = bImage[index] * bFactor;
         I = r + g + b + 1e-10;
-        factor = this.arcsinh(this.alpha * this.Q * I) / (this.Q * I);
+        factor = this.arcsinh(alpha * Q * I) / (Q * I);
         arr[length + 0] = 255 * r * factor;
         arr[length + 1] = 255 * g * factor;
         arr[length + 2] = 255 * b * factor;
@@ -409,6 +420,12 @@
     Api.prototype.wheelHandler = function(e) {
       Api.__super__.wheelHandler.apply(this, arguments);
       return this.draw();
+    };
+
+    Api.prototype.teardown = function() {
+      this.el.removeChild(this.canvas);
+      this.ctx = void 0;
+      return this._reset();
     };
 
     Api.prototype.logarithm = function(value) {

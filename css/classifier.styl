@@ -2,6 +2,26 @@
 .classifier
   
   .mask
+    display none
+    position absolute
+    top 0
+    left 0
+    right 0
+    bottom 0
+    background #000
+    z-index 9
+    opacity 0
+    
+    transition opacity 1950ms cubic-bezier(0.770, 0.000, 0.175, 1.000)
+    -webkit-transition-timing-function cubic-bezier(0.770, 0.000, 0.175, 1.000)
+    -moz-transition-timing-function cubic-bezier(0.770, 0.000, 0.175, 1.000)
+    transition-timing-function cubic-bezier(0.770, 0.000, 0.175, 1.000)
+    
+    &.show
+      display block
+      opacity 0.9
+  
+  .side-mask
     position absolute
     top 0
     right 0
@@ -37,6 +57,18 @@
         text-shadow 0px 1px 0px rgba(255, 255, 255, 0.25)
         text-transform uppercase
   
+  .viewer
+    display none
+    position absolute
+    width $img-dim
+    height $img-dim
+    margin-top 64px
+    z-index 0
+    
+    &.show
+      display block
+      z-index 100
+  
   .overflow
     width 100%
     overflow hidden
@@ -62,6 +94,7 @@
         
         &.current
           margin-left 0
+          z-index 10
         
         &.removing
           margin-left -1 * $img-dim - 100px

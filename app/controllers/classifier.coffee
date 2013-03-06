@@ -27,6 +27,8 @@ class Classifier extends Page
     '[data-type="classified"]'  : 'nClassifiedEl'
     '[data-type="potentials"]'  : 'nPotentialsEl'
     '[data-type="favorites"]'   : 'nFavoritesEl'
+    '.mask'                     : 'maskEl'
+    '.viewer'                   : 'viewerEl'
     '.subjects'                 : 'subjectsEl'
   
   events:
@@ -45,12 +47,14 @@ class Classifier extends Page
       parent: '.classifier'
       steps: TutorialSteps
     
-    @viewer = new Viewer({el: @el.find('.viewer')})
+    # Initialize controller for WebFITS
+    @viewer = new Viewer({el: @el.find('.viewer')[0]})
     
     # Setup events
     User.on 'change', @onUserChange
     Subject.on 'select', @onSubjectSelect
     Subject.on 'no-more', @onNoMoreSubjects
+    @viewer.bind 'close', @onViewerClose
   
   activate: ->
     super
@@ -259,8 +263,16 @@ class Classifier extends Page
   onDashboard: (e) ->
     e.preventDefault()
     
-    # Get current subject
-    @viewer.load(@classification.subject.id)
+    # Show mask and viewer
+    @maskEl.addClass('show')
+    @viewerEl.addClass('show')
+    
+    # Load current subject
+    @viewer.load(@classification.subject.metadata.id)
+  
+  onViewerClose: (e) =>
+    @maskEl.removeClass('show')
+    @viewerEl.removeClass('show')
   
   onFinish: (e) ->
     e.preventDefault()
