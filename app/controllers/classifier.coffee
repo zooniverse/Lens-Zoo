@@ -37,6 +37,7 @@ class Classifier extends Page
     'click a[data-type="finish"]:nth(0)'      : 'onFinish'
     'click .current .image svg'               : 'onAnnotation'
     'click circle'                            : 'onCircle'
+    'click .mask'                             : 'onViewerClose'
   
   
   constructor: ->
@@ -52,6 +53,7 @@ class Classifier extends Page
     
     # Setup events
     User.on 'change', @onUserChange
+    Subject.on 'fetch', @onFetch
     Subject.on 'select', @onSubjectSelect
     Subject.on 'no-more', @onNoMoreSubjects
     @viewer.bind 'close', @onViewerClose
@@ -125,19 +127,15 @@ class Classifier extends Page
       @setCurrentSVG()
     @tutorial.start()
   
-  onSubjectSelect: (e, subject) =>
-    if @initialFetch
-      for subject in Subject.instances
-        params = 
-          url: subject.location.standard
-          zooId: subject.zooniverse_id
-        @subjectsEl.append @subjectTemplate(params)
-      @initialFetch = false
-    else
-      params =
+  # Append subject(s) to DOM when received
+  onFetch: (e, subjects) =>
+    for subject in subjects
+      params = 
         url: subject.location.standard
+        zooId: subject.zooniverse_id
       @subjectsEl.append @subjectTemplate(params)
-    
+  
+  onSubjectSelect: (e, subject) =>
     # Reset variables
     @annotations      = {}
     @annotationIndex  = 0
@@ -146,7 +144,6 @@ class Classifier extends Page
     @hasNotified      = false
     
     # Create new classification
-    subject = Subject.first()
     @classification = new Classification {subject}
     
     # Update DOM
@@ -273,6 +270,7 @@ class Classifier extends Page
   onViewerClose: (e) =>
     @maskEl.removeClass('show')
     @viewerEl.removeClass('show')
+    @viewer.teardown()
   
   onFinish: (e) ->
     e.preventDefault()

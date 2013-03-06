@@ -8,6 +8,9 @@ class GuidePage extends Page
   events:
     'click li' : 'onSection'
   
+  active: ->
+    super
+    @el.scroll()  # trick lazyload
   
   onSection: (e) =>
     @el.find('li').removeClass('show')
@@ -16,7 +19,6 @@ class GuidePage extends Page
     $("section").removeClass('show')
     $("section[data-type='#{type}']").addClass('show')
     
-    # Trigger scroll to trick jQuery LazyLoad
-    @el.scroll()
+    @el.scroll()  # trick lazyload
 
 module.exports = GuidePage

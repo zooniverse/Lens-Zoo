@@ -16,7 +16,17 @@
     font-size 12px
     text-decoration none
     
-    &:last-child
+    &[data-preset]
+      width 33.3333%
+      padding-top 20px
+    
+      &.selected
+        color rgb(226, 84, 0)
+        background rgb(217, 217, 217)
+    
+    // Using class instead of pseudo-selector because these styles apply
+    // to multiple instances of controls
+    &.last
       width 40%
       height 100%
       border none

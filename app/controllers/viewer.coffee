@@ -13,6 +13,26 @@ class Viewer extends Spine.Controller
   defaultQ: 1.7
   defaultScales: [0.4, 0.6, 1.7]
   
+  parameters:
+    0:
+      alpha: 0.09
+      Q: 1.7
+      scales: [0.4, 0.6, 1.7]
+    1:
+      alpha: 0.2
+      Q: 2.5
+      scales: [0.4, 0.6, 1.7]
+    2:
+      alpha: 0.4
+      Q: 5
+      scales: [0.4, 0.6, 1.7]
+  
+  events:
+    'click a[data-preset]'  : 'onParameterChange'
+  
+  elements:
+    'a[data-preset]'  : 'presetEl'
+  
   constructor: ->
     super
     
@@ -45,8 +65,8 @@ class Viewer extends Spine.Controller
     
   
   load: (prefix) ->
+    # console.log "loading #{prefix}"
     @wfits = new astro.WebFITS(@el[0], @dimension)
-    @append("<div class='controls'></div>")
     
     # Create new deferreds for each channel
     for band in @bands
@@ -85,15 +105,31 @@ class Viewer extends Spine.Controller
     document.onkeydown = (e) =>
       if e.keyCode is 27
         @trigger 'close'
-        @teardown()
         
         # Remove the callback
         document.onkeydown = null
+    @append("""
+      <div class='controls'>
+        <a href='' data-preset='0'>Lens Type I</a>
+        <a href='' data-preset='1'>Lens Type II</a>
+        <a href='' data-preset='2'>Lens Type III</a>
+      </div>"""
+    )
     
+    @el.find('a[data-preset="0"]').click()
+  
+  onParameterChange: (e) ->
+    e.preventDefault()
+    
+    @presetEl.removeClass('selected')
+    $(e.currentTarget).addClass('selected')
+    
+    preset = e.currentTarget.dataset.preset
+    parameters = @parameters[preset]
     @wfits.setCalibrations(1, 1, 1)
-    @wfits.setScales.apply(@wfits, @defaultScales)
-    @wfits.setAlpha(@defaultAlpha)
-    @wfits.setQ(@defaultQ)
+    @wfits.setScales.apply(@wfits, parameters.scales)
+    @wfits.setAlpha(parameters.alpha)
+    @wfits.setQ(parameters.Q)
     @wfits.drawColor('i', 'r', 'g')
   
   teardown: ->
