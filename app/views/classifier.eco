@@ -16,8 +16,8 @@
   </div>
 </div>
 
+<svg class='primary' xmlns="http://www.w3.org/2000/svg"></svg>
 <div class='viewer'></div>
-
 <div class='overflow'>
   <div class='subjects'></div>
 </div>

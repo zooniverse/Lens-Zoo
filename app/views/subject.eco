@@ -1,7 +1,6 @@
 <div class='subject'>
   <div class='image'>
-    <svg xmlns="http://www.w3.org/2000/svg"></svg>
-    <img alt='warpin your mind' src='<%- @url %>' />
+    <img src='<%- @url %>' />
   </div>
   
   <div class='controls'>

@@ -30,12 +30,13 @@ class Classifier extends Page
     '.mask'                     : 'maskEl'
     '.viewer'                   : 'viewerEl'
     '.subjects'                 : 'subjectsEl'
+    'svg.primary'               : 'svg'
   
   events:
     'click a[data-type="heart"]:nth(0)'       : 'onFavorite'
     'click a[data-type="dashboard"]:nth(0)'   : 'onDashboard'
     'click a[data-type="finish"]:nth(0)'      : 'onFinish'
-    'click .current .image svg'               : 'onAnnotation'
+    'click svg.primary'                       : 'onAnnotation'
     'click circle'                            : 'onCircle'
     'click .mask'                             : 'onViewerClose'
   
@@ -49,7 +50,7 @@ class Classifier extends Page
       steps: TutorialSteps
     
     # Initialize controller for WebFITS
-    @viewer = new Viewer({el: @el.find('.viewer')[0]})
+    @viewer = new Viewer({el: @el.find('.viewer')[0], classifier: @})
     
     # Setup events
     User.on 'change', @onUserChange
@@ -124,7 +125,6 @@ class Classifier extends Page
       # Move the current class
       @el.find('.current').removeClass('current')
       @el.find('.subject').first().addClass('current')
-      @setCurrentSVG()
     @tutorial.start()
   
   # Append subject(s) to DOM when received
@@ -148,7 +148,6 @@ class Classifier extends Page
     
     # Update DOM
     @el.find('.subject').first().addClass('current')
-    @setCurrentSVG()
   
   onNoMoreSubjects: ->
     alert "We've run out of subjects."
@@ -161,10 +160,6 @@ class Classifier extends Page
   
   setFavorites: ->
     @nFavoritesEl.text(@nFavorites)
-  
-  setCurrentSVG: ->
-    svg = @el.find('.current').find('svg')
-    @svg = svg
   
   onAnnotation: (e) ->
     
@@ -279,6 +274,9 @@ class Classifier extends Page
     for index, annotation of @annotations
       @classification.annotate(annotation.toJSON())
     @classification.send()
+    
+    # Empty SVG element
+    @svg.empty()
     
     # Get DOM elements
     target  = $(e.currentTarget)

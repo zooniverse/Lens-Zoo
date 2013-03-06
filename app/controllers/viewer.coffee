@@ -113,18 +113,23 @@ class Viewer extends Spine.Controller
         <a href='' data-preset='0'>Lens Type I</a>
         <a href='' data-preset='1'>Lens Type II</a>
         <a href='' data-preset='2'>Lens Type III</a>
+        <a href='' data-preset='finished'>Nothing Interesting</a>
       </div>"""
     )
-    
     @el.find('a[data-preset="0"]').click()
   
-  onParameterChange: (e) ->
+  onParameterChange: (e) =>
     e.preventDefault()
     
     @presetEl.removeClass('selected')
     $(e.currentTarget).addClass('selected')
     
     preset = e.currentTarget.dataset.preset
+    if preset is 'finished'
+      @classifier.onViewerClose()
+      @classifier.el.find('a[data-type="finish"]:nth(0)').click()
+      return
+    
     parameters = @parameters[preset]
     @wfits.setCalibrations(1, 1, 1)
     @wfits.setScales.apply(@wfits, parameters.scales)
@@ -132,7 +137,7 @@ class Viewer extends Spine.Controller
     @wfits.setQ(parameters.Q)
     @wfits.drawColor('i', 'r', 'g')
   
-  teardown: ->
+  teardown: =>
     @wfits.teardown()
     @wfits = undefined
     @el.find('.controls').remove()
