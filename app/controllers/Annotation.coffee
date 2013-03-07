@@ -12,6 +12,11 @@ class Annotation extends Controller
   p1: 6
   p2: 14
   
+  # Used to draw the SVG element at various zoom levels
+  @zoom: 1
+  @halfWidth: 441
+  @halfHeight: 441
+  
   constructor: ->
     super
     
@@ -129,10 +134,15 @@ class Annotation extends Controller
     @gRemove.setAttribute("visibility", "hidden")
     @isRemoveVisible = false
     
-    # Update instance variables
-    @x = e.offsetX
-    @y = e.offsetY
-    @gRoot.setAttribute("transform", "translate(#{@x}, #{@y})")
+    halfWidth = Annotation.halfWidth
+    halfHeight = Annotation.halfHeight
+    zoom = Annotation.zoom
+    
+    x = e.offsetX
+    y = e.offsetY
+    @x = (x - halfWidth) / zoom + halfWidth
+    @y = (y - halfHeight) / zoom + halfHeight
+    @gRoot.setAttribute("transform", "translate(#{x}, #{y})")
     
     # Broadcast the new position
     @trigger 'move', @x, @y

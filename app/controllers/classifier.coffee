@@ -58,6 +58,31 @@ class Classifier extends Page
     Subject.on 'select', @onSubjectSelect
     Subject.on 'no-more', @onNoMoreSubjects
     @viewer.bind 'close', @onViewerClose
+    
+    # Setup mouse controls on the SVG element
+    @svg[0].addEventListener('mousewheel', @wheelHandler, false)
+  
+  wheelHandler: (e) =>
+    e.preventDefault()
+    
+    if @viewer.wfits?
+      # Cache WebFITS object and pipe event
+      wfits = @viewer.wfits
+      wfits.wheelHandler(e)
+      
+      # Get control parameters from WebFITS object
+      halfWidth = wfits.width / 2
+      halfHeight = wfits.height / 2
+      zoom = wfits.zoom * halfWidth
+      
+      # Update Annotation attribute
+      Annotation.zoom = zoom
+      
+      # Move element within zoom reference frame
+      for key, a of @annotations
+        x = (a.x - halfWidth) * zoom + halfWidth
+        y = (a.y - halfHeight) * zoom + halfHeight
+        a.gRoot.setAttribute("transform", "translate(#{x}, #{y})")
   
   activate: ->
     super
@@ -142,6 +167,7 @@ class Classifier extends Page
     @warn             = true
     @hasAnnotation    = false
     @hasNotified      = false
+    window.annotations = @annotations
     
     # Create new classification
     @classification = new Classification {subject}
@@ -261,10 +287,19 @@ class Classifier extends Page
     
     # Load current subject
     @viewer.load(@classification.subject.metadata.id)
+    
+    # Update Annotation class attributes
+    Annotation.halfWidth = @viewer.wfits.width / 2
+    Annotation.halfHeight = @viewer.wfits.height / 2
   
   onViewerClose: (e) =>
     @maskEl.removeClass('show')
     @viewerEl.removeClass('show')
+    
+    # Reset the annotation positions
+    for key, a of @annotations
+      a.gRoot.setAttribute("transform", "translate(#{a.x}, #{a.y})")
+    
     @viewer.teardown()
   
   onFinish: (e) ->

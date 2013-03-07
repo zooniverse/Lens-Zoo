@@ -66,7 +66,8 @@ class Viewer extends Spine.Controller
   
   load: (prefix) ->
     # console.log "loading #{prefix}"
-    @wfits = new astro.WebFITS(@el[0], @dimension)
+    @wfits = new astro.WebFITS(@el.find('.webfits')[0], @dimension)
+    @wfits.setupControls()
     
     # Create new deferreds for each channel
     for band in @bands
@@ -113,7 +114,7 @@ class Viewer extends Spine.Controller
         <a href='' data-preset='0'>Lens Type I</a>
         <a href='' data-preset='1'>Lens Type II</a>
         <a href='' data-preset='2'>Lens Type III</a>
-        <a href='' data-preset='finished'>Nothing Interesting</a>
+        <a href='' data-preset='finished'>Nothing interesting</a>
       </div>"""
     )
     @el.find('a[data-preset="0"]').click()

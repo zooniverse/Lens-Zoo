@@ -11,13 +11,14 @@
 
   WebFITS = {};
 
-  WebFITS.version = '0.1.6';
+  WebFITS.version = '0.1.7';
 
   this.astro.WebFITS = WebFITS;
 
   BaseApi = (function() {
 
     function BaseApi(el, dimension) {
+      var parentStyle;
       this.el = el;
       this.wheelHandler = __bind(this.wheelHandler, this);
 
@@ -31,6 +32,11 @@
       if (!this.getContext()) {
         return null;
       }
+      parentStyle = this.canvas.parentElement.style;
+      parentStyle.width = "" + this.canvas.width + "px";
+      parentStyle.height = "" + this.canvas.height + "px";
+      parentStyle.overflow = 'hidden';
+      parentStyle.backgroundColor = '#151515';
       this.xOffset = -this.width / 2;
       this.yOffset = -this.height / 2;
       this.xOldOffset = this.xOffset;
@@ -151,11 +157,6 @@
     };
 
     Api.prototype.getContext = function() {
-      var parentStyle;
-      parentStyle = this.canvas.parentElement.style;
-      parentStyle.width = "" + this.canvas.width + "px";
-      parentStyle.height = "" + this.canvas.height + "px";
-      parentStyle.overflow = 'hidden';
       this.canvas.style.transform = 'scaleY(-1)';
       this.canvas.style.webkitTransform = 'scaleY(-1)';
       this.canvas.style.MozTransform = 'scaleY(-1)';
