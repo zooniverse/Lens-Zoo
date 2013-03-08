@@ -22,6 +22,7 @@ class Classifier extends Page
   
   maxAnnotations: 5
   initialFetch: true
+  panKey: false
   
   elements:
     '[data-type="classified"]'  : 'nClassifiedEl'
@@ -62,8 +63,10 @@ class Classifier extends Page
     # Setup mouse controls on the SVG element
     @svg[0].addEventListener('mousewheel', @wheelHandler, false)
   
+  # TODO: Maybe set up this function to onDashboard to avoid the check for wfits object
   wheelHandler: (e) =>
     e.preventDefault()
+    return if @panKey
     
     if @viewer.wfits?
       # Cache WebFITS object and pipe event
@@ -188,6 +191,7 @@ class Classifier extends Page
     @nFavoritesEl.text(@nFavorites)
   
   onAnnotation: (e) ->
+    return if @panKey
     
     # Create annotation and push to object
     x = e.offsetX
@@ -291,6 +295,43 @@ class Classifier extends Page
     # Update Annotation class attributes
     Annotation.halfWidth = @viewer.wfits.width / 2
     Annotation.halfHeight = @viewer.wfits.height / 2
+    
+    # Set up pan key and mouse events
+    $(document).keyup((e) => @panKey = false if e.keyCode is 32)
+    $(document).keydown((e) => @panKey = true if e.keyCode is 32)
+    
+    svg = @svg[0]
+    svg.onmousedown = (e) =>
+      @viewer.wfits.canvas.onmousedown(e) if @panKey
+    svg.onmouseup = (e) =>
+      @viewer.wfits.canvas.onmouseup(e) if @panKey
+    svg.onmousemove = (e) =>
+      if @panKey
+        # Pass event to WebFITS object
+        @viewer.wfits.canvas.onmousemove(e)
+        
+        if @viewer.wfits.drag
+          halfWidth = Annotation.halfWidth
+          halfHeight = Annotation.halfHeight
+          zoom = Annotation.zoom
+          xOffset = @viewer.wfits.xOffset
+          yOffset = @viewer.wfits.yOffset
+        
+          # Move element within pan-zoom reference frame
+          for key, a of @annotations
+          
+            # Translate origin
+            deltaX = halfWidth + xOffset
+            deltaY = halfHeight + yOffset
+            
+            x = a.x + deltaX * zoom
+            y = a.y - deltaY * zoom
+            a.gRoot.setAttribute("transform", "translate(#{x}, #{y})")
+          
+    svg.onmouseout = (e) =>
+      @viewer.wfits.canvas.onmouseout(e) if @panKey
+    svg.onmouseover = (e) =>
+      @viewer.wfits.canvas.onmouseover(e) if @panKey
   
   onViewerClose: (e) =>
     @maskEl.removeClass('show')
@@ -299,6 +340,17 @@ class Classifier extends Page
     # Reset the annotation positions
     for key, a of @annotations
       a.gRoot.setAttribute("transform", "translate(#{a.x}, #{a.y})")
+    
+    # Tear down mouse events
+    $(document).keyup(null)
+    $(document).keydown(null)
+    
+    svg = @svg[0]
+    svg.onmousedown = null
+    svg.onmouseup   = null
+    svg.onmousemove = null
+    svg.onmouseout  = null
+    svg.onmouseover = null
     
     @viewer.teardown()
   

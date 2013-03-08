@@ -14,8 +14,9 @@ class Annotation extends Controller
   
   # Used to draw the SVG element at various zoom levels
   @zoom: 1
-  @halfWidth: 441
-  @halfHeight: 441
+  @halfWidth: 220.5
+  @halfHeight: 220.5
+  
   
   constructor: ->
     super
@@ -149,8 +150,8 @@ class Annotation extends Controller
   
   onmouseenterEl: (e) =>
     e.preventDefault()
-    if @drag
-      @onmouseup(e)
+    return unless @drag
+    @onmouseup(e)
   
   onmousedown: (e) =>
     e.preventDefault()
