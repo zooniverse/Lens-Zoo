@@ -185,7 +185,7 @@ class Viewer extends Controller
     @wfits = undefined
     @el.find('.controls').remove()
   
-  deleteCache: =>
+  clearCache: ->
     for key, value of @cache
       delete @cache[key]
 

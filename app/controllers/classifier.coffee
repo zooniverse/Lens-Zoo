@@ -291,9 +291,8 @@ class Classifier extends Page
     
     # Move element within zoom reference frame
     for key, a of @annotations
-      # TODO: Marker jumps when zooming after pan
-      x = (a.x - halfWidth) * zoom + halfWidth - deltaX
-      y = (a.y - halfHeight) * zoom + halfHeight + deltaY
+      x = (a.x + deltaX - halfWidth) * zoom + halfWidth
+      y = (a.y - deltaY - halfHeight) * zoom + halfHeight
       a.gRoot.setAttribute("transform", "translate(#{x}, #{y})")
   
   # Called when viewer is ready
@@ -335,14 +334,15 @@ class Classifier extends Page
           halfHeight = Annotation.halfHeight
           zoom = Annotation.zoom
           
+          # Translate origin
+          deltaX = halfWidth + xOffset
+          deltaY = halfHeight + yOffset
+          
           # Move element within pan-zoom reference frame
           for key, a of @annotations
-            # Translate origin
-            deltaX = halfWidth + xOffset
-            deltaY = halfHeight + yOffset
+            x = (a.x + deltaX - halfWidth) * zoom + halfWidth
+            y = (a.y - deltaY - halfHeight) * zoom + halfHeight
             
-            x = a.x + deltaX * zoom
-            y = a.y - deltaY * zoom
             a.gRoot.setAttribute("transform", "translate(#{x}, #{y})")
           
     svg.onmouseout = (e) =>
@@ -388,7 +388,7 @@ class Classifier extends Page
     @svg.empty()
     
     # Clear viewer cache
-    @viewer.deleteCache()
+    @viewer.clearCache()
     
     # Get DOM elements
     target  = $(e.currentTarget)
