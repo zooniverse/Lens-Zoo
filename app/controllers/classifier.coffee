@@ -241,6 +241,7 @@ class Classifier extends Page
   # Prevent annotations over SVG elements
   onCircle: (e) -> e.stopPropagation()
   
+  # Add to favorites and increment counter
   onFavorite: (e) ->
     e.preventDefault()
     if User.current?
@@ -295,17 +296,18 @@ class Classifier extends Page
   setupMouseControls: (e) =>
     svg = @svg[0]
     
-    # Setup mouse controls on the SVG element
-    svg.addEventListener('mousewheel', @wheelHandler, false)
-    
     # Update Annotation class attributes
     Annotation.halfWidth = @viewer.wfits.width / 2
     Annotation.halfHeight = @viewer.wfits.height / 2
+    
+    # Setup mouse controls on the SVG element
+    svg.addEventListener('mousewheel', @wheelHandler, false)
     
     # Set up pan key and mouse events
     $(document).keyup((e) => @panKey = false if e.keyCode is 32)
     $(document).keydown((e) => @panKey = true if e.keyCode is 32)
     
+    # Pass events to viewer if pan key is true
     svg.onmousedown = (e) =>
       @viewer.wfits.canvas.onmousedown(e) if @panKey
     svg.onmouseup = (e) =>
@@ -371,6 +373,9 @@ class Classifier extends Page
     
     # Empty SVG element
     @svg.empty()
+    
+    # Clear viewer cache
+    @viewer.deleteCache()
     
     # Get DOM elements
     target  = $(e.currentTarget)

@@ -6,6 +6,7 @@ class Viewer extends Spine.Controller
   dimension: 441
   
   bands:  ['g', 'r', 'i']
+  # TODO: Update when FITS images find permanent home
   source: 'http://www.spacewarps.org.s3.amazonaws.com/beta/subjects/raw/'
   
   # Default parameter values
@@ -13,6 +14,9 @@ class Viewer extends Spine.Controller
   defaultQ: 1.7
   defaultScales: [0.4, 0.6, 1.7]
   
+  cache: {}
+  
+  # TODO: Get three presets from science team
   parameters:
     0:
       alpha: 0.09
@@ -62,9 +66,10 @@ class Viewer extends Spine.Controller
     $.getScript("javascripts/fits.js", =>
       @dfs.fitsjs.resolve()
     )
-    
   
   load: (prefix) ->
+    
+    # Setup WebFITS object
     @wfits = new astro.WebFITS(@el.find('.webfits')[0], @dimension)
     @wfits.setupControls()
     
@@ -77,23 +82,56 @@ class Viewer extends Spine.Controller
     $.when.apply(null, dfs)
       .done(@allChannelsReceived)
     
-    for band, index in @bands
-      do (band, index) =>
-        path = "#{@source}#{prefix}_#{band}.fits.fz"
-        
-        new astro.FITS.File(path, (fits) =>
-          hdu = fits.getHDU()
-          header = hdu.header
-          dataunit = hdu.data
+    # Check cache for arraybuffers
+    if prefix of @cache
+      cache = @cache[prefix]
+      
+      # Load files from cache
+      for band, index in @bands
+        do (band, index) =>
+          min = cache[band].min
+          max = cache[band].max
+          arr = cache[band].arr
+          width = cache[band].width
+          height = cache[band].height
+          @calibrations[band] = cache[band].calibration
           
-          # Get image data
-          dataunit.getFrameAsync(0, (arr) =>
-            [min, max] = dataunit.getExtent(arr)
-            @calibrations[band] = @getCalibration(header)
-            @wfits.loadImage(band, arr, dataunit.width, dataunit.height)
-            @dfs[band].resolve()
+          @wfits.loadImage(band, arr, width, height)
+          @dfs[band].resolve()
+    else
+      # Request from remote source
+      @cache[prefix] = {}
+      for band, index in @bands
+        do (band, index) =>
+          @cache[prefix][band] = {}
+          path = "#{@source}#{prefix}_#{band}.fits.fz"
+        
+          new astro.FITS.File(path, (fits) =>
+            hdu = fits.getHDU()
+            header = hdu.header
+            dataunit = hdu.data
+          
+            # Get image data
+            dataunit.getFrameAsync(0, (arr) =>
+              [min, max] = dataunit.getExtent(arr)
+              width = dataunit.width
+              height = dataunit.height
+              calibration = @getCalibration(header)
+              
+              @calibrations[band] = calibration
+              @wfits.loadImage(band, arr, width, height)
+              
+              # Cache some data
+              @cache[prefix][band].min = min
+              @cache[prefix][band].max = max
+              @cache[prefix][band].arr = arr
+              @cache[prefix][band].width = width
+              @cache[prefix][band].height = height
+              @cache[prefix][band].calibration = calibration
+              
+              @dfs[band].resolve()
+            )
           )
-        )
   
   # NOTE: Using exposure time = 1.0
   getCalibration: (header) ->
@@ -143,4 +181,9 @@ class Viewer extends Spine.Controller
     @wfits = undefined
     @el.find('.controls').remove()
   
+  deleteCache: =>
+    for key, value of @cache
+      delete @cache[key]
+
+
 module.exports = Viewer
