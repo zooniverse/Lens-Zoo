@@ -286,10 +286,14 @@ class Classifier extends Page
     # Update Annotation attribute
     Annotation.zoom = zoom
     
+    deltaX = halfWidth + Annotation.xOffset
+    deltaY = halfHeight + Annotation.yOffset
+    
     # Move element within zoom reference frame
     for key, a of @annotations
-      x = (a.x - halfWidth) * zoom + halfWidth
-      y = (a.y - halfHeight) * zoom + halfHeight
+      # TODO: Marker jumps when zooming after pan
+      x = (a.x - halfWidth) * zoom + halfWidth - deltaX
+      y = (a.y - halfHeight) * zoom + halfHeight + deltaY
       a.gRoot.setAttribute("transform", "translate(#{x}, #{y})")
   
   # Called when viewer is ready
@@ -307,7 +311,10 @@ class Classifier extends Page
     
     # Set up pan key and mouse events
     $(document).keyup((e) => @panKey = false if e.keyCode is 32)
-    $(document).keydown((e) => @panKey = true if e.keyCode is 32)
+    $(document).keydown((e) =>
+      e.preventDefault()
+      @panKey = true if e.keyCode is 32
+    )
     
     # Pass events to viewer if pan key is true
     svg.onmousedown = (e) =>
