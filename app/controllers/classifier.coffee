@@ -46,6 +46,7 @@ class Classifier extends Page
     super
     @html @template
     
+    # Initialize tutorial
     @tutorial = new Tutorial
       parent: '.classifier'
       steps: TutorialSteps
@@ -58,34 +59,8 @@ class Classifier extends Page
     Subject.on 'fetch', @onFetch
     Subject.on 'select', @onSubjectSelect
     Subject.on 'no-more', @onNoMoreSubjects
+    @viewer.bind 'ready', @setupMouseControls
     @viewer.bind 'close', @onViewerClose
-    
-    # Setup mouse controls on the SVG element
-    @svg[0].addEventListener('mousewheel', @wheelHandler, false)
-  
-  # TODO: Maybe set up this function to onDashboard to avoid the check for wfits object
-  wheelHandler: (e) =>
-    e.preventDefault()
-    return if @panKey
-    
-    if @viewer.wfits?
-      # Cache WebFITS object and pipe event
-      wfits = @viewer.wfits
-      wfits.wheelHandler(e)
-      
-      # Get control parameters from WebFITS object
-      halfWidth = wfits.width / 2
-      halfHeight = wfits.height / 2
-      zoom = wfits.zoom * halfWidth
-      
-      # Update Annotation attribute
-      Annotation.zoom = zoom
-      
-      # Move element within zoom reference frame
-      for key, a of @annotations
-        x = (a.x - halfWidth) * zoom + halfWidth
-        y = (a.y - halfHeight) * zoom + halfHeight
-        a.gRoot.setAttribute("transform", "translate(#{x}, #{y})")
   
   activate: ->
     super
@@ -282,6 +257,7 @@ class Classifier extends Page
     else
       alert ("Please sign in or make an account to save favourites.")
   
+  # Set up inline dashboard with current subject
   onDashboard: (e) ->
     e.preventDefault()
     
@@ -291,6 +267,36 @@ class Classifier extends Page
     
     # Load current subject
     @viewer.load(@classification.subject.metadata.id)
+  
+  # Enabled only when viewer is ready
+  wheelHandler: (e) =>
+    e.preventDefault()
+    return if @panKey
+
+    # Cache WebFITS object and pipe event
+    wfits = @viewer.wfits
+    wfits.wheelHandler(e)
+
+    # Get control parameters from WebFITS object
+    halfWidth = wfits.width / 2
+    halfHeight = wfits.height / 2
+    zoom = wfits.zoom * halfWidth
+
+    # Update Annotation attribute
+    Annotation.zoom = zoom
+
+    # Move element within zoom reference frame
+    for key, a of @annotations
+      x = (a.x - halfWidth) * zoom + halfWidth
+      y = (a.y - halfHeight) * zoom + halfHeight
+      a.gRoot.setAttribute("transform", "translate(#{x}, #{y})")
+  
+  # Called when viewer is ready
+  setupMouseControls: (e) =>
+    svg = @svg[0]
+    
+    # Setup mouse controls on the SVG element
+    svg.addEventListener('mousewheel', @wheelHandler, false)
     
     # Update Annotation class attributes
     Annotation.halfWidth = @viewer.wfits.width / 2
@@ -300,7 +306,6 @@ class Classifier extends Page
     $(document).keyup((e) => @panKey = false if e.keyCode is 32)
     $(document).keydown((e) => @panKey = true if e.keyCode is 32)
     
-    svg = @svg[0]
     svg.onmousedown = (e) =>
       @viewer.wfits.canvas.onmousedown(e) if @panKey
     svg.onmouseup = (e) =>
@@ -323,6 +328,7 @@ class Classifier extends Page
             # Translate origin
             deltaX = halfWidth + xOffset
             deltaY = halfHeight + yOffset
+            console.log deltaX, deltaY
             
             x = a.x + deltaX * zoom
             y = a.y - deltaY * zoom
@@ -346,6 +352,7 @@ class Classifier extends Page
     $(document).keydown(null)
     
     svg = @svg[0]
+    svg.removeEventListener('mousewheel', @wheelHandler, false)
     svg.onmousedown = null
     svg.onmouseup   = null
     svg.onmousemove = null

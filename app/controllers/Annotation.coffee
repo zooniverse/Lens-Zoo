@@ -12,10 +12,12 @@ class Annotation extends Controller
   p1: 6
   p2: 14
   
-  # Used to draw the SVG element at various zoom levels
+  # Store the state of the coordinate frame
   @zoom: 1
   @halfWidth: 220.5
   @halfHeight: 220.5
+  @xOffset: -220.5
+  @yOffset: -220.5
   
   
   constructor: ->
@@ -190,6 +192,18 @@ class Annotation extends Controller
   remove: =>
     @gRoot.remove()
     @trigger 'remove', @
+  
+  draw: (x, y) ->
+    # Transform to original coordinate frame and store
+    x = (a.x - halfWidth) * zoom + halfWidth
+    y = (a.y - halfHeight) * zoom + halfHeight
+    a.gRoot.setAttribute("transform", "translate(#{x}, #{y})")
+    
+    @x = x
+    @y = y
+    
+    # Draw
+    @gRoot.setAttribute("transform", "translate(#{x}, #{y})")
 
 
 module.exports = Annotation

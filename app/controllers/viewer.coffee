@@ -65,7 +65,6 @@ class Viewer extends Spine.Controller
     
   
   load: (prefix) ->
-    # console.log "loading #{prefix}"
     @wfits = new astro.WebFITS(@el.find('.webfits')[0], @dimension)
     @wfits.setupControls()
     
@@ -118,6 +117,7 @@ class Viewer extends Spine.Controller
       </div>"""
     )
     @el.find('a[data-preset="0"]').click()
+    @trigger "ready"
   
   onParameterChange: (e) =>
     e.preventDefault()
