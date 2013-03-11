@@ -1,7 +1,8 @@
 
-# TODO: Better interface for async requests
+{Controller} = require 'spine'
 
-class Viewer extends Spine.Controller
+
+class Viewer extends Controller
   template: require 'views/viewer'
   dimension: 441
   
@@ -63,6 +64,7 @@ class Viewer extends Spine.Controller
       @dfs.webfits.resolve()
     )
     
+    # Load fitsjs asynchronously
     $.getScript("javascripts/fits.js", =>
       @dfs.fitsjs.resolve()
     )
@@ -82,7 +84,7 @@ class Viewer extends Spine.Controller
     $.when.apply(null, dfs)
       .done(@allChannelsReceived)
     
-    # Check cache for arraybuffers
+    # Check cache for data
     if prefix of @cache
       cache = @cache[prefix]
       
@@ -138,6 +140,7 @@ class Viewer extends Spine.Controller
     zeroPoint = header.get('MZP_AB') or header.get('PHOT_C')
     return Math.pow(10, zeroPoint - 30.0)
   
+  # Call when all channels are received (i.e. each deferred is resolved)
   allChannelsReceived: =>
     # Setup callback for escape key
     document.onkeydown = (e) =>
@@ -169,6 +172,7 @@ class Viewer extends Spine.Controller
       @classifier.el.find('a[data-type="finish"]:nth(0)').click()
       return
     
+    # Get a preset and apply to color composite
     parameters = @parameters[preset]
     @wfits.setCalibrations(1, 1, 1)
     @wfits.setScales.apply(@wfits, parameters.scales)

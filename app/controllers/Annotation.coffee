@@ -141,10 +141,14 @@ class Annotation extends Controller
     halfHeight = Annotation.halfHeight
     zoom = Annotation.zoom
     
+    deltaX = halfWidth + Annotation.xOffset
+    deltaY = halfHeight + Annotation.yOffset
+    
     x = e.offsetX
     y = e.offsetY
-    @x = (x - halfWidth) / zoom + halfWidth
-    @y = (y - halfHeight) / zoom + halfHeight
+    
+    @x = (x - halfWidth) / zoom + halfWidth - deltaX
+    @y = (y - halfHeight) / zoom + halfHeight + deltaY
     @gRoot.setAttribute("transform", "translate(#{x}, #{y})")
     
     # Broadcast the new position
@@ -192,18 +196,6 @@ class Annotation extends Controller
   remove: =>
     @gRoot.remove()
     @trigger 'remove', @
-  
-  draw: (x, y) ->
-    # Transform to original coordinate frame and store
-    x = (a.x - halfWidth) * zoom + halfWidth
-    y = (a.y - halfHeight) * zoom + halfHeight
-    a.gRoot.setAttribute("transform", "translate(#{x}, #{y})")
-    
-    @x = x
-    @y = y
-    
-    # Draw
-    @gRoot.setAttribute("transform", "translate(#{x}, #{y})")
 
 
 module.exports = Annotation

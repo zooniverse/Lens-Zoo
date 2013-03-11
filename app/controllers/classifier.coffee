@@ -273,19 +273,19 @@ class Classifier extends Page
   wheelHandler: (e) =>
     e.preventDefault()
     return if @panKey
-
-    # Cache WebFITS object and pipe event
+    
+    # Cache WebFITS object and push event
     wfits = @viewer.wfits
     wfits.wheelHandler(e)
-
+    
     # Get control parameters from WebFITS object
     halfWidth = wfits.width / 2
     halfHeight = wfits.height / 2
     zoom = wfits.zoom * halfWidth
-
+    
     # Update Annotation attribute
     Annotation.zoom = zoom
-
+    
     # Move element within zoom reference frame
     for key, a of @annotations
       x = (a.x - halfWidth) * zoom + halfWidth
@@ -296,9 +296,11 @@ class Classifier extends Page
   setupMouseControls: (e) =>
     svg = @svg[0]
     
-    # Update Annotation class attributes
+    # Update/reset Annotation class attributes
     Annotation.halfWidth = @viewer.wfits.width / 2
     Annotation.halfHeight = @viewer.wfits.height / 2
+    Annotation.xOffset = @viewer.wfits.xOffset
+    Annotation.yOffset = @viewer.wfits.yOffset
     
     # Setup mouse controls on the SVG element
     svg.addEventListener('mousewheel', @wheelHandler, false)
@@ -318,19 +320,19 @@ class Classifier extends Page
         @viewer.wfits.canvas.onmousemove(e)
         
         if @viewer.wfits.drag
+          # Update Annotation class attributes
+          Annotation.xOffset = xOffset = @viewer.wfits.xOffset
+          Annotation.yOffset = yOffset = @viewer.wfits.yOffset
+          
           halfWidth = Annotation.halfWidth
           halfHeight = Annotation.halfHeight
           zoom = Annotation.zoom
-          xOffset = @viewer.wfits.xOffset
-          yOffset = @viewer.wfits.yOffset
-        
+          
           # Move element within pan-zoom reference frame
           for key, a of @annotations
-          
             # Translate origin
             deltaX = halfWidth + xOffset
             deltaY = halfHeight + yOffset
-            console.log deltaX, deltaY
             
             x = a.x + deltaX * zoom
             y = a.y - deltaY * zoom
@@ -344,6 +346,10 @@ class Classifier extends Page
   onViewerClose: (e) =>
     @maskEl.removeClass('show')
     @viewerEl.removeClass('show')
+    
+    # Reset Annotation attributes
+    Annotation.xOffset = -220.5
+    Annotation.yOffset = -220.5
     
     # Reset the annotation positions
     for key, a of @annotations
