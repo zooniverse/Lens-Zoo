@@ -46,92 +46,124 @@ class Classifier extends Page
     super
     @html @template
     
-    # Initialize tutorial
-    @tutorial = new Tutorial
-      parent: '.classifier'
-      steps: TutorialSteps
-    
     # Initialize controller for WebFITS
     @viewer = new Viewer({el: @el.find('.viewer')[0], classifier: @})
     
     # Setup events
+    @bind 'start', @start
+    @bind 'tutorial', @startTutorial
+    
     User.on 'change', @onUserChange
-    Subject.on 'fetch', @onFetch
-    Subject.on 'select', @onSubjectSelect
-    Subject.on 'no-more', @onNoMoreSubjects
     @viewer.bind 'ready', @setupMouseControls
     @viewer.bind 'close', @onViewerClose
   
-  activate: ->
-    super
-    if @classification?
-      if @classification.subject.tutorial
-        @tutorial.start()
-  
   onUserChange: (e, user) =>
-    # Get the initial stack of subject
-    Subject.next() if @initialFetch
+    @nClassified  = 0
+    @nPotentials  = 0
+    @nFavorites   = 0
     
     if user?
       project = user.project
-      
-      # Check if the tutorial subject is already loaded
-      if @classification?.subject.tutorial?
-        # End tutorial and move on to next subject if tutorial complete
-        if project.tutorial_done?
-          @tutorial.end()
-          $('a[data-type="finish"]:nth(0)').click()
-      
-      @nClassified  = project.classification_count or 0
-      @nPotentials  = project.annotation_count or 0
-      @nFavorites   = project.favorite_count or 0
-      
-      @startTutorial() unless project.tutorial_done?
+      unless 'tutorial_done' of project
+        @trigger 'tutorial'
+      else
+        @nClassified  = project.classification_count or 0
+        @nPotentials  = project.annotation_count or 0
+        @nFavorites   = project.favorite_count or 0
+        @trigger 'start'
     else
-      @nClassified  = 0
-      @nPotentials  = 0
-      @nFavorites   = 0
-      
-      @startTutorial()
-    
+      @trigger 'tutorial'
     @setClassified()
     @setPotentials()
     @setFavorites()
+    
+    # # Get the initial stack of subject
+    # Subject.next() if @initialFetch
+    # 
+    # if user?
+    #   project = user.project
+    #   
+    #   # Check if the tutorial subject is already loaded
+    #   if @classification?.subject.tutorial?
+    #     # End tutorial and move on to next subject if tutorial complete
+    #     if project.tutorial_done?
+    #       @tutorial.end()
+    #       $('a[data-type="finish"]:nth(0)').click()
+    #   
+    #   @nClassified  = project.classification_count or 0
+    #   @nPotentials  = project.annotation_count or 0
+    #   @nFavorites   = project.favorite_count or 0
+    #   
+    #   @startTutorial() unless project.tutorial_done?
+    # else
+    #   @nClassified  = 0
+    #   @nPotentials  = 0
+    #   @nFavorites   = 0
+    #   
+    #   @startTutorial()
+    # 
+    # @setClassified()
+    # @setPotentials()
+    # @setFavorites()
+  
+  start: ->
+    # Set up events
+    Subject.on 'fetch', @onFetch
+    Subject.on 'select', @onSubjectSelect
+    Subject.on 'no-more', @onNoMoreSubjects
+    
+    # Initial fetch for subjects
+    Subject.next()
   
   startTutorial: ->
+    console.log 'startTutorial'
+    
+    # Construct array of subject instances
+    # 1) Tutorial
+    # 2) Random
+    # 3) Tutorial (simulated)
+    # 4) Random
+    # 5) Tutorial (no lens)
+    # 6) Random
+    
+    # Create tutorial object
+    @tutorial = new Tutorial
+      parent: '.classifier'
+      steps: TutorialSteps
+    
     # Set the tutorial subject
     subject = new Subject
       id: '5101a1931a320ea77f000003'
       location:
-        standard: 'images/tutorial-subject.png'
+        standard: 'images/tutorial/tutorial-subject.png'
       project_id: '5101a1341a320ea77f000001'
       workflow_ids: ['5101a1361a320ea77f000002']
       # Spoofing data to test synthetic notification
       metadata:
         synthetic:
           # Types can be (0) double lensed quasar (1) quad lensed quasar (2) System of arcs around a cluster (3) No lens
-          type: 0
+          type: 3
           x: 0.5
           y: 0.5
       tutorial: true
       zooniverse_id: 'ASW0000001'
     
+    # Create classification object
     @classification = new Classification {subject}
     
-    # This code is getting messy.
-    unless @initialFetch
-      # Inject tutorial subject
-      params =
-        url: subject.location.standard
-        zooId: subject.zooniverse_id
-      @subjectsEl.prepend @subjectTemplate(params)
-      # Move the current class
-      @el.find('.current').removeClass('current')
-      @el.find('.subject').first().addClass('current')
+    # Append to DOM
+    params =
+      url: subject.location.standard
+      zooId: subject.zooniverse_id
+    @subjectsEl.prepend @subjectTemplate(params)
+    @el.find('.current').removeClass('current')
+    @el.find('.subject').first().addClass('current')
+    
     @tutorial.start()
   
   # Append subject(s) to DOM when received
   onFetch: (e, subjects) =>
+    
     for subject in subjects
       params = 
         url: subject.location.standard
@@ -139,6 +171,8 @@ class Classifier extends Page
       @subjectsEl.append @subjectTemplate(params)
   
   onSubjectSelect: (e, subject) =>
+    console.log 'onSubjectSelect'
+    
     # Reset variables
     @annotations      = {}
     @annotationIndex  = 0
