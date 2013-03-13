@@ -10,10 +10,14 @@ Page          = require 'controllers/page'
 Annotation    = require 'controllers/Annotation'
 Viewer        = require 'controllers/viewer'
 {Tutorial}    = require 'zootorial'
-TutorialSteps = require 'lib/tutorial_steps'
+
+TutorialSteps     = require 'lib/tutorial_steps'
+TutorialCallbacks = require 'lib/TutorialCallbacks'
 
 
 class Classifier extends Page
+  @include TutorialCallbacks
+  
   el: $('.classifier')
   className: 'classifier'
   template: require 'views/classifier'
@@ -105,17 +109,26 @@ class Classifier extends Page
   startTutorial: ->
     console.log 'startTutorial'
     
-    # Set queue length on Subject to three
-    Subject.queueLength = 2
-    
-    # Bind event to tutorial-specific function and request subjects
-    Subject.on 'fetch', @createStagedTutorial
-    Subject.fetch()
-    
     # Create tutorial object
     @tutorial = new Tutorial
       parent: '.classifier'
       steps: TutorialSteps
+      
+    # Cache for binding events
+    @tutorialEl = @tutorial.dialog.el
+    
+    # Set queue length on Subject
+    Subject.queueLength = 2
+    
+    # Bind tutorial-specific events
+    Subject.on 'fetch', @createStagedTutorial
+    Subject.fetch()
+    
+    # Set up tutorial-specific events
+    @tutorialEl.bind 'start-tutorial', @onTutorialStart
+    @tutorialEl.bind 'enter-tutorial-step', @onTutorialStep
+    @tutorialEl.bind 'complete-tutorial', @onTutorialComplete
+    @tutorialEl.bind 'end-tutorial', @onTutorialEnd
     
     # Set the tutorial subject
     subject = new Subject
@@ -241,7 +254,6 @@ class Classifier extends Page
   
   onAnnotation: (e) ->
     console.log 'onAnnotation'
-    
     return if @panKey
     
     # Create annotation and push to object
@@ -252,6 +264,9 @@ class Classifier extends Page
     @annotationIndex += 1
     annotation.bind('remove', @removeAnnotation)
     annotation.bind('move', @checkProximity)
+    
+    # Trigger event with annotation object
+    @trigger 'onAnnotation', annotation
     
     # Replace text on interface
     unless @hasAnnotation
