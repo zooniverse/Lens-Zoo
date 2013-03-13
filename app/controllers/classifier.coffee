@@ -46,6 +46,8 @@ class Classifier extends Page
     super
     @html @template
     
+    @reset()
+    
     # Initialize controller for WebFITS
     @viewer = new Viewer({el: @el.find('.viewer')[0], classifier: @})
     
@@ -56,6 +58,14 @@ class Classifier extends Page
     User.on 'change', @onUserChange
     @viewer.bind 'ready', @setupMouseControls
     @viewer.bind 'close', @onViewerClose
+  
+  # Reset variables for a classification
+  reset: ->
+    @annotations      = {}
+    @annotationIndex  = 0
+    @warn             = true
+    @hasAnnotation    = false
+    @hasNotified      = false
   
   onUserChange: (e, user) =>
     @nClassified  = 0
@@ -76,37 +86,10 @@ class Classifier extends Page
     @setClassified()
     @setPotentials()
     @setFavorites()
-    
-    # # Get the initial stack of subject
-    # Subject.next() if @initialFetch
-    # 
-    # if user?
-    #   project = user.project
-    #   
-    #   # Check if the tutorial subject is already loaded
-    #   if @classification?.subject.tutorial?
-    #     # End tutorial and move on to next subject if tutorial complete
-    #     if project.tutorial_done?
-    #       @tutorial.end()
-    #       $('a[data-type="finish"]:nth(0)').click()
-    #   
-    #   @nClassified  = project.classification_count or 0
-    #   @nPotentials  = project.annotation_count or 0
-    #   @nFavorites   = project.favorite_count or 0
-    #   
-    #   @startTutorial() unless project.tutorial_done?
-    # else
-    #   @nClassified  = 0
-    #   @nPotentials  = 0
-    #   @nFavorites   = 0
-    #   
-    #   @startTutorial()
-    # 
-    # @setClassified()
-    # @setPotentials()
-    # @setFavorites()
   
   start: ->
+    console.log 'start'
+    
     # Set up events
     Subject.on 'fetch', @onFetch
     Subject.on 'select', @onSubjectSelect
@@ -118,13 +101,12 @@ class Classifier extends Page
   startTutorial: ->
     console.log 'startTutorial'
     
-    # Construct array of subject instances
-    # 1) Tutorial
-    # 2) Random
-    # 3) Tutorial (simulated)
-    # 4) Random
-    # 5) Tutorial (no lens)
-    # 6) Random
+    # Set queue length on Subject to three
+    Subject.queueLength = 2
+    
+    # Bind event to tutorial-specific function and request subjects
+    Subject.on 'fetch', @createStagedTutorial
+    Subject.fetch()
     
     # Create tutorial object
     @tutorial = new Tutorial
@@ -161,6 +143,70 @@ class Classifier extends Page
     
     @tutorial.start()
   
+  createStagedTutorial: (e, subjects) =>
+    
+    # Handle event bindings
+    Subject.off 'fetch', @createStagedTutorial
+    Subject.on 'fetch', @onFetch
+    Subject.on 'select', @onSubjectSelect
+    Subject.on 'no-more', @onNoMoreSubjects
+    
+    #
+    # TODO: Update ids where needed
+    #
+    
+    # Create simulated subject
+    simulatedSubject = new Subject
+      id: '5101a1931a320ea77f000004'
+      location:
+        standard: 'images/tutorial/tutorial-subject.png'
+      project_id: '5101a1341a320ea77f000001'
+      workflow_ids: ['5101a1361a320ea77f000002']
+      # Spoofing data to test synthetic notification
+      metadata:
+        synthetic:
+          # Types can be (0) double lensed quasar (1) quad lensed quasar (2) System of arcs around a cluster (3) No lens
+          type: 3
+          x: 0.5
+          y: 0.5
+      tutorial: true
+      zooniverse_id: 'ASW0000001'
+    
+    # Create blank subject
+    blankSubject = new Subject
+      id: '5101a1931a320ea77f000005'
+      location:
+        standard: 'images/tutorial/tutorial-subject.png'
+      project_id: '5101a1341a320ea77f000001'
+      workflow_ids: ['5101a1361a320ea77f000002']
+      # Spoofing data to test synthetic notification
+      metadata:
+        synthetic:
+          # Types can be (0) double lensed quasar (1) quad lensed quasar (2) System of arcs around a cluster (3) No lens
+          type: 3
+          x: 0.5
+          y: 0.5
+      tutorial: true
+      zooniverse_id: 'ASW0000001'
+    
+    # Set queue length on Subject back to five
+    Subject.queueLength = 5
+    
+    # 1) Random
+    # 2) Training (Simulated)
+    # 3) Random
+    # 4) Training (Blank)
+    Subject.instances[0] = subjects[0]
+    Subject.instances[1] = simulatedSubject
+    Subject.instances[2] = subjects[1]
+    Subject.instances[3] = blankSubject
+    
+    for subject in Subject.instances
+      params = 
+        url: subject.location.standard
+        zooId: subject.zooniverse_id
+      @subjectsEl.append @subjectTemplate(params)
+  
   # Append subject(s) to DOM when received
   onFetch: (e, subjects) =>
     
@@ -172,14 +218,7 @@ class Classifier extends Page
   
   onSubjectSelect: (e, subject) =>
     console.log 'onSubjectSelect'
-    
-    # Reset variables
-    @annotations      = {}
-    @annotationIndex  = 0
-    @warn             = true
-    @hasAnnotation    = false
-    @hasNotified      = false
-    window.annotations = @annotations
+    @reset()
     
     # Create new classification
     @classification = new Classification {subject}

@@ -4,9 +4,12 @@
 ProjectName = 'spacewarp'
 SubjectRoot = '/subjects/standard'
 
-ProjectId         = BSON::ObjectId('5101a1341a320ea77f000001')
-WorkflowId        = BSON::ObjectId('5101a1361a320ea77f000002')
-TutorialSubjectId = BSON::ObjectId('5101a1931a320ea77f000003')
+ProjectId           = BSON::ObjectId('5101a1341a320ea77f000001')
+WorkflowId          = BSON::ObjectId('5101a1361a320ea77f000002')
+
+TutorialSubjectId1  = BSON::ObjectId('5101a1931a320ea77f000003')
+TutorialSubjectId2  = BSON::ObjectId('5101a1931a320ea77f000004')
+TutorialSubjectId3  = BSON::ObjectId('5101a1931a320ea77f000005')
 
 ProjectSubject = SpacewarpSubject
 
@@ -31,11 +34,11 @@ Favorite.where(project_id: @project.id).destroy_all
 ProjectSubject.destroy_all
 
 
-# Create a tutorial subject
+# Create a tutorial subjects
 
-unless SpacewarpSubject.find(TutorialSubjectId)
+unless SpacewarpSubject.find(TutorialSubjectId1)
   ProjectSubject.create({
-    _id: TutorialSubjectId,
+    _id: TutorialSubjectId1,
     project_id: @project.id,
     workflow_ids: [@workflow.id],
     tutorial: 'true',
@@ -45,11 +48,39 @@ unless SpacewarpSubject.find(TutorialSubjectId)
   })
 end
 
+unless SpacewarpSubject.find(TutorialSubjectId2)
+  ProjectSubject.create({
+    _id: TutorialSubjectId2,
+    project_id: @project.id,
+    workflow_ids: [@workflow.id],
+    tutorial: 'true',
+    location: {},
+    coords: [],
+    metadata: {}
+  })
+end
+
+unless SpacewarpSubject.find(TutorialSubjectId3)
+  ProjectSubject.create({
+    _id: TutorialSubjectId3,
+    project_id: @project.id,
+    workflow_ids: [@workflow.id],
+    tutorial: 'true',
+    location: {},
+    coords: [],
+    metadata: {}
+  })
+end
+
+
 # Create subjects
 dirname = File.dirname(__FILE__)
 standard_dir = File.join(File.dirname(__FILE__), 'beta', 'standard')
 
 Dir.entries(standard_dir).each do |file|
+  next if file == '.'
+  next if file == '..'
+  
   prefix = file.split('_gri.jpg')[0]
   
   standard  = "http://www.spacewarps.org.s3.amazonaws.com/beta/subjects/standard/#{prefix}_gri.jpg"
