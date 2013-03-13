@@ -61,6 +61,8 @@ class Classifier extends Page
   
   # Reset variables for a classification
   reset: ->
+    console.log 'reset'
+    
     @annotations      = {}
     @annotationIndex  = 0
     @warn             = true
@@ -68,6 +70,8 @@ class Classifier extends Page
     @hasNotified      = false
   
   onUserChange: (e, user) =>
+    console.log 'onUserChange'
+    
     @nClassified  = 0
     @nPotentials  = 0
     @nFavorites   = 0
@@ -144,16 +148,13 @@ class Classifier extends Page
     @tutorial.start()
   
   createStagedTutorial: (e, subjects) =>
+    console.log 'createStagedTutorial'
     
     # Handle event bindings
     Subject.off 'fetch', @createStagedTutorial
     Subject.on 'fetch', @onFetch
     Subject.on 'select', @onSubjectSelect
     Subject.on 'no-more', @onNoMoreSubjects
-    
-    #
-    # TODO: Update ids where needed
-    #
     
     # Create simulated subject
     simulatedSubject = new Subject
@@ -170,7 +171,7 @@ class Classifier extends Page
           x: 0.5
           y: 0.5
       tutorial: true
-      zooniverse_id: 'ASW0000001'
+      zooniverse_id: 'ASW0000002'
     
     # Create blank subject
     blankSubject = new Subject
@@ -187,21 +188,17 @@ class Classifier extends Page
           x: 0.5
           y: 0.5
       tutorial: true
-      zooniverse_id: 'ASW0000001'
+      zooniverse_id: 'ASW0000003'
     
     # Set queue length on Subject back to five
     Subject.queueLength = 5
     
-    # 1) Random
-    # 2) Training (Simulated)
-    # 3) Random
-    # 4) Training (Blank)
-    Subject.instances[0] = subjects[0]
-    Subject.instances[1] = simulatedSubject
-    Subject.instances[2] = subjects[1]
-    Subject.instances[3] = blankSubject
+    # Rearrange subjects (random, simulated, random, blank)
+    Subject.instances[2] = simulatedSubject
+    Subject.instances[3] = subjects[1]
     
-    for subject in Subject.instances
+    for subject, index in Subject.instances
+      continue if index is 0
       params = 
         url: subject.location.standard
         zooId: subject.zooniverse_id
@@ -209,8 +206,9 @@ class Classifier extends Page
   
   # Append subject(s) to DOM when received
   onFetch: (e, subjects) =>
+    console.log 'onFetch'
     
-    for subject in subjects
+    for subject, index in subjects
       params = 
         url: subject.location.standard
         zooId: subject.zooniverse_id
@@ -218,6 +216,7 @@ class Classifier extends Page
   
   onSubjectSelect: (e, subject) =>
     console.log 'onSubjectSelect'
+    
     @reset()
     
     # Create new classification
@@ -227,6 +226,8 @@ class Classifier extends Page
     @el.find('.subject').first().addClass('current')
   
   onNoMoreSubjects: ->
+    console.log 'onNoMoreSubjects'
+    
     alert "We've run out of subjects."
   
   setClassified: ->
@@ -239,6 +240,8 @@ class Classifier extends Page
     @nFavoritesEl.text(@nFavorites)
   
   onAnnotation: (e) ->
+    console.log 'onAnnotation'
+    
     return if @panKey
     
     # Create annotation and push to object
@@ -272,6 +275,8 @@ class Classifier extends Page
       alert("Whoa buddy!  Remember gravitional lenses are very rare astronomical objects.  There usually won't be this many interesting objects in an image.  If you think this is an exception, please discuss this image in Talk so that the science team can take a look!")
   
   removeAnnotation: (annotation) =>
+    console.log 'removeAnnotation'
+    
     index = annotation.index
     delete @annotations[index]
     
@@ -450,6 +455,8 @@ class Classifier extends Page
     @viewer.teardown()
   
   onFinish: (e) ->
+    console.log 'onFinish'
+    
     e.preventDefault()
     
     # Process annotations and push to API

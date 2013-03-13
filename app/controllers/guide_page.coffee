@@ -6,11 +6,19 @@ class GuidePage extends Page
   className: 'guide'
   
   events:
-    'click li' : 'onSection'
+    'click li.tab'  : 'onArticle'
+    # 'click li'      : 'onSection'
+  
+  elements:
+    '.tab'  : 'tabs'
   
   active: ->
     super
     @el.scroll()  # trick lazyload
+  
+  onArticle: (e) =>
+    @tabs.removeClass('show')
+    $(e.currentTarget).addClass('show')
   
   onSection: (e) =>
     @el.find('li').removeClass('show')
