@@ -52,8 +52,9 @@ module.exports = [
       <p>Click 'Finished marking!' to continue.</p>"
     attachment:
       to: 'svg'
-      x: 0.5
-      y: 0.8
+      at:
+        x: 0.5
+        y: 0.5
     nextOn:
       'click': 'a[data-type="finish"]'
   
@@ -62,14 +63,28 @@ module.exports = [
     content: "Talk is a place to discuss these images with the rest of the SpaceWarps community: together we aim to build a catalog of some of the rarest objects in the universe. If you have questions, the Science Team and other astronomers will help answer them. If you find something that looks interesting, come and show it to the group!"
     attachment:
       to: 'svg'
-      x: 0.5
-      y: 0.5
+      at:
+        x: 0.5
+        y: 0.5
   
   new Step
     header: 'Training image'
     content: 'Yes!  That was a simulated lens, well spotted!'
     attachment:
       to: 'svg'
-      x: 0.5
-      y: 0.5
+      at:
+        x: 0.5
+        y: 0.5
+  
+  new Step
+    header: 'Training image'
+    content: 'Yes!  This image did not have a lens.'
+    attachment:
+      to: 'svg'
+      at:
+        x: 0.5
+        y: 0.5
+    nextOn:
+      'click': 'a[data-type="finish"]'
+      
 ]

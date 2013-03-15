@@ -21,16 +21,16 @@ class Viewer extends Controller
   parameters:
     0:
       alpha: 0.09
-      Q: 1.7
+      Q: 1.0
       scales: [0.4, 0.6, 1.7]
     1:
-      alpha: 0.2
-      Q: 2.5
+      alpha: 0.17
+      Q: 1.0
       scales: [0.4, 0.6, 1.7]
     2:
-      alpha: 0.4
-      Q: 5
-      scales: [0.4, 0.6, 1.7]
+      alpha: 0.11
+      Q: 2
+      scales: [0.4, 0.6, 2.5]
   
   events:
     'click a[data-preset]'  : 'onParameterChange'

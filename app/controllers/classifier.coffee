@@ -12,12 +12,9 @@ Viewer        = require 'controllers/viewer'
 {Tutorial}    = require 'zootorial'
 
 TutorialSteps     = require 'lib/tutorial_steps'
-TutorialCallbacks = require 'lib/TutorialCallbacks'
 
 
 class Classifier extends Page
-  @include TutorialCallbacks
-  
   el: $('.classifier')
   className: 'classifier'
   template: require 'views/classifier'
@@ -62,6 +59,34 @@ class Classifier extends Page
     User.on 'change', @onUserChange
     @viewer.bind 'ready', @setupMouseControls
     @viewer.bind 'close', @onViewerClose
+
+  #
+  # Tutorial Callbacks
+  #
+  onTutorialStart: (e) =>
+    console.log 'onTutorialStart'
+
+  onTutorialStep: (e, n, step) =>
+    console.log 'onTutorialStep', arguments
+
+    # Hide the dialog
+    if n is 7
+      $('.zootorial-dialog').hide()
+      @bind 'onAnnotation', @showTutorialDialog
+
+  onTutorialComplete: =>
+    console.log 'onTutorialComplete', arguments
+  
+  showTutorialDialog: =>
+    console.log 'showTutorialDialog'
+    
+    if @nClassified is 2
+      $('.zootorial-dialog').show()
+      $(window).resize()
+      
+      # Unbind this event
+      @unbind 'onAnnotation', @showTutorialDialog
+  
   
   # Reset variables for a classification
   reset: ->
@@ -76,6 +101,7 @@ class Classifier extends Page
   onUserChange: (e, user) =>
     console.log 'onUserChange'
     
+    # Set default counts
     @nClassified  = 0
     @nPotentials  = 0
     @nFavorites   = 0
@@ -91,6 +117,8 @@ class Classifier extends Page
         @trigger 'start'
     else
       @trigger 'tutorial'
+    
+    # Render counts to DOM
     @setClassified()
     @setPotentials()
     @setFavorites()
@@ -122,13 +150,12 @@ class Classifier extends Page
     
     # Bind tutorial-specific events
     Subject.on 'fetch', @createStagedTutorial
-    Subject.fetch()
-    
-    # Set up tutorial-specific events
     @tutorialEl.bind 'start-tutorial', @onTutorialStart
     @tutorialEl.bind 'enter-tutorial-step', @onTutorialStep
     @tutorialEl.bind 'complete-tutorial', @onTutorialComplete
-    @tutorialEl.bind 'end-tutorial', @onTutorialEnd
+    
+    # Fetch subjects
+    Subject.fetch()
     
     # Set the tutorial subject
     subject = new Subject
@@ -150,7 +177,7 @@ class Classifier extends Page
     # Create classification object
     @classification = new Classification {subject}
     
-    # Append to DOM
+    # Append tutorial subject to DOM
     params =
       url: subject.location.standard
       zooId: subject.zooniverse_id
@@ -160,6 +187,7 @@ class Classifier extends Page
     
     @tutorial.start()
   
+  # Set up the staged tutorial subjects.  This should only be run once.
   createStagedTutorial: (e, subjects) =>
     console.log 'createStagedTutorial'
     
@@ -210,6 +238,7 @@ class Classifier extends Page
     Subject.instances[2] = simulatedSubject
     Subject.instances[3] = subjects[1]
     
+    # Append remaining subjects to DOM
     for subject, index in Subject.instances
       continue if index is 0
       params = 
