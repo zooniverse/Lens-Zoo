@@ -1,6 +1,5 @@
-require('lib/setup')
+require 'lib/setup'
 
-$       = require 'jqueryify'
 {Stack} = require 'spine/lib/manager'
 Route   = require 'spine/lib/route'
 

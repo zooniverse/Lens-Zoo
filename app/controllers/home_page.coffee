@@ -1,7 +1,7 @@
-{Controller} = require 'spine'
+Page  = require 'controllers/page'
 
 
-class HomePage extends Controller
+class HomePage extends Page
   el: $('.home')
   className: 'home'
   
