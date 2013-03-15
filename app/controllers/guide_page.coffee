@@ -6,27 +6,19 @@ class GuidePage extends Page
   className: 'guide'
   
   events:
-    'click li.tab'  : 'onArticle'
-    # 'click li'      : 'onSection'
-  
-  elements:
-    '.tab'  : 'tabs'
+    'click .menu li'  : 'show'
   
   active: ->
     super
     @el.scroll()  # trick lazyload
   
-  onArticle: (e) =>
-    @tabs.removeClass('show')
-    $(e.currentTarget).addClass('show')
-  
-  onSection: (e) =>
-    @el.find('li').removeClass('show')
-    $(e.currentTarget).addClass('show')
-    type = e.currentTarget.dataset.type
-    $("section").removeClass('show')
-    $("section[data-type='#{type}']").addClass('show')
-    
-    @el.scroll()  # trick lazyload
+  show: (e) =>
+    $(e.currentTarget).addClass('show').siblings('li').removeClass('show')
+
+    key = $(e.currentTarget).data('type')
+    $('section[data-type="'+key+'"]').addClass('show').siblings('section').removeClass('show')
+
+    @el.scroll() # trick lazyload
+
 
 module.exports = GuidePage

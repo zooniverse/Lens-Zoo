@@ -18,7 +18,9 @@
     "zootorial"
   ],
   "libs": [
-    "node_modules/zooniverse/vendor/base64.js"
+    "node_modules/zooniverse/vendor/base64.js",
+    "./app/lib/jquery.js",
+    "./app/lib/jquery.lazyload.js"
   ]
 }
 

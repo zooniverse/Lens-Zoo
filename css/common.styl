@@ -1,11 +1,38 @@
+#clearfix
+  &:before,
+  &:after
+    content: " "
+    display: table
+
+  &:after
+    clear: both
+
+#semantic-list
+  list-style: none
+  margin: 0
+  padding: 0
+
 
 h1
   color #FFF
   font-size 40px
-  font-weight 100
+  font-weight 200
   text-shadow 0px 1px 0px #013A66
   border-bottom 1px solid #003461
   padding-bottom 20px
+  position relative
+
+  &:before
+    border-bottom 1px solid #0072c9
+    bottom -2px
+    content ""
+    height 0
+    left 0
+    position absolute
+    width 100%
+
+h2
+  margin 1em 0 0.15em 0
 
 h3
   font-size 12px
@@ -15,3 +42,12 @@ h3
   padding-bottom 30px
   border-bottom 1px solid #003461
   box-shadow 0px 1px 0px #0072C9
+
+p
+  font-size 13px
+  font-weight 500
+  line-height 1.4em
+  margin 0.2em 0 1em 0
+
+a
+  color #fff
