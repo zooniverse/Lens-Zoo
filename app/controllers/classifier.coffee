@@ -146,16 +146,13 @@ class Classifier extends Page
     @tutorialEl = @tutorial.dialog.el
     
     # Set queue length on Subject
-    Subject.queueLength = 2
+    Subject.queueLength = 3
     
     # Bind tutorial-specific events
     Subject.on 'fetch', @createStagedTutorial
     @tutorialEl.bind 'start-tutorial', @onTutorialStart
     @tutorialEl.bind 'enter-tutorial-step', @onTutorialStep
     @tutorialEl.bind 'complete-tutorial', @onTutorialComplete
-    
-    # Fetch subjects
-    Subject.fetch()
     
     # Set the tutorial subject
     subject = new Subject
@@ -176,6 +173,12 @@ class Classifier extends Page
     
     # Create classification object
     @classification = new Classification {subject}
+    
+    # Remove tutorial subject from queue
+    Subject.instances = []
+    
+    # Fetch subjects from API
+    Subject.fetch()
     
     # Append tutorial subject to DOM
     params =
@@ -235,12 +238,13 @@ class Classifier extends Page
     Subject.queueLength = 5
     
     # Rearrange subjects (random, simulated, random, blank)
-    Subject.instances[2] = simulatedSubject
-    Subject.instances[3] = subjects[1]
+    Subject.instances[1] = simulatedSubject
+    Subject.instances[2] = subjects[1]
+    Subject.instances[3] = blankSubject
+    Subject.instances[4] = subjects[2]
     
     # Append remaining subjects to DOM
     for subject, index in Subject.instances
-      continue if index is 0
       params = 
         url: subject.location.standard
         zooId: subject.zooniverse_id
@@ -257,7 +261,7 @@ class Classifier extends Page
       @subjectsEl.append @subjectTemplate(params)
   
   onSubjectSelect: (e, subject) =>
-    console.log 'onSubjectSelect'
+    console.log 'onSubjectSelect', subject
     
     @reset()
     
