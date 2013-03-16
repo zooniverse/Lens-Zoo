@@ -99,7 +99,7 @@ class Classifier extends Page
     @hasAnnotation    = false
     @hasNotified      = false
     
-    @isTrainingSubject = false
+    @hasSimulation = false
     @ctx = undefined
   
   onUserChange: (e, user) =>
@@ -168,6 +168,7 @@ class Classifier extends Page
       metadata:
         training:
           type: 'lens'
+        id: 'CFHTLS_037_1973'
       tutorial: true
       zooniverse_id: 'ASW0000001'
     
@@ -207,10 +208,10 @@ class Classifier extends Page
         standard: 'images/tutorial/tutorial-2.png'
       project_id: '5101a1341a320ea77f000001'
       workflow_ids: ['5101a1361a320ea77f000002']
-      # Spoofing data to test synthetic notification
       metadata:
         training:
           type: 'lens'
+        id: 'CFHTLS_082_0178'
       tutorial: true
       zooniverse_id: 'ASW0000002'
     
@@ -221,10 +222,10 @@ class Classifier extends Page
         standard: 'images/tutorial/tutorial-3.png'
       project_id: '5101a1341a320ea77f000001'
       workflow_ids: ['5101a1361a320ea77f000002']
-      # Spoofing data to test synthetic notification
       metadata:
         training:
           type: 'blank'
+        id: 'CFHTLS_082_0414'
       tutorial: true
       zooniverse_id: 'ASW0000003'
     
@@ -271,9 +272,9 @@ class Classifier extends Page
     
     # Check if training subject
     if subject.metadata.training?
-      @isTrainingSubject = true
+      @hasSimulation = true
       
-      # Set up canvas and cache the context
+      # Set up offscreen canvas and cache the context
       canvas = document.createElement('canvas')
       @ctx = canvas.getContext('2d')
       img = new Image()
@@ -318,7 +319,7 @@ class Classifier extends Page
     annotation.bind('remove', @removeAnnotation)
     
     # Hook events when on training subject
-    if @isTrainingSubject
+    if @hasSimulation
       @checkImageMask(x, y)
       annotation.bind('move', @checkImageMask)
     
@@ -358,12 +359,11 @@ class Classifier extends Page
   #
   
   checkImageMask: (x, y) =>
-    console.log 'checkImageMask'
     pixel = @ctx.getImageData(x, y, 1, 1)
     mask = pixel.data[3]
     
     # TODO: Prompt feedback dialog here
-    console.log "whoa!" if mask is 255
+    console.log "over lens" if mask is 255
   
   # Prevent annotations over SVG elements
   onCircle: (e) ->
