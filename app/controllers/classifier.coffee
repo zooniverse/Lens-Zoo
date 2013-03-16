@@ -24,6 +24,7 @@ class Classifier extends Page
   maxAnnotations: 5
   initialFetch: true
   panKey: false
+  isTrainingSubject: false
   
   elements:
     '[data-type="classified"]'  : 'nClassifiedEl'
@@ -97,6 +98,9 @@ class Classifier extends Page
     @warn             = true
     @hasAnnotation    = false
     @hasNotified      = false
+    
+    @isTrainingSubject = false
+    @ctx = undefined
   
   onUserChange: (e, user) =>
     console.log 'onUserChange'
@@ -158,23 +162,19 @@ class Classifier extends Page
     subject = new Subject
       id: '5101a1931a320ea77f000003'
       location:
-        standard: 'images/tutorial/tutorial-subject.png'
+        standard: 'images/tutorial/tutorial-1.png'
       project_id: '5101a1341a320ea77f000001'
       workflow_ids: ['5101a1361a320ea77f000002']
-      # Spoofing data to test synthetic notification
       metadata:
-        synthetic:
-          # Types can be (0) double lensed quasar (1) quad lensed quasar (2) System of arcs around a cluster (3) No lens
-          type: 3
-          x: 0.5
-          y: 0.5
+        training:
+          type: 'lens'
       tutorial: true
       zooniverse_id: 'ASW0000001'
     
     # Create classification object
     @classification = new Classification {subject}
     
-    # Remove tutorial subject from queue
+    # Empty all subjects from queue
     Subject.instances = []
     
     # Fetch subjects from API
@@ -204,16 +204,13 @@ class Classifier extends Page
     simulatedSubject = new Subject
       id: '5101a1931a320ea77f000004'
       location:
-        standard: 'images/tutorial/tutorial-subject.png'
+        standard: 'images/tutorial/tutorial-2.png'
       project_id: '5101a1341a320ea77f000001'
       workflow_ids: ['5101a1361a320ea77f000002']
       # Spoofing data to test synthetic notification
       metadata:
-        synthetic:
-          # Types can be (0) double lensed quasar (1) quad lensed quasar (2) System of arcs around a cluster (3) No lens
-          type: 3
-          x: 0.5
-          y: 0.5
+        training:
+          type: 'lens'
       tutorial: true
       zooniverse_id: 'ASW0000002'
     
@@ -221,16 +218,13 @@ class Classifier extends Page
     blankSubject = new Subject
       id: '5101a1931a320ea77f000005'
       location:
-        standard: 'images/tutorial/tutorial-subject.png'
+        standard: 'images/tutorial/tutorial-3.png'
       project_id: '5101a1341a320ea77f000001'
       workflow_ids: ['5101a1361a320ea77f000002']
       # Spoofing data to test synthetic notification
       metadata:
-        synthetic:
-          # Types can be (0) double lensed quasar (1) quad lensed quasar (2) System of arcs around a cluster (3) No lens
-          type: 3
-          x: 0.5
-          y: 0.5
+        training:
+          type: 'blank'
       tutorial: true
       zooniverse_id: 'ASW0000003'
     
@@ -249,6 +243,10 @@ class Classifier extends Page
         url: subject.location.standard
         zooId: subject.zooniverse_id
       @subjectsEl.append @subjectTemplate(params)
+  
+  #
+  # Subject callbacks
+  #
   
   # Append subject(s) to DOM when received
   onFetch: (e, subjects) =>
@@ -270,11 +268,29 @@ class Classifier extends Page
     
     # Update DOM
     @el.find('.subject').first().addClass('current')
+    
+    # Check if training subject
+    if subject.metadata.training?
+      @isTrainingSubject = true
+      
+      # Set up canvas and cache the context
+      canvas = document.createElement('canvas')
+      @ctx = canvas.getContext('2d')
+      img = new Image()
+      img.onload = (e) =>
+        canvas.width = img.width
+        canvas.height = img.height
+        @ctx.drawImage(img, 0, 0, img.width, img.height)
+      img.src = $('.current .image img').attr('src')
   
   onNoMoreSubjects: ->
     console.log 'onNoMoreSubjects'
     
     alert "We've run out of subjects."
+  
+  #
+  # Counter functions
+  #
   
   setClassified: ->
     @nClassifiedEl.text(@nClassified)
@@ -284,6 +300,10 @@ class Classifier extends Page
   
   setFavorites: ->
     @nFavoritesEl.text(@nFavorites)
+  
+  #
+  # Annotation functions
+  #
   
   onAnnotation: (e) ->
     console.log 'onAnnotation'
@@ -296,7 +316,11 @@ class Classifier extends Page
     @annotations[@annotationIndex] = annotation
     @annotationIndex += 1
     annotation.bind('remove', @removeAnnotation)
-    annotation.bind('move', @checkProximity)
+    
+    # Hook events when on training subject
+    if @isTrainingSubject
+      @checkImageMask(x, y)
+      annotation.bind('move', @checkImageMask)
     
     # Trigger event with annotation object
     @trigger 'onAnnotation', annotation
@@ -309,21 +333,12 @@ class Classifier extends Page
     # Update stats
     @nPotentials += 1
     @setPotentials()
-    
-    # Check proximity to synthetic
-    @checkProximity(x, y)
-    
-    # Prompt message if too many annotations
-    count = _.keys(@annotations).length
-    return unless count + 1 > @maxAnnotations
-    random = Math.random()
-    if random < 0.1 and @warn
-      @warn = false
-      # TODO: Make this look nice.  Warn user of over marking if exceeding maxAnnotations
-      alert("Whoa buddy!  Remember gravitional lenses are very rare astronomical objects.  There usually won't be this many interesting objects in an image.  If you think this is an exception, please discuss this image in Talk so that the science team can take a look!")
   
   removeAnnotation: (annotation) =>
     console.log 'removeAnnotation'
+    
+    # Remove event bindings
+    annotation.unbind()
     
     index = annotation.index
     delete @annotations[index]
@@ -338,34 +353,21 @@ class Classifier extends Page
       @el.find('.current [data-type="finish"]').text('Nothing interesting')
       @hasAnnotation = false
   
-  checkProximity: (x, y) =>
-    # Normalize coordinates
-    x = x / @subjectDimension
-    y = y / @subjectDimension
+  #
+  # Annotation Training Callback
+  #
+  
+  checkImageMask: (x, y) =>
+    console.log 'checkImageMask'
+    pixel = @ctx.getImageData(x, y, 1, 1)
+    mask = pixel.data[3]
     
-    synthetic = @classification.subject.metadata.synthetic
-    if synthetic?
-      type = synthetic.type
-      syntheticX = synthetic.x
-      syntheticY = synthetic.y
-      isNear = @isNear(x, y, syntheticX, syntheticY)
-      @notify(type) if isNear
-  
-  # Check if annotation is near synthetic object (L2)
-  isNear: (x1, y1, x2, y2) ->
-    xd = (x1 - x2) * (x1 - x2)
-    yd = (y1 - y2) * (y1 - y2)
-    d = Math.sqrt(xd + yd)
-    console.log "d = ", d
-    return if d < 0.1 then true else false
-  
-  notify: (type) ->
-    unless @hasNotified
-      console.log 'annotation is near synthetic'
-      @hasNotified = true
+    # TODO: Prompt feedback dialog here
+    console.log "whoa!" if mask is 255
   
   # Prevent annotations over SVG elements
-  onCircle: (e) -> e.stopPropagation()
+  onCircle: (e) ->
+    e.stopPropagation()
   
   # Add to favorites and increment counter
   onFavorite: (e) ->
