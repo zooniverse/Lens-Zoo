@@ -172,6 +172,9 @@ class Viewer extends Controller
       @classifier.el.find('a[data-type="finish"]:nth(0)').click()
       return
     
+    # Pass preset to classifier so it can be stored on annotation
+    @classifier.preset = preset
+    
     # Get a preset and apply to color composite
     parameters = @parameters[preset]
     @wfits.setCalibrations(1, 1, 1)

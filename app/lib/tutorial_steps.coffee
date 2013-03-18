@@ -46,7 +46,7 @@ module.exports = [
       to: '.primary'
       at:
         x: 0.65
-        y: 0.5
+        y: 0.60
     block: '.controls'
     nextOn:
       'click': '.primary'

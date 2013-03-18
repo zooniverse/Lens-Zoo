@@ -77,6 +77,7 @@ class Classifier extends Page
     @warn             = true
     @hasAnnotation    = false
     @hasNotified      = false
+    @preset           = null
     
     @hasSimulation = false
     @ctx = undefined
@@ -120,6 +121,7 @@ class Classifier extends Page
     @tutorial.dialog.el.unbind()
     @tutorial = undefined
     $('.zootorial-dialog').remove()
+    $('.current .icon[data-icon="discuss"]').css('background-position', '-38px -32px')
     @onFinish(e)
   
   onTalkTutorial: (e) =>
@@ -131,6 +133,7 @@ class Classifier extends Page
       parent: '.classifier'
       steps: TutorialStepsTalk
     @tutorial.dialog.el.bind 'complete-tutorial end-tutorial', @onTalkTutorialFinish
+    $('.current .icon[data-icon="discuss"]').css('background-position', '-38px 4px')
     
     # Remove old delegate and add normal delegate back
     @el.undelegate(@finishSelector, 'click')
@@ -529,8 +532,12 @@ class Classifier extends Page
     e.preventDefault()
     
     # Process annotations and push to API
+    annotations = []
     for index, annotation of @annotations
-      @classification.annotate(annotation.toJSON())
+      annotations.push annotation.toJSON()
+    annotations.push {preset: @preset} if @preset?
+    
+    @classification.annotate(annotations)
     @classification.send()
     
     # Empty SVG element
