@@ -9,9 +9,12 @@ Classification  = require 'models/classification'
 Page          = require 'controllers/page'
 Annotation    = require 'controllers/Annotation'
 Viewer        = require 'controllers/viewer'
+
 {Tutorial}    = require 'zootorial'
+{Dialog}      = require 'zootorial'
 
 TutorialSteps     = require 'lib/tutorial_steps'
+TutorialStepsTalk = require 'lib/tutorial_steps_talk'
 
 
 class Classifier extends Page
@@ -60,34 +63,10 @@ class Classifier extends Page
     User.on 'change', @onUserChange
     @viewer.bind 'ready', @setupMouseControls
     @viewer.bind 'close', @onViewerClose
-
-  #
-  # Tutorial Callbacks
-  #
-  onTutorialStart: (e) =>
-    console.log 'onTutorialStart'
-
-  onTutorialStep: (e, n, step) =>
-    console.log 'onTutorialStep', arguments
-
-    # Hide the dialog
-    if n is 7
-      $('.zootorial-dialog').hide()
-      @bind 'onAnnotation', @showTutorialDialog
-
-  onTutorialComplete: =>
-    console.log 'onTutorialComplete', arguments
   
-  showTutorialDialog: =>
-    console.log 'showTutorialDialog'
-    
-    if @nClassified is 2
-      $('.zootorial-dialog').show()
-      $(window).resize()
-      
-      # Unbind this event
-      @unbind 'onAnnotation', @showTutorialDialog
-  
+  active: ->
+    super
+    $(window).resize()  # Trick zootorial to show when page is active.
   
   # Reset variables for a classification
   reset: ->
@@ -128,8 +107,6 @@ class Classifier extends Page
     @setFavorites()
   
   start: ->
-    console.log 'start'
-    
     # Set up events
     Subject.on 'fetch', @onFetch
     Subject.on 'select', @onSubjectSelect
@@ -138,25 +115,67 @@ class Classifier extends Page
     # Initial fetch for subjects
     Subject.next()
   
-  startTutorial: ->
+  onTalkTutorialFinish: (e) =>
+    console.log 'onTalkTutorialFinish'
+    @tutorial.dialog.el.unbind()
+    @tutorial = undefined
+    $('.zootorial-dialog').remove()
+    @onFinish(e)
+  
+  onTalkTutorial: (e) =>
+    console.log 'onTalkTutorial'
+    e.preventDefault()
+    
+    # Create Talk tutorial
+    @tutorial = new Tutorial
+      parent: '.classifier'
+      steps: TutorialStepsTalk
+    @tutorial.dialog.el.bind 'complete-tutorial end-tutorial', @onTalkTutorialFinish
+    
+    # Remove old delegate and add normal delegate back
+    @el.undelegate(@finishSelector, 'click')
+    @el.delegate(@finishSelector, 'click', @onFinish)
+    
+    @tutorial.start()
+  
+  setupTalkTutorial: (e) =>
+    console.log 'setupTalkTutorial'
+    @onFinish(e)
+    
+    # Remove delegate so this function is run only once
+    @el.undelegate(@finishSelector, 'click')
+    @el.delegate(@finishSelector, 'click', @onTalkTutorial)
+  
+  onTutorialExit: (e) =>
+    console.log 'onTutorialExit'
+    
+    # Delegate events so that Talk tutorial does not appear
+    @el.undelegate(@finishSelector, 'click')
+    @el.delegate(@finishSelector, 'click', @onFinish)
+    @tutorial.dialog.el.unbind()
+    @tutorial.end()
+    
+    $('.zootorial-dialog').remove()
+  
+  startTutorial: =>
     console.log 'startTutorial'
+    @finishSelector = 'a[data-type="finish"]:nth(0)'
     
     # Create tutorial object
     @tutorial = new Tutorial
       parent: '.classifier'
       steps: TutorialSteps
-      
-    # Cache for binding events
-    @tutorialEl = @tutorial.dialog.el
+    @tutorial.dialog.el.bind 'exit-dialog', @onTutorialExit
     
     # Set queue length on Subject
     Subject.queueLength = 3
     
-    # Bind tutorial-specific events
+    # Bind tutorial-specific event
     Subject.on 'fetch', @createStagedTutorial
-    @tutorialEl.bind 'start-tutorial', @onTutorialStart
-    @tutorialEl.bind 'enter-tutorial-step', @onTutorialStep
-    @tutorialEl.bind 'complete-tutorial', @onTutorialComplete
+    
+    # Delegate events for Talk tutorial
+    @el.undelegate(@finishSelector, 'click')
+    @el.delegate(@finishSelector, 'click', @setupTalkTutorial)
     
     # Set the tutorial subject
     subject = new Subject
@@ -504,7 +523,7 @@ class Classifier extends Page
     
     @viewer.teardown()
   
-  onFinish: (e) ->
+  onFinish: (e) =>
     console.log 'onFinish'
     
     e.preventDefault()
