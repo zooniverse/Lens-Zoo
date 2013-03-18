@@ -14,9 +14,7 @@ class GuidePage extends Page
   
   show: (e) =>
     $(e.currentTarget).addClass('show').siblings('li').removeClass('show')
-
-    key = $(e.currentTarget).data('type')
-    $('section[data-type="'+key+'"]').addClass('show').siblings('section').removeClass('show')
+    $('section[data-type="' + e.currentTarget.dataset.type + '"]').addClass('show').siblings('section').removeClass('show')
 
     @el.scroll() # trick lazyload
 
