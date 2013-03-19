@@ -23,15 +23,19 @@ class Annotation extends Controller
   constructor: ->
     super
     
+    @dimension = 3.5 * @radius
+    
     # Create SVG elements
-    @gCross  = @initCross()
-    @gRemove = @initRemove()
+    @gCross   = @initCross()
+    @gBox     = @initBoundingBox()
+    @gRemove  = @initRemove()
     
     # Create the root SVG group
     @gRoot = document.createElementNS(@svgns, "g")
     @gRoot.setAttribute("transform", "translate(#{@x}, #{@y})")
     
     # Append elements to root group
+    @gRoot.appendChild(@gBox)
     @gRoot.appendChild(@gCross)
     @gRoot.appendChild(@gRemove)
     
@@ -52,14 +56,13 @@ class Annotation extends Controller
     @gRoot.onclick      = @onclick
     @gRemove.onclick    = @remove
   
-  initCross: =>
+  initCross: ->
     
     # Create the crosshair SVG group
     gCross = document.createElementNS(@svgns, "g")
     gCross.setAttribute("stroke", @color)
     gCross.setAttribute("stroke-width", 2)
     gCross.setAttribute("fill-opacity", 0)
-    gCross.setAttribute("cursor", "move")
     
     # Create an SVG circle
     c = document.createElementNS(@svgns, "circle")
@@ -100,7 +103,20 @@ class Annotation extends Controller
     
     return gCross
   
-  initRemove: =>
+  initBoundingBox: ->
+    
+    # Create the bounding box group
+    gBox = document.createElementNS(@svgns, "rect")
+    gBox.setAttribute("width", @dimension)
+    gBox.setAttribute("height", @dimension)
+    gBox.setAttribute("x", -@dimension / 2)
+    gBox.setAttribute("y", -@dimension / 2)
+    gBox.setAttribute("fill-opacity", 0)
+    gBox.setAttribute("cursor", "move")
+    
+    return gBox
+    
+  initRemove: ->
     
     # Create the remove SVG group
     gRemove = document.createElementNS(@svgns, "g")
@@ -108,10 +124,15 @@ class Annotation extends Controller
     gRemove.setAttribute("cursor", "pointer")
     gRemove.setAttribute("visibility", "hidden")
     
-    # Create an SVG circle
+    # Create circle
     cRemove = document.createElementNS(@svgns, "circle")
     cRemove.setAttribute("r", @p1)
     cRemove.setAttribute("fill", "#FAFAFA")
+    
+    # Create bounding circle
+    cBounding = document.createElementNS(@svgns, "circle")
+    cBounding.setAttribute("r", 1.75 * @p1)
+    cBounding.setAttribute("fill-opacity", 0)
     
     # Create an SVG text element
     tRemove = document.createElementNS(@svgns, "text")
@@ -124,6 +145,7 @@ class Annotation extends Controller
     # Append elements to remove group
     gRemove.appendChild(cRemove)
     gRemove.appendChild(tRemove)
+    gRemove.appendChild(cBounding)
     
     return gRemove
   
@@ -143,6 +165,10 @@ class Annotation extends Controller
     
     deltaX = halfWidth + Annotation.xOffset
     deltaY = halfHeight + Annotation.yOffset
+    
+    # position = @el.offset()
+    # x = e.pageX - position.left
+    # y = e.pageY - position.top
     
     x = e.offsetX
     y = e.offsetY
@@ -187,7 +213,7 @@ class Annotation extends Controller
       @hasDragged = false
       @isRemoveVisible = false
   
-  toJSON: =>
+  toJSON: ->
     annotation =
       x: @x
       y: @y

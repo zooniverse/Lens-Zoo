@@ -43,7 +43,8 @@ class Classifier extends Page
     'click a[data-type="dashboard"]:nth(0)'   : 'onDashboard'
     'click a[data-type="finish"]:nth(0)'      : 'onFinish'
     'click svg.primary'                       : 'onAnnotation'
-    'click circle'                            : 'onCircle'
+    'click circle'                            : 'stopPropagation'
+    'click rect'                              : 'stopPropagation'
     'click .mask'                             : 'onViewerClose'
   
   
@@ -70,8 +71,6 @@ class Classifier extends Page
   
   # Reset variables for a classification
   reset: ->
-    console.log 'reset'
-    
     @annotations      = {}
     @annotationIndex  = 0
     @warn             = true
@@ -79,7 +78,7 @@ class Classifier extends Page
     @hasNotified      = false
     @preset           = null
     
-    @hasSimulation = false
+    @isTrainingSubject = false
     @ctx = undefined
   
   onUserChange: (e, user) =>
@@ -117,7 +116,6 @@ class Classifier extends Page
     Subject.next()
   
   onTalkTutorialFinish: (e) =>
-    console.log 'onTalkTutorialFinish'
     @tutorial.dialog.el.unbind()
     @tutorial = undefined
     $('.zootorial-dialog').remove()
@@ -125,7 +123,6 @@ class Classifier extends Page
     @onFinish(e)
   
   onTalkTutorial: (e) =>
-    console.log 'onTalkTutorial'
     e.preventDefault()
     
     # Create Talk tutorial
@@ -142,7 +139,6 @@ class Classifier extends Page
     @tutorial.start()
   
   setupTalkTutorial: (e) =>
-    console.log 'setupTalkTutorial'
     @onFinish(e)
     
     # Remove delegate so this function is run only once
@@ -150,8 +146,6 @@ class Classifier extends Page
     @el.delegate(@finishSelector, 'click', @onTalkTutorial)
   
   onTutorialExit: (e) =>
-    console.log 'onTutorialExit'
-    
     # Delegate events so that Talk tutorial does not appear
     @el.undelegate(@finishSelector, 'click')
     @el.delegate(@finishSelector, 'click', @onFinish)
@@ -161,7 +155,6 @@ class Classifier extends Page
     $('.zootorial-dialog').remove()
   
   startTutorial: =>
-    console.log 'startTutorial'
     @finishSelector = 'a[data-type="finish"]:nth(0)'
     
     # Create tutorial object
@@ -215,8 +208,6 @@ class Classifier extends Page
   
   # Set up the staged tutorial subjects.  This should only be run once.
   createStagedTutorial: (e, subjects) =>
-    console.log 'createStagedTutorial'
-    
     # Handle event bindings
     Subject.off 'fetch', @createStagedTutorial
     Subject.on 'fetch', @onFetch
@@ -273,8 +264,6 @@ class Classifier extends Page
   
   # Append subject(s) to DOM when received
   onFetch: (e, subjects) =>
-    console.log 'onFetch'
-    
     for subject, index in subjects
       params = 
         url: subject.location.standard
@@ -282,7 +271,7 @@ class Classifier extends Page
       @subjectsEl.append @subjectTemplate(params)
   
   onSubjectSelect: (e, subject) =>
-    console.log 'onSubjectSelect', subject
+    console.log 'onSubjectSelect'
     
     @reset()
     
@@ -294,7 +283,7 @@ class Classifier extends Page
     
     # Check if training subject
     if subject.metadata.training?
-      @hasSimulation = true
+      @isTrainingSubject = true
       
       # Set up offscreen canvas and cache the context
       canvas = document.createElement('canvas')
@@ -307,8 +296,6 @@ class Classifier extends Page
       img.src = $('.current .image img').attr('src')
   
   onNoMoreSubjects: ->
-    console.log 'onNoMoreSubjects'
-    
     alert "We've run out of subjects."
   
   #
@@ -329,21 +316,19 @@ class Classifier extends Page
   #
   
   onAnnotation: (e) ->
-    console.log 'onAnnotation'
     return if @panKey
     
     # Create annotation and push to object
+    # position = @svg.offset()
+    # x = e.pageX - position.left
+    # y = e.pageY - position.top
     x = e.offsetX
     y = e.offsetY
+    
     annotation = new Annotation({el: @svg, x: x, y: y, index: @annotationIndex})
     @annotations[@annotationIndex] = annotation
     @annotationIndex += 1
     annotation.bind('remove', @removeAnnotation)
-    
-    # Hook events when on training subject
-    if @hasSimulation
-      @checkImageMask(x, y)
-      annotation.bind('move', @checkImageMask)
     
     # Trigger event with annotation object
     @trigger 'onAnnotation', annotation
@@ -358,8 +343,6 @@ class Classifier extends Page
     @setPotentials()
   
   removeAnnotation: (annotation) =>
-    console.log 'removeAnnotation'
-    
     # Remove event bindings
     annotation.unbind()
     
@@ -383,12 +366,10 @@ class Classifier extends Page
   checkImageMask: (x, y) =>
     pixel = @ctx.getImageData(x, y, 1, 1)
     mask = pixel.data[3]
-    
-    # TODO: Prompt feedback dialog here
-    console.log "over lens" if mask is 255
+    return if mask is 255 then true else false
   
   # Prevent annotations over SVG elements
-  onCircle: (e) ->
+  stopPropagation: (e) ->
     e.stopPropagation()
   
   # Add to favorites and increment counter
@@ -526,10 +507,8 @@ class Classifier extends Page
     
     @viewer.teardown()
   
-  onFinish: (e) =>
-    console.log 'onFinish'
-    
-    e.preventDefault()
+  submit: (e) =>
+    console.log 'submit'
     
     # Process annotations and push to API
     annotations = []
@@ -566,5 +545,32 @@ class Classifier extends Page
     @nClassified += 1
     @setClassified()
 
+  onFinish: (e) =>
+    e.preventDefault()
+    console.log 'onFinish'
+    
+    if @isTrainingSubject
+      # Get the training type (e.g. lens or blank)
+      trainingType = @classification.subject.metadata.training.type
+      
+      if trainingType is 'lens'
+        # Check if any annotation over lens
+        over = false
+        for index, annotation of @annotations
+          over = @checkImageMask(annotation.x, annotation.y)
+          if over
+            alert "PHAT Catch!"
+            break
+        unless over
+          alert "Whoops! Ya missed one."
+      else
+        nAnnotations = Object.keys(@annotations).length
+        if nAnnotations > 0
+          alert "Whatcha doing?!?!  There aren't any lenses in this image."
+        else
+          alert "Nice! There were no graviational lenses in this image."
+      @submit(e)
+    else
+      @submit(e)
 
 module.exports = Classifier
