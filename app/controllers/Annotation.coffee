@@ -131,7 +131,7 @@ class Annotation extends Controller
     
     # Create bounding circle
     cBounding = document.createElementNS(@svgns, "circle")
-    cBounding.setAttribute("r", 1.75 * @p1)
+    cBounding.setAttribute("r", 3 * @p1)
     cBounding.setAttribute("fill-opacity", 0)
     
     # Create an SVG text element

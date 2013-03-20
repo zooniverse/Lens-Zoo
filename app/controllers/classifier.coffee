@@ -13,8 +13,9 @@ Viewer        = require 'controllers/viewer'
 {Tutorial}    = require 'zootorial'
 {Dialog}      = require 'zootorial'
 
-TutorialSteps     = require 'lib/tutorial_steps'
-TutorialStepsTalk = require 'lib/tutorial_steps_talk'
+TutorialSteps           = require 'lib/tutorial_steps'
+TutorialStepsTalk       = require 'lib/tutorial_steps_talk'
+TutorialStepsDashboard  = require 'lib/tutorial_steps_dashboard'
 
 
 class Classifier extends Page
@@ -60,6 +61,7 @@ class Classifier extends Page
     # Setup events
     @bind 'start', @start
     @bind 'tutorial', @startTutorial
+    @bind 'dashboard-tutorial', @setupDashboardTutorial
     
     User.on 'change', @onUserChange
     @viewer.bind 'ready', @setupMouseControls
@@ -91,6 +93,8 @@ class Classifier extends Page
     
     if user?
       project = user.project
+      
+      # Determine if main tutorial completed
       unless 'tutorial_done' of project
         @trigger 'tutorial'
       else
@@ -98,6 +102,10 @@ class Classifier extends Page
         @nPotentials  = project.annotation_count or 0
         @nFavorites   = project.favorite_count or 0
         @trigger 'start'
+      
+      # Determine if dashboard tutorial completed
+      unless 'tutorial_dashboard' of project
+        @trigger 'dashboard-tutorial'
     else
       @trigger 'tutorial'
     
@@ -114,6 +122,21 @@ class Classifier extends Page
     
     # Initial fetch for subjects
     Subject.next()
+  
+  setupDashboardTutorial: (e) =>
+    # Setup event to invoke dashboard tutorial
+    @dashboardSelector = 'a[data-type="dashboard"]:nth(0)'
+    @el.delegate(@dashboardSelector, 'click', @onDashboardTutorial)
+  
+  onDashboardTutorial: (e) =>
+    console.log 'onDashboardTutorial'
+    @el.undelegate(@dashboardSelector, 'click', @onDashboardTutorial)
+    
+    # Create Dashboard tutorial
+    @tutorial = new Tutorial
+      parent: '.classifier'
+      steps: TutorialStepsDashboard
+    @tutorial.start()
   
   onTalkTutorialFinish: (e) =>
     @tutorial.dialog.el.unbind()
@@ -155,6 +178,10 @@ class Classifier extends Page
     $('.zootorial-dialog').remove()
   
   startTutorial: =>
+    
+    # Trigger dashboard tutorial setup
+    @trigger 'dashboard-tutorial'
+    
     @finishSelector = 'a[data-type="finish"]:nth(0)'
     
     # Create tutorial object

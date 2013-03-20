@@ -11,5 +11,5 @@ module.exports = [
       at:
         x: 0.5
         y: 0.5
-    block: '.primary, .controls'
+    block: '.primary, .controls:nth(0)'
 ]
