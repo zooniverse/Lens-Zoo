@@ -16,7 +16,7 @@ module.exports = [
   new Step
     header: 'Presets to discover lenses'
     content: "Three presets are provided that change the colour of the image.  These presets are commonly used among astronomers to unveil the subtle, low surface brightness features such as gravitational lenses.
-    <p>Experiment by clicking through them.</p>"
+    <p>Experiment by clicking through the presets.</p>"
     attachment:
       to: 'svg'
       at:

@@ -16,6 +16,8 @@ Viewer        = require 'controllers/viewer'
 TutorialSteps           = require 'lib/tutorial_steps'
 TutorialStepsTalk       = require 'lib/tutorial_steps_talk'
 TutorialStepsDashboard  = require 'lib/tutorial_steps_dashboard'
+TutorialStepsSimulation = require 'lib/tutorial_steps_simulation'
+TutorialStepsEmpty      = require 'lib/tutorial_steps_empty'
 
 
 class Classifier extends Page
@@ -255,8 +257,8 @@ class Classifier extends Page
       tutorial: true
       zooniverse_id: 'ASW0000002'
     
-    # Create blank subject
-    blankSubject = new Subject
+    # Create empty subject
+    emptySubject = new Subject
       id: '5101a1931a320ea77f000005'
       location:
         standard: 'images/tutorial/tutorial-3.png'
@@ -264,7 +266,7 @@ class Classifier extends Page
       workflow_ids: ['5101a1361a320ea77f000002']
       metadata:
         training:
-          type: 'blank'
+          type: 'empty'
         id: 'CFHTLS_082_0414'
       tutorial: true
       zooniverse_id: 'ASW0000003'
@@ -272,10 +274,10 @@ class Classifier extends Page
     # Set queue length on Subject back to five
     Subject.queueLength = 5
     
-    # Rearrange subjects (random, simulated, random, blank)
+    # Rearrange subjects (random, simulated, random, empty)
     Subject.instances[1] = simulatedSubject
     Subject.instances[2] = subjects[1]
-    Subject.instances[3] = blankSubject
+    Subject.instances[3] = emptySubject
     Subject.instances[4] = subjects[2]
     
     # Append remaining subjects to DOM
@@ -386,10 +388,7 @@ class Classifier extends Page
       @el.find('.current [data-type="finish"]').text('Nothing interesting')
       @hasAnnotation = false
   
-  #
-  # Annotation Training Callback
-  #
-  
+  # Check if volunteer marked a simulated lens
   checkImageMask: (x, y) =>
     pixel = @ctx.getImageData(x, y, 1, 1)
     mask = pixel.data[3]
@@ -577,27 +576,40 @@ class Classifier extends Page
     console.log 'onFinish'
     
     if @isTrainingSubject
-      # Get the training type (e.g. lens or blank)
+      # Get the training type (e.g. lens or empty)
       trainingType = @classification.subject.metadata.training.type
       
       if trainingType is 'lens'
+        
+        # Setup simulation tutorial
+        @tutorial = new Tutorial
+          parent: '.classifier'
+          steps: TutorialStepsSimulation
+        @tutorial.dialog.el.one 'end-tutorial', @submit
+        
         # Check if any annotation over lens
         over = false
         for index, annotation of @annotations
           over = @checkImageMask(annotation.x, annotation.y)
-          if over
-            alert "PHAT Catch!"
-            break
+          break if over
         unless over
-          alert "Whoops! Ya missed one."
+          @tutorial.steps[0].content = "Oh! There is a simulated lens in this image. Don't worry if you miss a few."
+        @tutorial.start()
       else
+        
+        # Setup empty-image tutorial
+        @tutorial = new Tutorial
+          parent: '.classifier'
+          steps: TutorialStepsEmpty
+        @tutorial.dialog.el.one 'end-tutorial', @submit
+        
         nAnnotations = Object.keys(@annotations).length
         if nAnnotations > 0
-          alert "Whatcha doing?!?!  There aren't any lenses in this image."
-        else
-          alert "Nice! There were no graviational lenses in this image."
-      @submit(e)
+          @tutorial.steps[0].content = "Oh! There weren't any lenses in this image. Check the Spotter's Guide to learn more about lenses."
+        
+        @tutorial.start()
     else
       @submit(e)
+
 
 module.exports = Classifier
