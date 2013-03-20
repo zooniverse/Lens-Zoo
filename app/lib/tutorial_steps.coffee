@@ -10,14 +10,14 @@ module.exports = [
       to: '.primary'
       x: 0.5
       y: 0.8
-    block: '.primary, .controls'
+    block: '.primary, .controls:nth(0)'
   
   new Step
     header: 'What are gravitational lenses?'
     content: 'Gravitational lenses are massive astronomical objects &ndash; such as galaxies &ndash; that lie in front of more distant galaxies. Light rays from the background galaxy traveling towards our telescope are bent by the gravity of the foreground galaxy. Just as the Earth\'s gravity keeps everyday objects (including us!) on the ground, the gravitational pull of massive galaxies also attracts light: they act like huge natural magnifying glasses, focusing the light of the background galaxy towards us.'
     attachment:
       to: '.primary'
-    block: '.primary, .controls'
+    block: '.primary, .controls:nth(0)'
   
   new Step
     header: 'Spotter\'s Guide'
@@ -26,7 +26,7 @@ module.exports = [
       to: '.primary'
       x: 0.5
       y: 0.8
-    block: '.primary, .controls'
+    block: '.primary, .controls:nth(0)'
   
   new Step
     header: 'Identifying gravitational lenses'
@@ -36,7 +36,7 @@ module.exports = [
       at:
         x: 0.65
         y: 0.4
-    block: '.primary, .controls'
+    block: '.primary, .controls:nth(0)'
   
   new Step
     header: 'Marking gravitational lenses'
@@ -47,7 +47,7 @@ module.exports = [
       at:
         x: 0.65
         y: 0.60
-    block: '.controls'
+    block: '.controls:nth(0)'
     nextOn:
       'click': '.primary'
   
@@ -61,7 +61,7 @@ module.exports = [
       at:
         x: 0.5
         y: 0.5
-    block: '.controls a:not(".last")'
+    block: '.controls:nth(0) a:not(".last")'
     nextOn:
       'click': 'a[data-type="finish"]'
 ]
