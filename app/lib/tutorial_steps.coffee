@@ -5,7 +5,7 @@
 module.exports = [
   new Step
     header: 'Welcome to SpaceWarps!'
-    content: 'Gravitiational Lenses are <em>very</em> rare astronomical objects. We need your help to search the entire Canada-France-Hawaii Telescope Legacy Survey in order to discover new lenses. This short tutorial will show you how to identify gravitational lenses.'
+    content: 'Gravitiational Lenses are <em>very</em> rare astronomical objects. This short tutorial will show you how to identify gravitational lenses.'
     attachment:
       to: '.primary'
       x: 0.5
@@ -14,7 +14,14 @@ module.exports = [
   
   new Step
     header: 'What are gravitational lenses?'
-    content: 'Gravitational lenses are massive astronomical objects &ndash; such as galaxies &ndash; that lie in front of more distant galaxies. Light rays from the background galaxy traveling towards our telescope are bent by the gravity of the foreground galaxy. Just as the Earth\'s gravity keeps everyday objects (including us!) on the ground, the gravitational pull of massive galaxies also attracts light: they act like huge natural magnifying glasses, focusing the light of the background galaxy towards us.'
+    content: 'Gravitational lenses are massive astronomical objects &ndash; such as galaxies &ndash; that lie in front of more distant galaxies. Light rays from the background galaxy traveling towards our telescope are bent by the gravity of the foreground galaxy.'
+    attachment:
+      to: '.primary'
+    block: '.primary, .controls:nth(0)'
+
+  new Step
+    header: 'What are gravitational lenses?'
+    content: 'Just as the Earth\'s gravity keeps everyday objects (including us!) on the ground, the gravitational pull of massive galaxies also attracts light: they act like huge natural magnifying glasses, focusing the light of the background galaxy towards us.'
     attachment:
       to: '.primary'
     block: '.primary, .controls:nth(0)'
@@ -66,9 +73,7 @@ module.exports = [
   
   new Step
     header: 'Good job!'
-    content: "Great, you've helped identify a gravitational lens! As you continue to search for gravitational lenses you can use the Spotter's Guide as reference.  Over your first few classifications we'll give you a few more tips and access to some different tools to help you as you search for these rare objects.  We'll also throw in a few training images containing simulated gravitational lenses, giving you a chance to test your skills.
-      
-      <p>Click 'Finished marking!' to continue.</p>"
+    content: "Great, you've helped identify a gravitational lens! As you continue to search for gravitational lenses you can use the Spotter's Guide as reference.<br/><br/>Over your first few classifications we'll give you a few more tips and access to some different tools to help you as you search for these rare objects. We'll also throw in a few training images containing simulated gravitational lenses, giving you a chance to test your skills.<br/><br/>Click 'Finished marking!' to continue."
     attachment:
       to: 'svg'
       at:
