@@ -9,7 +9,9 @@ module.exports = [
     attachment:
       to: 'svg'
       at:
-        x: 0.5
-        y: 0.5
+        x: 0.315
+        y: 0.75
+    className: 'arrow-bottom'
     block: '.primary, .controls:nth(0)'
+    defaultButton: 'Done'
 ]

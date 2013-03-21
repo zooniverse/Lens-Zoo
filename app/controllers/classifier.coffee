@@ -145,7 +145,6 @@ class Classifier extends Page
     @tutorial = undefined
     $('.zootorial-dialog').remove()
     $('.current .icon[data-icon="discuss"]').css('background-position', '-38px -32px')
-    @onFinish(e)
   
   onTalkTutorial: (e) =>
     e.preventDefault()

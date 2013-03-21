@@ -24,9 +24,10 @@ module.exports = [
     content: 'Gravitational lenses can look different depending on the positions of the foreground and background objects. Checkout the Spotter\'s Guide to see different types of lenses.'
     attachment:
       to: '.primary'
-      x: 0.5
-      y: 0.8
+      x: 1.05
+      y: 0.7
     block: '.primary, .controls:nth(0)'
+    className: 'arrow-left'
   
   new Step
     header: 'Identifying gravitational lenses'
@@ -34,19 +35,31 @@ module.exports = [
     attachment:
       to: '.primary'
       at:
-        x: 0.65
+        x: 0.67
         y: 0.4
     block: '.primary, .controls:nth(0)'
+    className: 'arrow-bottom'
+    onEnter: ->
+      bounding = document.createElementNS('http://www.w3.org/2000/svg', "circle")
+      bounding.setAttribute("transform", "translate(#{287}, #{357})")
+      bounding.setAttribute("stroke", 'white')
+      bounding.setAttribute("stroke-width", 2)
+      bounding.setAttribute("r", 50)
+      bounding.setAttribute("fill-opacity", 0)
+      bounding.setAttribute("opacity", 0.4)
+      $("svg.primary")[0].appendChild(bounding)
+    onExit: ->
+      $("svg.primary").empty()
   
   new Step
     header: 'Marking gravitational lenses'
     content: "You don't need to identify the type of lens, we only need you to mark it. Click the brightest part of the blue arc to mark this feature as having been lensed."
-    className: 'arrow right'
+    className: 'arrow-bottom'
     attachment:
       to: '.primary'
       at:
-        x: 0.65
-        y: 0.60
+        x: 0.67
+        y: 0.59
     block: '.controls:nth(0)'
     nextOn:
       'click': '.primary'
