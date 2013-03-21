@@ -38,7 +38,7 @@ module.exports = [
   
   new Step
     header: 'Identifying gravitational lenses'
-    content: 'This lens looks like a single arc near a massive galaxy. In this image the gravitational lens is a small group of massive, luminous, yellow-ish galaxies. Far behind this group is a faint blue galaxy that you see as a blue arc surrounding the group. Lensed galaxies are often (but not always!) blue, and always stretched and curved around the lens like this.'
+    content: 'This lens looks like a single arc near a massive galaxy. The gravitational lens is a small group of massive, luminous, yellow-ish galaxies. Far behind this group is a faint blue galaxy that you see as a blue arc surrounding the group. Lensed galaxies are often (but not always!) blue, and always stretched and curved around the lens like this.'
     attachment:
       to: '.primary'
       at:
@@ -60,7 +60,7 @@ module.exports = [
   
   new Step
     header: 'Marking gravitational lenses'
-    content: "You don't need to identify the type of lens, we only need you to mark it. Click the brightest part of the blue arc to mark this feature as having been lensed."
+    content: "Click the brightest part of the blue arc to mark this feature as having been lensed."
     className: 'arrow-bottom'
     attachment:
       to: '.primary'

@@ -19,6 +19,8 @@ TutorialStepsDashboard  = require 'lib/tutorial_steps_dashboard'
 TutorialStepsSimulation = require 'lib/tutorial_steps_simulation'
 TutorialStepsEmpty      = require 'lib/tutorial_steps_empty'
 
+TutorialStepsQuickDashboard = require 'lib/tutorial_steps_quick_dashboard'
+
 
 class Classifier extends Page
   el: $('.classifier')
@@ -137,7 +139,7 @@ class Classifier extends Page
     # Create Dashboard tutorial
     @tutorial = new Tutorial
       parent: '.classifier'
-      steps: TutorialStepsDashboard
+      steps: TutorialStepsQuickDashboard
     @tutorial.start()
   
   onTalkTutorialFinish: (e) =>
