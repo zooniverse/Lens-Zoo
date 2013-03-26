@@ -117,13 +117,13 @@ Dir.entries(standard_dir).each do |file|
     }
   end
   
-  # ProjectSubject.create({
-  #   project_id: @project.id,
-  #   workflow_ids: [@workflow.id],
-  #   location: {standard: standard, thumbnail: thumbnail},
-  #   coords: [],
-  #   metadata: {id: prefix}
-  # })
+  ProjectSubject.create({
+    project_id: @project.id,
+    workflow_ids: [@workflow.id],
+    location: {standard: standard, thumbnail: thumbnail},
+    coords: [],
+    metadata: {id: prefix}
+  })
 end
 
 # ProjectSubject.activate_randomly

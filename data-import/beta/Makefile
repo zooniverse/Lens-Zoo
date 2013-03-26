@@ -57,3 +57,14 @@ remove:
 	rm subjects/raw/$$p.fits; \
 	done < dellst.txt
 	
+thumbnails:
+	for f in subjects/standard/*.png ; do \
+		filename=$$(basename "$$f"); \
+		convert $${f} -resize 40% subjects/thumbnail/$${filename}; \
+	done
+	
+toS3:
+	s3cmd put --acl-public subjects/standard/* s3://www.spacewarps.org/beta/subjects/standard/
+	s3cmd put --acl-public subjects/thumbnail/* s3://www.spacewarps.org/beta/subjects/thumbnail/
+	s3cmd put --acl-public subjects/raw/* s3://www.spacewarps.org/beta/subjects/raw/
+	
