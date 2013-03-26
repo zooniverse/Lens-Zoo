@@ -6,6 +6,16 @@ public/data/
 public/subjects/
 public/application.js
 public/application.css
-data-import/beta/
+data-import/beta/*.tgz
+data-import/beta/*.png
+data-import/beta/simlensonly/*.png
+data-import/beta/*.fits
+data-import/beta/*.fz
+data-image/beta/subjects/
+data-image/beta/subjects/standard/
+data-image/beta/subjects/raw/
+data-image/beta/subjects/thumbnail/
+data-image/betaOld/
+
 build/
 scripts/
