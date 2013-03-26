@@ -48,7 +48,7 @@ arrange: finalimgs blindlimgs lensfits lensimgs finalfiles
 	mv lensimgs/lens_info lens_info
 	mv finalfiles/*.fits subjects/raw
 
-fpack: arrange
+go: arrange
 	fpack subjects/raw/*.fits
 	rm subjects/raw/*.fits
 
