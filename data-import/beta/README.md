@@ -3,16 +3,16 @@
 
 Running the `Makefile`.  This will
 
-  * download all files
-  * arrange them into appropriate directories (e.g. `subjects/standard/file.png`)
-  * compress FITS using `fpack`
-  * create thumbnails
-  * upload to S3
+* download all files
+* arrange them into appropriate directories (e.g. `subjects/standard/file.png`)
+* compress FITS using `fpack`
+* create thumbnails
+* upload to S3
 
-    make go
-    make remove # Removes some unneeded files
-    make thumbnails # Generates thumbnails
-    make toS3 # Upload all subjects (standard, thumbnails, raw) to S3
+      make go
+      make remove # Removes some unneeded files
+      make thumbnails # Generates thumbnails
+      make toS3 # Upload all subjects (standard, thumbnails, raw) to S3
 
 #### lensimgs.tgz
 Sample of simulated lenses.  Inside the directory is `lens_info` containing metadata about the simulations (e.g. id, x, y, type)
