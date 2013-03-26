@@ -1,4 +1,3 @@
-
 # Set up SpaceWarps project and workflow
 
 ProjectName = 'spacewarp'
@@ -28,11 +27,9 @@ ProjectSubject = SpacewarpSubject
 })
 
 # Clean database before creating subjects
-Classification.where(project_id: @project.id).destroy_all
-Recent.where(project_id: @project.id).destroy_all
+SpacewarpClassification.destroy_all
 Favorite.where(project_id: @project.id).destroy_all
 ProjectSubject.destroy_all
-
 
 # Create a tutorial subjects
 
@@ -43,7 +40,6 @@ unless SpacewarpSubject.find(TutorialSubjectId1)
     workflow_ids: [@workflow.id],
     tutorial: 'true',
     location: {},
-    coords: [],
     metadata: {}
   })
 end
@@ -55,7 +51,6 @@ unless SpacewarpSubject.find(TutorialSubjectId2)
     workflow_ids: [@workflow.id],
     tutorial: 'true',
     location: {},
-    coords: [],
     metadata: {}
   })
 end
@@ -67,14 +62,13 @@ unless SpacewarpSubject.find(TutorialSubjectId3)
     workflow_ids: [@workflow.id],
     tutorial: 'true',
     location: {},
-    coords: [],
     metadata: {}
   })
 end
 
 # Get metadata from file(s)
 all_metadata = {}
-File.open('lens_info', 'r') do |f1|
+File.open(File.join(File.dirname(__FILE__), 'lens_info'), 'r') do |f1|
   while line = f1.gets
     data = line.split(' ')
     id = data[0]
@@ -121,9 +115,8 @@ Dir.entries(standard_dir).each do |file|
     project_id: @project.id,
     workflow_ids: [@workflow.id],
     location: {standard: standard, thumbnail: thumbnail},
-    coords: [],
-    metadata: {id: prefix}
+    metadata: {id: prefix},
   })
 end
 
-# ProjectSubject.activate_randomly
+ProjectSubject.activate_randomly if Rails.env == 'development'
