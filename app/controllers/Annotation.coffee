@@ -166,12 +166,10 @@ class Annotation extends Controller
     deltaX = halfWidth + Annotation.xOffset
     deltaY = halfHeight + Annotation.yOffset
     
-    # position = @el.offset()
-    # x = e.pageX - position.left
-    # y = e.pageY - position.top
-    
-    x = e.offsetX
-    y = e.offsetY
+    # TODO: Cache this.  Need to update on window resize!!!
+    position = $('.subject.current .image').position()
+    x = e.pageX - position.left
+    y = e.pageY - position.top
     
     @x = (x - halfWidth) / zoom + halfWidth - deltaX
     @y = (y - halfHeight) / zoom + halfHeight + deltaY

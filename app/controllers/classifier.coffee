@@ -349,11 +349,9 @@ class Classifier extends Page
     return if @panKey
     
     # Create annotation and push to object
-    # position = @svg.offset()
-    # x = e.pageX - position.left
-    # y = e.pageY - position.top
-    x = e.offsetX
-    y = e.offsetY
+    position = $('.subject.current .image').position()
+    x = e.pageX - position.left
+    y = e.pageY - position.top
     
     annotation = new Annotation({el: @svg, x: x, y: y, index: @annotationIndex})
     @annotations[@annotationIndex] = annotation
