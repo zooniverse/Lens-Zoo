@@ -10,9 +10,15 @@ Running the `Makefile`.  This will
 * upload to S3
 
       make go
-      make remove # Removes some unneeded files
-      make thumbnails # Generates thumbnails
-      make toS3 # Upload all subjects (standard, thumbnails, raw) to S3
+      
+      # Removes some unneeded files
+      make remove
+      
+      # Generates thumbnails
+      make thumbnails
+      
+      # Upload all subjects (standard, thumbnails, raw) to S3
+      make toS3
 
 #### lensimgs.tgz
 Sample of simulated lenses.  Inside the directory is `lens_info` containing metadata about the simulations (e.g. id, x, y, type)
