@@ -1,76 +1,76 @@
 
 # Set up SpaceWarps project and workflow
 
-# ProjectName = 'spacewarp'
-# SubjectRoot = '/subjects/standard'
-# 
-# ProjectId           = BSON::ObjectId('5101a1341a320ea77f000001')
-# WorkflowId          = BSON::ObjectId('5101a1361a320ea77f000002')
-# 
-# TutorialSubjectId1  = BSON::ObjectId('5101a1931a320ea77f000003')
-# TutorialSubjectId2  = BSON::ObjectId('5101a1931a320ea77f000004')
-# TutorialSubjectId3  = BSON::ObjectId('5101a1931a320ea77f000005')
-# 
-# ProjectSubject = SpacewarpSubject
-# 
-# @project = Project.where(name: ProjectName).first || Project.create({
-#   _id: ProjectId,
-#   name: ProjectName
-# })
-# 
-# @workflow = @project.workflows.first || Workflow.create({
-#   _id: WorkflowId,
-#   project_id: @project.id,
-#   primary: true,
-#   name: ProjectName,
-#   description: ProjectName,
-#   entities: []
-# })
-# 
-# # Clean database before creating subjects
-# Classification.where(project_id: @project.id).destroy_all
-# Recent.where(project_id: @project.id).destroy_all
-# Favorite.where(project_id: @project.id).destroy_all
-# ProjectSubject.destroy_all
-# 
-# 
-# # Create a tutorial subjects
-# 
-# unless SpacewarpSubject.find(TutorialSubjectId1)
-#   ProjectSubject.create({
-#     _id: TutorialSubjectId1,
-#     project_id: @project.id,
-#     workflow_ids: [@workflow.id],
-#     tutorial: 'true',
-#     location: {},
-#     coords: [],
-#     metadata: {}
-#   })
-# end
-# 
-# unless SpacewarpSubject.find(TutorialSubjectId2)
-#   ProjectSubject.create({
-#     _id: TutorialSubjectId2,
-#     project_id: @project.id,
-#     workflow_ids: [@workflow.id],
-#     tutorial: 'true',
-#     location: {},
-#     coords: [],
-#     metadata: {}
-#   })
-# end
-# 
-# unless SpacewarpSubject.find(TutorialSubjectId3)
-#   ProjectSubject.create({
-#     _id: TutorialSubjectId3,
-#     project_id: @project.id,
-#     workflow_ids: [@workflow.id],
-#     tutorial: 'true',
-#     location: {},
-#     coords: [],
-#     metadata: {}
-#   })
-# end
+ProjectName = 'spacewarp'
+SubjectRoot = '/subjects/standard'
+
+ProjectId           = BSON::ObjectId('5101a1341a320ea77f000001')
+WorkflowId          = BSON::ObjectId('5101a1361a320ea77f000002')
+
+TutorialSubjectId1  = BSON::ObjectId('5101a1931a320ea77f000003')
+TutorialSubjectId2  = BSON::ObjectId('5101a1931a320ea77f000004')
+TutorialSubjectId3  = BSON::ObjectId('5101a1931a320ea77f000005')
+
+ProjectSubject = SpacewarpSubject
+
+@project = Project.where(name: ProjectName).first || Project.create({
+  _id: ProjectId,
+  name: ProjectName
+})
+
+@workflow = @project.workflows.first || Workflow.create({
+  _id: WorkflowId,
+  project_id: @project.id,
+  primary: true,
+  name: ProjectName,
+  description: ProjectName,
+  entities: []
+})
+
+# Clean database before creating subjects
+Classification.where(project_id: @project.id).destroy_all
+Recent.where(project_id: @project.id).destroy_all
+Favorite.where(project_id: @project.id).destroy_all
+ProjectSubject.destroy_all
+
+
+# Create a tutorial subjects
+
+unless SpacewarpSubject.find(TutorialSubjectId1)
+  ProjectSubject.create({
+    _id: TutorialSubjectId1,
+    project_id: @project.id,
+    workflow_ids: [@workflow.id],
+    tutorial: 'true',
+    location: {},
+    coords: [],
+    metadata: {}
+  })
+end
+
+unless SpacewarpSubject.find(TutorialSubjectId2)
+  ProjectSubject.create({
+    _id: TutorialSubjectId2,
+    project_id: @project.id,
+    workflow_ids: [@workflow.id],
+    tutorial: 'true',
+    location: {},
+    coords: [],
+    metadata: {}
+  })
+end
+
+unless SpacewarpSubject.find(TutorialSubjectId3)
+  ProjectSubject.create({
+    _id: TutorialSubjectId3,
+    project_id: @project.id,
+    workflow_ids: [@workflow.id],
+    tutorial: 'true',
+    location: {},
+    coords: [],
+    metadata: {}
+  })
+end
 
 # Get metadata from file(s)
 all_metadata = {}

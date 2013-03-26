@@ -18,17 +18,10 @@ module.exports = [
     attachment:
       to: '.primary'
     block: '.primary, .controls:nth(0)'
-
-  new Step
-    header: 'What are gravitational lenses?'
-    content: 'Just as the Earth\'s gravity keeps everyday objects (including us!) on the ground, the gravitational pull of massive galaxies also attracts light: they act like huge natural magnifying glasses, focusing the light of the background galaxy towards us.'
-    attachment:
-      to: '.primary'
-    block: '.primary, .controls:nth(0)'
   
   new Step
     header: 'Spotter\'s Guide'
-    content: 'Gravitational lenses can look different depending on the positions of the foreground and background objects. Checkout the Spotter\'s Guide to see different types of lenses.'
+    content: 'Gravitational lenses can look different depending on the positions of the foreground and background objects.<br/></br>Checkout the Spotter\'s Guide to see different types of lenses.'
     attachment:
       to: '.primary'
       x: 1.05
@@ -38,12 +31,12 @@ module.exports = [
   
   new Step
     header: 'Identifying gravitational lenses'
-    content: 'This lens looks like a single arc near a massive galaxy. The gravitational lens is a small group of massive, luminous, yellow-ish galaxies. Far behind this group is a faint blue galaxy that you see as a blue arc surrounding the group. Lensed galaxies are often (but not always!) blue, and always stretched and curved around the lens like this.'
+    content: 'This lens looks like a single arc near a massive galaxy.'
     attachment:
       to: '.primary'
       at:
         x: 0.67
-        y: 0.4
+        y: 0.5
     block: '.primary, .controls:nth(0)'
     className: 'arrow-bottom'
     onEnter: ->
@@ -73,7 +66,7 @@ module.exports = [
   
   new Step
     header: 'Good job!'
-    content: "Great, you've helped identify a gravitational lens! As you continue to search for gravitational lenses you can use the Spotter's Guide as reference.<br/><br/>Over your first few classifications we'll give you a few more tips and access to some different tools to help you as you search for these rare objects. We'll also throw in a few training images containing simulated gravitational lenses, giving you a chance to test your skills.<br/><br/>Click 'Finished marking!' to continue."
+    content: "Great, you've helped identify a gravitational lens!<br/><br/>Click 'Finished marking!' to continue."
     attachment:
       to: 'svg'
       at:
