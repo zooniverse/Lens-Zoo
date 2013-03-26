@@ -7,15 +7,15 @@ public/subjects/
 public/application.js
 public/application.css
 data-import/beta/*.tgz
-data-import/beta/*.png
-data-import/beta/simlensonly/*.png
-data-import/beta/*.fits
-data-import/beta/*.fz
-data-image/beta/subjects/
-data-image/beta/subjects/standard/
-data-image/beta/subjects/raw/
-data-image/beta/subjects/thumbnail/
-data-image/betaOld/
+
+data-import/beta/blindlimgs
+data-import/beta/finalfiles
+data-import/beta/finalimgs
+data-import/beta/lensfits
+data-import/beta/lensimgs
+data-import/beta/simlensonly
+data-import/beta/subjects
+data-import/beta/betaOld
 
 build/
 scripts/
