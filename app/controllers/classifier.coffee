@@ -79,11 +79,13 @@ class Classifier extends Page
   reset: ->
     @annotations      = {}
     @annotationIndex  = 0
+    @annotationCount  = 0
     @warn             = true
     @hasAnnotation    = false
     @hasNotified      = false
     @preset           = null
     
+    @dashboardTutorial = false
     @isTrainingSubject = false
     @ctx = undefined
   
@@ -108,6 +110,9 @@ class Classifier extends Page
         @trigger 'start'
       
       # Determine if dashboard tutorial completed
+      console.log project
+      console.log 'dashboard_tutorial_done', 'dashboard_tutorial_done' of project
+      
       unless 'tutorial_dashboard' of project
         @trigger 'dashboard-tutorial'
     else
@@ -133,14 +138,18 @@ class Classifier extends Page
     @el.delegate(@dashboardSelector, 'click', @onDashboardTutorial)
   
   onDashboardTutorial: (e) =>
-    console.log 'onDashboardTutorial'
     @el.undelegate(@dashboardSelector, 'click', @onDashboardTutorial)
     
     # Create Dashboard tutorial
     @tutorial = new Tutorial
       parent: '.classifier'
       steps: TutorialStepsQuickDashboard
+      
+    @tutorial.dialog.el.one 'complete-tutorial', @onDashboardTutorialFinish
     @tutorial.start()
+  
+  onDashboardTutorialFinish: (e) =>
+    @dashboardTutorial = true
   
   onTalkTutorialFinish: (e) =>
     @tutorial.dialog.el.unbind()
@@ -356,6 +365,7 @@ class Classifier extends Page
     annotation = new Annotation({el: @svg, x: x, y: y, index: @annotationIndex})
     @annotations[@annotationIndex] = annotation
     @annotationIndex += 1
+    @annotationCount += 1
     annotation.bind('remove', @removeAnnotation)
     
     # Trigger event with annotation object
@@ -369,6 +379,10 @@ class Classifier extends Page
     # Update stats
     @nPotentials += 1
     @setPotentials()
+    
+    # Warn of overmarking
+    if @annotationCount > 5 and Math.random() > 0.4
+      alert "Whoa! Ease up on marking the image.  Remember lenses are rare objects!"
   
   removeAnnotation: (annotation) =>
     # Remove event bindings
@@ -540,6 +554,9 @@ class Classifier extends Page
     for index, annotation of @annotations
       annotations.push annotation.toJSON()
     annotations.push {preset: @preset} if @preset?
+    
+    # Process completion of dashboard tutorial
+    annotations.push {dashboard_tutorial: @dashboardTutorial} if @dashboardTutorial
     
     @classification.annotate(annotations)
     @classification.send()
