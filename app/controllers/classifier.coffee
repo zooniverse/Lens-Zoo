@@ -13,13 +13,7 @@ Viewer        = require 'controllers/viewer'
 {Tutorial}    = require 'zootorial'
 {Dialog}      = require 'zootorial'
 
-TutorialSteps           = require 'lib/tutorial_steps'
-TutorialStepsTalk       = require 'lib/tutorial_steps_talk'
-TutorialStepsDashboard  = require 'lib/tutorial_steps_dashboard'
-TutorialStepsSimulation = require 'lib/tutorial_steps_simulation'
-TutorialStepsEmpty      = require 'lib/tutorial_steps_empty'
-
-TutorialStepsQuickDashboard = require 'lib/tutorial_steps_quick_dashboard'
+TutorialSteps = require 'lib/tutorial_steps'
 
 
 class Classifier extends Page
@@ -48,8 +42,7 @@ class Classifier extends Page
     'click a[data-type="dashboard"]:nth(0)'   : 'onDashboard'
     'click a[data-type="finish"]:nth(0)'      : 'onFinish'
     'click svg.primary'                       : 'onAnnotation'
-    'click circle'                            : 'stopPropagation'
-    'click rect'                              : 'stopPropagation'
+    'click g'                                 : 'stopPropagation'
     'click .mask'                             : 'onViewerClose'
   
   
@@ -65,7 +58,6 @@ class Classifier extends Page
     # Setup events
     @bind 'start', @start
     @bind 'tutorial', @startTutorial
-    @bind 'dashboard-tutorial', @setupDashboardTutorial
     
     User.on 'change', @onUserChange
     @viewer.bind 'ready', @setupMouseControls
@@ -110,7 +102,6 @@ class Classifier extends Page
         @trigger 'start'
       
       # Determine if dashboard tutorial completed
-      console.log project
       console.log 'dashboard_tutorial_done', 'dashboard_tutorial_done' of project
       
       unless 'tutorial_dashboard' of project
@@ -132,85 +123,21 @@ class Classifier extends Page
     # Initial fetch for subjects
     Subject.next()
   
-  setupDashboardTutorial: (e) =>
-    # Setup event to invoke dashboard tutorial
-    @dashboardSelector = 'a[data-type="dashboard"]:nth(0)'
-    @el.delegate(@dashboardSelector, 'click', @onDashboardTutorial)
-  
-  onDashboardTutorial: (e) =>
-    @el.undelegate(@dashboardSelector, 'click', @onDashboardTutorial)
-    
-    # Create Dashboard tutorial
-    @tutorial = new Tutorial
-      parent: '.classifier'
-      steps: TutorialStepsQuickDashboard
-      
-    @tutorial.dialog.el.one 'complete-tutorial', @onDashboardTutorialFinish
-    @tutorial.start()
-  
-  onDashboardTutorialFinish: (e) =>
-    @dashboardTutorial = true
-  
-  onTalkTutorialFinish: (e) =>
-    @tutorial.dialog.el.unbind()
-    @tutorial = undefined
-    $('.zootorial-dialog').remove()
-    $('.current .icon[data-icon="discuss"]').css('background-position', '-38px -32px')
-  
-  onTalkTutorial: (e) =>
-    e.preventDefault()
-    
-    # Create Talk tutorial
-    @tutorial = new Tutorial
-      parent: '.classifier'
-      steps: TutorialStepsTalk
-    @tutorial.dialog.el.bind 'complete-tutorial end-tutorial', @onTalkTutorialFinish
-    $('.current .icon[data-icon="discuss"]').css('background-position', '-38px 4px')
-    
-    # Remove old delegate and add normal delegate back
-    @el.undelegate(@finishSelector, 'click')
-    @el.delegate(@finishSelector, 'click', @onFinish)
-    
-    @tutorial.start()
-  
-  setupTalkTutorial: (e) =>
-    @onFinish(e)
-    
-    # Remove delegate so this function is run only once
-    @el.undelegate(@finishSelector, 'click')
-    @el.delegate(@finishSelector, 'click', @onTalkTutorial)
-  
   onTutorialExit: (e) =>
-    # Delegate events so that Talk tutorial does not appear
-    @el.undelegate(@finishSelector, 'click')
-    @el.delegate(@finishSelector, 'click', @onFinish)
-    @tutorial.dialog.el.unbind()
-    @tutorial.end()
-    
-    $('.zootorial-dialog').remove()
+    console.log 'onTutorialExit'
   
   startTutorial: =>
-    
-    # Trigger dashboard tutorial setup
-    @trigger 'dashboard-tutorial'
-    
-    @finishSelector = 'a[data-type="finish"]:nth(0)'
-    
     # Create tutorial object
     @tutorial = new Tutorial
-      parent: '.classifier'
+      id: 'tutorial'
+      firstStep: 'welcome'
       steps: TutorialSteps
-    @tutorial.dialog.el.bind 'exit-dialog', @onTutorialExit
     
     # Set queue length on Subject
     Subject.queueLength = 3
     
     # Bind tutorial-specific event
     Subject.on 'fetch', @createStagedTutorial
-    
-    # Delegate events for Talk tutorial
-    @el.undelegate(@finishSelector, 'click')
-    @el.delegate(@finishSelector, 'click', @setupTalkTutorial)
     
     # Set the tutorial subject
     subject = new Subject
@@ -222,7 +149,7 @@ class Classifier extends Page
       metadata:
         training:
           type: 'lens'
-        id: 'CFHTLS_037_1973'
+        id: 'CFHTLS_091_2130'
       tutorial: true
       zooniverse_id: 'ASW0000001'
     
@@ -355,6 +282,7 @@ class Classifier extends Page
   #
   
   onAnnotation: (e) ->
+    console.log 'onAnnotation'
     return if @panKey
     
     # Create annotation and push to object
@@ -382,7 +310,7 @@ class Classifier extends Page
     
     # Warn of overmarking
     if @annotationCount > 5 and Math.random() > 0.4
-      alert "Whoa! Ease up on marking the image.  Remember lenses are rare objects!"
+      alert "That’s a lot of markers! Remember, lenses are rare."
   
   removeAnnotation: (annotation) =>
     # Remove event bindings
@@ -403,6 +331,7 @@ class Classifier extends Page
   
   # Check if volunteer marked a simulated lens
   checkImageMask: (x, y) =>
+    console.log 'checkImageMask'
     pixel = @ctx.getImageData(x, y, 1, 1)
     mask = pixel.data[3]
     return if mask is 255 then true else false
@@ -599,8 +528,8 @@ class Classifier extends Page
         
         # Setup simulation tutorial
         @tutorial = new Tutorial
-          parent: '.classifier'
           steps: TutorialStepsSimulation
+          classifier: @
         @tutorial.dialog.el.one 'end-tutorial', @submit
         
         # Check if any annotation over lens

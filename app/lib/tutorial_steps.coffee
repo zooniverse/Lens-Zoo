@@ -1,78 +1,93 @@
 {Tutorial}  = require 'zootorial'
-{Step}      = Tutorial
+{Step}      = require 'zootorial'
 
-
-module.exports = [
-  new Step
-    header: 'Welcome to SpaceWarps!'
-    content: 'Gravitiational Lenses are <em>very</em> rare astronomical objects. This short tutorial will show you how to identify gravitational lenses.'
-    attachment:
-      to: '.primary'
-      x: 0.5
-      y: 0.8
-    block: '.primary, .controls:nth(0)'
+module.exports =
+  length: 8
   
-  new Step
+  welcome: new Step
+    number: 1
+    header: 'Welcome to Space Warps!'
+    details: 'Gravitational Lenses are very rare astronomical objects. We need your help finding them. This short tutorial will show you how to identify gravitational lenses.'
+    attachment: 'center center .primary center center'
+    block: '.primary, .controls'
+    next: 'what_are_lenses_1'
+  
+  what_are_lenses_1: new Step
+    number: 2
     header: 'What are gravitational lenses?'
-    content: 'Gravitational lenses are massive astronomical objects &ndash; such as galaxies &ndash; that lie in front of more distant galaxies. Light rays from the background galaxy traveling towards our telescope are bent by the gravity of the foreground galaxy.'
-    attachment:
-      to: '.primary'
-    block: '.primary, .controls:nth(0)'
+    details: 'Gravitational lenses are massive astronomical objects &ndash; such as galaxies &ndash; that lie in front of other, more distant galaxies. These massive objects act like huge natural magnifying glasses by focusing the light from distant objects towards us allowing us to see further into our universe.'
+    attachment: 'center center .primary center center'
+    block: '.primary, .controls'
+    next: 'what_are_lenses_2'
   
-  new Step
-    header: 'Spotter\'s Guide'
-    content: 'Gravitational lenses can look different depending on the positions of the foreground and background objects.<br/></br>Checkout the Spotter\'s Guide to see different types of lenses.'
-    attachment:
-      to: '.primary'
-      x: 1.05
-      y: 0.7
-    block: '.primary, .controls:nth(0)'
+  what_are_lenses_2: new Step
+    number: 3
+    header: 'What are gravitational lenses?'
+    details: 'Gravitational lenses can look different, depending on how they line up along the line-of-sight to us, and on the shape and type of the foreground lens and background objects.'
+    attachment: 'center center .primary center center'
+    block: '.primary, .controls'
+    next: 'spotters_guide'
+  
+  spotters_guide: new Step
+    number: 4
+    header: "Spotter's Guide"
+    details: "Check out The Spotter’s Guide  for detailed descriptions and reference images of Real Lenses and False Positives.  You can use the Spotter’s Guide as a reference throughout your time on Space Warps."
+    attachment: 'left center [data-page="guide"] right center'
+    block: '.primary, .controls'
     className: 'arrow-left'
+    next: 'identify'
   
-  new Step
+  identify: new Step
+    number: 5
     header: 'Identifying gravitational lenses'
-    content: 'This lens looks like a single arc near a massive galaxy.'
-    attachment:
-      to: '.primary'
-      at:
-        x: 0.67
-        y: 0.5
-    block: '.primary, .controls:nth(0)'
-    className: 'arrow-bottom'
+    details: "This small group of yellow-ish galaxies is a gravitational lens. It is bending and magnifying the light from a faint blue galaxy lying far behind it into a blue arc, that surrounds the group."
+    attachment: 'left top .primary right 0.18'
+    block: '.primary, .controls'
+    className: 'arrow-left'
     onEnter: ->
       bounding = document.createElementNS('http://www.w3.org/2000/svg', "circle")
-      bounding.setAttribute("transform", "translate(#{287}, #{357})")
+      bounding.setAttribute("transform", "translate(#{175}, #{172})")
+      bounding.setAttribute("class", "outline")
       bounding.setAttribute("stroke", 'white')
       bounding.setAttribute("stroke-width", 2)
       bounding.setAttribute("r", 50)
       bounding.setAttribute("fill-opacity", 0)
       bounding.setAttribute("opacity", 0.4)
       $("svg.primary")[0].appendChild(bounding)
+    next: 'mark'
+  
+  mark: new Step
+    number: 6
+    header: 'Marking lensed features'
+    details: 'If you see something that is being lensed, please mark it by clicking the brightest part of the blue arc.'
+    attachment: 'left top .primary right 0.18'
+    block: '.controls'
+    className: 'arrow-left'
+    next:
+      'mousemove svg.primary': (e) ->
+        console.log 'mousemove', e
+        return false
+        
     onExit: ->
-      $("svg.primary").empty()
+      $('circle[r="50"]').remove()
   
-  new Step
-    header: 'Marking gravitational lenses'
-    content: "Click the brightest part of the blue arc to mark this feature as having been lensed."
-    className: 'arrow-bottom'
-    attachment:
-      to: '.primary'
-      at:
-        x: 0.67
-        y: 0.59
-    block: '.controls:nth(0)'
-    nextOn:
-      'click': '.primary'
+  training: new Step
+    number: 7
+    header: 'Training images'
+    details: "From time to time we'll throw in a training image like this one, that contains a simulated or previously known gravitational lens. When you mark those lenses you'll see a similar message, to let you know that you are on the right track."
+    attachment: 'center center .primary center center'
+    block: '.primary, .controls'
+    next: 'thanks'
   
-  new Step
-    header: 'Good job!'
-    content: "Great, you've helped identify a gravitational lens!<br/><br/>Click 'Finished marking!' to continue."
-    attachment:
-      to: 'svg'
-      at:
-        x: 0.5
-        y: 0.5
-    block: '.controls:nth(0) a:not(".last")'
-    nextOn:
-      'click': 'a[data-type="finish"]'
-]
+  thanks: new Step
+    number: 8
+    header: 'Thanks!'
+    details: "Remember lensed galaxies are rare: many of the images you will see won't contain a gravitational lens. You can keep track of the expected lens frequency as you go at the top of this page.
+
+    Over your first few classifications we'll give you a few more tips and access to some different tools to help you as you search for these rare objects.
+
+    Click 'Finished marking!' to continue."
+    attachment: 'center center .primary center center'
+    block: '.primary, .current .controls a:not(:last)'
+    next: 'click .controls a.last': true
+  

@@ -9,7 +9,7 @@
     "spine": "~1.0.8",
     "underscore": "~1.4.2",
     "zooniverse": "git+ssh://git@github.com:zooniverse/Zooniverse.git#no-deps",
-    "zootorial": "git+ssh://git@github.com:brian-c/zootorial.git",
+    "zootorial": "git+ssh://git@github.com:brian-c/zootorial.git#new-features",
     "nib": "~0.9.1"
   }
 }
