@@ -76,7 +76,7 @@ module.exports =
       'mouseup svg.primary': (e, tutorial, step) ->
         position = $('.current .image').position()
         x = e.pageX - position.left
-        y = e.pageY - position.top
+        y = e.pageY - position.top - 10 # Subtract the radius 10 from the coordinate
         
         pixel = step.ctx.getImageData(x, y, 1, 1)
         mask = pixel.data[3]
