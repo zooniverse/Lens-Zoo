@@ -22,6 +22,7 @@ class Annotation extends Controller
   
   constructor: ->
     super
+    @y -= @radius
     
     @dimension = 3.5 * @radius
     
@@ -121,7 +122,7 @@ class Annotation extends Controller
     # Create the remove SVG group
     gRemove = document.createElementNS(@svgns, "g")
     gRemove.setAttribute("transform", "translate(-#{@p2}, -#{@p2})")
-    gRemove.setAttribute("cursor", "pointer")
+    gRemove.setAttribute("class", "remove")
     gRemove.setAttribute("visibility", "hidden")
     
     # Create circle
@@ -169,7 +170,7 @@ class Annotation extends Controller
     # TODO: Cache this.  Need to update on window resize!!!
     position = $('.subject.current .image').position()
     x = e.pageX - position.left
-    y = e.pageY - position.top
+    y = e.pageY - position.top - @radius
     
     @x = (x - halfWidth) / zoom + halfWidth - deltaX
     @y = (y - halfHeight) / zoom + halfHeight + deltaY

@@ -31,7 +31,7 @@ module.exports =
   spotters_guide: new Step
     number: 4
     header: "Spotter's Guide"
-    details: "Check out The Spotter’s Guide  for detailed descriptions and reference images of Real Lenses and False Positives.  You can use the Spotter’s Guide as a reference throughout your time on Space Warps."
+    details: "Check out The Spotter's Guide  for detailed descriptions and reference images of Real Lenses and False Positives.  You can use the Spotter's Guide as a reference throughout your time on Space Warps."
     attachment: 'left center [data-page="guide"] right center'
     block: '.primary, .controls'
     className: 'arrow-left'
@@ -59,7 +59,7 @@ module.exports =
   mark: new Step
     number: 6
     header: 'Marking lensed features'
-    details: 'If you see something that is being lensed, please mark it by clicking the brightest part of the blue arc.'
+    details: 'If you see something that is being lensed, please mark it by clicking the blue arc.'
     attachment: 'left top .primary right 0.18'
     block: '.controls'
     className: 'arrow-left'
