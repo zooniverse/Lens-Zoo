@@ -1,6 +1,16 @@
 {Tutorial}  = require 'zootorial'
 {Step}      = require 'zootorial'
 
+ctx = null
+
+getMaskValue = (e) ->
+  position = $('.current .image').position()
+  x = e.pageX - position.left
+  y = e.pageY - position.top - 10 # Subtract the radius 10 from the coordinate
+  
+  pixel = ctx.getImageData(x, y, 1, 1)
+  return pixel.data[3]
+
 module.exports =
   length: 8
   
@@ -65,21 +75,27 @@ module.exports =
     className: 'arrow-left'
     onEnter: (tutorial) ->
       canvas = document.createElement('canvas')
-      @ctx = canvas.getContext('2d')
+      ctx = canvas.getContext('2d')
       img = new Image()
       img.onload = (e) =>
         canvas.width = img.width
         canvas.height = img.height
-        @ctx.drawImage(img, 0, 0, img.width, img.height)
+        ctx.drawImage(img, 0, 0, img.width, img.height)
       img.src = $('.current .image img').attr('src')
     next:
       'mouseup svg.primary': (e, tutorial, step) ->
-        position = $('.current .image').position()
-        x = e.pageX - position.left
-        y = e.pageY - position.top - 10 # Subtract the radius 10 from the coordinate
-        
-        pixel = step.ctx.getImageData(x, y, 1, 1)
-        mask = pixel.data[3]
+        mask = getMaskValue(e)
+        return if mask is 255 then 'training' else 'tryagain'
+  
+  tryagain:
+    header: 'Whoops, try again.'
+    details: 'Move the marker over the blue arc to identify the lens.'
+    attachment: 'left top .primary right 0.28'
+    className: 'arrow-left'
+    blocks: '.controls'
+    next:
+      'mouseup svg.primary': (e, tutorial, step) ->
+        mask = getMaskValue(e)
         return if mask is 255 then 'training' else false
   
   training: new Step
