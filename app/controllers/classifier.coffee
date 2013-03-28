@@ -12,6 +12,7 @@ Viewer        = require 'controllers/viewer'
 
 {Tutorial}    = require 'zootorial'
 {Dialog}      = require 'zootorial'
+{Step}        = require 'zootorial'
 
 TutorialSteps = require 'lib/tutorial_steps'
 
@@ -123,8 +124,9 @@ class Classifier extends Page
     # Initial fetch for subjects
     Subject.next()
   
-  onTutorialExit: (e) =>
-    console.log 'onTutorialExit'
+  onTutorialComplete: (e) =>
+    console.log 'onTutorialComplete'
+    
   
   startTutorial: =>
     # Create tutorial object
@@ -132,6 +134,7 @@ class Classifier extends Page
       id: 'tutorial'
       firstStep: 'welcome'
       steps: TutorialSteps
+    @tutorial.el.bind('complete-tutorial', @onTutorialComplete)
     
     # Set queue length on Subject
     Subject.queueLength = 3
@@ -260,7 +263,40 @@ class Classifier extends Page
         canvas.height = img.height
         @ctx.drawImage(img, 0, 0, img.width, img.height)
       img.src = $('.current .image img').attr('src')
-  
+    
+    # Prompt messages during initial classifications
+    if @nClassified is 2
+      tutorial = new Tutorial
+        id: 'dashboard'
+        firstStep: 'dashboard'
+        steps:
+          length: 1
+          
+          dashboard: new Step
+            number: 1
+            header: 'Quick Dashboard'
+            details: 'As gravitationally lensed features can be faint and/or small, you can explore an image in more detail in the Quick Dashboard. Try clicking on this button.'
+            attachment: 'center bottom [data-type="dashboard"] center top'
+            next:
+              'click a': true
+      tutorial.start()
+      
+    if @nClassified is 4
+      tutorial = new Tutorial
+        id: 'talk'
+        firstStep: 'talk'
+        steps:
+          length: 1
+          
+          talk: new Step
+            number: 1
+            header: 'Talk'
+            details: 'Talk is a place to discuss the things you find with the rest of the Space Warps community: together we aim to build a catalog of new lenses, some of the rarest objects in the universe. If you have questions, the Science Team and other astronomers will help answer them. If you find something that looks interesting, come and show it to the group!'
+            attachment: 'center bottom [data-type="talk"] center top'
+            next:
+              'click a': true
+      tutorial.start()
+      
   onNoMoreSubjects: ->
     alert "We've run out of subjects."
   
@@ -532,21 +568,12 @@ class Classifier extends Page
           over = @checkImageMask(annotation.x, annotation.y)
           break if over
         unless over
-          @tutorial.steps[0].content = "Oh! There is a simulated lens in this image. Don't worry if you miss a few."
-        @tutorial.start()
+          console.warn "TODO: Feedback dialog for missing lens"
       else
-        
-        # Setup empty-image tutorial
-        @tutorial = new Tutorial
-          parent: '.classifier'
-          steps: TutorialStepsEmpty
-        @tutorial.dialog.el.one 'end-tutorial', @submit
-        
         nAnnotations = Object.keys(@annotations).length
         if nAnnotations > 0
-          @tutorial.steps[0].content = "Oh! There weren't any lenses in this image. Check the Spotter's Guide to learn more about lenses."
-        
-        @tutorial.start()
+          console.warn "TODO: Feedback dialog for making empty field"
+      @submit(e)
     else
       @submit(e)
 
