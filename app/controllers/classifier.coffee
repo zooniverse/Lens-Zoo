@@ -526,12 +526,6 @@ class Classifier extends Page
       
       if trainingType is 'lens'
         
-        # Setup simulation tutorial
-        @tutorial = new Tutorial
-          steps: TutorialStepsSimulation
-          classifier: @
-        @tutorial.dialog.el.one 'end-tutorial', @submit
-        
         # Check if any annotation over lens
         over = false
         for index, annotation of @annotations

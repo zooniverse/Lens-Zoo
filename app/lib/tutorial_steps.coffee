@@ -63,31 +63,39 @@ module.exports =
     attachment: 'left top .primary right 0.18'
     block: '.controls'
     className: 'arrow-left'
+    onEnter: (tutorial) ->
+      canvas = document.createElement('canvas')
+      @ctx = canvas.getContext('2d')
+      img = new Image()
+      img.onload = (e) =>
+        canvas.width = img.width
+        canvas.height = img.height
+        @ctx.drawImage(img, 0, 0, img.width, img.height)
+      img.src = $('.current .image img').attr('src')
     next:
-      'mousemove svg.primary': (e) ->
-        console.log 'mousemove', e
-        return false
+      'mouseup svg.primary': (e, tutorial, step) ->
+        position = $('.current .image').position()
+        x = e.pageX - position.left
+        y = e.pageY - position.top
         
-    onExit: ->
-      $('circle[r="50"]').remove()
+        pixel = step.ctx.getImageData(x, y, 1, 1)
+        mask = pixel.data[3]
+        return if mask is 255 then 'training' else false
   
   training: new Step
     number: 7
     header: 'Training images'
     details: "From time to time we'll throw in a training image like this one, that contains a simulated or previously known gravitational lens. When you mark those lenses you'll see a similar message, to let you know that you are on the right track."
-    attachment: 'center center .primary center center'
+    attachment: 'left top .primary right 0.18'
     block: '.primary, .controls'
     next: 'thanks'
   
   thanks: new Step
     number: 8
     header: 'Thanks!'
-    details: "Remember lensed galaxies are rare: many of the images you will see won't contain a gravitational lens. You can keep track of the expected lens frequency as you go at the top of this page.
-
-    Over your first few classifications we'll give you a few more tips and access to some different tools to help you as you search for these rare objects.
-
-    Click 'Finished marking!' to continue."
+    details: "Remember lensed galaxies are rare: many of the images you will see won't contain a gravitational lens. You can keep track of the expected lens frequency as you go at the top of this page.<br/><br/>Over your first few classifications we'll give you a few more tips and access to some different tools to help you as you search for these rare objects.<br/><br/>Click 'Finished marking!' to continue."
     attachment: 'center center .primary center center'
     block: '.primary, .current .controls a:not(:last)'
-    next: 'click .controls a.last': true
+    next:
+      'click .controls a.last': true
   
