@@ -89,7 +89,7 @@ module.exports =
   
   tryagain:
     header: 'Whoops, try again.'
-    details: 'Move the marker over the blue arc to identify the lens.'
+    details: 'Drag the marker over the blue arc to identify the lens.'
     attachment: 'left top .primary right 0.28'
     className: 'arrow-left'
     blocks: '.controls'
@@ -101,7 +101,7 @@ module.exports =
   training: new Step
     number: 7
     header: 'Training images'
-    details: "From time to time we'll throw in a training image like this one, that contains a simulated or previously known gravitational lens. When you mark those lenses you'll see a similar message, to let you know that you are on the right track."
+    details: "From time to time we'll throw in a training image like this one, that contains a simulated or previously known gravitational lens. We’ll let you know if you spot the lenses in training images."
     attachment: 'left top .primary right 0.18'
     block: '.primary, .controls'
     next: 'thanks'

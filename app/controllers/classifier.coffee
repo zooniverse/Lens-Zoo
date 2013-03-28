@@ -205,7 +205,7 @@ class Classifier extends Page
       metadata:
         training:
           type: 'lens'
-        id: 'CFHTLS_082_0178'
+        id: 'CFHTLS_079_2328'
       tutorial: true
       zooniverse_id: 'ASW0000002'
     
@@ -219,7 +219,7 @@ class Classifier extends Page
       metadata:
         training:
           type: 'empty'
-        id: 'CFHTLS_082_0414'
+        id: 'CFHTLS_082_0054'
       tutorial: true
       zooniverse_id: 'ASW0000003'
     
@@ -275,7 +275,7 @@ class Classifier extends Page
         @ctx.drawImage(img, 0, 0, img.width, img.height)
       img.src = $('.current .image img').attr('src')
     
-    # Prompt messages during initial classifications
+    # Prompt Dashboard message
     if @nClassified is 2
       tutorial = new Tutorial
         id: 'dashboard'
@@ -296,7 +296,8 @@ class Classifier extends Page
             next:
               'click a': true
       tutorial.start()
-      
+    
+    # Prompt Talk message
     if @nClassified is 4
       tutorial = new Tutorial
         id: 'talk'
@@ -575,23 +576,92 @@ class Classifier extends Page
     e.preventDefault()
     
     if @isTrainingSubject
+      
       # Get the training type (e.g. lens or empty)
       trainingType = @classification.subject.metadata.training.type
       
-      if trainingType is 'lens'
+      if trainingType in ['lens', 'lensed galaxy', 'lensed quasar']
         
         # Check if any annotation over lens
         over = false
         for index, annotation of @annotations
           over = @checkImageMask(annotation.x, annotation.y)
           break if over
-        unless over
-          console.log "TODO: Feedback dialog for missing lens"
+        
+        if over
+          tutorial = new Tutorial
+            id: 'sim-found'
+            firstStep: 'found'
+            steps:
+              length: 1
+
+              found: new Step
+                header: 'Nice catch!'
+                details: "You found a simulated #{trainingType}!"
+                attachment: 'center center .primary center center'
+                blocks: '.primary'
+                nextButton: 'Next image'
+                next: true
+                onExit: =>
+                  @submit(e)
+          tutorial.start()
+        else
+          tutorial = new Tutorial
+            id: 'sim-missed'
+            firstStep: 'missed'
+            steps:
+              length: 1
+
+              missed: new Step
+                number: 1
+                header: 'Whoops!'
+                details: "You missed a simulated #{trainingType}!  Don't worry, let's move to the next image."
+                attachment: 'center center .primary center center'
+                blocks: '.primary'
+                nextButton: 'Next image'
+                next: true
+                onExit: =>
+                  @submit(e)
+          tutorial.start()
+        
       else
+        # Subject is an empty field
         nAnnotations = Object.keys(@annotations).length
         if nAnnotations > 0
-          console.log "TODO: Feedback dialog for making empty field"
-      @submit(e)
+          console.log 'NO LENS BAD JOB'
+          tutorial = new Tutorial
+            id: 'empty-missed'
+            firstStep: 'missed'
+            steps:
+              length: 1
+              
+              missed: new Step
+                header: 'Whoops!'
+                details: 'This field has no gravitional lens.'
+                attachment: 'center center .primary center center'
+                blocks: '.primary'
+                nextButton: 'Next image'
+                next: true
+                onExit: =>
+                  @submit(e)
+          tutorial.start()
+        else
+          tutorial = new Tutorial
+            id: 'empty-found'
+            firstStep: 'found'
+            steps:
+              length: 1
+              
+              found: new Step
+                header: 'Nice!'
+                details: 'This field has no gravitional lens.'
+                attachment: 'center center .primary center center'
+                blocks: '.primary'
+                nextButton: 'Next image'
+                next: true
+                onExit: =>
+                  @submit(e)
+          tutorial.start()
     else
       @submit(e)
 
