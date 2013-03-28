@@ -60,7 +60,7 @@ module.exports =
     number: 6
     header: 'Marking lensed features'
     details: 'If you see something that is being lensed, please mark it by clicking the blue arc.'
-    attachment: 'left top .primary right 0.18'
+    attachment: 'left top .primary right 0.28'
     block: '.controls'
     className: 'arrow-left'
     onEnter: (tutorial) ->
@@ -94,7 +94,8 @@ module.exports =
     number: 8
     header: 'Thanks!'
     details: "Remember lensed galaxies are rare: many of the images you will see won't contain a gravitational lens. You can keep track of the expected lens frequency as you go at the top of this page.<br/><br/>Over your first few classifications we'll give you a few more tips and access to some different tools to help you as you search for these rare objects.<br/><br/>Click 'Finished marking!' to continue."
-    attachment: 'center center .primary center center'
+    className: 'arrow-bottom'
+    attachment: 'center bottom a.last center top'
     block: '.primary, .current .controls a:not(:last)'
     next:
       'click .controls a.last': true

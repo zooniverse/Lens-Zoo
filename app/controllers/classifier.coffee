@@ -51,8 +51,6 @@ class Classifier extends Page
     super
     @html @template
     
-    @reset()
-    
     # Initialize controller for WebFITS
     @viewer = new Viewer({el: @el.find('.viewer')[0], classifier: @})
     
@@ -63,6 +61,13 @@ class Classifier extends Page
     User.on 'change', @onUserChange
     @viewer.bind 'ready', @setupMouseControls
     @viewer.bind 'close', @onViewerClose
+    
+    # Dialog for warning of over excessive annotations
+    @warningDialog = new Dialog
+      content: "That's a lot of markers! Remember, lenses are rare."
+      attachment: 'center center svg.primary center center'
+    
+    @reset()
   
   active: ->
     super
@@ -81,9 +86,10 @@ class Classifier extends Page
     @dashboardTutorial = false
     @isTrainingSubject = false
     @ctx = undefined
+    
+    @warningDialog.close()
   
   onUserChange: (e, user) =>
-    console.log 'onUserChange'
     
     # Set default counts
     @nClassified  = 0
@@ -240,7 +246,6 @@ class Classifier extends Page
       @subjectsEl.append @subjectTemplate(params)
   
   onSubjectSelect: (e, subject) =>
-    console.log 'onSubjectSelect'
     
     @reset()
     
@@ -277,6 +282,11 @@ class Classifier extends Page
             header: 'Quick Dashboard'
             details: 'As gravitationally lensed features can be faint and/or small, you can explore an image in more detail in the Quick Dashboard. Try clicking on this button.'
             attachment: 'center bottom [data-type="dashboard"] center top'
+            className: 'arrow-bottom'
+            onEnter: ->
+              $('.current .controls a[data-type="dashboard"]').addClass('hover')
+            onExit: ->
+              $('.current .controls a[data-type="dashboard"]').removeClass('hover')
             next:
               'click a': true
       tutorial.start()
@@ -293,6 +303,11 @@ class Classifier extends Page
             header: 'Talk'
             details: 'Talk is a place to discuss the things you find with the rest of the Space Warps community: together we aim to build a catalog of new lenses, some of the rarest objects in the universe. If you have questions, the Science Team and other astronomers will help answer them. If you find something that looks interesting, come and show it to the group!'
             attachment: 'center bottom [data-type="talk"] center top'
+            className: 'arrow-bottom'
+            onEnter: ->
+              $('.current .controls a[data-type="talk"]').addClass('hover')
+            onExit: ->
+              $('.current .controls a[data-type="talk"]').removeClass('hover')
             next:
               'click a': true
       tutorial.start()
@@ -318,7 +333,6 @@ class Classifier extends Page
   #
   
   onAnnotation: (e) ->
-    console.log 'onAnnotation'
     return if @panKey
     
     # Create annotation and push to object
@@ -346,7 +360,7 @@ class Classifier extends Page
     
     # Warn of overmarking
     if @annotationCount > 5 and Math.random() > 0.4
-      alert "That’s a lot of markers! Remember, lenses are rare."
+      @warningDialog.open()
   
   removeAnnotation: (annotation) =>
     # Remove event bindings
@@ -367,7 +381,6 @@ class Classifier extends Page
   
   # Check if volunteer marked a simulated lens
   checkImageMask: (x, y) =>
-    console.log 'checkImageMask'
     pixel = @ctx.getImageData(x, y, 1, 1)
     mask = pixel.data[3]
     return if mask is 255 then true else false
@@ -512,7 +525,6 @@ class Classifier extends Page
     @viewer.teardown()
   
   submit: (e) =>
-    console.log 'submit'
     
     # Process annotations and push to API
     annotations = []
@@ -554,7 +566,6 @@ class Classifier extends Page
 
   onFinish: (e) =>
     e.preventDefault()
-    console.log 'onFinish'
     
     if @isTrainingSubject
       # Get the training type (e.g. lens or empty)
@@ -568,11 +579,11 @@ class Classifier extends Page
           over = @checkImageMask(annotation.x, annotation.y)
           break if over
         unless over
-          console.warn "TODO: Feedback dialog for missing lens"
+          console.log "TODO: Feedback dialog for missing lens"
       else
         nAnnotations = Object.keys(@annotations).length
         if nAnnotations > 0
-          console.warn "TODO: Feedback dialog for making empty field"
+          console.log "TODO: Feedback dialog for making empty field"
       @submit(e)
     else
       @submit(e)
