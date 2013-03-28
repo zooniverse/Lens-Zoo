@@ -80,7 +80,7 @@ class Classifier extends Page
     @annotationCount  = 0
     @warn             = true
     @hasAnnotation    = false
-    @hasNotified      = false
+    @hasWarned        = false
     @preset           = null
     
     @dashboardTutorial = false
@@ -132,15 +132,21 @@ class Classifier extends Page
   
   onTutorialComplete: (e) =>
     console.log 'onTutorialComplete'
-    
+  
+  onTutorialEnd: (e) ->
+    $("circle[r='50']").remove()
   
   startTutorial: =>
-    # Create tutorial object
+    # Create tutorial and bind to handlers
     @tutorial = new Tutorial
       id: 'tutorial'
       firstStep: 'welcome'
       steps: TutorialSteps
     @tutorial.el.bind('complete-tutorial', @onTutorialComplete)
+    @tutorial.el.bind('end-tutorial', @onTutorialEnd)
+    
+    # Move tutorial to classifier div
+    $("[class^='zootorial']").appendTo(@el)
     
     # Set queue length on Subject
     Subject.queueLength = 3
@@ -359,8 +365,9 @@ class Classifier extends Page
     @setPotentials()
     
     # Warn of overmarking
-    if @annotationCount > 5 and Math.random() > 0.4
+    if @annotationCount > 5 and Math.random() > 0.4 and !@hasWarned
       @warningDialog.open()
+      @hasWarned = true
   
   removeAnnotation: (annotation) =>
     # Remove event bindings
