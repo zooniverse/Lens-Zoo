@@ -39,6 +39,7 @@ class Classifier extends Page
     '[data-type="classified"]'  : 'nClassifiedEl'
     '[data-type="potentials"]'  : 'nPotentialsEl'
     '[data-type="favorites"]'   : 'nFavoritesEl'
+    '[data-type="sim-freq"]'    : 'simFrequency'
     '.mask'                     : 'maskEl'
     '.viewer'                   : 'viewerEl'
     '.subjects'                 : 'subjectsEl'
@@ -134,6 +135,7 @@ class Classifier extends Page
     @setClassified()
     @setPotentials()
     @setFavorites()
+    @setSimulationRatio()
   
   start: ->
     # Set up events
@@ -549,6 +551,7 @@ class Classifier extends Page
   setSimulationRatio: ->
     @simRatio = Math.floor(@nClassified / 20) + 2
     Subject.group = if @nClassified % @simRatio is 0 then @simulationGroup else @subjectGroup
+    @simFrequency.text("1 to #{@simRatio}")
   
   submit: (e) =>
     
