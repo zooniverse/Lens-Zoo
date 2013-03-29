@@ -23,3 +23,5 @@
 <div class='overflow'>
   <div class='subjects'></div>
 </div>
+
+<div class='quick-guide show'></div>

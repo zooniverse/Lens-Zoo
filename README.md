@@ -30,3 +30,15 @@ or to build against staging server
 ## Building and deploying project
 
     ./build.rb
+  
+  
+### Notes
+
+Played around with compressing guide pngs to jpgs.  Not really worth it, as the jpgs are larger, unless we apply a gaussian blur to reduce the noise levels.
+
+    for f in *.png;
+    do
+      filename="${f%.*}";
+      convert ${f} ${filename}.jpg;
+      convert -strip -interlace Plane -gaussian-blur 0.01 -quality 85% ${filename}.jpg ${filename}.jpg
+    done

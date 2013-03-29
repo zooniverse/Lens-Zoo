@@ -9,6 +9,7 @@ Classification  = require 'models/classification'
 Page          = require 'controllers/page'
 Annotation    = require 'controllers/Annotation'
 Viewer        = require 'controllers/viewer'
+QuickGuide    = require 'controllers/quick_guide'
 
 {Tutorial}    = require 'zootorial'
 {Dialog}      = require 'zootorial'
@@ -50,6 +51,9 @@ class Classifier extends Page
   constructor: ->
     super
     @html @template
+    
+    # Initialize QuickGuide
+    @quickGuide = new QuickGuide({el: @el.find('.quick-guide')})
     
     # Initialize controller for WebFITS
     @viewer = new Viewer({el: @el.find('.viewer')[0], classifier: @})
