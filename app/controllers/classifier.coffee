@@ -30,6 +30,11 @@ class Classifier extends Page
   panKey: false
   isTrainingSubject: false
   
+  subjectGroup: '5154a3783ae74086ab000001'
+  simulationGroup: '5154a3783ae74086ab000002'
+  simRatio: 2 # Default to sending one simulation for every two subjects
+  
+  
   elements:
     '[data-type="classified"]'  : 'nClassifiedEl'
     '[data-type="potentials"]'  : 'nPotentialsEl'
@@ -72,6 +77,9 @@ class Classifier extends Page
       attachment: 'center center svg.primary center center'
     
     @reset()
+    
+    # Start with subject group
+    Subject.group = @subjectGroup
   
   active: ->
     super
@@ -79,6 +87,8 @@ class Classifier extends Page
   
   # Reset variables for a classification
   reset: ->
+    @setSimulationRatio()
+    
     @annotations      = {}
     @annotationIndex  = 0
     @annotationCount  = 0
@@ -535,6 +545,10 @@ class Classifier extends Page
     svg.onmouseover = null
     
     @viewer.teardown()
+  
+  setSimulationRatio: ->
+    @simRatio = Math.floor(@nClassified / 20) + 2
+    Subject.group = if @nClassified % @simRatio is 0 then @simulationGroup else @subjectGroup
   
   submit: (e) =>
     

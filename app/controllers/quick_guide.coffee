@@ -11,9 +11,7 @@ class QuickGuide extends Controller
 
   constructor: ->
     super
-    console.log 'QuickGuide', @el
     @html @template
-    
   
   toggle: =>
     right = if @show then -1 * @el.width() else 0
