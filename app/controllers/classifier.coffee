@@ -27,7 +27,9 @@ class Classifier extends Page
   
   maxAnnotations: 5
   initialFetch: true
-  panKey: false
+  xDown: null
+  yDown: null
+  toAnnotate: true
   isTrainingSubject: false
   
   subjectGroup: '5154a3783ae74086ab000001'
@@ -98,6 +100,9 @@ class Classifier extends Page
     @hasWarned        = false
     @preset           = null
     @feedback         = false
+    @xDown            = null
+    @yDown            = null
+    @toAnnotate       = true
     
     @dashboardTutorial = false
     @isTrainingSubject = false
@@ -357,7 +362,7 @@ class Classifier extends Page
   #
   
   onAnnotation: (e) ->
-    return if @panKey
+    return unless @toAnnotate
     
     # Create annotation and push to object
     position = $('.subject.current .image').position()
@@ -449,7 +454,6 @@ class Classifier extends Page
   # Enabled only when viewer is ready
   wheelHandler: (e) =>
     e.preventDefault()
-    return if @panKey
     
     # Cache WebFITS object and push event
     wfits = @viewer.wfits
@@ -476,6 +480,9 @@ class Classifier extends Page
   setupMouseControls: (e) =>
     svg = @svg[0]
     
+    # Activate annotate flag
+    @toAnnotate = false
+    
     # Update/reset Annotation class attributes
     Annotation.halfWidth = @viewer.wfits.width / 2
     Annotation.halfHeight = @viewer.wfits.height / 2
@@ -485,52 +492,69 @@ class Classifier extends Page
     # Setup mouse controls on the SVG element
     svg.addEventListener('mousewheel', @wheelHandler, false)
     
-    # Set up pan key and mouse events
-    $(document).keyup((e) => @panKey = false if e.keyCode is 32)
-    $(document).keydown((e) =>
-      if e.keyCode is 32
-        e.preventDefault()
-        @panKey = true
-    )
-    
     # Pass events to viewer if pan key is true
     svg.onmousedown = (e) =>
-      @viewer.wfits.canvas.onmousedown(e) if @panKey
+      
+      # Store the down position for later comparison
+      @xDown = e.pageX
+      @yDown = e.pageY
+      
+      # TODO: Find more efficient way to do this
+      for key, a of @annotations
+        return if a.drag
+      
+      @viewer.wfits.canvas.onmousedown(e)
+      
     svg.onmouseup = (e) =>
-      @viewer.wfits.canvas.onmouseup(e) if @panKey
+      
+      # Propagate to annotation layer if down coordinates match up coordinates
+      if @xDown is e.pageX and @yDown is e.pageY
+        @toAnnotate = true
+      else
+        @toAnnotate = false
+      return if @viewer.wfits.drag is false
+      
+      @viewer.wfits.canvas.onmouseup(e)
+      
     svg.onmousemove = (e) =>
-      if @panKey
-        # Pass event to WebFITS object
-        @viewer.wfits.canvas.onmousemove(e)
+      # Pass event to WebFITS object
+      @viewer.wfits.canvas.onmousemove(e)
+      
+      # TODO: Find more efficient way to do this
+      for key, a of @annotations
+        return if a.drag
+      
+      if @viewer.wfits.drag
+        # Update Annotation class attributes
+        Annotation.xOffset = xOffset = @viewer.wfits.xOffset
+        Annotation.yOffset = yOffset = @viewer.wfits.yOffset
         
-        if @viewer.wfits.drag
-          # Update Annotation class attributes
-          Annotation.xOffset = xOffset = @viewer.wfits.xOffset
-          Annotation.yOffset = yOffset = @viewer.wfits.yOffset
+        halfWidth = Annotation.halfWidth
+        halfHeight = Annotation.halfHeight
+        zoom = Annotation.zoom
+        
+        # Translate origin
+        deltaX = halfWidth + xOffset
+        deltaY = halfHeight + yOffset
+        
+        # Move element within pan-zoom reference frame
+        for key, a of @annotations
+          x = (a.x + deltaX - halfWidth) * zoom + halfWidth
+          y = (a.y - deltaY - halfHeight) * zoom + halfHeight
           
-          halfWidth = Annotation.halfWidth
-          halfHeight = Annotation.halfHeight
-          zoom = Annotation.zoom
-          
-          # Translate origin
-          deltaX = halfWidth + xOffset
-          deltaY = halfHeight + yOffset
-          
-          # Move element within pan-zoom reference frame
-          for key, a of @annotations
-            x = (a.x + deltaX - halfWidth) * zoom + halfWidth
-            y = (a.y - deltaY - halfHeight) * zoom + halfHeight
-            
-            a.gRoot.setAttribute("transform", "translate(#{x}, #{y})")
+          a.gRoot.setAttribute("transform", "translate(#{x}, #{y})")
           
     svg.onmouseout = (e) =>
-      @viewer.wfits.canvas.onmouseout(e) if @panKey
+      @viewer.wfits.canvas.onmouseout(e)
     svg.onmouseover = (e) =>
-      @viewer.wfits.canvas.onmouseover(e) if @panKey
+      @viewer.wfits.canvas.onmouseover(e)
   
   onViewerClose: (e) =>
     @maskEl.removeClass('show')
     @viewerEl.removeClass('show')
+    
+    # Allow annotation again
+    @toAnnotate = true
     
     # Reset Annotation attributes
     Annotation.xOffset = -220.5
