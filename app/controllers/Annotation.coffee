@@ -220,7 +220,6 @@ class Annotation extends Controller
   
   remove: =>
     $(@gRoot).remove()
-    # @gRoot.remove()
     @trigger 'remove', @
 
 
