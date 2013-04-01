@@ -111,7 +111,7 @@ module.exports =
     header: 'Thanks!'
     details: "Remember lensed galaxies are rare: many of the images you will see won't contain a gravitational lens. You can keep track of the expected lens frequency as you go at the top of this page.<br/><br/>Over your first few classifications we'll give you a few more tips and access to some different tools to help you as you search for these rare objects.<br/><br/>Click 'Finished marking!' to continue."
     className: 'arrow-bottom'
-    attachment: 'center bottom a.last center top'
+    attachment: 'center bottom a.last center -0.2'
     block: '.primary, .current .controls a:not(:last)'
     next:
       'click .controls a.last': true

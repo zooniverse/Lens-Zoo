@@ -304,7 +304,7 @@ class Classifier extends Page
             number: 1
             header: 'Quick Dashboard'
             details: 'As gravitationally lensed features can be faint and/or small, you can explore an image in more detail in the Quick Dashboard. Try clicking on this button.'
-            attachment: 'center bottom [data-type="dashboard"] center top'
+            attachment: 'center bottom [data-type="dashboard"] center -0.2'
             className: 'arrow-bottom'
             onEnter: ->
               $('.current .controls a[data-type="dashboard"]').addClass('hover')
@@ -379,8 +379,9 @@ class Classifier extends Page
       @hasAnnotation = true
     
     # Update stats
-    @nPotentials += 1
-    @setPotentials()
+    if @annotationCount is 1
+      @nPotentials += 1
+      @setPotentials()
     
     # Warn of overmarking
     if @annotationCount > 5 and Math.random() > 0.4 and !@hasWarned
@@ -395,8 +396,10 @@ class Classifier extends Page
     delete @annotations[index]
     
     # Update stats
-    @nPotentials -= 1
-    @setPotentials()
+    @annotationCount -= 1
+    if @annotationCount is 0
+      @nPotentials -= 1
+      @setPotentials()
     
     # Update finish text if necessary
     count = _.keys(@annotations).length
