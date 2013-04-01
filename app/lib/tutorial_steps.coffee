@@ -19,7 +19,7 @@ module.exports =
     header: 'Welcome to Space Warps!'
     details: 'Gravitational Lenses are very rare astronomical objects. We need your help finding them!'
     attachment: 'center center .current center center'
-    block: '.primary, .controls'
+    block: '.primary, .controls:first'
     next: 'what_are_lenses_1'
   
   what_are_lenses_1: new Step
@@ -27,7 +27,7 @@ module.exports =
     header: 'What are gravitational lenses?'
     details: 'Gravitational lenses are massive astronomical objects &ndash; such as galaxies &ndash; that lie in front of other, more distant galaxies. These massive objects act like huge natural magnifying glasses by focusing the light from distant objects towards us allowing us to see further into our universe.'
     attachment: 'center center .current center center'
-    block: '.primary, .controls'
+    block: '.primary, .controls:first'
     next: 'what_are_lenses_2'
   
   what_are_lenses_2: new Step
@@ -35,7 +35,7 @@ module.exports =
     header: 'What do gravitational lenses look like?'
     details: 'Gravitational lenses can look different, depending on how they line up along the line-of-sight to us, and on the shape and type of the foreground lens and background objects.'
     attachment: 'center center .current center center'
-    block: '.primary, .controls'
+    block: '.primary, .controls:first'
     next: 'spotters_guide'
   
   spotters_guide: new Step
@@ -43,7 +43,7 @@ module.exports =
     header: "Spotter's Guide"
     details: "Check out The Spotter's Guide  for detailed descriptions and reference images of Real Lenses and False Positives.  You can use the Spotter's Guide as a reference throughout your time on Space Warps."
     attachment: 'right center .quick-guide left center'
-    block: '.primary, .controls'
+    block: '.primary, .controls:first'
     className: 'arrow-right'
     next: 'identify'
   
@@ -52,7 +52,7 @@ module.exports =
     header: 'Identifying gravitational lenses'
     details: "This small group of yellow-ish galaxies is a gravitational lens. It is bending and magnifying the light from a faint blue galaxy lying far behind it into a blue arc, that surrounds the group."
     attachment: 'left top .current 0.6 0.18'
-    block: '.primary, .controls'
+    block: '.primary, .controls:first'
     className: 'arrow-left'
     onEnter: ->
       bounding = document.createElementNS('http://www.w3.org/2000/svg', "circle")
@@ -92,7 +92,7 @@ module.exports =
     details: 'Drag the marker over the blue arc to identify the lens.'
     attachment: 'left top .current right 0.28'
     className: 'arrow-left'
-    blocks: '.controls'
+    blocks: '.controls:first'
     next:
       'mouseup svg.primary': (e, tutorial, step) ->
         mask = getMaskValue(e)
@@ -103,7 +103,7 @@ module.exports =
     header: 'Training images'
     details: "From time to time we'll throw in a training image like this one, that contains a simulated or previously known gravitational lens. We'll let you know if you spot the lenses in training images."
     attachment: 'left top .current right 0.18'
-    block: '.primary, .controls'
+    block: '.primary, .controls:first'
     next: 'thanks'
   
   thanks: new Step
