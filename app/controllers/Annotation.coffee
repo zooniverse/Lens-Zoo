@@ -219,7 +219,8 @@ class Annotation extends Controller
     return annotation
   
   remove: =>
-    @gRoot.remove()
+    $(@gRoot).remove()
+    # @gRoot.remove()
     @trigger 'remove', @
 
 

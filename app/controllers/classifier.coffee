@@ -389,6 +389,7 @@ class Classifier extends Page
       @hasWarned = true
   
   removeAnnotation: (annotation) =>
+    
     # Remove event bindings
     annotation.unbind()
     
