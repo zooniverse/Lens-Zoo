@@ -488,8 +488,9 @@ class Classifier extends Page
     # Set up pan key and mouse events
     $(document).keyup((e) => @panKey = false if e.keyCode is 32)
     $(document).keydown((e) =>
-      e.preventDefault()
-      @panKey = true if e.keyCode is 32
+      if e.keyCode is 32
+        e.preventDefault()
+        @panKey = true
     )
     
     # Pass events to viewer if pan key is true
