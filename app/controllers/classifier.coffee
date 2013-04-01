@@ -491,6 +491,7 @@ class Classifier extends Page
     
     # Setup mouse controls on the SVG element
     svg.addEventListener('mousewheel', @wheelHandler, false)
+    svg.addEventListener('DOMMouseScroll', @wheelHandler, false)
     
     # Pass events to viewer if pan key is true
     svg.onmousedown = (e) =>
