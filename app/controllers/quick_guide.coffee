@@ -4,7 +4,7 @@
 class QuickGuide extends Controller
   className: 'quick-guide'
   template: require 'views/quick_guide'
-  show: true
+  show: false
   
   events:
     'click .tab'  : 'toggle'
@@ -12,9 +12,9 @@ class QuickGuide extends Controller
   constructor: ->
     super
     @html @template
-  
+    
   toggle: =>
-    right = if @show then -1 * @el.width() else 0
+    right = if @show then 0 else -1 * @el.width()
     @el.css('right', right)
     @show = not @show
     

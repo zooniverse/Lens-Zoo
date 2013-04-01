@@ -97,6 +97,7 @@ class Classifier extends Page
     @hasAnnotation    = false
     @hasWarned        = false
     @preset           = null
+    @feedback         = false
     
     @dashboardTutorial = false
     @isTrainingSubject = false
@@ -292,7 +293,7 @@ class Classifier extends Page
       img.src = $('.current .image img').attr('src')
     
     # Prompt Dashboard message
-    if @nClassified is 2
+    if @nClassified is 5
       tutorial = new Tutorial
         id: 'dashboard'
         firstStep: 'dashboard'
@@ -314,7 +315,7 @@ class Classifier extends Page
       tutorial.start()
     
     # Prompt Talk message
-    if @nClassified is 4
+    if @nClassified is 7
       tutorial = new Tutorial
         id: 'talk'
         firstStep: 'talk'
@@ -551,7 +552,7 @@ class Classifier extends Page
   setSimulationRatio: ->
     @simRatio = Math.floor(@nClassified / 20) + 2
     Subject.group = if @nClassified % @simRatio is 0 then @simulationGroup else @subjectGroup
-    @simFrequency.text("1 to #{@simRatio}")
+    @simFrequency.text("1 in #{@simRatio}")
   
   submit: (e) =>
     
@@ -598,6 +599,14 @@ class Classifier extends Page
     
     if @isTrainingSubject
       
+      # Move to the next image if user clicks finished again
+      if @feedback
+        @tutorial.close()
+        @submit(e)
+        return
+      
+      @feedback = true
+      
       # Get the training type (e.g. lens or empty)
       trainingType = @classification.subject.metadata.training.type
       
@@ -610,7 +619,7 @@ class Classifier extends Page
           break if over
         
         if over
-          tutorial = new Tutorial
+          @tutorial = new Tutorial
             id: 'sim-found'
             firstStep: 'found'
             steps:
@@ -620,14 +629,14 @@ class Classifier extends Page
                 header: 'Nice catch!'
                 details: "You found a simulated #{trainingType}!"
                 attachment: 'center center .primary center center'
-                blocks: '.primary'
+                blocks: '.primary .controls'
                 nextButton: 'Next image'
                 next: true
                 onExit: =>
                   @submit(e)
-          tutorial.start()
+          @tutorial.start()
         else
-          tutorial = new Tutorial
+          @tutorial = new Tutorial
             id: 'sim-missed'
             firstStep: 'missed'
             steps:
@@ -638,19 +647,18 @@ class Classifier extends Page
                 header: 'Whoops!'
                 details: "You missed a simulated #{trainingType}!  Don't worry, let's move to the next image."
                 attachment: 'center center .primary center center'
-                blocks: '.primary'
+                blocks: '.primary .controls'
                 nextButton: 'Next image'
                 next: true
                 onExit: =>
                   @submit(e)
-          tutorial.start()
+          @tutorial.start()
         
       else
         # Subject is an empty field
         nAnnotations = Object.keys(@annotations).length
         if nAnnotations > 0
-          console.log 'NO LENS BAD JOB'
-          tutorial = new Tutorial
+          @tutorial = new Tutorial
             id: 'empty-missed'
             firstStep: 'missed'
             steps:
@@ -665,9 +673,9 @@ class Classifier extends Page
                 next: true
                 onExit: =>
                   @submit(e)
-          tutorial.start()
+          @tutorial.start()
         else
-          tutorial = new Tutorial
+          @tutorial = new Tutorial
             id: 'empty-found'
             firstStep: 'found'
             steps:
@@ -682,7 +690,7 @@ class Classifier extends Page
                 next: true
                 onExit: =>
                   @submit(e)
-          tutorial.start()
+          @tutorial.start()
     else
       @submit(e)
 

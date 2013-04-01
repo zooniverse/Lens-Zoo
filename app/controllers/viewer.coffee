@@ -151,10 +151,10 @@ class Viewer extends Controller
         document.onkeydown = null
     @append("""
       <div class='controls'>
-        <a href='' data-preset='0'>Lens Type I</a>
-        <a href='' data-preset='1'>Lens Type II</a>
-        <a href='' data-preset='2'>Lens Type III</a>
-        <a href='' data-preset='finished'>Nothing interesting</a>
+        <a href='' data-preset='0'>Standard</a>
+        <a href='' data-preset='1'>Brighter</a>
+        <a href='' data-preset='2'>Bluer</a>
+        <a href='' data-preset='finished'>Return</a>
       </div>"""
     )
     @el.find('a[data-preset="0"]').click()
@@ -169,7 +169,7 @@ class Viewer extends Controller
     preset = e.currentTarget.dataset.preset
     if preset is 'finished'
       @classifier.onViewerClose()
-      @classifier.el.find('a[data-type="finish"]:nth(0)').click()
+      @trigger 'close'
       return
     
     # Pass preset to classifier so it can be stored on annotation

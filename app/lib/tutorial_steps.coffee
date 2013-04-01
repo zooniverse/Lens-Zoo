@@ -17,8 +17,8 @@ module.exports =
   welcome: new Step
     number: 1
     header: 'Welcome to Space Warps!'
-    details: 'Gravitational Lenses are very rare astronomical objects. We need your help finding them. This short tutorial will show you how to identify gravitational lenses.'
-    attachment: 'center center .primary center center'
+    details: 'Gravitational Lenses are very rare astronomical objects. We need your help finding them!'
+    attachment: 'center center .current center center'
     block: '.primary, .controls'
     next: 'what_are_lenses_1'
   
@@ -26,15 +26,15 @@ module.exports =
     number: 2
     header: 'What are gravitational lenses?'
     details: 'Gravitational lenses are massive astronomical objects &ndash; such as galaxies &ndash; that lie in front of other, more distant galaxies. These massive objects act like huge natural magnifying glasses by focusing the light from distant objects towards us allowing us to see further into our universe.'
-    attachment: 'center center .primary center center'
+    attachment: 'center center .current center center'
     block: '.primary, .controls'
     next: 'what_are_lenses_2'
   
   what_are_lenses_2: new Step
     number: 3
-    header: 'What are gravitational lenses?'
+    header: 'What do gravitational lenses look like?'
     details: 'Gravitational lenses can look different, depending on how they line up along the line-of-sight to us, and on the shape and type of the foreground lens and background objects.'
-    attachment: 'center center .primary center center'
+    attachment: 'center center .current center center'
     block: '.primary, .controls'
     next: 'spotters_guide'
   
@@ -42,16 +42,16 @@ module.exports =
     number: 4
     header: "Spotter's Guide"
     details: "Check out The Spotter's Guide  for detailed descriptions and reference images of Real Lenses and False Positives.  You can use the Spotter's Guide as a reference throughout your time on Space Warps."
-    attachment: 'left center [data-page="guide"] right center'
+    attachment: 'right center .quick-guide left center'
     block: '.primary, .controls'
-    className: 'arrow-left'
+    className: 'arrow-right'
     next: 'identify'
   
   identify: new Step
     number: 5
     header: 'Identifying gravitational lenses'
     details: "This small group of yellow-ish galaxies is a gravitational lens. It is bending and magnifying the light from a faint blue galaxy lying far behind it into a blue arc, that surrounds the group."
-    attachment: 'left top .primary right 0.18'
+    attachment: 'left top .current 0.6 0.18'
     block: '.primary, .controls'
     className: 'arrow-left'
     onEnter: ->
@@ -69,8 +69,8 @@ module.exports =
   mark: new Step
     number: 6
     header: 'Marking lensed features'
-    details: 'If you see something that is being lensed, please mark it by clicking the blue arc.'
-    attachment: 'left top .primary right 0.28'
+    details: 'If you see something that is being lensed, mark it. In this case, click on the blue arc.'
+    attachment: 'left top .current 0.6 0.28'
     block: '.controls'
     className: 'arrow-left'
     onEnter: (tutorial) ->
@@ -90,7 +90,7 @@ module.exports =
   tryagain:
     header: 'Whoops, try again.'
     details: 'Drag the marker over the blue arc to identify the lens.'
-    attachment: 'left top .primary right 0.28'
+    attachment: 'left top .current right 0.28'
     className: 'arrow-left'
     blocks: '.controls'
     next:
@@ -101,8 +101,8 @@ module.exports =
   training: new Step
     number: 7
     header: 'Training images'
-    details: "From time to time we'll throw in a training image like this one, that contains a simulated or previously known gravitational lens. We’ll let you know if you spot the lenses in training images."
-    attachment: 'left top .primary right 0.18'
+    details: "From time to time we'll throw in a training image like this one, that contains a simulated or previously known gravitational lens. We'll let you know if you spot the lenses in training images."
+    attachment: 'left top .current right 0.18'
     block: '.primary, .controls'
     next: 'thanks'
   

@@ -4,7 +4,7 @@
 <div class='stats'>
   <div class='stat'>
     <p class='number' data-type='classified'>0</p>
-    <p class='description'>images classified</p>
+    <p class='description'>images viewed</p>
   </div>
   <div class='stat'>
     <p class='number' data-type='potentials'>0</p>
@@ -16,7 +16,7 @@
   </div>
   <div class='stat'>
     <p class='number' data-type='sim-freq'>0</p>
-    <p class='description'>simulation frequency</p>
+    <p class='description'>lens frequency</p>
   </div>
 </div>
 
@@ -28,4 +28,4 @@
   <div class='subjects'></div>
 </div>
 
-<div class='quick-guide show'></div>
+<div class='quick-guide'></div>
