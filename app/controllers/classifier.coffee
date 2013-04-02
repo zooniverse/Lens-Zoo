@@ -297,7 +297,7 @@ class Classifier extends Page
       img.src = $('.current .image img').attr('src')
     
     # Prompt Dashboard message
-    if @nClassified is 5
+    if @nClassified is 3
       tutorial = new Tutorial
         id: 'dashboard'
         firstStep: 'dashboard'
