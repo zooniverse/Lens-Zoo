@@ -478,6 +478,7 @@ class Classifier extends Page
   
   # Called when viewer is ready
   setupMouseControls: (e) =>
+    
     svg = @svg[0]
     
     # Activate annotate flag
@@ -493,7 +494,7 @@ class Classifier extends Page
     svg.addEventListener('mousewheel', @wheelHandler, false)
     svg.addEventListener('DOMMouseScroll', @wheelHandler, false)
     
-    # Pass events to viewer if pan key is true
+    # Pass events to viewer
     svg.onmousedown = (e) =>
       
       # Store the down position for later comparison
@@ -551,6 +552,7 @@ class Classifier extends Page
       @viewer.wfits.canvas.onmouseover(e)
   
   onViewerClose: (e) =>
+    
     @maskEl.removeClass('show')
     @viewerEl.removeClass('show')
     

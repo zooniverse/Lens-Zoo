@@ -13,6 +13,7 @@
     "zooniverse/models/subject",
     "zooniverse/models/classification",
     "zooniverse/controllers/top-bar",
+    "zooniverse/controllers/browser-dialog",
     "underscore/underscore",
     
     "zootorial"

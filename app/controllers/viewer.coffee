@@ -1,9 +1,9 @@
 
 {Controller} = require 'spine'
+browserDialog = require 'zooniverse/controllers/browser-dialog'
 
 
 class Viewer extends Controller
-  template: require 'views/viewer'
   dimension: 441
   
   bands:  ['g', 'r', 'i']
@@ -38,6 +38,7 @@ class Viewer extends Controller
   elements:
     'a[data-preset]'  : 'presetEl'
   
+  
   constructor: ->
     super
     
@@ -49,21 +50,28 @@ class Viewer extends Controller
     @getApi()
   
   getApi: ->
-    unless DataView?
+    # Get the browser vendor and version
+    userAgent = browserDialog.testAgent(navigator.userAgent)
+    
+    unless (DataView?) or (userAgent.browser is 'msie')
       alert 'Sorry, your browser does not support features needed for this tool.'
-
+      return
+    
     # Determine if WebGL is supported, otherwise fall back to canvas
     canvas  = document.createElement('canvas')
     context = canvas.getContext('webgl')
     context = canvas.getContext('experimental-webgl') unless context?
-
-    # Load appropriate WebFITS library asynchronously
+    
     lib = if context? then 'gl' else 'canvas'
+    
+    # Default to canvas if Safari regardless of WebGL
+    lib = 'canvas' if userAgent.browser is 'safari'
+    
+    # Load appropriate WebFITS library asynchronously
     url = "javascripts/webfits-#{lib}.js"
     $.getScript(url, =>
       @dfs.webfits.resolve()
     )
-    
     # Load fitsjs asynchronously
     $.getScript("javascripts/fits.js", =>
       @dfs.fitsjs.resolve()
