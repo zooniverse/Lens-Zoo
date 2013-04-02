@@ -120,27 +120,47 @@ class Viewer extends Controller
             hdu = fits.getHDU()
             header = hdu.header
             dataunit = hdu.data
-          
-            # Get image data
-            dataunit.getFrameAsync(0, (arr) =>
-              [min, max] = dataunit.getExtent(arr)
-              width = dataunit.width
-              height = dataunit.height
-              calibration = @getCalibration(header)
-              
-              @calibrations[band] = calibration
-              @wfits.loadImage(band, arr, width, height)
-              
-              # Cache some data
-              @cache[prefix][band].min = min
-              @cache[prefix][band].max = max
-              @cache[prefix][band].arr = arr
-              @cache[prefix][band].width = width
-              @cache[prefix][band].height = height
-              @cache[prefix][band].calibration = calibration
-              
-              @dfs[band].resolve()
-            )
+            
+            arr = dataunit.getFrame(0)
+            [min, max] = dataunit.getExtent(arr)
+            width = dataunit.width
+            height = dataunit.height
+            calibration = @getCalibration(header)
+            
+            @calibrations[band] = calibration
+            @wfits.loadImage(band, arr, width, height)
+            
+            # Cache some data
+            @cache[prefix][band].min = min
+            @cache[prefix][band].max = max
+            @cache[prefix][band].arr = arr
+            @cache[prefix][band].width = width
+            @cache[prefix][band].height = height
+            @cache[prefix][band].calibration = calibration
+            
+            @dfs[band].resolve()
+            
+            # NOTE: Safari 5 does not support Blob, so getFrameAsync cannot be used.
+            # # Get image data
+            # dataunit.getFrameAsync(0, (arr) =>
+            #   [min, max] = dataunit.getExtent(arr)
+            #   width = dataunit.width
+            #   height = dataunit.height
+            #   calibration = @getCalibration(header)
+            #   
+            #   @calibrations[band] = calibration
+            #   @wfits.loadImage(band, arr, width, height)
+            #   
+            #   # Cache some data
+            #   @cache[prefix][band].min = min
+            #   @cache[prefix][band].max = max
+            #   @cache[prefix][band].arr = arr
+            #   @cache[prefix][band].width = width
+            #   @cache[prefix][band].height = height
+            #   @cache[prefix][band].calibration = calibration
+            #   
+            #   @dfs[band].resolve()
+            # )
           )
   
   # NOTE: Using exposure time = 1.0
