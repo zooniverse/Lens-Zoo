@@ -27,7 +27,9 @@ class Classifier extends Page
   
   maxAnnotations: 5
   initialFetch: true
-  panKey: false
+  xDown: null
+  yDown: null
+  toAnnotate: true
   isTrainingSubject: false
   
   subjectGroup: '5154a3783ae74086ab000001'
@@ -51,7 +53,6 @@ class Classifier extends Page
     'click a[data-type="finish"]:nth(0)'      : 'onFinish'
     'click svg.primary'                       : 'onAnnotation'
     'click g'                                 : 'stopPropagation'
-    'click .mask'                             : 'onViewerClose'
   
   
   constructor: ->
@@ -97,6 +98,10 @@ class Classifier extends Page
     @hasAnnotation    = false
     @hasWarned        = false
     @preset           = null
+    @feedback         = false
+    @xDown            = null
+    @yDown            = null
+    @toAnnotate       = true
     
     @dashboardTutorial = false
     @isTrainingSubject = false
@@ -292,7 +297,7 @@ class Classifier extends Page
       img.src = $('.current .image img').attr('src')
     
     # Prompt Dashboard message
-    if @nClassified is 2
+    if @nClassified is 5
       tutorial = new Tutorial
         id: 'dashboard'
         firstStep: 'dashboard'
@@ -303,7 +308,7 @@ class Classifier extends Page
             number: 1
             header: 'Quick Dashboard'
             details: 'As gravitationally lensed features can be faint and/or small, you can explore an image in more detail in the Quick Dashboard. Try clicking on this button.'
-            attachment: 'center bottom [data-type="dashboard"] center top'
+            attachment: 'center bottom [data-type="dashboard"] center -0.2'
             className: 'arrow-bottom'
             onEnter: ->
               $('.current .controls a[data-type="dashboard"]').addClass('hover')
@@ -314,7 +319,7 @@ class Classifier extends Page
       tutorial.start()
     
     # Prompt Talk message
-    if @nClassified is 4
+    if @nClassified is 7
       tutorial = new Tutorial
         id: 'talk'
         firstStep: 'talk'
@@ -356,7 +361,7 @@ class Classifier extends Page
   #
   
   onAnnotation: (e) ->
-    return if @panKey
+    return unless @toAnnotate
     
     # Create annotation and push to object
     position = $('.subject.current .image').position()
@@ -378,8 +383,9 @@ class Classifier extends Page
       @hasAnnotation = true
     
     # Update stats
-    @nPotentials += 1
-    @setPotentials()
+    if @annotationCount is 1
+      @nPotentials += 1
+      @setPotentials()
     
     # Warn of overmarking
     if @annotationCount > 5 and Math.random() > 0.4 and !@hasWarned
@@ -387,6 +393,7 @@ class Classifier extends Page
       @hasWarned = true
   
   removeAnnotation: (annotation) =>
+    
     # Remove event bindings
     annotation.unbind()
     
@@ -394,8 +401,10 @@ class Classifier extends Page
     delete @annotations[index]
     
     # Update stats
-    @nPotentials -= 1
-    @setPotentials()
+    @annotationCount -= 1
+    if @annotationCount is 0
+      @nPotentials -= 1
+      @setPotentials()
     
     # Update finish text if necessary
     count = _.keys(@annotations).length
@@ -444,7 +453,6 @@ class Classifier extends Page
   # Enabled only when viewer is ready
   wheelHandler: (e) =>
     e.preventDefault()
-    return if @panKey
     
     # Cache WebFITS object and push event
     wfits = @viewer.wfits
@@ -469,7 +477,11 @@ class Classifier extends Page
   
   # Called when viewer is ready
   setupMouseControls: (e) =>
+    
     svg = @svg[0]
+    
+    # Activate annotate flag
+    @toAnnotate = false
     
     # Update/reset Annotation class attributes
     Annotation.halfWidth = @viewer.wfits.width / 2
@@ -479,52 +491,72 @@ class Classifier extends Page
     
     # Setup mouse controls on the SVG element
     svg.addEventListener('mousewheel', @wheelHandler, false)
+    svg.addEventListener('DOMMouseScroll', @wheelHandler, false)
     
-    # Set up pan key and mouse events
-    $(document).keyup((e) => @panKey = false if e.keyCode is 32)
-    $(document).keydown((e) =>
-      e.preventDefault()
-      @panKey = true if e.keyCode is 32
-    )
-    
-    # Pass events to viewer if pan key is true
+    # Pass events to viewer
     svg.onmousedown = (e) =>
-      @viewer.wfits.canvas.onmousedown(e) if @panKey
+      
+      # Store the down position for later comparison
+      @xDown = e.pageX
+      @yDown = e.pageY
+      
+      # TODO: Find more efficient way to do this
+      for key, a of @annotations
+        return if a.drag
+      
+      @viewer.wfits.canvas.onmousedown(e)
+      
     svg.onmouseup = (e) =>
-      @viewer.wfits.canvas.onmouseup(e) if @panKey
+      
+      # Propagate to annotation layer if down coordinates match up coordinates
+      if @xDown is e.pageX and @yDown is e.pageY
+        @toAnnotate = true
+      else
+        @toAnnotate = false
+      return if @viewer.wfits.drag is false
+      
+      @viewer.wfits.canvas.onmouseup(e)
+      
     svg.onmousemove = (e) =>
-      if @panKey
-        # Pass event to WebFITS object
-        @viewer.wfits.canvas.onmousemove(e)
+      # Pass event to WebFITS object
+      @viewer.wfits.canvas.onmousemove(e)
+      
+      # TODO: Find more efficient way to do this
+      for key, a of @annotations
+        return if a.drag
+      
+      if @viewer.wfits.drag
+        # Update Annotation class attributes
+        Annotation.xOffset = xOffset = @viewer.wfits.xOffset
+        Annotation.yOffset = yOffset = @viewer.wfits.yOffset
         
-        if @viewer.wfits.drag
-          # Update Annotation class attributes
-          Annotation.xOffset = xOffset = @viewer.wfits.xOffset
-          Annotation.yOffset = yOffset = @viewer.wfits.yOffset
+        halfWidth = Annotation.halfWidth
+        halfHeight = Annotation.halfHeight
+        zoom = Annotation.zoom
+        
+        # Translate origin
+        deltaX = halfWidth + xOffset
+        deltaY = halfHeight + yOffset
+        
+        # Move element within pan-zoom reference frame
+        for key, a of @annotations
+          x = (a.x + deltaX - halfWidth) * zoom + halfWidth
+          y = (a.y - deltaY - halfHeight) * zoom + halfHeight
           
-          halfWidth = Annotation.halfWidth
-          halfHeight = Annotation.halfHeight
-          zoom = Annotation.zoom
-          
-          # Translate origin
-          deltaX = halfWidth + xOffset
-          deltaY = halfHeight + yOffset
-          
-          # Move element within pan-zoom reference frame
-          for key, a of @annotations
-            x = (a.x + deltaX - halfWidth) * zoom + halfWidth
-            y = (a.y - deltaY - halfHeight) * zoom + halfHeight
-            
-            a.gRoot.setAttribute("transform", "translate(#{x}, #{y})")
+          a.gRoot.setAttribute("transform", "translate(#{x}, #{y})")
           
     svg.onmouseout = (e) =>
-      @viewer.wfits.canvas.onmouseout(e) if @panKey
+      @viewer.wfits.canvas.onmouseout(e)
     svg.onmouseover = (e) =>
-      @viewer.wfits.canvas.onmouseover(e) if @panKey
+      @viewer.wfits.canvas.onmouseover(e)
   
   onViewerClose: (e) =>
+    
     @maskEl.removeClass('show')
     @viewerEl.removeClass('show')
+    
+    # Allow annotation again
+    @toAnnotate = true
     
     # Reset Annotation attributes
     Annotation.xOffset = -220.5
@@ -551,7 +583,7 @@ class Classifier extends Page
   setSimulationRatio: ->
     @simRatio = Math.floor(@nClassified / 20) + 2
     Subject.group = if @nClassified % @simRatio is 0 then @simulationGroup else @subjectGroup
-    @simFrequency.text("1 to #{@simRatio}")
+    @simFrequency.text("1 in #{@simRatio}")
   
   submit: (e) =>
     
@@ -598,6 +630,14 @@ class Classifier extends Page
     
     if @isTrainingSubject
       
+      # Move to the next image if user clicks finished again
+      if @feedback
+        @tutorial.close()
+        @submit(e)
+        return
+      
+      @feedback = true
+      
       # Get the training type (e.g. lens or empty)
       trainingType = @classification.subject.metadata.training.type
       
@@ -610,7 +650,7 @@ class Classifier extends Page
           break if over
         
         if over
-          tutorial = new Tutorial
+          @tutorial = new Tutorial
             id: 'sim-found'
             firstStep: 'found'
             steps:
@@ -620,14 +660,14 @@ class Classifier extends Page
                 header: 'Nice catch!'
                 details: "You found a simulated #{trainingType}!"
                 attachment: 'center center .primary center center'
-                blocks: '.primary'
+                blocks: '.primary .controls'
                 nextButton: 'Next image'
                 next: true
                 onExit: =>
                   @submit(e)
-          tutorial.start()
+          @tutorial.start()
         else
-          tutorial = new Tutorial
+          @tutorial = new Tutorial
             id: 'sim-missed'
             firstStep: 'missed'
             steps:
@@ -638,19 +678,18 @@ class Classifier extends Page
                 header: 'Whoops!'
                 details: "You missed a simulated #{trainingType}!  Don't worry, let's move to the next image."
                 attachment: 'center center .primary center center'
-                blocks: '.primary'
+                blocks: '.primary .controls'
                 nextButton: 'Next image'
                 next: true
                 onExit: =>
                   @submit(e)
-          tutorial.start()
+          @tutorial.start()
         
       else
         # Subject is an empty field
         nAnnotations = Object.keys(@annotations).length
         if nAnnotations > 0
-          console.log 'NO LENS BAD JOB'
-          tutorial = new Tutorial
+          @tutorial = new Tutorial
             id: 'empty-missed'
             firstStep: 'missed'
             steps:
@@ -665,9 +704,9 @@ class Classifier extends Page
                 next: true
                 onExit: =>
                   @submit(e)
-          tutorial.start()
+          @tutorial.start()
         else
-          tutorial = new Tutorial
+          @tutorial = new Tutorial
             id: 'empty-found'
             firstStep: 'found'
             steps:
@@ -682,7 +721,7 @@ class Classifier extends Page
                 next: true
                 onExit: =>
                   @submit(e)
-          tutorial.start()
+          @tutorial.start()
     else
       @submit(e)
 

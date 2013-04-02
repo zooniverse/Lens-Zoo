@@ -35,6 +35,17 @@ class Annotation extends Controller
     @gRoot = document.createElementNS(@svgns, "g")
     @gRoot.setAttribute("transform", "translate(#{@x}, #{@y})")
     
+    # Apply coordinate transforms
+    halfWidth = Annotation.halfWidth
+    halfHeight = Annotation.halfHeight
+    zoom = Annotation.zoom
+    
+    deltaX = halfWidth + Annotation.xOffset
+    deltaY = halfHeight + Annotation.yOffset
+    
+    @x = (@x - halfWidth) / zoom + halfWidth - deltaX
+    @y = (@y - halfHeight) / zoom + halfHeight + deltaY
+    
     # Append elements to root group
     @gRoot.appendChild(@gBox)
     @gRoot.appendChild(@gCross)
@@ -219,7 +230,7 @@ class Annotation extends Controller
     return annotation
   
   remove: =>
-    @gRoot.remove()
+    $(@gRoot).remove()
     @trigger 'remove', @
 
 

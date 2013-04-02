@@ -1,9 +1,9 @@
 
 {Controller} = require 'spine'
+browserDialog = require 'zooniverse/controllers/browser-dialog'
 
 
 class Viewer extends Controller
-  template: require 'views/viewer'
   dimension: 441
   
   bands:  ['g', 'r', 'i']
@@ -38,6 +38,7 @@ class Viewer extends Controller
   elements:
     'a[data-preset]'  : 'presetEl'
   
+  
   constructor: ->
     super
     
@@ -49,21 +50,28 @@ class Viewer extends Controller
     @getApi()
   
   getApi: ->
-    unless DataView?
+    # Get the browser vendor and version
+    userAgent = browserDialog.testAgent(navigator.userAgent)
+    
+    unless (DataView?) or (userAgent.browser is 'msie')
       alert 'Sorry, your browser does not support features needed for this tool.'
-
+      return
+    
     # Determine if WebGL is supported, otherwise fall back to canvas
     canvas  = document.createElement('canvas')
     context = canvas.getContext('webgl')
     context = canvas.getContext('experimental-webgl') unless context?
-
-    # Load appropriate WebFITS library asynchronously
+    
     lib = if context? then 'gl' else 'canvas'
+    
+    # Default to canvas if Safari regardless of WebGL
+    lib = 'canvas' if userAgent.browser is 'safari'
+    
+    # Load appropriate WebFITS library asynchronously
     url = "javascripts/webfits-#{lib}.js"
     $.getScript(url, =>
       @dfs.webfits.resolve()
     )
-    
     # Load fitsjs asynchronously
     $.getScript("javascripts/fits.js", =>
       @dfs.fitsjs.resolve()
@@ -112,27 +120,25 @@ class Viewer extends Controller
             hdu = fits.getHDU()
             header = hdu.header
             dataunit = hdu.data
-          
-            # Get image data
-            dataunit.getFrameAsync(0, (arr) =>
-              [min, max] = dataunit.getExtent(arr)
-              width = dataunit.width
-              height = dataunit.height
-              calibration = @getCalibration(header)
-              
-              @calibrations[band] = calibration
-              @wfits.loadImage(band, arr, width, height)
-              
-              # Cache some data
-              @cache[prefix][band].min = min
-              @cache[prefix][band].max = max
-              @cache[prefix][band].arr = arr
-              @cache[prefix][band].width = width
-              @cache[prefix][band].height = height
-              @cache[prefix][band].calibration = calibration
-              
-              @dfs[band].resolve()
-            )
+            
+            arr = dataunit.getFrame(0)
+            [min, max] = dataunit.getExtent(arr)
+            width = dataunit.width
+            height = dataunit.height
+            calibration = @getCalibration(header)
+            
+            @calibrations[band] = calibration
+            @wfits.loadImage(band, arr, width, height)
+            
+            # Cache some data
+            @cache[prefix][band].min = min
+            @cache[prefix][band].max = max
+            @cache[prefix][band].arr = arr
+            @cache[prefix][band].width = width
+            @cache[prefix][band].height = height
+            @cache[prefix][band].calibration = calibration
+            
+            @dfs[band].resolve()
           )
   
   # NOTE: Using exposure time = 1.0
@@ -151,10 +157,10 @@ class Viewer extends Controller
         document.onkeydown = null
     @append("""
       <div class='controls'>
-        <a href='' data-preset='0'>Lens Type I</a>
-        <a href='' data-preset='1'>Lens Type II</a>
-        <a href='' data-preset='2'>Lens Type III</a>
-        <a href='' data-preset='finished'>Nothing interesting</a>
+        <a href='' data-preset='0'>Standard</a>
+        <a href='' data-preset='1'>Brighter</a>
+        <a href='' data-preset='2'>Bluer</a>
+        <a href='' data-preset='finished'>Return</a>
       </div>"""
     )
     @el.find('a[data-preset="0"]').click()
@@ -168,8 +174,7 @@ class Viewer extends Controller
     
     preset = e.currentTarget.dataset.preset
     if preset is 'finished'
-      @classifier.onViewerClose()
-      @classifier.el.find('a[data-type="finish"]:nth(0)').click()
+      @trigger 'close'
       return
     
     # Pass preset to classifier so it can be stored on annotation
