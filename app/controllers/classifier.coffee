@@ -53,7 +53,6 @@ class Classifier extends Page
     'click a[data-type="finish"]:nth(0)'      : 'onFinish'
     'click svg.primary'                       : 'onAnnotation'
     'click g'                                 : 'stopPropagation'
-    'click .mask'                             : 'onViewerClose'
   
   
   constructor: ->
