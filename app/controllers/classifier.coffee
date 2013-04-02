@@ -318,27 +318,28 @@ class Classifier extends Page
               'click a': true
       tutorial.start()
     
-    # Prompt Talk message
-    if @nClassified is 7
-      tutorial = new Tutorial
-        id: 'talk'
-        firstStep: 'talk'
-        steps:
-          length: 1
-          
-          talk: new Step
-            number: 1
-            header: 'Talk'
-            details: 'Talk is a place to discuss the things you find with the rest of the Space Warps community: together we aim to build a catalog of new lenses, some of the rarest objects in the universe. If you have questions, the Science Team and other astronomers will help answer them. If you find something that looks interesting, come and show it to the group!'
-            attachment: 'center bottom [data-type="talk"] center top'
-            className: 'arrow-bottom'
-            onEnter: ->
-              $('.current .controls a[data-type="talk"]').addClass('hover')
-            onExit: ->
-              $('.current .controls a[data-type="talk"]').removeClass('hover')
-            next:
-              'click a': true
-      tutorial.start()
+    # NOTE: Disabling during beta
+    # # Prompt Talk message
+    # if @nClassified is 7
+    #   tutorial = new Tutorial
+    #     id: 'talk'
+    #     firstStep: 'talk'
+    #     steps:
+    #       length: 1
+    #       
+    #       talk: new Step
+    #         number: 1
+    #         header: 'Talk'
+    #         details: 'Talk is a place to discuss the things you find with the rest of the Space Warps community: together we aim to build a catalog of new lenses, some of the rarest objects in the universe. If you have questions, the Science Team and other astronomers will help answer them. If you find something that looks interesting, come and show it to the group!'
+    #         attachment: 'center bottom [data-type="talk"] center top'
+    #         className: 'arrow-bottom'
+    #         onEnter: ->
+    #           $('.current .controls a[data-type="talk"]').addClass('hover')
+    #         onExit: ->
+    #           $('.current .controls a[data-type="talk"]').removeClass('hover')
+    #         next:
+    #           'click a': true
+    #   tutorial.start()
       
   onNoMoreSubjects: ->
     alert "We've run out of subjects."

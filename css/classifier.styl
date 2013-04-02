@@ -72,6 +72,21 @@
     position absolute
     width $img-dim
     margin-top 64px
+    font-size 11px
+    
+    .flag
+      font-weight 700
+      margin-top 10px
+      float right
+      cursor pointer
+      
+      &:hover ~ .instructions
+        display block
+      
+    .instructions
+      display none
+      margin-top 10px
+      
     
     &.show
       display block

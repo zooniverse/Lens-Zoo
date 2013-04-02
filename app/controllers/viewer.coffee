@@ -161,7 +161,10 @@ class Viewer extends Controller
         <a href='' data-preset='1'>Brighter</a>
         <a href='' data-preset='2'>Bluer</a>
         <a href='' data-preset='finished'>Return</a>
-      </div>"""
+      </div>
+      <div class='flag'>?</div>
+      <div class='instructions'>Scroll to zoom.  Drag to move around the image.</div>
+      """
     )
     @el.find('a[data-preset="0"]').click()
     @trigger "ready"

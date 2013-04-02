@@ -16,7 +16,6 @@ $img-dim    = 441px
 @import './annotation'
 @import './controls'
 @import './profile'
-@import './viewer'
 @import './tutorial'
 @import './quick_guide'
 
@@ -25,6 +24,8 @@ $img-dim    = 441px
 
 // Disabling some nav links
 nav
+  a[data-page="home"]
+    font-family futura
   a[data-page="dashboard"]
     pointer-events none
   a[data-page="discuss"]
