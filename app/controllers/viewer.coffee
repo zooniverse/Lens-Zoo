@@ -174,7 +174,6 @@ class Viewer extends Controller
     
     preset = e.currentTarget.dataset.preset
     if preset is 'finished'
-      @classifier.onViewerClose()
       @trigger 'close'
       return
     
