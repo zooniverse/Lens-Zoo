@@ -33,7 +33,8 @@ stack = new Stack
     '/profile'    : 'profile'
   
   default: 'home'
-  
+
+
 # Configure connection to Api
 api = new Api
   project: 'spacewarp'

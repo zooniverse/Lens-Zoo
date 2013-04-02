@@ -8,6 +8,7 @@ class QuickGuide extends Controller
   
   events:
     'click .tab'  : 'toggle'
+    'click img'   : 'onClick'
 
   constructor: ->
     super
@@ -17,5 +18,17 @@ class QuickGuide extends Controller
     right = if @show then 0 else -1 * @el.width()
     @el.css('right', right)
     @show = not @show
+  
+  onClick: (e) =>
+    type = e.target.dataset.type
+    @navigate('/guide')
+    
+    if type in ['lensing-clusters', 'lensed-galaxies', 'lensed-quasars']
+      sectionType = 'real-lenses'
+    else
+      sectionType = 'false-positives'
+    
+    $(".guide-menu li[data-type='#{sectionType}']").click()
+    $("ul.menu li[data-type='#{type}']").click()
     
 module.exports = QuickGuide
