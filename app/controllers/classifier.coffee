@@ -643,6 +643,7 @@ class Classifier extends Page
       x = (training.x + 30) / @subjectDimension
       y = 1 - training.y / @subjectDimension
       
+      console.log 'trainingType', trainingType
       if trainingType is 'lens'
         
         # Check if any annotation over lens
@@ -669,24 +670,25 @@ class Classifier extends Page
                 onExit: =>
                   @submit(e)
           @tutorial.start()
-        # else
-        #   @tutorial = new Tutorial
-        #     id: 'sim-missed'
-        #     firstStep: 'missed'
-        #     steps:
-        #       length: 1
-        # 
-        #       missed: new Step
-        #         number: 1
-        #         header: 'Whoops!'
-        #         details: "You missed a simulated #{trainingType}!  Don't worry, let's move to the next image."
-        #         attachment: "left center .primary #{x} #{y}"
-        #         blocks: '.annotation .controls'
-        #         nextButton: 'Next image'
-        #         next: true
-        #         onExit: =>
-        #           @submit(e)
-        #   @tutorial.start()
+        else
+          @tutorial = new Tutorial
+            id: 'sim-missed'
+            firstStep: 'missed'
+            steps:
+              length: 1
+        
+              missed: new Step
+                number: 1
+                header: 'Whoops!'
+                details: "You missed a simulated #{trainingType}!  Don't worry, let's move to the next image."
+                attachment: "left center .primary #{x} #{y}"
+                blocks: '.annotation .controls'
+                className: 'arrow-left'
+                nextButton: 'Next image'
+                next: true
+                onExit: =>
+                  @submit(e)
+          @tutorial.start()
         
       else
         # Subject is an empty field
