@@ -59,10 +59,8 @@ class Classifier extends Page
     super
     @html @template
     
-    # Initialize QuickGuide
+    # Initialize QuickGuide and FITS Viewer
     @quickGuide = new QuickGuide({el: @el.find('.quick-guide')})
-    
-    # Initialize controller for WebFITS
     @viewer = new Viewer({el: @el.find('.viewer')[0], classifier: @})
     
     # Setup events
@@ -78,6 +76,7 @@ class Classifier extends Page
       content: "That's a lot of markers! Remember, lenses are rare."
       attachment: 'center center svg.primary center center'
     
+    # Reset variables before new classification
     @reset()
     
     # Start with subject group
@@ -94,7 +93,6 @@ class Classifier extends Page
     @annotations      = {}
     @annotationIndex  = 0
     @annotationCount  = 0
-    @warn             = true
     @hasAnnotation    = false
     @hasWarned        = false
     @preset           = null
@@ -103,7 +101,6 @@ class Classifier extends Page
     @yDown            = null
     @toAnnotate       = true
     
-    @dashboardTutorial = false
     @isTrainingSubject = false
     @ctx = undefined
     
@@ -127,12 +124,6 @@ class Classifier extends Page
         @nPotentials  = project.annotation_count or 0
         @nFavorites   = project.favorite_count or 0
         @trigger 'start'
-      
-      # Determine if dashboard tutorial completed
-      console.log 'dashboard_tutorial_done', 'dashboard_tutorial_done' of project
-      
-      unless 'tutorial_dashboard' of project
-        @trigger 'dashboard-tutorial'
     else
       @trigger 'tutorial'
     
@@ -274,9 +265,8 @@ class Classifier extends Page
   
   onSubjectSelect: (e, subject) =>
     
+    # Reset classification variables and create new classification
     @reset()
-    
-    # Create new classification
     @classification = new Classification {subject}
     
     # Update DOM
