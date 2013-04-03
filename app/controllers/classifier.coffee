@@ -643,7 +643,7 @@ class Classifier extends Page
       x = (training.x + 30) / @subjectDimension
       y = 1 - training.y / @subjectDimension
       
-      if trainingType in ['lens', 'lensed galaxy', 'lensed quasar']
+      if trainingType is 'lens'
         
         # Check if any annotation over lens
         over = false
