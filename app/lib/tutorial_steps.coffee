@@ -25,7 +25,7 @@ module.exports =
   what_are_lenses_1: new Step
     number: 2
     header: 'What are gravitational lenses?'
-    details: 'Gravitational lenses are massive astronomical objects &ndash; such as galaxies &ndash; that lie in front of other, more distant galaxies. These massive objects act like huge natural magnifying glasses by focusing the light from distant objects towards us allowing us to see further into our universe.'
+    details: 'Gravitational lenses are massive astronomical objects &ndash; such as galaxies &ndash; that lie in front of other, more distant galaxies. These massive objects act like huge, natural magnifying glasses. They focus light from distant objects towards us, allowing us to see further into the Universe.'
     attachment: 'center center .current center center'
     block: '.annotation, .controls:first'
     next: 'what_are_lenses_2'
