@@ -138,6 +138,14 @@ class Classifier extends Page
     Subject.on 'select', @onSubjectSelect
     Subject.on 'no-more', @onNoMoreSubjects
     
+    if @tutorial?
+      @tutorial.close()
+      $(".zootorial-blocker").remove()
+      $(".zootorial-focuser").remove()
+    
+    Subject.instances = []
+    @el.find('.subjects').empty()
+    
     # Initial fetch for subjects
     Subject.next()
   
