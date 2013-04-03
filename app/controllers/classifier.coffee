@@ -63,7 +63,6 @@ class Classifier extends Page
     @viewer = new Viewer({el: @el.find('.viewer')[0], classifier: @})
     
     # Setup events
-    @bind 'start', @start
     @bind 'tutorial', @startTutorial
     
     User.on 'change', @onUserChange
@@ -107,6 +106,13 @@ class Classifier extends Page
   
   onUserChange: (e, user) =>
     
+    # Reset subjects
+    Subject.instances = []
+    $('.subjects').empty()
+    Subject.off 'fetch', @onFetch
+    Subject.off 'select', @onSubjectSelect
+    Subject.off 'no-more', @onNoMoreSubjects
+    
     # Set default counts
     @nClassified  = 0
     @nPotentials  = 0
@@ -122,7 +128,7 @@ class Classifier extends Page
         @nClassified  = project.classification_count or 0
         @nPotentials  = project.annotation_count or 0
         @nFavorites   = project.favorite_count or 0
-        @trigger 'start'
+        @start()
     else
       @trigger 'tutorial'
     
@@ -143,25 +149,19 @@ class Classifier extends Page
       $(".zootorial-blocker").remove()
       $(".zootorial-focuser").remove()
     
-    Subject.instances = []
-    @el.find('.subjects').empty()
-    
     # Initial fetch for subjects
     Subject.next()
-  
-  onTutorialComplete: (e) =>
-    console.log 'onTutorialComplete'
   
   onTutorialEnd: (e) ->
     $("circle[r='50']").remove()
   
   startTutorial: =>
+    
     # Create tutorial and bind to handlers
     @tutorial = new Tutorial
       id: 'tutorial'
       firstStep: 'welcome'
       steps: TutorialSteps
-    @tutorial.el.bind('complete-tutorial', @onTutorialComplete)
     @tutorial.el.bind('end-tutorial', @onTutorialEnd)
     
     # Move tutorial to classifier div
@@ -225,7 +225,7 @@ class Classifier extends Page
         training:
           type: 'lens'
           x: 100
-          y: 85
+          y: 355
         id: 'CFHTLS_079_2328'
       tutorial: true
       zooniverse_id: 'ASW0000002'
@@ -641,7 +641,7 @@ class Classifier extends Page
       training = @classification.subject.metadata.training
       trainingType = training.type
       x = (training.x + 30) / @subjectDimension
-      y = training.y / @subjectDimension
+      y = 1 - training.y / @subjectDimension
       
       if trainingType in ['lens', 'lensed galaxy', 'lensed quasar']
         
@@ -662,30 +662,31 @@ class Classifier extends Page
                 header: 'Nice catch!'
                 details: "You found a simulated #{trainingType}!"
                 attachment: "left center .primary #{x} #{y}"
-                blocks: '.primary .controls'
+                blocks: '.annotation .controls'
+                className: 'arrow-left'
                 nextButton: 'Next image'
                 next: true
                 onExit: =>
                   @submit(e)
           @tutorial.start()
-        else
-          @tutorial = new Tutorial
-            id: 'sim-missed'
-            firstStep: 'missed'
-            steps:
-              length: 1
-
-              missed: new Step
-                number: 1
-                header: 'Whoops!'
-                details: "You missed a simulated #{trainingType}!  Don't worry, let's move to the next image."
-                attachment: "left center .primary #{x} #{y}"
-                blocks: '.primary .controls'
-                nextButton: 'Next image'
-                next: true
-                onExit: =>
-                  @submit(e)
-          @tutorial.start()
+        # else
+        #   @tutorial = new Tutorial
+        #     id: 'sim-missed'
+        #     firstStep: 'missed'
+        #     steps:
+        #       length: 1
+        # 
+        #       missed: new Step
+        #         number: 1
+        #         header: 'Whoops!'
+        #         details: "You missed a simulated #{trainingType}!  Don't worry, let's move to the next image."
+        #         attachment: "left center .primary #{x} #{y}"
+        #         blocks: '.annotation .controls'
+        #         nextButton: 'Next image'
+        #         next: true
+        #         onExit: =>
+        #           @submit(e)
+        #   @tutorial.start()
         
       else
         # Subject is an empty field
@@ -701,7 +702,7 @@ class Classifier extends Page
                 header: 'There is no gravitational lens in this field!'
                 details: "This is a different kind of Training Image, one that has already been inspected by the Science Team and found to contain nothing interesting."
                 attachment: 'center center .primary center center'
-                blocks: '.primary'
+                blocks: '.annotation'
                 nextButton: 'Next image'
                 next: true
                 onExit: =>
@@ -718,7 +719,7 @@ class Classifier extends Page
                 header: 'Nice! There is no gravitational lens in this field!'
                 details: "This is a different kind of Training Image, one that has already been inspected by the Science Team and found to contain nothing interesting."
                 attachment: 'center center .primary center center'
-                blocks: '.primary'
+                blocks: '.annotation'
                 nextButton: 'Next image'
                 next: true
                 onExit: =>
