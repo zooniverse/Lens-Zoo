@@ -38,8 +38,8 @@ stack = new Stack
 # Configure connection to Api
 api = new Api
   project: 'spacewarp'
-  # host: "https://dev.zooniverse.org"
-  host: "http://0.0.0.0:3000"
+  host: "https://dev.zooniverse.org"
+  # host: "http://0.0.0.0:3000"
   path: '/proxy'
 
 topBar = new TopBar
