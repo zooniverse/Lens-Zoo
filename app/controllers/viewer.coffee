@@ -8,7 +8,7 @@ class Viewer extends Controller
   
   bands:  ['g', 'r', 'i']
   # TODO: Update when FITS images find permanent home
-  source: 'http://spacewarps.org.s3.amazonaws.com/beta/subjects/raw/'
+  source: 'http://spacewarps.org.s3.amazonaws.com/subjects/raw/'
   
   # Default parameter values
   defaultAlpha: 0.09
