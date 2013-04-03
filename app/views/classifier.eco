@@ -14,10 +14,6 @@
     <p class='number' data-type='favorites'>0</p>
     <p class='description'>favourite images</p>
   </div>
-  <div class='stat'>
-    <p class='number' data-type='sim-freq'>0</p>
-    <p class='description'>lens frequency</p>
-  </div>
 </div>
 
 <div class='annotation'>
