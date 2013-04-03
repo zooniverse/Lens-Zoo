@@ -216,6 +216,8 @@ class Classifier extends Page
       metadata:
         training:
           type: 'lens'
+          x: 100
+          y: 85
         id: 'CFHTLS_079_2328'
       tutorial: true
       zooniverse_id: 'ASW0000002'
@@ -628,7 +630,10 @@ class Classifier extends Page
       @feedback = true
       
       # Get the training type (e.g. lens or empty)
-      trainingType = @classification.subject.metadata.training.type
+      training = @classification.subject.metadata.training
+      trainingType = training.type
+      x = (training.x + 30) / @subjectDimension
+      y = training.y / @subjectDimension
       
       if trainingType in ['lens', 'lensed galaxy', 'lensed quasar']
         
@@ -648,7 +653,7 @@ class Classifier extends Page
               found: new Step
                 header: 'Nice catch!'
                 details: "You found a simulated #{trainingType}!"
-                attachment: 'center center .primary center center'
+                attachment: "left center .primary #{x} #{y}"
                 blocks: '.primary .controls'
                 nextButton: 'Next image'
                 next: true
@@ -666,7 +671,7 @@ class Classifier extends Page
                 number: 1
                 header: 'Whoops!'
                 details: "You missed a simulated #{trainingType}!  Don't worry, let's move to the next image."
-                attachment: 'center center .primary center center'
+                attachment: "left center .primary #{x} #{y}"
                 blocks: '.primary .controls'
                 nextButton: 'Next image'
                 next: true
