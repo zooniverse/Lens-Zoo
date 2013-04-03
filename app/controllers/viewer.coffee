@@ -195,6 +195,8 @@ class Viewer extends Controller
     @wfits.teardown()
     @wfits = undefined
     @el.find('.controls').remove()
+    @el.find('.flag').remove()
+    @el.find('.instructions').remove()
   
   clearCache: ->
     for key, value of @cache

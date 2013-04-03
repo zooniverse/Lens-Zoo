@@ -697,8 +697,8 @@ class Classifier extends Page
               length: 1
               
               missed: new Step
-                header: 'Whoops!'
-                details: 'This field has no gravitional lens.'
+                header: 'There is no gravitational lens in this field!'
+                details: "This is a different kind of Training Image, one that has already been inspected by the Science Team and found to contain nothing interesting."
                 attachment: 'center center .primary center center'
                 blocks: '.primary'
                 nextButton: 'Next image'
