@@ -90,7 +90,7 @@ module.exports =
   tryagain:
     header: 'Whoops, try again.'
     details: 'Drag the marker over the blue arc to identify the lens.'
-    attachment: 'left top .current right 0.28'
+    attachment: 'left top .current 0.6 0.28'
     className: 'arrow-left'
     blocks: '.controls:first'
     next:
