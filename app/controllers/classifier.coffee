@@ -636,8 +636,6 @@ class Classifier extends Page
       training = @classification.subject.metadata.training
       trainingType = training.type
       
-      console.log "TRAINING", training
-      
       if trainingType in ['lens', 'lensed galaxy', 'lensed quasar']
         x = (training.x + 30) / @subjectDimension
         y = 1 - (training.y / @subjectDimension)

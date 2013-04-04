@@ -74,6 +74,7 @@ remove:
 	while read p; do \
 	rm subjects/raw/$$p.fits.fz; \
 	done < dellst.txt
+	python pluck.py
 	
 thumbnails:
 	for f in subjects/standard/*.png ; do \
