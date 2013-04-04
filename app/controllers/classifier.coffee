@@ -588,15 +588,9 @@ class Classifier extends Page
   submit: (e) =>
     
     # Process annotations and push to API
-    annotations = []
     for index, annotation of @annotations
-      annotations.push annotation.toJSON()
-    annotations.push {preset: @preset} if @preset?
-    
-    # Process completion of dashboard tutorial
-    annotations.push {dashboard_tutorial: @dashboardTutorial} if @dashboardTutorial
-    
-    @classification.annotate(annotations)
+      @classification.annotate annotation.toJSON()
+    @classification.annotate {preset: @preset} if @preset?
     @classification.send()
     
     # Empty SVG element
@@ -632,7 +626,7 @@ class Classifier extends Page
       
       # Move to the next image if user clicks finished again
       if @feedback
-        @tutorial.close()
+        @tutorial?.close()
         @submit(e)
         return
       
@@ -641,11 +635,12 @@ class Classifier extends Page
       # Get the training type (e.g. lens or empty)
       training = @classification.subject.metadata.training
       trainingType = training.type
-      x = (training.x + 30) / @subjectDimension
-      y = 1 - training.y / @subjectDimension
       
-      console.log 'trainingType', trainingType
-      if trainingType is 'lens'
+      console.log "TRAINING", training
+      
+      if trainingType in ['lens', 'lensed galaxy', 'lensed quasar']
+        x = (training.x + 30) / @subjectDimension
+        y = 1 - (training.y / @subjectDimension)
         
         # Check if any annotation over lens
         over = false
@@ -691,7 +686,7 @@ class Classifier extends Page
                   @submit(e)
           @tutorial.start()
         
-      else
+      else if trainingType is 'empty'
         # Subject is an empty field
         nAnnotations = Object.keys(@annotations).length
         if nAnnotations > 0

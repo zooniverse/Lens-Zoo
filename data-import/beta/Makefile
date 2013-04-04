@@ -51,7 +51,7 @@ blind_extra: blind_extra.tgz
 # simlensonly: simlensonly.tgz
 # 	gzip -dc simlensonly.tgz | tar xf -
 
-arrange: finalimgs blindlimgs lensfits lensimgs finalfiles simlens_extra blind_extra
+go: finalimgs blindlimgs lensfits lensimgs finalfiles simlens_extra blind_extra
 	mkdir -vp subjects
 	mkdir -vp subjects/standard
 	mkdir -vp subjects/raw
@@ -59,7 +59,6 @@ arrange: finalimgs blindlimgs lensfits lensimgs finalfiles simlens_extra blind_e
 	mv blindlimgs/*.png subjects/standard/
 	mv blindlimgs/*.fits subjects/raw/
 	mv finalimgs/*.png subjects/standard/
-	mv lensfits/*.fits subjects/raw/
 	mv lensimgs/*.png subjects/standard/
 	mv lensimgs/lens_info lens_info
 	mv finalfiles/*.fits subjects/raw
@@ -67,10 +66,9 @@ arrange: finalimgs blindlimgs lensfits lensimgs finalfiles simlens_extra blind_e
 	mv simlens_extra/fits/*.fits subjects/raw
 	mv blind_extra/png/CFHTLS_082_0500_gri.png subjects/standard
 	mv blind_extra/fits/*.fits subjects/raw
-
-go: arrange
 	fpack subjects/raw/*.fits
 	rm subjects/raw/*.fits
+	mv lensfits/*.fz subjects/raw/
 
 remove:
 	while read p; do \
