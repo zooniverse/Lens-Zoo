@@ -109,6 +109,7 @@ class Classifier extends Page
     # Reset subjects
     Subject.instances = []
     $('.subjects').empty()
+    @svg.empty()
     Subject.off 'fetch', @onFetch
     Subject.off 'select', @onSubjectSelect
     Subject.off 'no-more', @onNoMoreSubjects
