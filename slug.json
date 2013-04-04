@@ -14,6 +14,7 @@
     "zooniverse/models/classification",
     "zooniverse/controllers/top-bar",
     "zooniverse/controllers/browser-dialog",
+    "zooniverse/lib/google-analytics",
     "underscore/underscore",
     
     "zootorial"
