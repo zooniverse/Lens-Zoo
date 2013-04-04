@@ -657,12 +657,13 @@ class Classifier extends Page
                 header: 'Nice catch!'
                 details: "You found a simulated #{trainingType}!"
                 attachment: "left center .primary #{x} #{y}"
-                blocks: '.annotation .controls'
+                block: '.annotation'
                 className: 'arrow-left'
                 nextButton: 'Next image'
                 next: true
                 onExit: =>
                   @submit(e)
+                  @tutorial.close()
           @tutorial.start()
         else
           @tutorial = new Tutorial
@@ -676,12 +677,13 @@ class Classifier extends Page
                 header: 'Whoops!'
                 details: "You missed a simulated #{trainingType}!  Don't worry, let's move to the next image."
                 attachment: "left center .primary #{x} #{y}"
-                blocks: '.annotation .controls'
+                block: '.annotation'
                 className: 'arrow-left'
                 nextButton: 'Next image'
                 next: true
                 onExit: =>
                   @submit(e)
+                  @tutorial.close()
           @tutorial.start()
         
       else if trainingType is 'empty'
@@ -698,11 +700,12 @@ class Classifier extends Page
                 header: 'There is no gravitational lens in this field!'
                 details: "This is a different kind of Training Image, one that has already been inspected by the Science Team and found to contain nothing interesting."
                 attachment: 'center center .primary center center'
-                blocks: '.annotation'
+                block: '.annotation'
                 nextButton: 'Next image'
                 next: true
                 onExit: =>
                   @submit(e)
+                  @tutorial.close()
           @tutorial.start()
         else
           @tutorial = new Tutorial
@@ -715,11 +718,12 @@ class Classifier extends Page
                 header: 'Nice! There is no gravitational lens in this field!'
                 details: "This is a different kind of Training Image, one that has already been inspected by the Science Team and found to contain nothing interesting."
                 attachment: 'center center .primary center center'
-                blocks: '.annotation'
+                block: '.annotation'
                 nextButton: 'Next image'
                 next: true
                 onExit: =>
                   @submit(e)
+                  @tutorial.close()
           @tutorial.start()
     else
       @submit(e)
