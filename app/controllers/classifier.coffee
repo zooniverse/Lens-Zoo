@@ -666,12 +666,13 @@ class Classifier extends Page
                   @tutorial.close()
           @tutorial.start()
         else
+          # @submit(e)
           @tutorial = new Tutorial
             id: 'sim-missed'
             firstStep: 'missed'
             steps:
               length: 1
-        
+                  
               missed: new Step
                 number: 1
                 header: 'Whoops!'
