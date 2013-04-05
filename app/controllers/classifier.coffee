@@ -586,10 +586,10 @@ class Classifier extends Page
     if true
       # When duds are included in the @TrainingGroup, need to multiply @simratio by 2 to 
       baseLevel = Math.floor(@nClassified / 20) + 1
-      @level = Math.max(baseLevel, 3)
+      @level = Math.min(baseLevel, 3)
       @simRatio = 1 / (5 * Math.pow(2, @level - 1))
       Subject.group = if @simRatio > Math.random() then @simulationGroup else @subjectGroup
-      console.log Subject.group
+      console.log "#{@nClassified}, #{@level}, #{@simRatio}, #{Subject.group}"
     else
       # NOTE: This is the old scheme with fall off of 1 / x
       @simRatio = Math.floor(@nClassified / 20) + 2
@@ -633,7 +633,7 @@ class Classifier extends Page
     e.preventDefault()
     
     if @isTrainingSubject
-      console.log "TRAINING"
+      # console.log "TRAINING"
       
       # Move to the next image if user clicks finished again
       if @feedback
