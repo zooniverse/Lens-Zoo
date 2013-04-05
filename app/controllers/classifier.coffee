@@ -583,11 +583,11 @@ class Classifier extends Page
   
   # NOTE: Testing new training scheme
   setSimulationRatio: ->
-    if false
+    if true
       # When duds are included in the @TrainingGroup, need to multiply @simratio by 2 to 
       baseLevel = Math.floor(@nClassified / 20) + 1
       @level = Math.min(baseLevel, 3)
-      @simRatio = 1 / (5 * Math.pow(2, @level - 1))
+      @simRatio = 1 / (5 * Math.pow(Math.sqrt(2), @level - 1))
       Subject.group = if @simRatio > Math.random() then @simulationGroup else @subjectGroup
       console.log "#{@nClassified}, #{@level}, #{@simRatio}, #{Subject.group}"
     else
