@@ -589,12 +589,12 @@ class Classifier extends Page
       @level = Math.min(baseLevel, 3)
       @simRatio = 1 / (5 * Math.pow(Math.sqrt(2), @level - 1))
       Subject.group = if @simRatio > Math.random() then @simulationGroup else @subjectGroup
-      console.log "#{@nClassified}, #{@level}, #{@simRatio}, #{Subject.group}"
+      # console.log "#{@nClassified}, #{@level}, #{@simRatio}, #{Subject.group}"
     else
       # NOTE: This is the old scheme with fall off of 1 / x
       @simRatio = Math.floor(@nClassified / 20) + 2
       Subject.group = if @nClassified % @simRatio is 0 then @simulationGroup else @subjectGroup
-      console.log "#{@simRatio}, #{Subject.group}"
+      # console.log "#{@simRatio}, #{Subject.group}"
   
   submit: (e) =>
     
