@@ -627,6 +627,8 @@ class Classifier extends Page
       # Move to the next image if user clicks finished again
       if @feedback
         @tutorial?.close()
+        $(".zootorial-blocker").remove()
+        $(".zootorial-focuser").remove()
         @submit(e)
         return
       
@@ -664,6 +666,8 @@ class Classifier extends Page
                 onExit: =>
                   @submit(e)
                   @tutorial.close()
+                  $(".zootorial-blocker").remove()
+                  $(".zootorial-focuser").remove()
           @tutorial.start()
         else
           # @submit(e)
@@ -684,6 +688,8 @@ class Classifier extends Page
                 next: true
                 onExit: =>
                   @submit(e)
+                  $(".zootorial-blocker").remove()
+                  $(".zootorial-focuser").remove()
                   @tutorial.close()
           @tutorial.start()
         
@@ -707,6 +713,8 @@ class Classifier extends Page
                 onExit: =>
                   @submit(e)
                   @tutorial.close()
+                  $(".zootorial-blocker").remove()
+                  $(".zootorial-focuser").remove()
           @tutorial.start()
         else
           @tutorial = new Tutorial
@@ -725,6 +733,8 @@ class Classifier extends Page
                 onExit: =>
                   @submit(e)
                   @tutorial.close()
+                  $(".zootorial-blocker").remove()
+                  $(".zootorial-focuser").remove()
           @tutorial.start()
     else
       @submit(e)
