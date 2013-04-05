@@ -410,7 +410,7 @@ class Classifier extends Page
     # Update finish text if necessary
     count = _.keys(@annotations).length
     if count is 0
-      @el.find('.current [data-type="finish"]').text('Nothing interesting')
+      @el.find('.current [data-type="finish"]').text('No Lenses Here!')
       @hasAnnotation = false
   
   # Check if volunteer marked a simulated lens
@@ -717,7 +717,7 @@ class Classifier extends Page
               
               missed: new Step
                 header: 'There is no gravitational lens in this field!'
-                details: "This is a different kind of Training Image, one that has already been inspected by the Science Team and found to contain nothing interesting."
+                details: "This is a different kind of Training Image, one that has already been inspected by the Science Team and found not to contain any gravitational lenses."
                 attachment: 'center center .primary center center'
                 block: '.annotation'
                 nextButton: 'Next image'
@@ -737,7 +737,7 @@ class Classifier extends Page
               
               found: new Step
                 header: 'Nice! There is no gravitational lens in this field!'
-                details: "This is a different kind of Training Image, one that has already been inspected by the Science Team and found to contain nothing interesting."
+                details: "This is a different kind of Training Image, one that has already been inspected by the Science Team and found not to contain any gravitational lenses."
                 attachment: 'center center .primary center center'
                 block: '.annotation'
                 nextButton: 'Next image'
