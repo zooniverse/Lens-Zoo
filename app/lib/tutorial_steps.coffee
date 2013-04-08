@@ -51,12 +51,12 @@ module.exports =
     number: 5
     header: 'Identifying gravitational lenses'
     details: "This small group of yellow-ish galaxies is a gravitational lens. It is bending and magnifying the light from a faint blue galaxy lying far behind it into a blue arc, that surrounds the group."
-    attachment: 'left top .current 0.6 0.18'
+    attachment: 'left top .current 1 0.38'
     block: '.annotation, .controls:first'
     className: 'arrow-left'
     onEnter: ->
       bounding = document.createElementNS('http://www.w3.org/2000/svg', "circle")
-      bounding.setAttribute("transform", "translate(#{175}, #{172})")
+      bounding.setAttribute("transform", "translate(#{388}, #{270})")
       bounding.setAttribute("class", "outline")
       bounding.setAttribute("stroke", 'white')
       bounding.setAttribute("stroke-width", 2)
@@ -70,7 +70,7 @@ module.exports =
     number: 6
     header: 'Marking lensed features'
     details: 'If you see something that is being lensed, mark it. In this case, click on the blue arc.'
-    attachment: 'left top .current 0.6 0.28'
+    attachment: 'left top .current 1 0.44'
     block: '.controls'
     className: 'arrow-left'
     onEnter: (tutorial) ->
@@ -90,7 +90,7 @@ module.exports =
   tryagain:
     header: 'Whoops, try again.'
     details: 'Drag the marker over the blue arc to identify the lens.'
-    attachment: 'left top .current 0.6 0.28'
+    attachment: 'left top .current 1 0.44'
     className: 'arrow-left'
     blocks: '.controls:first'
     next:
@@ -102,7 +102,7 @@ module.exports =
     number: 7
     header: 'Training images'
     details: "From time to time we'll throw in a training image like this one, that contains a simulated or previously known gravitational lens. We'll let you know if you spot the lenses in training images."
-    attachment: 'left top .current right 0.18'
+    attachment: 'center center .current center center'
     block: '.annotation, .controls:first'
     next: 'thanks'
   

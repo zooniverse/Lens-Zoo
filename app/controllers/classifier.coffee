@@ -184,7 +184,7 @@ class Classifier extends Page
       metadata:
         training:
           type: 'lens'
-        id: 'CFHTLS_091_2130'
+        id: 'CFHTLS_078_1721'
       tutorial: true
       zooniverse_id: 'ASW0000001'
     
