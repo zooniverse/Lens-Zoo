@@ -1,6 +1,7 @@
 
-{Controller} = require 'spine'
+{Controller}  = require 'spine'
 browserDialog = require 'zooniverse/controllers/browser-dialog'
+{Dialog}      = require 'zootorial'
 
 
 class Viewer extends Controller
@@ -145,6 +146,10 @@ class Viewer extends Controller
   
   onError: =>
     @trigger 'close'
+    errorDialog = new Dialog
+      content: "Oh no! We had trouble getting the data. Try the Quick Dashboard on the next image."
+      attachment: 'center center .annotation center center'
+    errorDialog.open()
   
   # NOTE: Using exposure time = 1.0
   getCalibration: (header) ->

@@ -72,7 +72,7 @@ class Classifier extends Page
     # Dialog for warning of over excessive annotations
     @warningDialog = new Dialog
       content: "That's a lot of markers! Remember, lenses are rare."
-      attachment: 'center center svg.primary center center'
+      attachment: 'center center .annotation center center'
     
     # Reset variables before new classification
     @reset()
