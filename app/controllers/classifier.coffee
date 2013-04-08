@@ -680,6 +680,7 @@ class Classifier extends Page
                   @tutorial.close()
                   $(".zootorial-blocker").remove()
                   $(".zootorial-focuser").remove()
+                  @viewer.trigger 'close'
           @tutorial.start()
         else
           @tutorial = new Tutorial
@@ -702,6 +703,7 @@ class Classifier extends Page
                   $(".zootorial-blocker").remove()
                   $(".zootorial-focuser").remove()
                   @tutorial.close()
+                  @viewer.trigger 'close'
           @tutorial.start()
         
       else if trainingType is 'empty'
@@ -726,6 +728,7 @@ class Classifier extends Page
                   @tutorial.close()
                   $(".zootorial-blocker").remove()
                   $(".zootorial-focuser").remove()
+                  @viewer.trigger 'close'
           @tutorial.start()
         else
           @tutorial = new Tutorial
@@ -746,6 +749,7 @@ class Classifier extends Page
                   @tutorial.close()
                   $(".zootorial-blocker").remove()
                   $(".zootorial-focuser").remove()
+                  @viewer.trigger 'close'
           @tutorial.start()
     else
       @submit(e)

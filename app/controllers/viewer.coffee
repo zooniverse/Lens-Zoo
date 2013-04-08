@@ -192,7 +192,7 @@ class Viewer extends Controller
     @wfits.drawColor('i', 'r', 'g')
   
   teardown: =>
-    @wfits.teardown()
+    @wfits?.teardown()
     @wfits = undefined
     @el.find('.controls').remove()
     @el.find('.flag').remove()
