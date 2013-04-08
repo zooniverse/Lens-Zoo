@@ -5,19 +5,11 @@ browserDialog = require 'zooniverse/controllers/browser-dialog'
 
 class Viewer extends Controller
   dimension: 441
-  
   bands:  ['g', 'r', 'i']
-  # TODO: Update when FITS images find permanent home
   source: 'http://spacewarps.org.s3.amazonaws.com/subjects/raw/'
-  
-  # Default parameter values
-  defaultAlpha: 0.09
-  defaultQ: 1.7
-  defaultScales: [0.4, 0.6, 1.7]
   
   cache: {}
   
-  # TODO: Get three presets from science team
   parameters:
     0:
       alpha: 0.09
@@ -87,14 +79,19 @@ class Viewer extends Controller
     for band in @bands
       @dfs[band] = new $.Deferred()
     
+    # Create deferred and set up callback for error handling
+    errDfd = new $.Deferred()
+    
+    $.when(errDfd)
+      .done(@onError)
+    
     # Set callback for when all channels and astrojs libraries received
     dfs = $.map(@dfs, (v, k) -> v)
     $.when.apply(null, dfs)
       .done(@allChannelsReceived)
     
-    # Check cache for data
-    if prefix of @cache
-      cache = @cache[prefix]
+    if 'prefix' of @cache and Object.keys(@cache.prefix).length > 0
+      cache = @cache['prefix']
       
       # Load files from cache
       for band, index in @bands
@@ -110,13 +107,18 @@ class Viewer extends Controller
           @dfs[band].resolve()
     else
       # Request from remote source
-      @cache[prefix] = {}
+      @cache['prefix'] = {}
       for band, index in @bands
         do (band, index) =>
-          @cache[prefix][band] = {}
+          
           path = "#{@source}#{prefix}_#{band}.fits.fz"
-        
           new astro.FITS.File(path, (fits) =>
+            if fits is null
+              errDfd.resolve()
+              return
+            
+            @cache['prefix'][band] = {}
+            
             hdu = fits.getHDU()
             header = hdu.header
             dataunit = hdu.data
@@ -131,15 +133,18 @@ class Viewer extends Controller
             @wfits.loadImage(band, arr, width, height)
             
             # Cache some data
-            @cache[prefix][band].min = min
-            @cache[prefix][band].max = max
-            @cache[prefix][band].arr = arr
-            @cache[prefix][band].width = width
-            @cache[prefix][band].height = height
-            @cache[prefix][band].calibration = calibration
+            @cache['prefix'][band].min = min
+            @cache['prefix'][band].max = max
+            @cache['prefix'][band].arr = arr
+            @cache['prefix'][band].width = width
+            @cache['prefix'][band].height = height
+            @cache['prefix'][band].calibration = calibration
             
             @dfs[band].resolve()
           )
+  
+  onError: =>
+    @trigger 'close'
   
   # NOTE: Using exposure time = 1.0
   getCalibration: (header) ->
