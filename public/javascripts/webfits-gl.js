@@ -11,7 +11,7 @@
 
   WebFITS = {};
 
-  WebFITS.version = '0.1.8';
+  WebFITS.version = '0.2.2';
 
   this.astro.WebFITS = WebFITS;
 
@@ -49,23 +49,23 @@
       this.zoomY = this.zoom;
     }
 
-    BaseApi.prototype.setupControls = function(callback, opts) {
-      var _onmousemove,
+    BaseApi.prototype.setupControls = function(callbacks, opts) {
+      var _onmousedown, _onmousemove, _onmouseout, _onmouseover, _onmouseup,
         _this = this;
-      if (callback == null) {
-        callback = null;
+      if (callbacks == null) {
+        callbacks = null;
       }
       if (opts == null) {
         opts = null;
       }
-      this.canvas.onmousedown = function(e) {
+      _onmousedown = function(e) {
         _this.drag = true;
         _this.xOldOffset = _this.xOffset;
         _this.yOldOffset = _this.yOffset;
         _this.xMouseDown = e.clientX;
         return _this.yMouseDown = e.clientY;
       };
-      this.canvas.onmouseup = function(e) {
+      _onmouseup = function(e) {
         var xDelta, yDelta;
         _this.drag = false;
         if (_this.xMouseDown == null) {
@@ -88,27 +88,70 @@
         _this.yOffset = _this.yOldOffset - (yDelta / _this.height / _this.zoom * 2.0);
         return _this.draw();
       };
-      if (callback != null) {
+      _onmouseout = function(e) {
+        return _this.drag = false;
+      };
+      _onmouseover = function(e) {
+        return _this.drag = false;
+      };
+      if ((callbacks != null ? callbacks.onzoom : void 0) != null) {
+        this.zoomCallback = callbacks.onzoom;
+      }
+      if ((callbacks != null ? callbacks.onmousedown : void 0) != null) {
+        this.canvas.onmousedown = function(e) {
+          _onmousedown(e);
+          return callbacks.onmousedown.call(_this, opts, e);
+        };
+      } else {
+        this.canvas.onmousedown = function(e) {
+          return _onmousedown(e);
+        };
+      }
+      if ((callbacks != null ? callbacks.onmouseup : void 0) != null) {
+        this.canvas.onmouseup = function(e) {
+          _onmouseup(e);
+          return callbacks.onmouseup.call(_this, opts, e);
+        };
+      } else {
+        this.canvas.onmouseup = function(e) {
+          return _onmouseup(e);
+        };
+      }
+      if ((callbacks != null ? callbacks.onmousemove : void 0) != null) {
         this.canvas.onmousemove = function(e) {
           var x, xDelta, y, yDelta;
+          _onmousemove(e);
           xDelta = -1 * (_this.width / 2 - e.offsetX) / _this.width / _this.zoom * 2.0;
           yDelta = (_this.height / 2 - e.offsetY) / _this.height / _this.zoom * 2.0;
           x = ((-1 * (_this.xOffset + 0.5)) + xDelta) + 1.5 << 0;
           y = ((-1 * (_this.yOffset + 0.5)) + yDelta) + 1.5 << 0;
-          callback.call(_this, x, y, opts);
-          return _onmousemove(e);
+          return callbacks.onmousemove.call(_this, x, y, opts, e);
         };
       } else {
         this.canvas.onmousemove = function(e) {
           return _onmousemove(e);
         };
       }
-      this.canvas.onmouseout = function(e) {
-        return _this.drag = false;
-      };
-      this.canvas.onmouseover = function(e) {
-        return _this.drag = false;
-      };
+      if ((callbacks != null ? callbacks.onmouseout : void 0) != null) {
+        this.canvas.onmouseout = function(e) {
+          _onmouseout(e);
+          return callbacks.onmouseout.call(_this, opts, e);
+        };
+      } else {
+        this.canvas.onmouseout = function(e) {
+          return _onmouseout(e);
+        };
+      }
+      if ((callbacks != null ? callbacks.onmouseover : void 0) != null) {
+        this.canvas.onmouseover = function(e) {
+          _onmouseover(e);
+          return callbacks.onmouseover.call(_this, opts, e);
+        };
+      } else {
+        this.canvas.onmouseover = function(e) {
+          return _onmouseover(e);
+        };
+      }
       this.canvas.addEventListener('mousewheel', this.wheelHandler, false);
       return this.canvas.addEventListener('DOMMouseScroll', this.wheelHandler, false);
     };
@@ -119,7 +162,8 @@
       factor = e.shiftKey ? 1.01 : 1.1;
       this.zoom *= (e.detail || e.wheelDelta) < 0 ? 1 / factor : factor;
       this.zoom = this.zoom > this.maxZoom ? this.maxZoom : this.zoom;
-      return this.zoom = this.zoom < this.minZoom ? this.minZoom : this.zoom;
+      this.zoom = this.zoom < this.minZoom ? this.minZoom : this.zoom;
+      return typeof this.zoomCallback === "function" ? this.zoomCallback() : void 0;
     };
 
     return BaseApi;
@@ -403,6 +447,18 @@
       location = this.ctx.getUniformLocation(this.currentProgram, 'u_scale');
       this.ctx.uniform1f(location, this.zoom);
       return this.ctx.drawArrays(this.ctx.TRIANGLES, 0, 6);
+    };
+
+    Api.prototype.getXOffset = function() {
+      return this.xOffset;
+    };
+
+    Api.prototype.getYOffset = function() {
+      return this.yOffset;
+    };
+
+    Api.prototype.getZoom = function() {
+      return this.zoom;
     };
 
     Api.prototype.teardown = function() {

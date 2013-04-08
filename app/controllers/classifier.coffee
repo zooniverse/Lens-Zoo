@@ -462,7 +462,7 @@ class Classifier extends Page
     # Get control parameters from WebFITS object
     halfWidth = wfits.width / 2
     halfHeight = wfits.height / 2
-    zoom = wfits.zoom * halfWidth
+    zoom = wfits.getZoom() * halfWidth
     
     # Update Annotation attribute
     Annotation.zoom = zoom
@@ -487,8 +487,8 @@ class Classifier extends Page
     # Update/reset Annotation class attributes
     Annotation.halfWidth = @viewer.wfits.width / 2
     Annotation.halfHeight = @viewer.wfits.height / 2
-    Annotation.xOffset = @viewer.wfits.xOffset
-    Annotation.yOffset = @viewer.wfits.yOffset
+    Annotation.xOffset = @viewer.wfits.getXOffset()
+    Annotation.yOffset = @viewer.wfits.getYOffset()
     
     # Setup mouse controls on the SVG element
     svg.addEventListener('mousewheel', @wheelHandler, false)
@@ -528,8 +528,8 @@ class Classifier extends Page
       
       if @viewer.wfits.drag
         # Update Annotation class attributes
-        Annotation.xOffset = xOffset = @viewer.wfits.xOffset
-        Annotation.yOffset = yOffset = @viewer.wfits.yOffset
+        Annotation.xOffset = xOffset = @viewer.wfits.getXOffset()
+        Annotation.yOffset = yOffset = @viewer.wfits.getYOffset()
         
         halfWidth = Annotation.halfWidth
         halfHeight = Annotation.halfHeight
@@ -682,7 +682,6 @@ class Classifier extends Page
                   $(".zootorial-focuser").remove()
           @tutorial.start()
         else
-          # @submit(e)
           @tutorial = new Tutorial
             id: 'sim-missed'
             firstStep: 'missed'
