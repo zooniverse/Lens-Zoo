@@ -114,6 +114,9 @@ class Classifier extends Page
     Subject.off 'select', @onSubjectSelect
     Subject.off 'no-more', @onNoMoreSubjects
     
+    # Unbind Talk event
+    @unbind 'addToTalk'
+    
     # Set default counts
     @nClassified  = 0
     @nPotentials  = 0
