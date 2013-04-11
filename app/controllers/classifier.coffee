@@ -28,11 +28,6 @@ class Classifier extends Page
   subjectDimension: 440
   
   maxAnnotations: 5
-  initialFetch: true
-  xDown: null
-  yDown: null
-  toAnnotate: true
-  isTrainingSubject: false
   
   subjectGroup: '5154a3783ae74086ab000001'
   simulationGroup: '5154a3783ae74086ab000002'
@@ -62,9 +57,6 @@ class Classifier extends Page
     # Initialize QuickGuide and FITS Viewer
     @quickGuide = new QuickGuide({el: @el.find('.quick-guide')})
     @viewer = new Viewer({el: @el.find('.viewer')[0], classifier: @})
-    
-    # Setup events
-    @bind 'tutorial', @startTutorial
     
     User.on 'change', @onUserChange
     @viewer.bind 'ready', @setupMouseControls
@@ -100,7 +92,7 @@ class Classifier extends Page
     @feedback         = false
     @xDown            = null
     @yDown            = null
-    @toAnnotate       = true
+    @isAnnotatable    = true
     
     @isTrainingSubject = false
     @ctx = undefined
@@ -113,7 +105,7 @@ class Classifier extends Page
     Subject.instances = []
     $('.subjects').empty()
     @svg.empty()
-    Subject.off 'fetch', @onFetch
+    Subject.off 'fetch', @appendSubjects
     Subject.off 'select', @onSubjectSelect
     Subject.off 'no-more', @onNoMoreSubjects
     
@@ -125,33 +117,31 @@ class Classifier extends Page
     if user?
       project = user.project
       
-      # Determine if main tutorial completed
+      # Determine if tutorial completed
       unless 'tutorial_done' of project
-        @trigger 'tutorial'
+        @startTutorial()
       else
         @nClassified  = project.classification_count or 0
         @nPotentials  = project.annotation_count or 0
         @nFavorites   = project.favorite_count or 0
         @start()
     else
-      @trigger 'tutorial'
+      @startTutorial()
     
     # Render counts to DOM
     @setClassified()
     @setPotentials()
     @setFavorites()
+    
     @setSimulationRatio()
   
   start: ->
     # Set up events
-    Subject.on 'fetch', @onFetch
+    Subject.on 'fetch', @appendSubjects
     Subject.on 'select', @onSubjectSelect
     Subject.on 'no-more', @onNoMoreSubjects
     
-    if @tutorial?
-      @tutorial.close()
-      $(".zootorial-blocker").remove()
-      $(".zootorial-focuser").remove()
+    @tutorial.end() if @tutorial?
     
     # Initial fetch for subjects
     Subject.next()
@@ -166,16 +156,8 @@ class Classifier extends Page
       id: 'tutorial'
       firstStep: 'welcome'
       steps: TutorialSteps
+      parent: @el[0]
     @tutorial.el.bind('end-tutorial', @onTutorialEnd)
-    
-    # Move tutorial to classifier div
-    $("[class^='zootorial']").appendTo(@el)
-    
-    # Set queue length on Subject
-    Subject.queueLength = 3
-    
-    # Bind tutorial-specific event
-    Subject.on 'fetch', @createStagedTutorial
     
     # Set the tutorial subject
     subject = new Subject
@@ -186,7 +168,7 @@ class Classifier extends Page
       workflow_ids: ['5101a1361a320ea77f000002']
       metadata:
         training:
-          type: 'lens'
+          type: 'lensed galaxy'
         id: 'CFHTLS_078_1721'
       tutorial: true
       zooniverse_id: 'ASW0000001'
@@ -194,17 +176,20 @@ class Classifier extends Page
     # Create classification object
     @classification = new Classification {subject}
     
-    # Empty all subjects from queue
+    # Empty tutorial subject from queue
     Subject.instances = []
+    
+    # Set queue length on Subject
+    Subject.queueLength = 3
+    
+    # Bind tutorial-specific event
+    Subject.on 'fetch', @createStagedTutorial
     
     # Fetch subjects from API
     Subject.fetch()
     
     # Append tutorial subject to DOM
-    params =
-      url: subject.location.standard
-      zooId: subject.zooniverse_id
-    @subjectsEl.prepend @subjectTemplate(params)
+    @appendSubjects(null, [subject])
     @el.find('.current').removeClass('current')
     @el.find('.subject').first().addClass('current')
     
@@ -214,7 +199,7 @@ class Classifier extends Page
   createStagedTutorial: (e, subjects) =>
     # Handle event bindings
     Subject.off 'fetch', @createStagedTutorial
-    Subject.on 'fetch', @onFetch
+    Subject.on 'fetch', @appendSubjects
     Subject.on 'select', @onSubjectSelect
     Subject.on 'no-more', @onNoMoreSubjects
     
@@ -227,7 +212,7 @@ class Classifier extends Page
       workflow_ids: ['5101a1361a320ea77f000002']
       metadata:
         training:
-          type: 'lens'
+          type: 'lensed galaxy'
           x: 100
           y: 355
         id: 'CFHTLS_079_2328'
@@ -258,18 +243,14 @@ class Classifier extends Page
     Subject.instances[4] = subjects[2]
     
     # Append remaining subjects to DOM
-    for subject, index in Subject.instances
-      params = 
-        url: subject.location.standard
-        zooId: subject.zooniverse_id
-      @subjectsEl.append @subjectTemplate(params)
+    @appendSubjects(null, Subject.instances)
   
   #
   # Subject callbacks
   #
   
-  # Append subject(s) to DOM when received
-  onFetch: (e, subjects) =>
+  # Append subject(s) to DOM
+  appendSubjects: (e, subjects) =>
     for subject, index in subjects
       params = 
         url: subject.location.standard
@@ -278,8 +259,10 @@ class Classifier extends Page
   
   onSubjectSelect: (e, subject) =>
     
-    # Reset classification variables and create new classification
+    # Reset classification variables
     @reset()
+    
+    # Create new classification
     @classification = new Classification {subject}
     
     # Update DOM
@@ -337,7 +320,7 @@ class Classifier extends Page
   #
   
   onAnnotation: (e) ->
-    return unless @toAnnotate
+    return unless @isAnnotatable
     
     # Create annotation and push to object
     position = $('.subject.current .image').position()
@@ -364,7 +347,7 @@ class Classifier extends Page
       @setPotentials()
     
     # Warn of overmarking
-    if @annotationCount > 5 and Math.random() > 0.4 and !@hasWarned
+    if (@annotationCount > @maxAnnotations) and (Math.random() > 0.4) and (not @hasWarned)
       @warningDialog.open()
       @hasWarned = true
   
@@ -457,7 +440,7 @@ class Classifier extends Page
     svg = @svg[0]
     
     # Activate annotate flag
-    @toAnnotate = false
+    @isAnnotatable = false
     
     # Update/reset Annotation class attributes
     Annotation.halfWidth = @viewer.wfits.width / 2
@@ -486,9 +469,9 @@ class Classifier extends Page
       
       # Propagate to annotation layer if down coordinates match up coordinates
       if @xDown is e.pageX and @yDown is e.pageY
-        @toAnnotate = true
+        @isAnnotatable = true
       else
-        @toAnnotate = false
+        @isAnnotatable = false
       return if @viewer.wfits.drag is false
       
       @viewer.wfits.canvas.onmouseup(e)
@@ -532,7 +515,7 @@ class Classifier extends Page
     @viewerEl.removeClass('show')
     
     # Allow annotation again
-    @toAnnotate = true
+    @isAnnotatable = true
     
     # Reset Annotation attributes
     Annotation.xOffset = -220.5
@@ -556,7 +539,7 @@ class Classifier extends Page
     
     @viewer.teardown()
   
-  # NOTE: Testing new training scheme
+  # Training scheme using simulations and empty fields
   setSimulationRatio: ->
     if true
       # When duds are included in the @TrainingGroup, need to multiply @simratio by 2 to 
@@ -620,7 +603,7 @@ class Classifier extends Page
       training = @classification.subject.metadata.training
       trainingType = training.type
       
-      if trainingType in ['lens', 'lensed galaxy', 'lensed quasar']
+      if trainingType in ['lensed galaxy', 'lensed quasar']
         x = (training.x + 30) / @subjectDimension
         y = 1 - (training.y / @subjectDimension)
         
