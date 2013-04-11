@@ -26,6 +26,7 @@ class Classifier extends Page
   template: require 'views/classifier'
   subjectTemplate: require 'views/subject'
   subjectDimension: 440
+  dashboardCollection: 'Dashboard'
   
   maxAnnotations: 5
   
@@ -99,6 +100,10 @@ class Classifier extends Page
     
     @warningDialog.close()
   
+  # Called when the user changes.  Lots going on here:
+  # 1) Determine tutorial state
+  # 2) Check talk collection
+  # 3) Set user counters
   onUserChange: (e, user) =>
     
     # Reset subjects
@@ -115,6 +120,13 @@ class Classifier extends Page
     @nFavorites   = 0
     
     if user?
+      
+      # Interact with Talk
+      @getTalkCollections(user)
+      
+      @bind 'addToTalk', (zooniverseId) =>
+        @addToTalkCollection(user, zooniverseId)
+      
       project = user.project
       
       # Determine if tutorial completed
@@ -134,6 +146,62 @@ class Classifier extends Page
     @setFavorites()
     
     @setSimulationRatio()
+  
+  # List Talk collections owned by user
+  getTalkCollections: (user) ->
+    
+    # Authentication appended to header
+    auth = base64.encode("#{user.name}:#{user.api_key}")
+    headers = {}
+    headers['Authorization'] = "Basic #{auth}"
+    
+    # Send the request
+    $.ajax({
+      url: "#{@constructor.host}/projects/spacewarp/talk/users/collection_list",
+      success: (collections, status, response) =>
+        @setTalkCollection(user, collections)
+      headers: headers
+    })
+  
+  # Set a Quick Dashboard collection unless it exists
+  setTalkCollection: (user, collections) =>
+    
+    # Check users collections for Quick Dashboard
+    for collection in collections
+      if collection.title is @dashboardCollection
+        @collectionId = collection.zooniverse_id
+        return
+    
+    # Authentication appended to header
+    auth = base64.encode("#{user.name}:#{user.api_key}")
+    headers = {}
+    headers['Authorization'] = "Basic #{auth}"
+    
+    # Create collection for user
+    $.ajax({
+      url: "#{@constructor.host}/projects/spacewarp/talk/collections",
+      type: 'POST',
+      data: {subject_id: 'ASW0000001', title: @dashboardCollection, description: 'A collection of all Space Warp images examined in the Quick Dashboard.'},
+      headers: headers,
+      success: (collection, status, response) =>
+        @collectionId = collection.zooniverseId
+    })
+  
+  # Add subject to Talk collection
+  addToTalkCollection: (user, zooniverseId) =>
+    
+    # Authentication appended to header
+    auth = base64.encode("#{user.name}:#{user.api_key}")
+    headers = {}
+    headers['Authorization'] = "Basic #{auth}"
+    $.ajax({
+      url: "#{@constructor.host}/projects/spacewarp/talk/collections/#{@collectionId}/add_subject",
+      type: 'POST',
+      data: {subject_id: zooniverseId},
+      headers: headers,
+    })
+    
+    console.log 'addToTalkCollection', user, zooniverseId
   
   start: ->
     # Set up events
@@ -408,6 +476,8 @@ class Classifier extends Page
     
     # Load current subject
     @viewer.load(@classification.subject.metadata.id)
+    
+    # TODO: Push to Talk collection
   
   # Enabled only when viewer is ready
   wheelHandler: (e) =>
@@ -559,7 +629,15 @@ class Classifier extends Page
     # Process annotations and push to API
     for index, annotation of @annotations
       @classification.annotate annotation.toJSON()
-    @classification.annotate {preset: @preset} if @preset?
+    
+    if @preset?
+      
+      # Record the Quick Dashboard preset
+      @classification.annotate {preset: @preset}
+      
+      # Push subject to Talk collection
+      @trigger 'addToTalk', @classification.subject.zooniverse_id
+      
     @classification.send()
     
     # Empty SVG element

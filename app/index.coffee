@@ -52,6 +52,9 @@ topBar.el.appendTo 'body'
 stack.el.appendTo 'body'
 Route.setup()
 
+# Pass host to Classifier instance
+stack.controllers.classify.host = api.proxyFrame.host
+
 # Lazy loading of Guide images
 $('img.lazy').lazyload({threshold : 200, effect: 'fadeIn'})
 
