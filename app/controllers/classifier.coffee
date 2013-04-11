@@ -15,7 +15,9 @@ QuickGuide    = require 'controllers/quick_guide'
 {Dialog}      = require 'zootorial'
 {Step}        = require 'zootorial'
 
-TutorialSteps = require 'lib/tutorial_steps'
+TutorialSteps     = require 'lib/tutorial_steps'
+TutorialDashboard = require 'lib/tutorial_dashboard'
+TutorialTalk      = require 'lib/tutorial_talk'
 
 
 class Classifier extends Page
@@ -34,7 +36,6 @@ class Classifier extends Page
   
   subjectGroup: '5154a3783ae74086ab000001'
   simulationGroup: '5154a3783ae74086ab000002'
-  simRatio: 2 # Default to sending one simulation for every two subjects
   
   
   elements:
@@ -82,7 +83,9 @@ class Classifier extends Page
   
   active: ->
     super
-    $(window).resize()  # Trick zootorial to show when page is active.
+    
+    # Trick zootorial to show when page is active.
+    $(window).resize()
   
   # Reset variables for a classification
   reset: ->
@@ -301,21 +304,7 @@ class Classifier extends Page
       tutorial = new Tutorial
         id: 'dashboard'
         firstStep: 'dashboard'
-        steps:
-          length: 1
-          
-          dashboard: new Step
-            number: 1
-            header: 'Quick Dashboard'
-            details: 'As gravitationally lensed features can be faint and/or small, you can explore an image in more detail in the Quick Dashboard. Try clicking on this button.'
-            attachment: 'center bottom [data-type="dashboard"] center -0.2'
-            className: 'arrow-bottom'
-            onEnter: ->
-              $('.current .controls a[data-type="dashboard"]').addClass('hover')
-            onExit: ->
-              $('.current .controls a[data-type="dashboard"]').removeClass('hover')
-            next:
-              'click a': true
+        steps: TutorialDashboard
       tutorial.start()
     
     # NOTE: Disabling during beta
@@ -324,21 +313,7 @@ class Classifier extends Page
     #   tutorial = new Tutorial
     #     id: 'talk'
     #     firstStep: 'talk'
-    #     steps:
-    #       length: 1
-    #       
-    #       talk: new Step
-    #         number: 1
-    #         header: 'Talk'
-    #         details: 'Talk is a place to discuss the things you find with the rest of the Space Warps community: together we aim to build a catalog of new lenses, some of the rarest objects in the universe. If you have questions, the Science Team and other astronomers will help answer them. If you find something that looks interesting, come and show it to the group!'
-    #         attachment: 'center bottom [data-type="talk"] center top'
-    #         className: 'arrow-bottom'
-    #         onEnter: ->
-    #           $('.current .controls a[data-type="talk"]').addClass('hover')
-    #         onExit: ->
-    #           $('.current .controls a[data-type="talk"]').removeClass('hover')
-    #         next:
-    #           'click a': true
+    #     steps: TutorialTalk
     #   tutorial.start()
       
   onNoMoreSubjects: ->
@@ -634,14 +609,9 @@ class Classifier extends Page
     e.preventDefault()
     
     if @isTrainingSubject
-      # console.log "TRAINING"
-      
-      # Move to the next image if user clicks finished again
+      # If finished is clicked again move to the next image
       if @feedback
-        @tutorial?.close()
-        $(".zootorial-blocker").remove()
-        $(".zootorial-focuser").remove()
-        @submit(e)
+        @tutorial?.end()
         return
       
       @feedback = true
@@ -677,9 +647,6 @@ class Classifier extends Page
                 next: true
                 onExit: =>
                   @submit(e)
-                  @tutorial.close()
-                  $(".zootorial-blocker").remove()
-                  $(".zootorial-focuser").remove()
                   @viewer.trigger 'close'
           @tutorial.start()
         else
@@ -700,9 +667,6 @@ class Classifier extends Page
                 next: true
                 onExit: =>
                   @submit(e)
-                  $(".zootorial-blocker").remove()
-                  $(".zootorial-focuser").remove()
-                  @tutorial.close()
                   @viewer.trigger 'close'
           @tutorial.start()
         
@@ -725,9 +689,6 @@ class Classifier extends Page
                 next: true
                 onExit: =>
                   @submit(e)
-                  @tutorial.close()
-                  $(".zootorial-blocker").remove()
-                  $(".zootorial-focuser").remove()
                   @viewer.trigger 'close'
           @tutorial.start()
         else
@@ -746,9 +707,6 @@ class Classifier extends Page
                 next: true
                 onExit: =>
                   @submit(e)
-                  @tutorial.close()
-                  $(".zootorial-blocker").remove()
-                  $(".zootorial-focuser").remove()
                   @viewer.trigger 'close'
           @tutorial.start()
     else
