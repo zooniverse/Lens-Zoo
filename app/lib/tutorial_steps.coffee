@@ -85,9 +85,17 @@ module.exports =
     next:
       'mouseup svg.primary': (e, tutorial, step) ->
         mask = getMaskValue(e)
-        return if mask is 255 then 'training' else 'tryagain'
+        return if mask is 255 then 'goodjob' else 'tryagain'
   
-  tryagain:
+  goodjob: new Step
+    header: "Great job!"
+    details: 'You’ve correctly identified a gravitational lens!'
+    attachment: 'left top .current 1 0.44'
+    block: '.annotation, .controls'
+    className: 'arrow-left'
+    next: 'training'
+  
+  tryagain: new Step
     header: 'Whoops, try again.'
     details: 'Drag the marker over the blue arc to identify the lens.'
     attachment: 'left top .current 1 0.44'
@@ -96,7 +104,7 @@ module.exports =
     next:
       'mouseup svg.primary': (e, tutorial, step) ->
         mask = getMaskValue(e)
-        return if mask is 255 then 'training' else false
+        return if mask is 255 then 'goodjob' else false
   
   training: new Step
     number: 7

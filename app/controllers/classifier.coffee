@@ -120,6 +120,10 @@ class Classifier extends Page
     Subject.off 'select', @onSubjectSelect
     Subject.off 'no-more', @onNoMoreSubjects
     
+    # Clean up for when user signs out while using QD
+    @viewer.trigger 'close'
+    @viewer.clearCache()
+    
     # Unbind Talk event
     @unbind 'addToTalk'
     
@@ -226,6 +230,8 @@ class Classifier extends Page
     $("circle[r='50']").remove()
   
   startTutorial: =>
+    # Close any lingering tutorials
+    @tutorial?.end()
     
     # Create tutorial and bind to handlers
     @tutorial = new Tutorial
@@ -543,6 +549,7 @@ class Classifier extends Page
       @viewer.wfits.canvas.onmouseover(e)
   
   onViewerClose: (e) =>
+    console.log 'onViewerClose'
     
     @maskEl.removeClass('show')
     @viewerEl.removeClass('show')
