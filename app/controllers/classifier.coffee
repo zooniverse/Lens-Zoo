@@ -15,6 +15,7 @@ QuickGuide    = require 'controllers/quick_guide'
 {Dialog}      = require 'zootorial'
 {Step}        = require 'zootorial'
 
+TutorialSubject   = require 'lib/tutorial_subject'
 TutorialSteps     = require 'lib/tutorial_steps'
 TutorialDashboard = require 'lib/tutorial_dashboard'
 TutorialTalk      = require 'lib/tutorial_talk'
@@ -187,7 +188,7 @@ class Classifier extends Page
       data: {subject_id: 'ASW0000001', title: @dashboardCollection, description: 'A collection of all Space Warp images examined in the Quick Dashboard.'},
       headers: headers,
       success: (collection, status, response) =>
-        @collectionId = collection.zooniverseId
+        @collectionId = collection.zooniverse_id
     })
   
   # Add subject to Talk collection
@@ -203,8 +204,6 @@ class Classifier extends Page
       data: {subject_id: zooniverseId},
       headers: headers,
     })
-    
-    console.log 'addToTalkCollection', user, zooniverseId
   
   start: ->
     # Set up events
@@ -230,19 +229,8 @@ class Classifier extends Page
       parent: @el[0]
     @tutorial.el.bind('end-tutorial', @onTutorialEnd)
     
-    # Set the tutorial subject
-    subject = new Subject
-      id: '5101a1931a320ea77f000003'
-      location:
-        standard: 'images/tutorial/tutorial-1.png'
-      project_id: '5101a1341a320ea77f000001'
-      workflow_ids: ['5101a1361a320ea77f000002']
-      metadata:
-        training:
-          type: 'lensed galaxy'
-        id: 'CFHTLS_078_1721'
-      tutorial: true
-      zooniverse_id: 'ASW0000001'
+    # Set first tutorial subject
+    subject = TutorialSubject.main
     
     # Create classification object
     @classification = new Classification {subject}
@@ -274,35 +262,9 @@ class Classifier extends Page
     Subject.on 'select', @onSubjectSelect
     Subject.on 'no-more', @onNoMoreSubjects
     
-    # Create simulated subject
-    simulatedSubject = new Subject
-      id: '5101a1931a320ea77f000004'
-      location:
-        standard: 'images/tutorial/tutorial-2.png'
-      project_id: '5101a1341a320ea77f000001'
-      workflow_ids: ['5101a1361a320ea77f000002']
-      metadata:
-        training:
-          type: 'lensed galaxy'
-          x: 100
-          y: 355
-        id: 'CFHTLS_079_2328'
-      tutorial: true
-      zooniverse_id: 'ASW0000002'
-    
-    # Create empty subject
-    emptySubject = new Subject
-      id: '5101a1931a320ea77f000005'
-      location:
-        standard: 'images/tutorial/tutorial-3.png'
-      project_id: '5101a1341a320ea77f000001'
-      workflow_ids: ['5101a1361a320ea77f000002']
-      metadata:
-        training:
-          type: 'empty'
-        id: 'CFHTLS_082_0054'
-      tutorial: true
-      zooniverse_id: 'ASW0000003'
+    # Create simulated and empty tutorial subjects
+    simulatedSubject = TutorialSubject.simulated
+    emptySubject = TutorialSubject.empty
     
     # Set queue length on Subject back to five
     Subject.queueLength = 5
