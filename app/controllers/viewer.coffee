@@ -10,6 +10,7 @@ class Viewer extends Controller
   source: 'http://spacewarps.org.s3.amazonaws.com/subjects/raw/'
   
   cache: {}
+  prefix: null
   
   parameters:
     0:
@@ -71,6 +72,7 @@ class Viewer extends Controller
     )
   
   load: (prefix) ->
+    @prefix = prefix
     
     # Setup WebFITS object
     @wfits = new astro.WebFITS(@el.find('.webfits')[0], @dimension)
@@ -158,6 +160,7 @@ class Viewer extends Controller
   
   # Call when all channels are received (i.e. each deferred is resolved)
   allChannelsReceived: =>
+    
     # Setup callback for escape key
     document.onkeydown = (e) =>
       if e.keyCode is 27
@@ -165,6 +168,7 @@ class Viewer extends Controller
         
         # Remove the callback
         document.onkeydown = null
+    
     @append("""
       <div class='controls'>
         <a href='' data-preset='0'>Standard</a>
@@ -174,6 +178,14 @@ class Viewer extends Controller
       </div>
       <div class='flag'>?</div>
       <div class='instructions'>Scroll to zoom.  Drag to move around the image.</div>
+      <div class='download'>
+        Download Data:
+        <a href='#{@source}#{@prefix}_u.fits.fz'>u</a>
+        <a href='#{@source}#{@prefix}_g.fits.fz'>g</a>
+        <a href='#{@source}#{@prefix}_r.fits.fz'>r</a>
+        <a href='#{@source}#{@prefix}_i.fits.fz'>i</a>
+        <a href='#{@source}#{@prefix}_z.fits.fz'>z</a>
+      </div>
       """
     )
     @el.find('a[data-preset="0"]').click()
@@ -204,6 +216,7 @@ class Viewer extends Controller
   teardown: =>
     @wfits?.teardown()
     @wfits = undefined
+    @prefix = null
     @el.find('.controls').remove()
     @el.find('.flag').remove()
     @el.find('.instructions').remove()
