@@ -6,14 +6,14 @@ Subject         = require 'zooniverse/models/subject'
 Favorite        = require 'zooniverse/models/favorite'
 Classification  = require 'models/classification'
 
-Page          = require 'controllers/page'
-Annotation    = require 'controllers/Annotation'
-Viewer        = require 'controllers/viewer'
-QuickGuide    = require 'controllers/quick_guide'
+Page        = require 'controllers/page'
+Annotation  = require 'controllers/Annotation'
+Viewer      = require 'controllers/viewer'
+QuickGuide  = require 'controllers/quick_guide'
 
-{Tutorial}    = require 'zootorial'
-{Dialog}      = require 'zootorial'
-{Step}        = require 'zootorial'
+{Tutorial}  = require 'zootorial'
+{Dialog}    = require 'zootorial'
+{Step}      = require 'zootorial'
 
 TutorialSubject   = require 'lib/tutorial_subject'
 TutorialSteps     = require 'lib/tutorial_steps'
@@ -91,7 +91,7 @@ class Classifier extends Page
     @hasAnnotation    = false
     @hasWarned        = false
     @preset           = null
-    @feedback         = false
+    @feedbackShown    = false
     @xDown            = null
     @yDown            = null
     @isAnnotatable    = true
@@ -441,8 +441,6 @@ class Classifier extends Page
     
     # Load current subject
     @viewer.load(@classification.subject.metadata.id)
-    
-    # TODO: Push to Talk collection
   
   # Enabled only when viewer is ready
   wheelHandler: (e) =>
@@ -595,6 +593,7 @@ class Classifier extends Page
     for index, annotation of @annotations
       @classification.annotate annotation.toJSON()
     
+    # Quick Dashboard was accessed
     if @preset?
       
       # Record the Quick Dashboard preset
@@ -630,111 +629,130 @@ class Classifier extends Page
     # Update stats
     @nClassified += 1
     @setClassified()
-
+    
+  
+  #
+  # Feedback for training subjects
+  #
+  
+  createSimulationFoundFeedback: (e, trainingType, x, y) ->
+    return new Tutorial
+      id: 'simFound'
+      firstStep: 'simFound'
+      steps:
+        length: 1
+    
+        simFound: new Step
+          header: 'Nice catch!'
+          details: "You found a simulated #{trainingType}!"
+          attachment: "left center .primary #{x} #{y}"
+          block: '.annotation'
+          className: 'arrow-left'
+          nextButton: 'Next image'
+          next: true
+          onExit: =>
+            @submit(e)
+            @viewer.trigger 'close'
+    
+  createSimulationMissedFeedback: (e, trainingType, x, y) ->
+    return new Tutorial
+      id: 'simMissed'
+      firstStep: 'simMissed'
+      steps:
+        length: 1
+            
+        simMissed: new Step
+          number: 1
+          header: 'Whoops!'
+          details: "You missed a simulated #{trainingType}!  Don't worry, let's move to the next image."
+          attachment: "left center .primary #{x} #{y}"
+          block: '.annotation'
+          className: 'arrow-left'
+          nextButton: 'Next image'
+          next: true
+          onExit: =>
+            @submit(e)
+            @viewer.trigger 'close'
+  
+  createDudFoundFeedback: (e) ->
+    return new Tutorial
+      id: 'emptyFound'
+      firstStep: 'emptyFound'
+      steps:
+        length: 1
+        
+        emptyFound: new Step
+          header: 'Nice! There is no gravitational lens in this field!'
+          details: "This is a different kind of Training Image, one that has already been inspected by the Science Team and found not to contain any gravitational lenses."
+          attachment: 'center center .primary center center'
+          block: '.annotation'
+          nextButton: 'Next image'
+          next: true
+          onExit: =>
+            @submit(e)
+            @viewer.trigger 'close'
+  
+  createDudMissedFeedback: (e) ->
+    return new Tutorial
+      id: 'empty-missed'
+      firstStep: 'missed'
+      steps:
+        length: 1
+        
+        missed: new Step
+          header: 'There is no gravitational lens in this field!'
+          details: "This is a different kind of Training Image, one that has already been inspected by the Science Team and found not to contain any gravitational lenses."
+          attachment: 'center center .primary center center'
+          block: '.annotation'
+          nextButton: 'Next image'
+          next: true
+          onExit: =>
+            @submit(e)
+            @viewer.trigger 'close'
+  
   onFinish: (e) =>
     e.preventDefault()
     
     if @isTrainingSubject
       # If finished is clicked again move to the next image
-      if @feedback
+      if @feedbackShown
         @tutorial?.end()
         return
       
-      @feedback = true
+      @feedbackShown = true
       
       # Get the training type (e.g. lens or empty)
       training = @classification.subject.metadata.training
       trainingType = training.type
       
+      # TODO: Do we have more than these categories?
       if trainingType in ['lensed galaxy', 'lensed quasar']
+        
+        # Get the location for the dialog
         x = (training.x + 30) / @subjectDimension
         y = 1 - (training.y / @subjectDimension)
         
         # Check if any annotation over lens
-        over = false
+        isLensMarked = false
         for index, annotation of @annotations
-          over = @checkImageMask(annotation.x, annotation.y)
-          break if over
+          isLensMarked = @checkImageMask(annotation.x, annotation.y)
+          break if isLensMarked
         
-        if over
-          @tutorial = new Tutorial
-            id: 'sim-found'
-            firstStep: 'found'
-            steps:
-              length: 1
-
-              found: new Step
-                header: 'Nice catch!'
-                details: "You found a simulated #{trainingType}!"
-                attachment: "left center .primary #{x} #{y}"
-                block: '.annotation'
-                className: 'arrow-left'
-                nextButton: 'Next image'
-                next: true
-                onExit: =>
-                  @submit(e)
-                  @viewer.trigger 'close'
-          @tutorial.start()
+        if isLensMarked
+          @tutorial = @createSimulationFoundFeedback(e, trainingType, x, y)
         else
-          @tutorial = new Tutorial
-            id: 'sim-missed'
-            firstStep: 'missed'
-            steps:
-              length: 1
-                  
-              missed: new Step
-                number: 1
-                header: 'Whoops!'
-                details: "You missed a simulated #{trainingType}!  Don't worry, let's move to the next image."
-                attachment: "left center .primary #{x} #{y}"
-                block: '.annotation'
-                className: 'arrow-left'
-                nextButton: 'Next image'
-                next: true
-                onExit: =>
-                  @submit(e)
-                  @viewer.trigger 'close'
-          @tutorial.start()
+          @tutorial = @createSimulationMissedFeedback(e, trainingType, x, y)
         
       else if trainingType is 'empty'
-        # Subject is an empty field
-        nAnnotations = Object.keys(@annotations).length
-        if nAnnotations > 0
-          @tutorial = new Tutorial
-            id: 'empty-missed'
-            firstStep: 'missed'
-            steps:
-              length: 1
-              
-              missed: new Step
-                header: 'There is no gravitational lens in this field!'
-                details: "This is a different kind of Training Image, one that has already been inspected by the Science Team and found not to contain any gravitational lenses."
-                attachment: 'center center .primary center center'
-                block: '.annotation'
-                nextButton: 'Next image'
-                next: true
-                onExit: =>
-                  @submit(e)
-                  @viewer.trigger 'close'
-          @tutorial.start()
-        else
-          @tutorial = new Tutorial
-            id: 'empty-found'
-            firstStep: 'found'
-            steps:
-              length: 1
-              
-              found: new Step
-                header: 'Nice! There is no gravitational lens in this field!'
-                details: "This is a different kind of Training Image, one that has already been inspected by the Science Team and found not to contain any gravitational lenses."
-                attachment: 'center center .primary center center'
-                block: '.annotation'
-                nextButton: 'Next image'
-                next: true
-                onExit: =>
-                  @submit(e)
-                  @viewer.trigger 'close'
-          @tutorial.start()
+        
+        # Count the number of annotations
+        nAnnotations = _.keys(@annotations).length
+        
+        @tutorial = if nAnnotations > 0 then @createDudMissedFeedback(e) else @createDudFoundFeedback(e)
+      
+      # Start the tutorial
+      @tutorial.start()
+      
     else
       @submit(e)
 
