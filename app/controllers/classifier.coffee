@@ -263,17 +263,15 @@ class Classifier extends Page
     Subject.on 'no-more', @onNoMoreSubjects
     
     # Create simulated and empty tutorial subjects
-    simulatedSubject = TutorialSubject.simulated
-    emptySubject = TutorialSubject.empty
+    simSubject = TutorialSubject.simulated
+    dudSubject = TutorialSubject.empty
     
     # Set queue length on Subject back to five
     Subject.queueLength = 5
     
-    # Rearrange subjects (random, simulated, random, empty)
-    Subject.instances[1] = simulatedSubject
-    Subject.instances[2] = subjects[1]
-    Subject.instances[3] = emptySubject
-    Subject.instances[4] = subjects[2]
+    # Insert tutorial subjects into queue
+    Subject.instances.splice(1, 0, simSubject)
+    Subject.instances.splice(3, 0, dudSubject)
     
     # Append remaining subjects to DOM
     @appendSubjects(null, Subject.instances)
