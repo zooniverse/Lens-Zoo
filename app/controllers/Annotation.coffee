@@ -19,6 +19,8 @@ class Annotation extends Controller
   @xOffset: -220.5
   @yOffset: -220.5
   
+  # Class drag variable
+  @drag: false
   
   constructor: ->
     super
@@ -198,12 +200,12 @@ class Annotation extends Controller
   onmousedown: (e) =>
     e.preventDefault()
     
-    @drag = true
+    @drag = Annotation.drag = true
     @gCross.setAttribute("stroke", @overColor)
   
   onmouseup: (e) =>
     e.preventDefault()
-    @drag = false
+    @drag = Annotation.drag = false
     @gCross.setAttribute("stroke", @color)
   
   onclick: (e) =>

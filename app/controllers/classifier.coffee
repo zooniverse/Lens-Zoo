@@ -473,7 +473,6 @@ class Classifier extends Page
   
   # Called when viewer is ready
   setupMouseControls: (e) =>
-    
     svg = @svg[0]
     
     # Activate annotate flag
@@ -496,9 +495,7 @@ class Classifier extends Page
       @xDown = e.pageX
       @yDown = e.pageY
       
-      # TODO: Find more efficient way to do this
-      for key, a of @annotations
-        return if a.drag
+      return if Annotation.drag
       
       @viewer.wfits.canvas.onmousedown(e)
       
@@ -517,9 +514,7 @@ class Classifier extends Page
       # Pass event to WebFITS object
       @viewer.wfits.canvas.onmousemove(e)
       
-      # TODO: Find more efficient way to do this
-      for key, a of @annotations
-        return if a.drag
+      return if Annotation.drag
       
       if @viewer.wfits.drag
         # Update Annotation class attributes
