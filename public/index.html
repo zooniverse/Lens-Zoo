@@ -5,6 +5,25 @@
     <meta charset='utf-8'>
     <title>SpaceWarps</title>
     <link rel="stylesheet" href="/application.css" type="text/css" charset="utf-8">
+    
+    <script type="text/javascript" src="https://raw.github.com/slowe/lensjs/master/lens.js"></script>
+    <script type="text/javascript" src="https://raw.github.com/slowe/lensjs/master/canvas.js"></script>
+    <script type="text/javascript" src="https://raw.github.com/jasondavies/conrec.js/master/conrec.js"></script>
+    <script type="text/javascript" src="https://raw.github.com/slowe/LensToy/master/lenstoy.js"></script>
+    
+    <script>
+    window.onload = function(e) {
+      var lensToy = new LensToy({
+        id: 'field',
+        pixscale: 0.186,
+        width: 440,
+        height: 440
+      });
+      lensToy.init("CFHTLS_field");
+      console.log(lensToy);
+    }
+    </script>
+    
   </head>
   
   <body>
@@ -30,7 +49,11 @@
           <div class="columns two">
             <div class="column">
               
-              <figure class="portal"><img src="images/home.jpg"></figure>
+              <figure class="portal">
+                <!-- <img id="fieldimg" src="images/home.jpg"> -->
+                <img id="fieldimg" src="CFHTLS_field_440x440.png">
+                <div id="field"></div>
+              </figure>
               <!-- This is where the lenstoy would go. HTML to crib from 
                    can be found here:
                       http://drphilmarshall.github.com/SpaceWarps/training/Playground/index.html

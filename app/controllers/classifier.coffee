@@ -167,8 +167,9 @@ class Classifier extends Page
     # Send the request
     $.ajax({
       url: "#{@constructor.host}/projects/spacewarp/talk/users/collection_list",
+      dataType: 'json',
       success: (collections, status, response) =>
-        @setTalkCollection(user, JSON.parse(collections))
+        @setTalkCollection(user, collections)
       headers: headers
     })
   
