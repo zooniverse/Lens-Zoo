@@ -50,7 +50,7 @@ module.exports =
   identify: new Step
     number: 5
     header: 'Identifying gravitational lenses'
-    details: "This small group of yellow-ish galaxies is a gravitational lens. It is bending and magnifying the light from a faint blue galaxy lying far behind it into a blue arc, that surrounds the group."
+    details: "The yellow-ish looking galaxy is a gravitational lens. It is bending and magnifying the light from a faint blue galaxy, lying far behind, into a blue arc that surrounds the lensing galaxy."
     attachment: 'left top .current 1 0.38'
     block: '.annotation, .controls:first'
     className: 'arrow-left'
