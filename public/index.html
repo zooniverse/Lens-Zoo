@@ -6,12 +6,12 @@
     <title>SpaceWarps</title>
     <link rel="stylesheet" href="/application.css" type="text/css" charset="utf-8">
     
-    <script type="text/javascript" src="https://raw.github.com/slowe/lensjs/master/lens.js"></script>
+    <!-- <script type="text/javascript" src="https://raw.github.com/slowe/lensjs/master/lens.js"></script>
     <script type="text/javascript" src="https://raw.github.com/slowe/lensjs/master/canvas.js"></script>
     <script type="text/javascript" src="https://raw.github.com/jasondavies/conrec.js/master/conrec.js"></script>
-    <script type="text/javascript" src="https://raw.github.com/slowe/LensToy/master/lenstoy.js"></script>
+    <script type="text/javascript" src="https://raw.github.com/slowe/LensToy/master/lenstoy.js"></script> -->
     
-    <script>
+    <!-- <script>
     window.onload = function(e) {
       var lensToy = new LensToy({
         id: 'field',
@@ -22,7 +22,7 @@
       lensToy.init("CFHTLS_field");
       console.log(lensToy);
     }
-    </script>
+    </script> -->
     
   </head>
   
@@ -287,6 +287,53 @@
     <script type="text/javascript">
       window.app = require('index');
     </script>
+    
+    <!-- <script type="text/javascript">
+    function touchHandler(event) {
+       var touches = event.changedTouches,
+       first = touches[0],
+       type = "";
+
+       switch (event.type) {
+         case "touchstart":
+             type = "mousedown";
+             break;
+         case "touchmove":
+             type = "mousemove";
+             break;
+         case "touchend":
+             type = "mouseup";
+             break;
+         default:
+             return;
+       }
+
+       var simulatedEvent = document.createEvent("MouseEvent");
+
+       simulatedEvent.initMouseEvent(type, true, true, window, 1, first.screenX, first.screenY, first.clientX, first.clientY, false, false, false, false, 0, null);
+       first.target.dispatchEvent(simulatedEvent);
+
+       if (event.type == "touchend") {
+         var simulatedEvent = document.createEvent("MouseEvent");
+         simulatedEvent.initMouseEvent('click', true, true, window, 1, first.screenX, first.screenY, first.clientX, first.clientY, false, false, false, false, 0, null);
+         first.target.dispatchEvent(simulatedEvent);
+       }
+
+       event.preventDefault();
+    }
+
+    $(document).ready(function(){
+      $("body").bind('touchmove', function(e) {
+        e.preventDefault();
+      });
+
+      document.addEventListener("touchstart", touchHandler, true);
+      document.addEventListener("touchmove", touchHandler, true);
+      document.addEventListener("touchend", touchHandler, true);
+      document.addEventListener("touchcancel", touchHandler, true);
+    });
+    
+    </script> -->
     
   </body>
 </html>
