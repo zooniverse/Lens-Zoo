@@ -20,10 +20,12 @@ TutorialSteps     = require 'lib/tutorial_steps'
 TutorialDashboard = require 'lib/tutorial_dashboard'
 TutorialTalk      = require 'lib/tutorial_talk'
 
+TalkIntegration = require 'lib/talk_integration'
 CreateFeedback  = require 'lib/create_feedback'
 
 
 class Classifier extends Page
+  @include TalkIntegration
   @include CreateFeedback
   
   el: $('.classifier')
@@ -159,61 +161,6 @@ class Classifier extends Page
     @setFavorites()
     
     @setSimulationRatio()
-  
-  # List Talk collections owned by user
-  getTalkCollections: (user) ->
-    
-    # Authentication appended to header
-    auth = base64.encode("#{user.name}:#{user.api_key}")
-    headers = {}
-    headers['Authorization'] = "Basic #{auth}"
-    
-    # Send the request
-    $.ajax({
-      url: "#{@constructor.host}/projects/spacewarp/talk/users/collection_list",
-      dataType: 'json',
-      success: (collections, status, response) =>
-        @setTalkCollection(user, collections)
-      headers: headers
-    })
-  
-  # Set a Quick Dashboard collection unless it exists
-  setTalkCollection: (user, collections) =>
-    
-    # Check users collections for Quick Dashboard
-    for collection in collections
-      if collection.title is @dashboardCollection
-        @collectionId = collection.zooniverse_id
-        return
-    
-    # Authentication appended to header
-    auth = base64.encode("#{user.name}:#{user.api_key}")
-    headers = {}
-    headers['Authorization'] = "Basic #{auth}"
-    
-    # Create collection for user
-    $.ajax({
-      url: "#{@constructor.host}/projects/spacewarp/talk/collections",
-      type: 'POST',
-      data: {subject_id: 'ASW0000001', title: @dashboardCollection, description: 'A collection of all Space Warp images examined in the Quick Dashboard.'},
-      headers: headers,
-      success: (collection, status, response) =>
-        @collectionId = collection.zooniverse_id
-    })
-  
-  # Add subject to Talk collection
-  addToTalkCollection: (user, zooniverseId) =>
-    
-    # Authentication appended to header
-    auth = base64.encode("#{user.name}:#{user.api_key}")
-    headers = {}
-    headers['Authorization'] = "Basic #{auth}"
-    $.ajax({
-      url: "#{@constructor.host}/projects/spacewarp/talk/collections/#{@collectionId}/add_subject",
-      type: 'POST',
-      data: {subject_id: zooniverseId},
-      headers: headers,
-    })
   
   start: ->
     # Set up events
