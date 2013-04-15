@@ -170,21 +170,23 @@ class Viewer extends Controller
         document.onkeydown = null
     
     @append("""
-      <div class='controls'>
-        <a href='' data-preset='0'>Standard</a>
-        <a href='' data-preset='1'>Brighter</a>
-        <a href='' data-preset='2'>Bluer</a>
-        <a href='' data-preset='finished'>Return</a>
-      </div>
-      <div class='flag'>?</div>
-      <div class='instructions'>Scroll to zoom.  Drag to move around the image.</div>
-      <div class='download'>
-        Download Data:
-        <a href='#{@source}#{@prefix}_u.fits.fz'>u</a>
-        <a href='#{@source}#{@prefix}_g.fits.fz'>g</a>
-        <a href='#{@source}#{@prefix}_r.fits.fz'>r</a>
-        <a href='#{@source}#{@prefix}_i.fits.fz'>i</a>
-        <a href='#{@source}#{@prefix}_z.fits.fz'>z</a>
+      <div class='viewer-tools'>
+        <div class='controls'>
+          <a href='' data-preset='0'>Standard</a>
+          <a href='' data-preset='1'>Brighter</a>
+          <a href='' data-preset='2'>Bluer</a>
+          <a href='' data-preset='finished'>Return</a>
+        </div>
+        <div class='flag'>?</div>
+        <div class='instructions'>Scroll to zoom.  Drag to move around the image.</div>
+        <div class='download'>
+          Download Data:
+          <a href='#{@source}#{@prefix}_u.fits.fz'>u</a>
+          <a href='#{@source}#{@prefix}_g.fits.fz'>g</a>
+          <a href='#{@source}#{@prefix}_r.fits.fz'>r</a>
+          <a href='#{@source}#{@prefix}_i.fits.fz'>i</a>
+          <a href='#{@source}#{@prefix}_z.fits.fz'>z</a>
+        </div>
       </div>
       """
     )
@@ -217,9 +219,7 @@ class Viewer extends Controller
     @wfits?.teardown()
     @wfits = undefined
     @prefix = null
-    @el.find('.controls').remove()
-    @el.find('.flag').remove()
-    @el.find('.instructions').remove()
+    @el.find('.viewer-tools').remove()
   
   clearCache: ->
     for key, value of @cache
