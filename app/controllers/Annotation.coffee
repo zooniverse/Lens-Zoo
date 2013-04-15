@@ -19,7 +19,7 @@ class Annotation extends Controller
   @xOffset: -220.5
   @yOffset: -220.5
   
-  # Class drag variable
+  # Class drag variable toggled when any instance is dragged
   @drag: false
   
   constructor: ->
@@ -35,18 +35,9 @@ class Annotation extends Controller
     
     # Create the root SVG group
     @gRoot = document.createElementNS(@svgns, "g")
-    @gRoot.setAttribute("transform", "translate(#{@x}, #{@y})")
     
-    # Apply coordinate transforms
-    halfWidth = Annotation.halfWidth
-    halfHeight = Annotation.halfHeight
-    zoom = Annotation.zoom
-    
-    deltaX = halfWidth + Annotation.xOffset
-    deltaY = halfHeight + Annotation.yOffset
-    
-    @x = (@x - halfWidth) / zoom + halfWidth - deltaX
-    @y = (@y - halfHeight) / zoom + halfHeight + deltaY
+    # Draw in local frame, transform and store in world frame
+    @localToWorld(@x, @y)
     
     # Append elements to root group
     @gRoot.appendChild(@gBox)
@@ -62,8 +53,8 @@ class Annotation extends Controller
     @isRemoveVisible = false
     
     # Bind mouse events
-    @el.bind('mousemove', @onmousemoveEl)
-    @el.bind('mouseenter', @onmouseenterEl)
+    @el.bind('mousemove', @onmousemove)
+    @el.bind('mouseenter', @onmouseenter)
     
     @gRoot.onmousedown  = @onmousedown
     @gRoot.onmouseup    = @onmouseup
@@ -163,7 +154,54 @@ class Annotation extends Controller
     
     return gRemove
   
-  onmousemoveEl: (e) =>
+  # Coordinate transformation from pan-zoom frame to world frame
+  localToWorld: (x, y) ->
+    
+    # Draw in pan-zoom frame
+    @gRoot.setAttribute("transform", "translate(#{x}, #{y})")
+    
+    # Get transformation parameters
+    halfWidth = Annotation.halfWidth
+    halfHeight = Annotation.halfHeight
+    zoom = Annotation.zoom
+    
+    # Get pan deltas
+    deltaX = halfWidth + Annotation.xOffset
+    deltaY = halfHeight + Annotation.yOffset
+    
+    # Store world coordinates
+    @x = (x - halfWidth) / zoom + halfWidth - deltaX
+    @y = (y - halfHeight) / zoom + halfHeight + deltaY
+    
+    return null
+  
+  # Coordinate transformation from world frame to pan-zoom frame. No input needed since world
+  # coordinates always stored on instance.
+  worldToLocal: ->
+    
+    # Get transformation parameters
+    halfWidth = Annotation.halfWidth
+    halfHeight = Annotation.halfHeight
+    zoom = Annotation.zoom
+    
+    # Get pan deltas
+    deltaX = halfWidth + Annotation.xOffset
+    deltaY = halfHeight + Annotation.yOffset
+    
+    # Get local coordinates
+    x = (@x + deltaX - halfWidth) * zoom + halfWidth
+    y = (@y - deltaY - halfHeight) * zoom + halfHeight
+    
+    # Draw in pan-zoom frame (markers always drawn in pan-zoom frame)
+    @gRoot.setAttribute("transform", "translate(#{x}, #{y})")
+    
+    return null
+  
+  #
+  # Interaction functions
+  #
+  
+  onmousemove: (e) =>
     e.preventDefault()
     return unless @drag
     
@@ -192,8 +230,9 @@ class Annotation extends Controller
     # Broadcast the new position
     @trigger 'move', @x, @y
   
-  onmouseenterEl: (e) =>
+  onmouseenter: (e) =>
     e.preventDefault()
+    
     return unless @drag
     @onmouseup(e)
   

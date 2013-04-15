@@ -457,26 +457,13 @@ class Classifier extends Page
   wheelHandler: (e) =>
     e.preventDefault()
     
-    # Cache WebFITS object and push event
+    # Get object and pipe event
     wfits = @viewer.wfits
     wfits.wheelHandler(e)
     
-    # Get control parameters from WebFITS object
-    halfWidth = wfits.width / 2
-    halfHeight = wfits.height / 2
-    zoom = wfits.getZoom() * halfWidth
-    
-    # Update Annotation attribute
-    Annotation.zoom = zoom
-    
-    deltaX = halfWidth + Annotation.xOffset
-    deltaY = halfHeight + Annotation.yOffset
-    
-    # Move element within zoom reference frame
+    Annotation.zoom = wfits.getZoom() * wfits.width / 2
     for key, a of @annotations
-      x = (a.x + deltaX - halfWidth) * zoom + halfWidth
-      y = (a.y - deltaY - halfHeight) * zoom + halfHeight
-      a.gRoot.setAttribute("transform", "translate(#{x}, #{y})")
+      a.worldToLocal()
   
   # Called when viewer is ready
   setupMouseControls: (e) =>
@@ -525,31 +512,19 @@ class Classifier extends Page
       
       if @viewer.wfits.drag
         # Update Annotation class attributes
-        Annotation.xOffset = xOffset = @viewer.wfits.getXOffset()
-        Annotation.yOffset = yOffset = @viewer.wfits.getYOffset()
+        Annotation.xOffset = @viewer.wfits.getXOffset()
+        Annotation.yOffset = @viewer.wfits.getYOffset()
         
-        halfWidth = Annotation.halfWidth
-        halfHeight = Annotation.halfHeight
-        zoom = Annotation.zoom
-        
-        # Translate origin
-        deltaX = halfWidth + xOffset
-        deltaY = halfHeight + yOffset
-        
-        # Move element within pan-zoom reference frame
+        # Redraw element within pan-zoom reference frame
         for key, a of @annotations
-          x = (a.x + deltaX - halfWidth) * zoom + halfWidth
-          y = (a.y - deltaY - halfHeight) * zoom + halfHeight
-          
-          a.gRoot.setAttribute("transform", "translate(#{x}, #{y})")
-          
+          a.worldToLocal()
+        
     svg.onmouseout = (e) =>
       @viewer.wfits.canvas.onmouseout(e)
     svg.onmouseover = (e) =>
       @viewer.wfits.canvas.onmouseover(e)
   
   onViewerClose: (e) =>
-    console.log 'onViewerClose'
     
     @maskEl.removeClass('show')
     @viewerEl.removeClass('show')
@@ -560,10 +535,11 @@ class Classifier extends Page
     # Reset Annotation attributes
     Annotation.xOffset = -220.5
     Annotation.yOffset = -220.5
+    Annotation.zoom = 1
     
-    # Reset the annotation positions
+    # Redraw in world frame
     for key, a of @annotations
-      a.gRoot.setAttribute("transform", "translate(#{a.x}, #{a.y})")
+      a.worldToLocal()
     
     # Tear down mouse events
     $(document).keyup(null)
