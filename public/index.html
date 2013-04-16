@@ -288,7 +288,7 @@
       window.app = require('index');
     </script>
     
-    <!-- <script type="text/javascript">
+    <script type="text/javascript">
     function touchHandler(event) {
        var touches = event.changedTouches,
        first = touches[0],
@@ -323,17 +323,18 @@
     }
 
     $(document).ready(function(){
-      $("body").bind('touchmove', function(e) {
+      $(".annotation").bind('touchmove', function(e) {
         e.preventDefault();
       });
 
-      document.addEventListener("touchstart", touchHandler, true);
-      document.addEventListener("touchmove", touchHandler, true);
-      document.addEventListener("touchend", touchHandler, true);
-      document.addEventListener("touchcancel", touchHandler, true);
+      var annotation = document.querySelector('.annotation');
+      annotation.addEventListener("touchstart", touchHandler, true);
+      annotation.addEventListener("touchmove", touchHandler, true);
+      annotation.addEventListener("touchend", touchHandler, true);
+      annotation.addEventListener("touchcancel", touchHandler, true);
     });
     
-    </script> -->
+    </script>
     
   </body>
 </html>
