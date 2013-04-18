@@ -364,7 +364,7 @@ class Classifier extends Page
     # Update finish text if necessary
     count = _.keys(@annotations).length
     if count is 0
-      @el.find('.current [data-type="finish"]').text('No Lenses Here!')
+      @el.find('.current [data-type="finish"]').text('Next!')
       @hasAnnotation = false
   
   # Check if volunteer marked a simulated lens
