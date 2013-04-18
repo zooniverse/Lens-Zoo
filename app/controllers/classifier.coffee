@@ -81,11 +81,6 @@ class Classifier extends Page
     
     # Start with subject group
     Subject.group = @subjectGroup
-    
-    # Hack to remove gradient on ipad/iphone
-    userAgent = navigator.userAgent
-    if (userAgent.indexOf('iPad') > -1) or (userAgent.indexOf('iPhone') > -1)
-      $(".side-mask").remove()
   
   active: ->
     super
