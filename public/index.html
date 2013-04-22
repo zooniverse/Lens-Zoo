@@ -22,10 +22,11 @@
     }
     </script>
 
-    <!-- Lens Toy gets its image size from the canvas size, so these lines
-         are needed in the css somewhere  --> 
+    <!-- Lens Toy gets its image size from the canvas size, so this line
+         is needed in the css somewhere. However, more css is needed to get 
+         the predicted features in the right place (ie the canvas needs to 
+         overlay the home.jpg image. --> 
     <style>
-    #main { position: relative; height:480px; cursor: crosshair; }
     #field, #fieldimg { position: relative; top:10px; width:440px; height:440px; }
     </style>
     
@@ -54,7 +55,7 @@
           <div class="columns two">
             <div class="column">
 
-              <!-- A Lens Toy in a portal! -->
+              <!-- A Lens Toy in a portal: -->
               <figure class="portal">
                 <img id="fieldimg" src="images/home.jpg"> <!-- NB images/home.jpg is the same as Lens Toy's own SW_field image -->
                 <div id="field"></div>
