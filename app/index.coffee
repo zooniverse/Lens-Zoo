@@ -9,10 +9,11 @@ GuidePage   = require 'controllers/guide_page'
 Classifier  = require 'controllers/classifier'
 Profile     = require 'controllers/profile'
 
-Api     = require 'zooniverse/lib/api'
-TopBar  = require 'zooniverse/controllers/top-bar'
-User    = require 'zooniverse/models/user'
-Recent  = require 'zooniverse/models/recent'
+Api       = require 'zooniverse/lib/api'
+Analytics = require 'zooniverse/lib/google-analytics'
+TopBar    = require 'zooniverse/controllers/top-bar'
+User      = require 'zooniverse/models/user'
+Recent    = require 'zooniverse/models/recent'
 
 # Setup the stack
 stack = new Stack
@@ -33,7 +34,11 @@ stack = new Stack
     '/profile'    : 'profile'
   
   default: 'home'
-  
+
+
+new Analytics
+  account: "UA-1224199-42"
+
 # Configure connection to Api
 api = new Api
   project: 'spacewarp'
@@ -46,6 +51,9 @@ User.fetch()
 topBar.el.appendTo 'body'
 stack.el.appendTo 'body'
 Route.setup()
+
+# Pass host to Classifier instance
+stack.controllers.classify.host = api.proxyFrame.host
 
 # Lazy loading of Guide images
 $('img.lazy').lazyload({threshold : 200, effect: 'fadeIn'})

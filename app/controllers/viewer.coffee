@@ -1,23 +1,17 @@
 
-{Controller} = require 'spine'
+{Controller}  = require 'spine'
 browserDialog = require 'zooniverse/controllers/browser-dialog'
+{Dialog}      = require 'zootorial'
 
 
 class Viewer extends Controller
   dimension: 441
-  
   bands:  ['g', 'r', 'i']
-  # TODO: Update when FITS images find permanent home
-  source: 'http://www.spacewarps.org.s3.amazonaws.com/beta/subjects/raw/'
-  
-  # Default parameter values
-  defaultAlpha: 0.09
-  defaultQ: 1.7
-  defaultScales: [0.4, 0.6, 1.7]
+  source: 'http://spacewarps.org.s3.amazonaws.com/subjects/raw/'
   
   cache: {}
+  prefix: null
   
-  # TODO: Get three presets from science team
   parameters:
     0:
       alpha: 0.09
@@ -78,6 +72,7 @@ class Viewer extends Controller
     )
   
   load: (prefix) ->
+    @prefix = prefix
     
     # Setup WebFITS object
     @wfits = new astro.WebFITS(@el.find('.webfits')[0], @dimension)
@@ -87,14 +82,19 @@ class Viewer extends Controller
     for band in @bands
       @dfs[band] = new $.Deferred()
     
+    # Create deferred and set up callback for error handling
+    errDfd = new $.Deferred()
+    
+    $.when(errDfd)
+      .done(@onError)
+    
     # Set callback for when all channels and astrojs libraries received
     dfs = $.map(@dfs, (v, k) -> v)
     $.when.apply(null, dfs)
       .done(@allChannelsReceived)
     
-    # Check cache for data
-    if prefix of @cache
-      cache = @cache[prefix]
+    if 'prefix' of @cache and Object.keys(@cache.prefix).length > 0
+      cache = @cache['prefix']
       
       # Load files from cache
       for band, index in @bands
@@ -110,13 +110,18 @@ class Viewer extends Controller
           @dfs[band].resolve()
     else
       # Request from remote source
-      @cache[prefix] = {}
+      @cache['prefix'] = {}
       for band, index in @bands
         do (band, index) =>
-          @cache[prefix][band] = {}
+          
           path = "#{@source}#{prefix}_#{band}.fits.fz"
-        
           new astro.FITS.File(path, (fits) =>
+            if fits is null
+              errDfd.resolve()
+              return
+            
+            @cache['prefix'][band] = {}
+            
             hdu = fits.getHDU()
             header = hdu.header
             dataunit = hdu.data
@@ -131,15 +136,22 @@ class Viewer extends Controller
             @wfits.loadImage(band, arr, width, height)
             
             # Cache some data
-            @cache[prefix][band].min = min
-            @cache[prefix][band].max = max
-            @cache[prefix][band].arr = arr
-            @cache[prefix][band].width = width
-            @cache[prefix][band].height = height
-            @cache[prefix][band].calibration = calibration
+            @cache['prefix'][band].min = min
+            @cache['prefix'][band].max = max
+            @cache['prefix'][band].arr = arr
+            @cache['prefix'][band].width = width
+            @cache['prefix'][band].height = height
+            @cache['prefix'][band].calibration = calibration
             
             @dfs[band].resolve()
           )
+  
+  onError: =>
+    @trigger 'close'
+    errorDialog = new Dialog
+      content: "Oh no! We had trouble getting the data. Try the Quick Dashboard on the next image."
+      attachment: 'center center .annotation center center'
+    errorDialog.open()
   
   # NOTE: Using exposure time = 1.0
   getCalibration: (header) ->
@@ -148,6 +160,7 @@ class Viewer extends Controller
   
   # Call when all channels are received (i.e. each deferred is resolved)
   allChannelsReceived: =>
+    
     # Setup callback for escape key
     document.onkeydown = (e) =>
       if e.keyCode is 27
@@ -155,13 +168,27 @@ class Viewer extends Controller
         
         # Remove the callback
         document.onkeydown = null
+    
     @append("""
-      <div class='controls'>
-        <a href='' data-preset='0'>Standard</a>
-        <a href='' data-preset='1'>Brighter</a>
-        <a href='' data-preset='2'>Bluer</a>
-        <a href='' data-preset='finished'>Return</a>
-      </div>"""
+      <div class='viewer-tools'>
+        <div class='controls'>
+          <a href='' data-preset='0'>Standard</a>
+          <a href='' data-preset='1'>Brighter</a>
+          <a href='' data-preset='2'>Bluer</a>
+          <a href='' data-preset='finished'>Return</a>
+        </div>
+        <div class='flag'>?</div>
+        <div class='instructions'>Scroll to zoom.  Drag to move around the image.</div>
+        <div class='download'>
+          Download Data:
+          <a href='#{@source}#{@prefix}_u.fits.fz'>u</a>
+          <a href='#{@source}#{@prefix}_g.fits.fz'>g</a>
+          <a href='#{@source}#{@prefix}_r.fits.fz'>r</a>
+          <a href='#{@source}#{@prefix}_i.fits.fz'>i</a>
+          <a href='#{@source}#{@prefix}_z.fits.fz'>z</a>
+        </div>
+      </div>
+      """
     )
     @el.find('a[data-preset="0"]').click()
     @trigger "ready"
@@ -189,9 +216,10 @@ class Viewer extends Controller
     @wfits.drawColor('i', 'r', 'g')
   
   teardown: =>
-    @wfits.teardown()
+    @wfits?.teardown()
     @wfits = undefined
-    @el.find('.controls').remove()
+    @prefix = null
+    @el.find('.viewer-tools').remove()
   
   clearCache: ->
     for key, value of @cache

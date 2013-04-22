@@ -1,6 +1,8 @@
 
+$margin-top = 30px
+
 .classifier
-  margin 60px 0 0 150px
+  margin 4% 0 0 12%
   -webkit-user-select none
   -moz-user-select none
   -ms-user-select none
@@ -21,6 +23,10 @@
       display block
       opacity 0.9
   
+  @media only screen and (min-device-width : 768px) and (max-device-width : 1024px)
+    .side-mask
+      display none
+  
   .side-mask
     position absolute
     top 0
@@ -29,6 +35,7 @@
     height 100%
     background -webkit-linear-gradient(right, rgba(10, 10, 10, 255), rgba(0, 0, 0, 0))
     background -moz-linear-gradient(right, rgba(10, 10, 10, 255), rgba(0, 0, 0, 0))
+    background -ms-linear-gradient(right, rgba(10, 10, 10, 255), rgba(0, 0, 0, 0))
     z-index 2
   
   .stats
@@ -58,20 +65,48 @@
         text-shadow 0px 1px 0px rgba(255, 255, 255, 0.25)
         text-transform uppercase
   
-  svg.primary
-    position absolute
+  .annotation
     position absolute
     width $img-dim
     height $img-dim
-    margin-top 64px
-    cursor crosshair
+    margin-top $margin-top
     z-index 3
+    cursor crosshair
+    
+    svg
+      position absolute
+      width $img-dim
+      height $img-dim
   
   .viewer
     display none
     position absolute
     width $img-dim
-    margin-top 64px
+    margin-top $margin-top
+    font-size 11px
+    
+    .download
+      clear both
+      margin-top 10px
+      font-weight 700
+      float right
+      a
+        text-decoration none
+    
+    .flag
+      clear both
+      font-weight 700
+      margin-top 10px
+      float right
+      cursor pointer
+      
+      &:hover ~ .instructions
+        display block
+      
+    .instructions
+      display none
+      margin-top 10px
+      
     
     &.show
       display block
@@ -84,7 +119,7 @@
     
     .subjects
       width 400%
-      margin-top 64px
+      margin-top $margin-top
       white-space nowrap
       z-index 0
       padding 0

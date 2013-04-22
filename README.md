@@ -25,7 +25,7 @@ or to build against staging server
     SpacewarpSubject.redis_set.destroy
     
     # Activate subjects
-    SpacewarpSubject.activate_randomly
+    SpacewarpGroup.activate
 
 ## Building and deploying project
 

@@ -6,42 +6,45 @@ Subject         = require 'zooniverse/models/subject'
 Favorite        = require 'zooniverse/models/favorite'
 Classification  = require 'models/classification'
 
-Page          = require 'controllers/page'
-Annotation    = require 'controllers/Annotation'
-Viewer        = require 'controllers/viewer'
-QuickGuide    = require 'controllers/quick_guide'
+Page        = require 'controllers/page'
+Annotation  = require 'controllers/Annotation'
+Viewer      = require 'controllers/viewer'
+QuickGuide  = require 'controllers/quick_guide'
 
-{Tutorial}    = require 'zootorial'
-{Dialog}      = require 'zootorial'
-{Step}        = require 'zootorial'
+{Tutorial}  = require 'zootorial'
+{Dialog}    = require 'zootorial'
+{Step}      = require 'zootorial'
 
-TutorialSteps = require 'lib/tutorial_steps'
+TutorialSubject   = require 'lib/tutorial_subject'
+TutorialSteps     = require 'lib/tutorial_steps'
+TutorialDashboard = require 'lib/tutorial_dashboard'
+TutorialTalk      = require 'lib/tutorial_talk'
+
+TalkIntegration = require 'lib/talk_integration'
+CreateFeedback  = require 'lib/create_feedback'
 
 
 class Classifier extends Page
+  @include TalkIntegration
+  @include CreateFeedback
+  
   el: $('.classifier')
   className: 'classifier'
   template: require 'views/classifier'
   subjectTemplate: require 'views/subject'
   subjectDimension: 440
+  dashboardCollection: 'Dashboard'
   
   maxAnnotations: 5
-  initialFetch: true
-  xDown: null
-  yDown: null
-  toAnnotate: true
-  isTrainingSubject: false
   
   subjectGroup: '5154a3783ae74086ab000001'
   simulationGroup: '5154a3783ae74086ab000002'
-  simRatio: 2 # Default to sending one simulation for every two subjects
   
   
   elements:
     '[data-type="classified"]'  : 'nClassifiedEl'
     '[data-type="potentials"]'  : 'nPotentialsEl'
     '[data-type="favorites"]'   : 'nFavoritesEl'
-    '[data-type="sim-freq"]'    : 'simFrequency'
     '.mask'                     : 'maskEl'
     '.viewer'                   : 'viewerEl'
     '.subjects'                 : 'subjectsEl'
@@ -57,17 +60,12 @@ class Classifier extends Page
   
   constructor: ->
     super
+    
     @html @template
     
-    # Initialize QuickGuide
+    # Initialize QuickGuide and FITS Viewer
     @quickGuide = new QuickGuide({el: @el.find('.quick-guide')})
-    
-    # Initialize controller for WebFITS
     @viewer = new Viewer({el: @el.find('.viewer')[0], classifier: @})
-    
-    # Setup events
-    @bind 'start', @start
-    @bind 'tutorial', @startTutorial
     
     User.on 'change', @onUserChange
     @viewer.bind 'ready', @setupMouseControls
@@ -76,8 +74,9 @@ class Classifier extends Page
     # Dialog for warning of over excessive annotations
     @warningDialog = new Dialog
       content: "That's a lot of markers! Remember, lenses are rare."
-      attachment: 'center center svg.primary center center'
+      attachment: 'center center .annotation center center'
     
+    # Reset variables before new classification
     @reset()
     
     # Start with subject group
@@ -85,7 +84,9 @@ class Classifier extends Page
   
   active: ->
     super
-    $(window).resize()  # Trick zootorial to show when page is active.
+    
+    # Trick zootorial to show when page is active.
+    $(window).resize()
   
   # Reset variables for a classification
   reset: ->
@@ -94,22 +95,39 @@ class Classifier extends Page
     @annotations      = {}
     @annotationIndex  = 0
     @annotationCount  = 0
-    @warn             = true
     @hasAnnotation    = false
     @hasWarned        = false
     @preset           = null
-    @feedback         = false
+    @feedbackShown    = false
     @xDown            = null
     @yDown            = null
-    @toAnnotate       = true
+    @isAnnotatable    = true
     
-    @dashboardTutorial = false
     @isTrainingSubject = false
     @ctx = undefined
     
     @warningDialog.close()
   
+  # Called when the user changes.  Lots going on here:
+  # 1) Determine tutorial state
+  # 2) Check talk collection
+  # 3) Set user counters
   onUserChange: (e, user) =>
+    
+    # Reset subjects
+    Subject.instances = []
+    $('.subjects').empty()
+    @svg.empty()
+    Subject.off 'fetch', @appendSubjects
+    Subject.off 'select', @onSubjectSelect
+    Subject.off 'no-more', @onNoMoreSubjects
+    
+    # Clean up for when user signs out while using QD
+    @viewer.trigger 'close'
+    @viewer.clearCache()
+    
+    # Unbind Talk event
+    @unbind 'addToTalk'
     
     # Set default counts
     @nClassified  = 0
@@ -117,57 +135,67 @@ class Classifier extends Page
     @nFavorites   = 0
     
     if user?
+      
+      # Interact with Talk
+      @getTalkCollections(user)
+      
+      @bind 'addToTalk', (zooniverseId) =>
+        @addToTalkCollection(user, zooniverseId)
+      
       project = user.project
       
-      # Determine if main tutorial completed
+      # Determine if tutorial completed
       unless 'tutorial_done' of project
-        @trigger 'tutorial'
+        @startTutorial()
       else
         @nClassified  = project.classification_count or 0
         @nPotentials  = project.annotation_count or 0
         @nFavorites   = project.favorite_count or 0
-        @trigger 'start'
-      
-      # Determine if dashboard tutorial completed
-      console.log 'dashboard_tutorial_done', 'dashboard_tutorial_done' of project
-      
-      unless 'tutorial_dashboard' of project
-        @trigger 'dashboard-tutorial'
+        @start()
     else
-      @trigger 'tutorial'
+      @startTutorial()
     
     # Render counts to DOM
     @setClassified()
     @setPotentials()
     @setFavorites()
+    
     @setSimulationRatio()
   
   start: ->
     # Set up events
-    Subject.on 'fetch', @onFetch
+    Subject.on 'fetch', @appendSubjects
     Subject.on 'select', @onSubjectSelect
     Subject.on 'no-more', @onNoMoreSubjects
     
+    @tutorial.end() if @tutorial?
+    
     # Initial fetch for subjects
     Subject.next()
-  
-  onTutorialComplete: (e) =>
-    console.log 'onTutorialComplete'
   
   onTutorialEnd: (e) ->
     $("circle[r='50']").remove()
   
   startTutorial: =>
+    # Close any lingering tutorials
+    @tutorial?.end()
+    
     # Create tutorial and bind to handlers
     @tutorial = new Tutorial
       id: 'tutorial'
       firstStep: 'welcome'
       steps: TutorialSteps
-    @tutorial.el.bind('complete-tutorial', @onTutorialComplete)
+      parent: @el[0]
     @tutorial.el.bind('end-tutorial', @onTutorialEnd)
     
-    # Move tutorial to classifier div
-    $("[class^='zootorial']").appendTo(@el)
+    # Set first tutorial subject
+    subject = TutorialSubject.main
+    
+    # Create classification object
+    @classification = new Classification {subject}
+    
+    # Empty tutorial subject from queue
+    Subject.instances = []
     
     # Set queue length on Subject
     Subject.queueLength = 3
@@ -175,34 +203,11 @@ class Classifier extends Page
     # Bind tutorial-specific event
     Subject.on 'fetch', @createStagedTutorial
     
-    # Set the tutorial subject
-    subject = new Subject
-      id: '5101a1931a320ea77f000003'
-      location:
-        standard: 'images/tutorial/tutorial-1.png'
-      project_id: '5101a1341a320ea77f000001'
-      workflow_ids: ['5101a1361a320ea77f000002']
-      metadata:
-        training:
-          type: 'lens'
-        id: 'CFHTLS_091_2130'
-      tutorial: true
-      zooniverse_id: 'ASW0000001'
-    
-    # Create classification object
-    @classification = new Classification {subject}
-    
-    # Empty all subjects from queue
-    Subject.instances = []
-    
     # Fetch subjects from API
     Subject.fetch()
     
     # Append tutorial subject to DOM
-    params =
-      url: subject.location.standard
-      zooId: subject.zooniverse_id
-    @subjectsEl.prepend @subjectTemplate(params)
+    @appendSubjects(null, [subject])
     @el.find('.current').removeClass('current')
     @el.find('.subject').first().addClass('current')
     
@@ -210,62 +215,33 @@ class Classifier extends Page
   
   # Set up the staged tutorial subjects.  This should only be run once.
   createStagedTutorial: (e, subjects) =>
+    
     # Handle event bindings
     Subject.off 'fetch', @createStagedTutorial
-    Subject.on 'fetch', @onFetch
+    Subject.on 'fetch', @appendSubjects
     Subject.on 'select', @onSubjectSelect
     Subject.on 'no-more', @onNoMoreSubjects
     
-    # Create simulated subject
-    simulatedSubject = new Subject
-      id: '5101a1931a320ea77f000004'
-      location:
-        standard: 'images/tutorial/tutorial-2.png'
-      project_id: '5101a1341a320ea77f000001'
-      workflow_ids: ['5101a1361a320ea77f000002']
-      metadata:
-        training:
-          type: 'lens'
-        id: 'CFHTLS_079_2328'
-      tutorial: true
-      zooniverse_id: 'ASW0000002'
-    
-    # Create empty subject
-    emptySubject = new Subject
-      id: '5101a1931a320ea77f000005'
-      location:
-        standard: 'images/tutorial/tutorial-3.png'
-      project_id: '5101a1341a320ea77f000001'
-      workflow_ids: ['5101a1361a320ea77f000002']
-      metadata:
-        training:
-          type: 'empty'
-        id: 'CFHTLS_082_0054'
-      tutorial: true
-      zooniverse_id: 'ASW0000003'
+    # Create simulated and empty tutorial subjects
+    simSubject = TutorialSubject.simulated
+    dudSubject = TutorialSubject.empty
     
     # Set queue length on Subject back to five
     Subject.queueLength = 5
     
-    # Rearrange subjects (random, simulated, random, empty)
-    Subject.instances[1] = simulatedSubject
-    Subject.instances[2] = subjects[1]
-    Subject.instances[3] = emptySubject
-    Subject.instances[4] = subjects[2]
+    # Insert tutorial subjects into queue
+    Subject.instances.splice(1, 0, simSubject)
+    Subject.instances.splice(3, 0, dudSubject)
     
     # Append remaining subjects to DOM
-    for subject, index in Subject.instances
-      params = 
-        url: subject.location.standard
-        zooId: subject.zooniverse_id
-      @subjectsEl.append @subjectTemplate(params)
+    @appendSubjects(null, Subject.instances)
   
   #
   # Subject callbacks
   #
   
-  # Append subject(s) to DOM when received
-  onFetch: (e, subjects) =>
+  # Append subject(s) to DOM
+  appendSubjects: (e, subjects) =>
     for subject, index in subjects
       params = 
         url: subject.location.standard
@@ -274,6 +250,7 @@ class Classifier extends Page
   
   onSubjectSelect: (e, subject) =>
     
+    # Reset classification variables
     @reset()
     
     # Create new classification
@@ -297,48 +274,21 @@ class Classifier extends Page
       img.src = $('.current .image img').attr('src')
     
     # Prompt Dashboard message
-    if @nClassified is 5
+    if @nClassified is 3
       tutorial = new Tutorial
         id: 'dashboard'
         firstStep: 'dashboard'
-        steps:
-          length: 1
-          
-          dashboard: new Step
-            number: 1
-            header: 'Quick Dashboard'
-            details: 'As gravitationally lensed features can be faint and/or small, you can explore an image in more detail in the Quick Dashboard. Try clicking on this button.'
-            attachment: 'center bottom [data-type="dashboard"] center -0.2'
-            className: 'arrow-bottom'
-            onEnter: ->
-              $('.current .controls a[data-type="dashboard"]').addClass('hover')
-            onExit: ->
-              $('.current .controls a[data-type="dashboard"]').removeClass('hover')
-            next:
-              'click a': true
+        steps: TutorialDashboard
       tutorial.start()
     
-    # Prompt Talk message
-    if @nClassified is 7
-      tutorial = new Tutorial
-        id: 'talk'
-        firstStep: 'talk'
-        steps:
-          length: 1
-          
-          talk: new Step
-            number: 1
-            header: 'Talk'
-            details: 'Talk is a place to discuss the things you find with the rest of the Space Warps community: together we aim to build a catalog of new lenses, some of the rarest objects in the universe. If you have questions, the Science Team and other astronomers will help answer them. If you find something that looks interesting, come and show it to the group!'
-            attachment: 'center bottom [data-type="talk"] center top'
-            className: 'arrow-bottom'
-            onEnter: ->
-              $('.current .controls a[data-type="talk"]').addClass('hover')
-            onExit: ->
-              $('.current .controls a[data-type="talk"]').removeClass('hover')
-            next:
-              'click a': true
-      tutorial.start()
+    # NOTE: Disabling during beta
+    # # Prompt Talk message
+    # if @nClassified is 7
+    #   tutorial = new Tutorial
+    #     id: 'talk'
+    #     firstStep: 'talk'
+    #     steps: TutorialTalk
+    #   tutorial.start()
       
   onNoMoreSubjects: ->
     alert "We've run out of subjects."
@@ -361,7 +311,7 @@ class Classifier extends Page
   #
   
   onAnnotation: (e) ->
-    return unless @toAnnotate
+    return unless @isAnnotatable
     
     # Create annotation and push to object
     position = $('.subject.current .image').position()
@@ -388,7 +338,7 @@ class Classifier extends Page
       @setPotentials()
     
     # Warn of overmarking
-    if @annotationCount > 5 and Math.random() > 0.4 and !@hasWarned
+    if (@annotationCount > @maxAnnotations) and (Math.random() > 0.4) and (not @hasWarned)
       @warningDialog.open()
       @hasWarned = true
   
@@ -409,7 +359,7 @@ class Classifier extends Page
     # Update finish text if necessary
     count = _.keys(@annotations).length
     if count is 0
-      @el.find('.current [data-type="finish"]').text('Nothing interesting')
+      @el.find('.current [data-type="finish"]').text('Next!')
       @hasAnnotation = false
   
   # Check if volunteer marked a simulated lens
@@ -454,40 +404,26 @@ class Classifier extends Page
   wheelHandler: (e) =>
     e.preventDefault()
     
-    # Cache WebFITS object and push event
+    # Get object and pipe event
     wfits = @viewer.wfits
     wfits.wheelHandler(e)
     
-    # Get control parameters from WebFITS object
-    halfWidth = wfits.width / 2
-    halfHeight = wfits.height / 2
-    zoom = wfits.zoom * halfWidth
-    
-    # Update Annotation attribute
-    Annotation.zoom = zoom
-    
-    deltaX = halfWidth + Annotation.xOffset
-    deltaY = halfHeight + Annotation.yOffset
-    
-    # Move element within zoom reference frame
+    Annotation.zoom = wfits.getZoom() * wfits.width / 2
     for key, a of @annotations
-      x = (a.x + deltaX - halfWidth) * zoom + halfWidth
-      y = (a.y - deltaY - halfHeight) * zoom + halfHeight
-      a.gRoot.setAttribute("transform", "translate(#{x}, #{y})")
+      a.worldToLocal()
   
   # Called when viewer is ready
   setupMouseControls: (e) =>
-    
     svg = @svg[0]
     
     # Activate annotate flag
-    @toAnnotate = false
+    @isAnnotatable = false
     
     # Update/reset Annotation class attributes
     Annotation.halfWidth = @viewer.wfits.width / 2
     Annotation.halfHeight = @viewer.wfits.height / 2
-    Annotation.xOffset = @viewer.wfits.xOffset
-    Annotation.yOffset = @viewer.wfits.yOffset
+    Annotation.xOffset = @viewer.wfits.getXOffset()
+    Annotation.yOffset = @viewer.wfits.getYOffset()
     
     # Setup mouse controls on the SVG element
     svg.addEventListener('mousewheel', @wheelHandler, false)
@@ -500,9 +436,7 @@ class Classifier extends Page
       @xDown = e.pageX
       @yDown = e.pageY
       
-      # TODO: Find more efficient way to do this
-      for key, a of @annotations
-        return if a.drag
+      return if Annotation.drag
       
       @viewer.wfits.canvas.onmousedown(e)
       
@@ -510,9 +444,9 @@ class Classifier extends Page
       
       # Propagate to annotation layer if down coordinates match up coordinates
       if @xDown is e.pageX and @yDown is e.pageY
-        @toAnnotate = true
+        @isAnnotatable = true
       else
-        @toAnnotate = false
+        @isAnnotatable = false
       return if @viewer.wfits.drag is false
       
       @viewer.wfits.canvas.onmouseup(e)
@@ -521,30 +455,17 @@ class Classifier extends Page
       # Pass event to WebFITS object
       @viewer.wfits.canvas.onmousemove(e)
       
-      # TODO: Find more efficient way to do this
-      for key, a of @annotations
-        return if a.drag
+      return if Annotation.drag
       
       if @viewer.wfits.drag
         # Update Annotation class attributes
-        Annotation.xOffset = xOffset = @viewer.wfits.xOffset
-        Annotation.yOffset = yOffset = @viewer.wfits.yOffset
+        Annotation.xOffset = @viewer.wfits.getXOffset()
+        Annotation.yOffset = @viewer.wfits.getYOffset()
         
-        halfWidth = Annotation.halfWidth
-        halfHeight = Annotation.halfHeight
-        zoom = Annotation.zoom
-        
-        # Translate origin
-        deltaX = halfWidth + xOffset
-        deltaY = halfHeight + yOffset
-        
-        # Move element within pan-zoom reference frame
+        # Redraw element within pan-zoom reference frame
         for key, a of @annotations
-          x = (a.x + deltaX - halfWidth) * zoom + halfWidth
-          y = (a.y - deltaY - halfHeight) * zoom + halfHeight
-          
-          a.gRoot.setAttribute("transform", "translate(#{x}, #{y})")
-          
+          a.worldToLocal()
+        
     svg.onmouseout = (e) =>
       @viewer.wfits.canvas.onmouseout(e)
     svg.onmouseover = (e) =>
@@ -556,15 +477,16 @@ class Classifier extends Page
     @viewerEl.removeClass('show')
     
     # Allow annotation again
-    @toAnnotate = true
+    @isAnnotatable = true
     
     # Reset Annotation attributes
     Annotation.xOffset = -220.5
     Annotation.yOffset = -220.5
+    Annotation.zoom = 1
     
-    # Reset the annotation positions
+    # Redraw in world frame
     for key, a of @annotations
-      a.gRoot.setAttribute("transform", "translate(#{a.x}, #{a.y})")
+      a.worldToLocal()
     
     # Tear down mouse events
     $(document).keyup(null)
@@ -580,23 +502,36 @@ class Classifier extends Page
     
     @viewer.teardown()
   
+  # Training scheme using simulations and empty fields
   setSimulationRatio: ->
-    @simRatio = Math.floor(@nClassified / 20) + 2
-    Subject.group = if @nClassified % @simRatio is 0 then @simulationGroup else @subjectGroup
-    @simFrequency.text("1 in #{@simRatio}")
+    if true
+      # When duds are included in the @TrainingGroup, need to multiply @simratio by 2 to 
+      baseLevel = Math.floor(@nClassified / 20) + 1
+      @level = Math.min(baseLevel, 3)
+      @simRatio = 1 / (5 * Math.pow(Math.sqrt(2), @level - 1))
+      Subject.group = if @simRatio > Math.random() then @simulationGroup else @subjectGroup
+      # console.log "#{@nClassified}, #{@level}, #{@simRatio}, #{Subject.group}"
+    else
+      # NOTE: This is the old scheme with fall off of 1 / x
+      @simRatio = Math.floor(@nClassified / 20) + 2
+      Subject.group = if @nClassified % @simRatio is 0 then @simulationGroup else @subjectGroup
+      # console.log "#{@simRatio}, #{Subject.group}"
   
   submit: (e) =>
     
     # Process annotations and push to API
-    annotations = []
     for index, annotation of @annotations
-      annotations.push annotation.toJSON()
-    annotations.push {preset: @preset} if @preset?
+      @classification.annotate annotation.toJSON()
     
-    # Process completion of dashboard tutorial
-    annotations.push {dashboard_tutorial: @dashboardTutorial} if @dashboardTutorial
-    
-    @classification.annotate(annotations)
+    # Quick Dashboard was accessed
+    if @preset?
+      
+      # Record the Quick Dashboard preset
+      @classification.annotate {preset: @preset}
+      
+      # Push subject to Talk collection
+      @trigger 'addToTalk', @classification.subject.zooniverse_id
+      
     @classification.send()
     
     # Empty SVG element
@@ -624,104 +559,50 @@ class Classifier extends Page
     # Update stats
     @nClassified += 1
     @setClassified()
-
+  
   onFinish: (e) =>
     e.preventDefault()
     
     if @isTrainingSubject
-      
-      # Move to the next image if user clicks finished again
-      if @feedback
-        @tutorial.close()
-        @submit(e)
+      # If finished is clicked again move to the next image
+      if @feedbackShown
+        @tutorial?.end()
         return
       
-      @feedback = true
+      @feedbackShown = true
       
       # Get the training type (e.g. lens or empty)
-      trainingType = @classification.subject.metadata.training.type
+      training = @classification.subject.metadata.training
+      trainingType = training.type
       
-      if trainingType in ['lens', 'lensed galaxy', 'lensed quasar']
+      # TODO: Do we have more than these categories?
+      if trainingType in ['lensed galaxy', 'lensed quasar']
+        
+        # Get the location for the dialog
+        x = (training.x + 30) / @subjectDimension
+        y = 1 - (training.y / @subjectDimension)
         
         # Check if any annotation over lens
-        over = false
+        isLensMarked = false
         for index, annotation of @annotations
-          over = @checkImageMask(annotation.x, annotation.y)
-          break if over
+          isLensMarked = @checkImageMask(annotation.x, annotation.y)
+          break if isLensMarked
         
-        if over
-          @tutorial = new Tutorial
-            id: 'sim-found'
-            firstStep: 'found'
-            steps:
-              length: 1
-
-              found: new Step
-                header: 'Nice catch!'
-                details: "You found a simulated #{trainingType}!"
-                attachment: 'center center .primary center center'
-                blocks: '.primary .controls'
-                nextButton: 'Next image'
-                next: true
-                onExit: =>
-                  @submit(e)
-          @tutorial.start()
+        if isLensMarked
+          @tutorial = @createSimulationFoundFeedback(e, trainingType, x, y)
         else
-          @tutorial = new Tutorial
-            id: 'sim-missed'
-            firstStep: 'missed'
-            steps:
-              length: 1
-
-              missed: new Step
-                number: 1
-                header: 'Whoops!'
-                details: "You missed a simulated #{trainingType}!  Don't worry, let's move to the next image."
-                attachment: 'center center .primary center center'
-                blocks: '.primary .controls'
-                nextButton: 'Next image'
-                next: true
-                onExit: =>
-                  @submit(e)
-          @tutorial.start()
+          @tutorial = @createSimulationMissedFeedback(e, trainingType, x, y)
         
-      else
-        # Subject is an empty field
-        nAnnotations = Object.keys(@annotations).length
-        if nAnnotations > 0
-          @tutorial = new Tutorial
-            id: 'empty-missed'
-            firstStep: 'missed'
-            steps:
-              length: 1
-              
-              missed: new Step
-                header: 'Whoops!'
-                details: 'This field has no gravitional lens.'
-                attachment: 'center center .primary center center'
-                blocks: '.primary'
-                nextButton: 'Next image'
-                next: true
-                onExit: =>
-                  @submit(e)
-          @tutorial.start()
-        else
-          @tutorial = new Tutorial
-            id: 'empty-found'
-            firstStep: 'found'
-            steps:
-              length: 1
-              
-              found: new Step
-                header: 'Nice!'
-                details: 'This field has no gravitional lens.'
-                attachment: 'center center .primary center center'
-                blocks: '.primary'
-                nextButton: 'Next image'
-                next: true
-                onExit: =>
-                  @submit(e)
-          @tutorial.start()
+      else if trainingType is 'empty'
+        
+        # Count the number of annotations
+        nAnnotations = _.keys(@annotations).length
+        
+        @tutorial = if nAnnotations > 0 then @createDudMissedFeedback(e) else @createDudFoundFeedback(e)
+      
+      # Start the tutorial
+      @tutorial.start()
+      
     else
       @submit(e)
 

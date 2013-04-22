@@ -16,6 +16,7 @@ data-import/beta/lensimgs
 data-import/beta/simlensonly
 data-import/beta/subjects
 data-import/beta/betaOld
+data-import/beta/simlens_extra
 
 build/
 scripts/

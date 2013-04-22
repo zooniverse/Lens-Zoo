@@ -14,13 +14,12 @@
     <p class='number' data-type='favorites'>0</p>
     <p class='description'>favourite images</p>
   </div>
-  <div class='stat'>
-    <p class='number' data-type='sim-freq'>0</p>
-    <p class='description'>lens frequency</p>
-  </div>
 </div>
 
-<svg class='primary' xmlns="http://www.w3.org/2000/svg"></svg>
+<div class='annotation'>
+  <svg class='primary' xmlns="http://www.w3.org/2000/svg"></svg>
+</div>
+
 <div class='viewer'>
   <div class='webfits'></div>
 </div>

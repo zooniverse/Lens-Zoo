@@ -5,34 +5,55 @@
     <meta charset='utf-8'>
     <title>SpaceWarps</title>
     <link rel="stylesheet" href="/application.css" type="text/css" charset="utf-8">
+    
+    <!-- <script type="text/javascript" src="https://raw.github.com/slowe/lensjs/master/lens.js"></script>
+    <script type="text/javascript" src="https://raw.github.com/slowe/lensjs/master/canvas.js"></script>
+    <script type="text/javascript" src="https://raw.github.com/jasondavies/conrec.js/master/conrec.js"></script>
+    <script type="text/javascript" src="https://raw.github.com/slowe/LensToy/master/lenstoy.js"></script> -->
+    
+    <!-- <script>
+    window.onload = function(e) {
+      var lensToy = new LensToy({
+        id: 'field',
+        pixscale: 0.186,
+        width: 440,
+        height: 440
+      });
+      lensToy.init("CFHTLS_field");
+      console.log(lensToy);
+    }
+    </script> -->
+    
   </head>
   
   <body>
   
     <nav>
-      <a data-page="home" href="#/home">Space warps</a>
-      <a data-page="classifier" href="#/classify">Classify</a>
-      <a data-page="science" href="#/science">Science</a>
-      <a data-page="guide" href="#/guide">Spotter's Guide</a>
-      <a data-page="dashboard" target="_blank" href="http://tools.zooniverse.org/#/project/spacewarp/">Dashboard</a>
-      <a data-page="discuss" target="_blank" href="http://talk.spacewarps.org">Discuss</a>
-      <!-- <a data-page="profile" href="#/profile">Profile</a> -->
-      <a data-page="feedback" target="_blank" href="https://docs.google.com/a/zooniverse.org/spreadsheet/viewform?formkey=dGRKTC1DMDJXQ0pMUXlBeFQxYWxPRnc6MA#gid=0">Feedback</a>
+      <a data-page="home" href="#/home"><span>Spacewarps</span></a>
+      <a data-page="classifier" href="#/classify"><span>Classify</span></a>
+      <a data-page="science" href="#/science"><span>Science</span></a>
+      <a data-page="guide" href="#/guide"><span>Spotter's Guide</span></a>
+      <!-- <a data-page="feedback" target="_blank" href="https://docs.google.com/a/zooniverse.org/spreadsheet/viewform?formkey=dGRKTC1DMDJXQ0pMUXlBeFQxYWxPRnc6MA#gid=0"><span>Feedback</span></a> -->
+      <a data-page="discuss" target="_blank" href="http://talk.spacewarps.org"><span>Discuss</span></a>
+      <a data-page="dashboard" target="_blank" href="http://tools.zooniverse.org/#/project/spacewarp/"><span>Dashboard</span></a>
+      <a data-page="profile" href="#/profile"><span>Profile</span></a>
     </nav>
     
     <div class="main">
       <div class="home">
         <div class="content">
           <header>
-            <h1>Lenses allow us to gaze back in time.<br>They're the Universe's own telescopes!</h1>
-            <p>A gravitational lens is a distribution of matter &ndash; such as a cluster of galaxies &ndash;
-              between a distant source (a background galaxy) and an observer, that is capable of bending
-              (lensing) the light.</p>
+            <h1>Imagine a galaxy, behind another galaxy.<br/>Think you won’t see it? Think again.</h1>
+            <p>Massive galaxies warp space-time around themselves, bending light rays so that we can see around them. They’re the Universe’s own telescopes, but these gravitational lenses are very rare: we need your help to find them!</p>
           </header>
           <div class="columns two">
             <div class="column">
               
-              <figure class="portal"><img src="images/home.jpg"></figure>
+              <figure class="portal">
+                <!-- <img id="fieldimg" src="images/home.jpg"> -->
+                <img id="fieldimg" src="CFHTLS_field_440x440.png">
+                <div id="field"></div>
+              </figure>
               <!-- This is where the lenstoy would go. HTML to crib from 
                    can be found here:
                       http://drphilmarshall.github.com/SpaceWarps/training/Playground/index.html
@@ -48,17 +69,17 @@
             <div class="column">
               <ul class="site-actions">
                 <li>
-                  <figure><img class="classfy" src="images/classify.png"></figure>
+                  <figure><a href='#/classify'><img class="classfy" src="images/classify.png"></a></figure>
                   <h4>Discover Lenses</h4>
                   <p>Help scientists identify these very rare astronomical objects.</p>
                 </li>
                 <li>
-                  <figure><img class="learn" src="images/science.png"></figure>
+                  <figure><a href='#/guide'><img class="learn" src="images/science.png"></a></figure>
                   <h4>Learn about Lenses</h4>
                   <p>Find out more about the lenses you might spot in Space Warps.</p>
                 </li>
                 <li>
-                  <figure><img class="explore" src="images/dashboard.png"></figure>
+                  <figure><a target="_blank" href='http://tools.zooniverse.org/#/project/spacewarp/'><img class="explore" src="images/dashboard.png"></a></figure>
                   <h4>Explore your Data</h4>
                   <p>Take a closer look at the lenses we find, with Dashboard tools.</p>
                 </li>
@@ -72,23 +93,31 @@
       <div class="science">
         <div class="content">
           <header>
-            <p class='quote'>"Spacetime tells matter how to move; matter tells spacetime how to curve."</br><em>John Archibald Wheeler</em></p>
+            <p class='quote'>"Spacetime tells matter how to move; matter tells spacetime how to curve."<br/><em>John Archibald Wheeler</em></p>
           </header>
           
           <!-- <iframe src="http://player.vimeo.com/video/61565217" width="500" height="281" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe> <p><a href="http://vimeo.com/61565217">SpaceWarps Gravitational Lens School: ESO animated lens diagram clip</a> from <a href="http://vimeo.com/user3309084">Phil Marshall</a> on <a href="http://vimeo.com">Vimeo</a>.</p> -->
           
           <h2>Gravitational Lensing</h2>
-          <p>Einstein's theory of gravity, General Relativity, made a remarkable prediction. Massive objects, like galaxies or clusters of galaxies, should bend the space around them such that passing light rays follow curved paths: they behave like "gravitational lenses," focusing the light and distorting and magnifying the images of distant galaxies in the background. When one of these spacewarps happens to sit right in front of a background galaxy, the magnification factor can be upto 10 times or more, giving us a zoomed-in view of the distant universe, just at that particular point. Lenses can help us investigate young galaxies more than halfway across the universe, as they formed stars and started to take on the familiar shapes we see nearby.
-</p>
-          <p>As well as being useful as cosmic telescopes, gravitational lenses can be used to weigh the galaxy or cluster that is warping the space: with high magnification comes multiple images of the background galaxy, arranged around the image of the deflector. The separation and distortion of the lensed images contains information about how much mass there is in the lens, and how it is arranged: it's one of the few ways we have of mapping out where the dark matter in the universe is. How clumpy the dark matter is, and how dense it is near the centers of galaxies, can tell us about how galaxies evolve, and perhaps even what the dark matter is.</p>
+          <p>Einstein’s theory of gravity, General Relativity, made a remarkable prediction. Massive objects, such as stars, would bend the space around them such that passing light rays follow curved paths. Evidence for this revolutionary theory was first obtained by Arthur Eddington in 1919, when during a solar eclipse he observed that stars near the edge of the Sun appeared to be slightly out of position. The Sun was behaving like the lens in a magnifying glass and bending the light from the background stars!</p>
+          
+          <p>In 1937,  Fritz Zwicky realized that massive galaxies (which can contain anywhere from ten million to a hundred trillion stars) or clusters of galaxies could be used to magnify distant galaxies that conventional telescopes couldn’t detect.
+          <!-- (EMBED CLUSTER LENS TOY HERE: example code at http://drphilmarshall.github.com/SpaceWarps/training/Playground/index.html) -->
+          As you can see, not unlike a conventional magnifying glass, these gravitational lenses not only magnify and focus the light of the distant background galaxies but they can, and mostly do, distort them as well.</p>
+          
+          <p>When one of these gravitational lenses happens to sit right in front of a background galaxy, the magnification factor can be up to x10 or even more, giving us a zoomed-in view of the distant universe, just at that particular point. Lenses can help us investigate young galaxies more than halfway across the universe, as they formed stars and started to take on the familiar shapes we see nearby.</p>
+          
+          <p>Observations of the distorted background galaxy can also give us useful information about the object that is behaving as a gravitational lens. The separation and distortion of the lensed images can tell astronomers how much mass there is in the object, and how it is arranged. It’s one of the few ways we have of mapping out where the dark matter in the universe is, how clumpy it is and how dense it is near the centers of galaxies. Knowing this can provide crucial information about how galaxies evolve.</p>
+          
           <h2>Needles in a Haystack</h2>
-          <p>
-          There is a lot of interesting science to be done with gravitational lenses. The problem is that they are very rare. Only about one in a thousand massive galaxies is aligned with a background object well enough to cause it to appear multiply-imaged. We know of about 400 gravitational lenses now, largely because we have become very good at observing the night sky! Modern optical surveys cover thousands of square degrees, with images sharp and deep enough to resolve about 1 lens per square degree, and that should contain millions of massive galaxies, and so thousands of lenses. All we need to do is find them!</p>
-          <p>
-          This is not as easy as it sounds: teaching a computer to recognize the effects of gravitational lensing is not too difficult (although there are some exceptions, overall we understand the patterns of images produced by spacewarps very well), but our robots are easily confused by galaxies that look like lens systems even though they are just galaxies. And for them to run fast on lots of imaging data, they have to cut a lot of corners, and this makes them less effective.</p>
-        
-          <h2>Discovering Lenses: a Human-Robot Partnership</h2>
-          <p>With some understanding of what gravitational lenses do, you can help discover new examples of this amazing phenomenon, and enable our survey scientists to carry out new investigations of stars and dark matter galaxies in the universe. We will be doing two types of lens search. In our blind searches, we'll be asking you to spot signs of gravitational lensing in images of the sky taken as part of the CFHT (Canada-France-Hawaii Telescope) legacy survey. This survey has been searched by robots, but we're pretty sure they didn't catch all the lenses to be found! And your results will help us re-train the robots to do better on larger surveys in future. Then, in our targeted searches, in other upcoming sky surveys, we'll be showing you galaxies and groups of galaxies that our robots have selected as possibly being lenses; your task will be to assess whether or not they actually are! In both cases, there will be confusing objects around - the challenge is to come up with the most plausible explanation for what is going on, in collaboration with the rest of the SpaceWarps community. Do you think you can spot outer space being warped?  We do!</p>
+          <p>There is a lot of interesting science to be done with gravitational lenses. The problem is that they are very rare. Only about one in a thousand massive galaxies is aligned with a background object well enough to cause it to appear multiply-imaged. We currently know of about 400 objects that are behaving as gravitational lenses, largely because we have become very good at observing the night sky! Modern optical surveys cover thousands of square degrees, with images sharp and deep enough to resolve about 1 lens per square degree. There should be thousands of lenses that we can detect, but we will need to look at millions of galaxy images to find them!</p>
+          
+          <p>The ideal solution would be to get a computer to look through all of the images, but unfortunately this is not a straightforward solution. Teaching a computer to recognize the effects of gravitational lensing is not too difficult, but they can be easily confused by galaxies that look very similar to a distorted background galaxy. Also in order for the computer to run fast enough to analyse lots of images quickly, they have to cut a lot of corners, and this makes them less effective.</p>
+          
+          <iframe src="http://player.vimeo.com/video/61565217" width="500" height="281" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
+          
+          <h2>Discovering Lenses: a Human-Computer Partnership</h2>
+          <p>Human beings have a remarkable ability to recognise patterns and detect the unusual with only minimal training.  With a basic understanding of what the distorted images of galaxies that have passed through a gravitational lens look like, participants in the SpaceWarps project can help discover new examples of this amazing phenomenon, and enable our survey scientists to carry out new investigations of stars and dark matter  in the universe. We will be doing two types of lens search. In our blind searches, we’ll be asking volunteers to spot signs of gravitational lensing in images of the sky taken as part of the CFHT (Canada-France-Hawaii Telescope) legacy survey. This survey has been searched by computers, but we’re pretty sure they didn’t catch all the lenses to be found! These results will help us re-train the computers to do better on larger surveys in future. Then, in our targeted searches, in other upcoming sky surveys, we’ll be showing participants galaxies and groups of galaxies that our computers have selected as possibly being gravitational lenses.  The task will then be to assess whether or not they actually are! In both cases, there will be confusing objects around - the challenge is to come up with the most plausible explanation for what is going on, in collaboration with the rest of the SpaceWarps community. Do you think you can spot outer space being warped?  We do!</p>
         </div>
       </div>
       <div class="guide">
@@ -136,6 +165,12 @@
               <img class='lazy' src='' data-original='images/guide/lenses/elliptical-galaxy/CFHTLS_030_2132_gri.png' width='340' height='340'>
               <img class='lazy' src='' data-original='images/guide/lenses/elliptical-galaxy/CFHTLS_030_2132_gri_zoom.png' width='340' height='340'>
               <p>In the very rare instance that a background galaxy is (almost perfectly) aligned to the foreground galaxy along the line of sight to us, the light of the background galaxy is deflected in all directions. This give rise to a ring-like lensed image and is called an Einstein Ring.</p>
+              
+              <img class='lazy' src='' data-original='images/guide/lenses/disk-galaxy/CFHTLS_024_2215_gri.png' width='340' height='340'>
+              <img class='lazy' src='' data-original='images/guide/lenses/disk-galaxy/CFHTLS_024_2215_gri_zoom.png' width='340' height='340'>
+              <img class='lazy' src='' data-original='images/guide/lenses/disk-galaxy/CFHTLS_040_1764_gri.png' width='340' height='340'>
+              <img class='lazy' src='' data-original='images/guide/lenses/disk-galaxy/CFHTLS_040_1764_gri_zoom.png' width='340' height='340'>
+              <p>Spiral galaxies are like fried eggs: the bulge of stars in the middle is the yolk, while the spiral arms lie in the thin layer of egg white. Imagine sticking two fried eggs to either side of a circle of cardboard, and then looking at the whole thing from the side. That's what an edge-on spiral galaxy looks like. These are not usually very massive but some of them can act as lenses. Below are some examples of how the edge-on lens systems look like.</p>
               </section>
             
               <section data-type='lensed-quasars'>
@@ -252,5 +287,54 @@
     <script type="text/javascript">
       window.app = require('index');
     </script>
+    
+    <script type="text/javascript">
+    function touchHandler(event) {
+       var touches = event.changedTouches,
+       first = touches[0],
+       type = "";
+
+       switch (event.type) {
+         case "touchstart":
+             type = "mousedown";
+             break;
+         case "touchmove":
+             type = "mousemove";
+             break;
+         case "touchend":
+             type = "mouseup";
+             break;
+         default:
+             return;
+       }
+
+       var simulatedEvent = document.createEvent("MouseEvent");
+
+       simulatedEvent.initMouseEvent(type, true, true, window, 1, first.screenX, first.screenY, first.clientX, first.clientY, false, false, false, false, 0, null);
+       first.target.dispatchEvent(simulatedEvent);
+
+       if (event.type == "touchend") {
+         var simulatedEvent = document.createEvent("MouseEvent");
+         simulatedEvent.initMouseEvent('click', true, true, window, 1, first.screenX, first.screenY, first.clientX, first.clientY, false, false, false, false, 0, null);
+         first.target.dispatchEvent(simulatedEvent);
+       }
+
+       event.preventDefault();
+    }
+
+    $(document).ready(function(){
+      $(".annotation").bind('touchmove', function(e) {
+        e.preventDefault();
+      });
+
+      var annotation = document.querySelector('.annotation');
+      annotation.addEventListener("touchstart", touchHandler, true);
+      annotation.addEventListener("touchmove", touchHandler, true);
+      annotation.addEventListener("touchend", touchHandler, true);
+      annotation.addEventListener("touchcancel", touchHandler, true);
+    });
+    
+    </script>
+    
   </body>
 </html>

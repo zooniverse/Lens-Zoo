@@ -16,7 +16,6 @@ $img-dim    = 441px
 @import './annotation'
 @import './controls'
 @import './profile'
-@import './viewer'
 @import './tutorial'
 @import './quick_guide'
 
@@ -25,12 +24,12 @@ $img-dim    = 441px
 
 // Disabling some nav links
 nav
+  a[data-page="home"]
+    font-family futura
   a[data-page="dashboard"]
     pointer-events none
-  a[data-page="discuss"]
-    pointer-events none
-  a[data-page="profile"]
-    pointer-events none
+  // a[data-page="profile"]
+  //   pointer-events none
 
 
 body
@@ -40,7 +39,7 @@ body
   color $white
   width 100%
   height 100%
-  border-top 5px solid #1c1c1c
+  border-top 5px solid black
   
   p
     font-size 13px
@@ -66,10 +65,12 @@ body
     top 0
     left 0
     z-index 2
+    overflow hidden
     
     float left
     width $nav-width
     height 100%
+    min-height 672px
     margin 0
     padding 0
 
@@ -83,10 +84,11 @@ body
       width 1px
     
     a
+      position relative
       display block
       box-sizing border-box
-      width $nav-width
-      padding 60px 0 16px
+      max-width $nav-width
+      height 12%
       border-top 1px solid rgb(0, 30, 54)
       border-bottom 1px solid rgb(0, 30, 54)
       text-align center
@@ -94,21 +96,33 @@ body
       text-decoration none
       color $white
       background-repeat no-repeat
-      background-position center 20px
+      background-position center 30%
+      background-size auto 30%
       border-left 3px solid rgba(225, 85, 0, 0)
+      padding 0
       
       &:hover
         background-color rgb(0, 0, 0)
       &.active
         border-left 3px solid rgb(225, 85, 0)
       
+      span
+        position absolute
+        width 100%
+        left 0
+        padding-bottom 12%
+        bottom 0
+      
     a[data-page="home"]
       font-size 14px
       font-weight 700
       letter-spacing 4px
-      line-height 140px
-      padding 0
       text-transform uppercase
+      height 120px
+      padding 0
+      
+      span
+        padding-bottom 25%
       
     a[data-page="classifier"]
       background-image url('images/classify.png')
@@ -122,8 +136,8 @@ body
       background-image url('images/profile.png')
     a[data-page="discuss"]
       background-image url('images/discuss.png')
-    a[data-page="feedback"]
-      font-size 18px
-      padding 36px 0 30px
+    // a[data-page="feedback"]
+    //   font-size 18px
+    //   padding 36px 0 30px
       
 
