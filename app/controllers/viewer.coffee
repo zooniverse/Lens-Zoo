@@ -172,10 +172,10 @@ class Viewer extends Controller
     @append("""
       <div class='viewer-tools'>
         <div class='controls'>
-          <a href='' data-preset='0'>Standard</a>
-          <a href='' data-preset='1'>Brighter</a>
-          <a href='' data-preset='2'>Bluer</a>
-          <a href='' data-preset='finished'>Return</a>
+          <a title='See the same view as on the main interface.' href='' data-preset='0'>Standard</a>
+          <a title="Turn down the yellow galaxies’ brightness" href='' data-preset='1'>Brighter</a>
+          <a title='Turn up the brightness of the faintest objects' href='' data-preset='2'>Bluer</a>
+          <a title='Back to main interface' href='' data-preset='finished'>Return</a>
         </div>
         <div class='flag'>?</div>
         <div class='instructions'>Scroll to zoom.  Drag to move around the image.</div>
