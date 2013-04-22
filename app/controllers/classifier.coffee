@@ -54,7 +54,7 @@ class Classifier extends Page
     'click a[data-type="heart"]:nth(0)'       : 'onFavorite'
     'click a[data-type="dashboard"]:nth(0)'   : 'onDashboard'
     'click a[data-type="finish"]:nth(0)'      : 'onFinish'
-    'click svg.primary'                       : 'onAnnotation'
+    'click .annotation'                       : 'onAnnotation'
     'click g'                                 : 'stopPropagation'
   
   
@@ -311,6 +311,7 @@ class Classifier extends Page
   #
   
   onAnnotation: (e) ->
+    console.log 'onAnnotation'
     return unless @isAnnotatable
     
     # Create annotation and push to object
