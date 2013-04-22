@@ -29,8 +29,6 @@ class Profile extends Page
     if user?
       Recent.fetch()
       Favorite.fetch()
-    else
-      console.log 'prompt user to sign in'
   
   onRecent: (e, recents) =>
     @recents.removeClass('loading')
