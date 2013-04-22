@@ -6,23 +6,29 @@
     <title>SpaceWarps</title>
     <link rel="stylesheet" href="/application.css" type="text/css" charset="utf-8">
     
-    <!-- <script type="text/javascript" src="https://raw.github.com/slowe/lensjs/master/lens.js"></script>
+    <script type="text/javascript" src="https://raw.github.com/slowe/lensjs/master/lens.js"></script>
     <script type="text/javascript" src="https://raw.github.com/slowe/lensjs/master/canvas.js"></script>
     <script type="text/javascript" src="https://raw.github.com/jasondavies/conrec.js/master/conrec.js"></script>
-    <script type="text/javascript" src="https://raw.github.com/slowe/LensToy/master/lenstoy.js"></script> -->
+    <script type="text/javascript" src="https://raw.github.com/slowe/LensToy/master/lenstoy.js"></script>
     
-    <!-- <script>
+    <script>
     window.onload = function(e) {
-      var lensToy = new LensToy({
+      var toy = new LensToy({
         id: 'field',
-        pixscale: 0.186,
-        width: 440,
-        height: 440
+        pixscale: 0.186
       });
-      lensToy.init("CFHTLS_field");
-      console.log(lensToy);
+      toy.init("SW_field");
+      console.log(toy);
     }
-    </script> -->
+    </script>
+
+    <!-- Lens Toy gets its image size from the canvas size, so this line
+         is needed in the css somewhere. However, more css is needed to get 
+         the predicted features in the right place (ie the canvas needs to 
+         overlay the home.jpg image. --> 
+    <style>
+    #field, #fieldimg { position: relative; top:10px; width:440px; height:440px; }
+    </style>
     
   </head>
   
@@ -43,29 +49,19 @@
       <div class="home">
         <div class="content">
           <header>
-            <h1>Imagine a galaxy, behind another galaxy.<br/>Think you won’t see it? Think again.</h1>
-            <p>Massive galaxies warp space-time around themselves, bending light rays so that we can see around them. They’re the Universe’s own telescopes, but these gravitational lenses are very rare: we need your help to find them!</p>
+            <h1>Imagine a galaxy, behind another galaxy.<br/>Think you won't see it? Think again.</h1>
+            <p>Massive galaxies warp space-time around themselves, bending light rays so that we can see around them. They're the Universe's own telescopes, but these gravitational lenses are very rare: we need your help to find them!</p>
           </header>
           <div class="columns two">
             <div class="column">
-              
+
+              <!-- A Lens Toy in a portal: -->
               <figure class="portal">
-                <!-- <img id="fieldimg" src="images/home.jpg"> -->
-                <img id="fieldimg" src="CFHTLS_field_440x440.png">
+                <img id="fieldimg" src="images/home.jpg"> <!-- NB images/home.jpg is the same as Lens Toy's own SW_field image -->
                 <div id="field"></div>
               </figure>
-              <!-- This is where the lenstoy would go. HTML to crib from 
-                   can be found here:
-                      http://drphilmarshall.github.com/SpaceWarps/training/Playground/index.html
-                   The Toy we want is called "CFHTLS_field" (it's in the "field"
-                   div) and its background image is this one:
-                      https://raw.github.com/slowe/LensToy/master/CFHTLS_field_440x440.png"
-                   I can't see how to elegantly shove a LensToy in here
-                   without ruining the nice clean lines of this html file, so
-                   all I have done is write this comment to try and help out
-                   a bit.
-                -->
-            </div>
+
+             </div>
             <div class="column">
               <ul class="site-actions">
                 <li>
@@ -96,7 +92,7 @@
             <p class='quote'>"Spacetime tells matter how to move; matter tells spacetime how to curve."<br/><em>John Archibald Wheeler</em></p>
           </header>
           <h2>Gravitational Lensing</h2>
-          <p>Einstein’s theory of gravity, General Relativity, made a remarkable prediction. Massive objects, such as stars, would bend the space around them such that passing light rays follow curved paths. Evidence for this revolutionary theory was first obtained by Arthur Eddington in 1919, when during a solar eclipse he observed that stars near the edge of the Sun appeared to be slightly out of position. The Sun was behaving like the lens in a magnifying glass and bending the light from the background stars!</p>
+          <p>Einstein's theory of gravity, General Relativity, made a remarkable prediction. Massive objects, such as stars, would bend the space around them such that passing light rays follow curved paths. Evidence for this revolutionary theory was first obtained by Arthur Eddington in 1919, when during a solar eclipse he observed that stars near the edge of the Sun appeared to be slightly out of position. The Sun was behaving like the lens in a magnifying glass and bending the light from the background stars!</p>
           
           <p>In 1937,  Fritz Zwicky realized that massive galaxies (which can contain anywhere from ten million to a hundred trillion stars) or clusters of galaxies could be used to magnify distant galaxies that conventional telescopes couldn’t detect.
           <!-- (EMBED CLUSTER LENS TOY HERE: example code at http://drphilmarshall.github.com/SpaceWarps/training/Playground/index.html) -->
