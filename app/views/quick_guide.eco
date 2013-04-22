@@ -8,7 +8,7 @@
     <h2>Lenses</h2>
   
     <div class='lenses'>
-      <img alt='Cluster Galaxy' data-type='lensing-clusters' src='images/guide/lenses/cluster-galaxy/CFHTLS_001_1554_gri_zoom.png' width='100' height='100'>
+      <img alt='Galaxy Quasar' data-type='lensed-quasars' src='images/guide/lenses/galaxy-quasar/CFHTLS_082_0427_gri_zoom.png' width='100' height='100'>
 
       <img alt='Disk Galaxy' data-type='lensing-clusters' src='images/guide/lenses/disk-galaxy/CFHTLS_024_2215_gri_zoom.png' width='100' height='100'>
       <img alt='Disk Galaxy' data-type='lensing-clusters' src='images/guide/lenses/cluster-galaxy/CFHTLS_052_1191_gri_zoom.png' width='100' height='100'>
