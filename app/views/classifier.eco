@@ -17,6 +17,7 @@
 </div>
 
 <div class='annotation'>
+  <div class='remove-all'>Remove All Markers</div>
   <svg class='primary' xmlns="http://www.w3.org/2000/svg"></svg>
 </div>
 

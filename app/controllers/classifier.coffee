@@ -49,6 +49,7 @@ class Classifier extends Page
     '.viewer'                   : 'viewerEl'
     '.subjects'                 : 'subjectsEl'
     'svg.primary'               : 'svg'
+    '.remove-all'               : 'removeAllEl'
   
   events:
     'click a[data-type="heart"]:nth(0)'       : 'onFavorite'
@@ -95,6 +96,7 @@ class Classifier extends Page
     @annotations      = {}
     @annotationIndex  = 0
     @annotationCount  = 0
+    @removeOnCount    = 0
     @hasAnnotation    = false
     @hasWarned        = false
     @preset           = null
@@ -310,8 +312,14 @@ class Classifier extends Page
   # Annotation functions
   #
   
+  # TODO: Work on this more.
+  toggleRemoveAll: (e) ->
+    if @removeOnCount > 0
+      @removeAllEl.addClass('show')
+    else
+      @removeAllEl.removeClass('show')
+  
   onAnnotation: (e) ->
-    console.log 'onAnnotation'
     return unless @isAnnotatable
     
     # Create annotation and push to object
@@ -324,6 +332,14 @@ class Classifier extends Page
     @annotationIndex += 1
     @annotationCount += 1
     annotation.bind('remove', @removeAnnotation)
+    annotation.bind('remove-on', =>
+      @removeOnCount += 1
+      @toggleRemoveAll()
+    )
+    annotation.bind('remove-off', =>
+      @removeOnCount -= 1
+      @toggleRemoveAll()
+    )
     
     # Trigger event with annotation object
     @trigger 'onAnnotation', annotation
