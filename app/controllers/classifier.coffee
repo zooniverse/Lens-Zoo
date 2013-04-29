@@ -57,6 +57,7 @@ class Classifier extends Page
     'click a[data-type="finish"]:nth(0)'      : 'onFinish'
     'click .annotation'                       : 'onAnnotation'
     'click g'                                 : 'stopPropagation'
+    'click .remove-all'                       : 'removeAnnotations'
   
   
   constructor: ->
@@ -312,13 +313,6 @@ class Classifier extends Page
   # Annotation functions
   #
   
-  # TODO: Work on this more.
-  toggleRemoveAll: (e) ->
-    if @removeOnCount > 0
-      @removeAllEl.addClass('show')
-    else
-      @removeAllEl.removeClass('show')
-  
   onAnnotation: (e) ->
     return unless @isAnnotatable
     
@@ -359,7 +353,20 @@ class Classifier extends Page
       @warningDialog.open()
       @hasWarned = true
   
+  toggleRemoveAll: (e) ->
+    if @removeOnCount > 0
+      @removeAllEl.addClass('show')
+    else
+      @removeAllEl.removeClass('show')
+  
+  removeAnnotations: (e) =>
+    @stopPropagation(e)
+    
+    for key, annotation of @annotations
+      annotation.remove()
+  
   removeAnnotation: (annotation) =>
+    console.log 'removeAnnotation'
     
     # Remove event bindings
     annotation.unbind()
