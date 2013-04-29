@@ -6,11 +6,14 @@
     <title>SpaceWarps</title>
     <link rel="stylesheet" href="/application.css" type="text/css" charset="utf-8">
     
-    <script type="text/javascript" src="https://raw.github.com/slowe/lensjs/master/lens.js"></script>
-    <script type="text/javascript" src="https://raw.github.com/slowe/lensjs/master/canvas.js"></script>
-    <script type="text/javascript" src="https://raw.github.com/jasondavies/conrec.js/master/conrec.js"></script>
-    <script type="text/javascript" src="https://raw.github.com/slowe/LensToy/master/lenstoy.js"></script>
+    <!--
+      <script type="text/javascript" src="https://raw.github.com/slowe/lensjs/master/lens.js"></script>
+      <script type="text/javascript" src="https://raw.github.com/slowe/lensjs/master/canvas.js"></script>
+      <script type="text/javascript" src="https://raw.github.com/jasondavies/conrec.js/master/conrec.js"></script>
+      <script type="text/javascript" src="https://raw.github.com/slowe/LensToy/master/lenstoy.js"></script>
+    -->
     
+    <!--
     <script>
     window.onload = function(e) {
       var toy = new LensToy({
@@ -21,13 +24,14 @@
       console.log(toy);
     }
     </script>
-
+     -->
+     
     <!-- Lens Toy gets its image size from the canvas size, so this line
          is needed in the css somewhere. However, more css is needed to get 
          the predicted features in the right place (ie the canvas needs to 
          overlay the home.jpg image. --> 
     <style>
-    #field, #fieldimg { position: relative; top:10px; width:440px; height:440px; }
+/*    #field, #fieldimg { position: relative; top:10px; width:440px; height:440px; }*/
     </style>
     
   </head>
@@ -58,7 +62,7 @@
               <!-- A Lens Toy in a portal: -->
               <figure class="portal">
                 <img id="fieldimg" src="images/home.jpg"> <!-- NB images/home.jpg is the same as Lens Toy's own SW_field image -->
-                <div id="field"></div>
+                <!-- <div id="field"></div> -->
               </figure>
 
              </div>
