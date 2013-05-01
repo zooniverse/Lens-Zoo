@@ -106,7 +106,9 @@ class Classifier extends Page
     @yDown            = null
     @isAnnotatable    = true
     
-    @isTrainingSubject = false
+    @isTrainingSubject  = false
+    @isLensMarked       = false
+    
     @ctx = undefined
     
     @warningDialog.close()
@@ -557,7 +559,11 @@ class Classifier extends Page
       
       # Push subject to Talk collection
       @trigger 'addToTalk', @classification.subject.zooniverse_id
-      
+    
+    # Training image with simulation
+    if @isTrainingSubject
+      @classification.annotate {simFound: @isLensMarked}
+    
     @classification.send()
     
     # Empty SVG element
@@ -601,7 +607,6 @@ class Classifier extends Page
       training = @classification.subject.metadata.training
       trainingType = training.type
       
-      # TODO: Do we have more than these categories?
       if trainingType in ['lensed galaxy', 'lensed quasar']
         
         # Get the location for the dialog
@@ -609,12 +614,11 @@ class Classifier extends Page
         y = 1 - (training.y / @subjectDimension)
         
         # Check if any annotation over lens
-        isLensMarked = false
         for index, annotation of @annotations
-          isLensMarked = @checkImageMask(annotation.x, annotation.y)
-          break if isLensMarked
+          @isLensMarked = @checkImageMask(annotation.x, annotation.y)
+          break if @isLensMarked
         
-        if isLensMarked
+        if @isLensMarked
           @tutorial = @createSimulationFoundFeedback(e, trainingType, x, y)
         else
           @tutorial = @createSimulationMissedFeedback(e, trainingType, x, y)
