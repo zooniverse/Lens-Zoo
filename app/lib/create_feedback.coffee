@@ -22,7 +22,7 @@ module.exports =
           next: true
           onExit: =>
             @submit(e)
-            @viewer.trigger 'close'
+            @viewer?.trigger 'close'
   
   createSimulationMissedFeedback: (e, trainingType, x, y) ->
     return new Tutorial
@@ -43,7 +43,7 @@ module.exports =
           next: true
           onExit: =>
             @submit(e)
-            @viewer.trigger 'close'
+            @viewer?.trigger 'close'
   
   createDudFoundFeedback: (e) ->
     return new Tutorial
@@ -62,7 +62,7 @@ module.exports =
           next: true
           onExit: =>
             @submit(e)
-            @viewer.trigger 'close'
+            @viewer?.trigger 'close'
   
   createDudMissedFeedback: (e) ->
     return new Tutorial
@@ -81,4 +81,4 @@ module.exports =
           next: true
           onExit: =>
             @submit(e)
-            @viewer.trigger 'close'
+            @viewer?.trigger 'close'

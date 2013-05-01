@@ -379,7 +379,6 @@ class Classifier extends Page
       annotation.remove()
   
   removeAnnotation: (annotation) =>
-    console.log 'removeAnnotation'
     
     # Remove event bindings
     annotation.unbind()
