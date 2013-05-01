@@ -287,6 +287,10 @@ class Classifier extends Page
         @ctx.drawImage(img, 0, 0, img.width, img.height)
       img.src = $('.current .image img').attr('src')
     
+    # Prompt login
+    if @nClassified in [5, 10, 15, 30, 50] and not User.current
+      require('zooniverse/controllers/signup-dialog').show()
+    
     # Prompt Dashboard message
     if @nClassified is 3
       tutorial = new Tutorial
@@ -556,7 +560,7 @@ class Classifier extends Page
       @simRatio = Math.floor(@nClassified / 20) + 2
       Subject.group = if @nClassified % @simRatio is 0 then @simulationGroup else @subjectGroup
       # console.log "#{@simRatio}, #{Subject.group}"
-    @simFrequency.text("#{@simRatio}")
+    @simFrequency.text("#{@simRatio.toFixed(2)}")
   
   submit: (e) =>
     

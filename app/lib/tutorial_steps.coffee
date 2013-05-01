@@ -82,6 +82,11 @@ module.exports =
         canvas.height = img.height
         ctx.drawImage(img, 0, 0, img.width, img.height)
       img.src = $('.current .image img').attr('src')
+    onExit: ->
+      setTimeout ( ->
+        console.log 'onExit', $('g').first()
+        $('g').first().click()
+      ), 200
     next:
       'mouseup svg.primary': (e, tutorial, step) ->
         mask = getMaskValue(e)
@@ -94,7 +99,7 @@ module.exports =
     block: '.annotation, .controls'
     className: 'arrow-left'
     next: 'training'
-  
+    
   tryagain: new Step
     header: 'Whoops, try again.'
     details: 'Drag the marker over the blue arc to identify the lens.'
