@@ -45,6 +45,7 @@ class Classifier extends Page
     '[data-type="classified"]'  : 'nClassifiedEl'
     '[data-type="potentials"]'  : 'nPotentialsEl'
     '[data-type="favorites"]'   : 'nFavoritesEl'
+    '[data-type="sim-freq"]'    : 'simFrequency'
     '.mask'                     : 'maskEl'
     '.viewer'                   : 'viewerEl'
     '.subjects'                 : 'subjectsEl'
@@ -544,6 +545,7 @@ class Classifier extends Page
       @simRatio = Math.floor(@nClassified / 20) + 2
       Subject.group = if @nClassified % @simRatio is 0 then @simulationGroup else @subjectGroup
       # console.log "#{@simRatio}, #{Subject.group}"
+    @simFrequency.text("#{@simRatio}")
   
   submit: (e) =>
     
