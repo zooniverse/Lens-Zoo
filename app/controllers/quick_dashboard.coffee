@@ -74,6 +74,9 @@ class QuickDashboard extends Controller
   load: (prefix) ->
     @prefix = prefix
     
+    # Add loading class
+    $('.mask').addClass('loading')
+    
     # Setup WebFITS object
     @wfits = new astro.WebFITS(@el.find('.webfits')[0], @dimension)
     @wfits.setupControls()
@@ -160,6 +163,9 @@ class QuickDashboard extends Controller
   
   # Call when all channels are received (i.e. each deferred is resolved)
   allChannelsReceived: =>
+    
+    # Remove loading class
+    $('.mask').removeClass('loading')
     
     # Setup callback for escape key
     document.onkeydown = (e) =>

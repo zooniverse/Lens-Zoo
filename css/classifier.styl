@@ -1,4 +1,10 @@
+@keyframes progress
+  0%
+    background-position: 0 0
 
+  100%
+    background-position: 50px 0
+    
 $margin-top = 30px
 
 .classifier
@@ -22,6 +28,11 @@ $margin-top = 30px
     &.show
       display block
       opacity 0.9
+    
+    &.loading
+      animation 0.5s progress linear infinite
+      background linear-gradient(left top, #101010 25%, #000 25%, #000 50%, #101010 50%, #101010 75%, #000 75%)
+      background-size 25px 25px
   
   @media only screen and (min-device-width : 768px) and (max-device-width : 1024px)
     .side-mask
