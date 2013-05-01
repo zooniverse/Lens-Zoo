@@ -282,6 +282,7 @@ class Classifier extends Page
         id: 'dashboard'
         firstStep: 'dashboard'
         steps: TutorialDashboard
+        parent: @el[0]
       tutorial.start()
     
     # NOTE: Disabling during beta
@@ -291,6 +292,7 @@ class Classifier extends Page
     #     id: 'talk'
     #     firstStep: 'talk'
     #     steps: TutorialTalk
+    #     parent: @el[0]
     #   tutorial.start()
       
   onNoMoreSubjects: ->

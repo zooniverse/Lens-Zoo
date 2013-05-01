@@ -8,6 +8,7 @@ module.exports =
     return new Tutorial
       id: 'simFound'
       firstStep: 'simFound'
+      parent: @el[0]
       steps:
         length: 1
         
@@ -27,6 +28,7 @@ module.exports =
     return new Tutorial
       id: 'simMissed'
       firstStep: 'simMissed'
+      parent: @el[0]
       steps:
         length: 1
         
@@ -47,6 +49,7 @@ module.exports =
     return new Tutorial
       id: 'emptyFound'
       firstStep: 'emptyFound'
+      parent: @el[0]
       steps:
         length: 1
         
@@ -65,6 +68,7 @@ module.exports =
     return new Tutorial
       id: 'empty-missed'
       firstStep: 'missed'
+      parent: @el[0]
       steps:
         length: 1
         
