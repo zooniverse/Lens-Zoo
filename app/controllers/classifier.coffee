@@ -90,6 +90,9 @@ class Classifier extends Page
     
     # Start with subject group
     Subject.group = @subjectGroup
+    
+    # Storage for Talk collection ids
+    @talkIds = {}
   
   
   active: ->
@@ -150,11 +153,16 @@ class Classifier extends Page
     
     if user?
       
-      # Interact with Talk
-      @getTalkCollections(user)
+      # Set up two collections (Dashboard and My Candidates)
+      names = ['Dashboard', 'My Candidates']
+      descriptions = [
+        'All Space Warp images examined in the Quick Dashboard.',
+        'Gravitational lens candidates.'
+      ]
+      @setTalkCollections(user, names, descriptions)
       
-      @bind 'addToTalk', (zooniverseId) =>
-        @addToTalkCollection(user, zooniverseId)
+      @bind 'addToTalk', (collectionId, subjectId) =>
+        @addToTalkCollection(user, collectionId, subjectId)
       
       project = user.project
       
@@ -564,6 +572,9 @@ class Classifier extends Page
   
   submit: (e) =>
     
+    if _.keys(@annotations).length > 0
+      @trigger 'addToTalk', @talkIds['My Candidates'], @classification.subject.zooniverse_id
+    
     # Process annotations and push to API
     for index, annotation of @annotations
       @classification.annotate annotation.toJSON()
@@ -575,7 +586,7 @@ class Classifier extends Page
       @classification.annotate {preset: @preset}
       
       # Push subject to Talk collection
-      @trigger 'addToTalk', @classification.subject.zooniverse_id
+      @trigger 'addToTalk', @talkIds['Dashboard'], @classification.subject.zooniverse_id
     
     # Training image with simulation
     if @isTrainingSubject
