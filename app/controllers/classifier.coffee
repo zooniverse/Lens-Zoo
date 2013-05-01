@@ -6,10 +6,12 @@ Subject         = require 'zooniverse/models/subject'
 Favorite        = require 'zooniverse/models/favorite'
 Classification  = require 'models/classification'
 
-Page        = require 'controllers/page'
-Annotation  = require 'controllers/Annotation'
-Viewer      = require 'controllers/viewer'
-QuickGuide  = require 'controllers/quick_guide'
+browserDialog = require 'zooniverse/controllers/browser-dialog'
+
+Page            = require 'controllers/page'
+Annotation      = require 'controllers/Annotation'
+QuickDashboard  = require 'controllers/quick_dashboard'
+QuickGuide      = require 'controllers/quick_guide'
 
 {Tutorial}  = require 'zootorial'
 {Dialog}    = require 'zootorial'
@@ -66,13 +68,17 @@ class Classifier extends Page
     
     @html @template
     
-    # Initialize QuickGuide and FITS Viewer
+    # Initialize Quick Guide
     @quickGuide = new QuickGuide({el: @el.find('.quick-guide')})
-    @viewer = new Viewer({el: @el.find('.viewer')[0], classifier: @})
+    
+    # Conditionally load Quick Dashboard
+    userAgent = browserDialog.testAgent(navigator.userAgent)
+    unless userAgent.browser is 'msie'
+      @viewer = new QuickDashboard({el: @el.find('.viewer')[0], classifier: @})
+      @viewer.bind 'ready', @setupMouseControls
+      @viewer.bind 'close', @onViewerClose
     
     User.on 'change', @onUserChange
-    @viewer.bind 'ready', @setupMouseControls
-    @viewer.bind 'close', @onViewerClose
     
     # Dialog for warning of over excessive annotations
     @warningDialog = new Dialog
@@ -84,6 +90,7 @@ class Classifier extends Page
     
     # Start with subject group
     Subject.group = @subjectGroup
+  
   
   active: ->
     super
@@ -129,8 +136,9 @@ class Classifier extends Page
     Subject.off 'no-more', @onNoMoreSubjects
     
     # Clean up for when user signs out while using QD
-    @viewer.trigger 'close'
-    @viewer.clearCache()
+    if @viewer?
+      @viewer.trigger 'close'
+      @viewer.clearCache()
     
     # Unbind Talk event
     @unbind 'addToTalk'
@@ -422,12 +430,16 @@ class Classifier extends Page
   onDashboard: (e) ->
     e.preventDefault()
     
-    # Show mask and viewer
-    @maskEl.addClass('show')
-    @viewerEl.addClass('show')
     
-    # Load current subject
-    @viewer.load(@classification.subject.metadata.id)
+    if @viewer?
+      # Show mask and viewer
+      @maskEl.addClass('show')
+      @viewerEl.addClass('show')
+    
+      # Load current subject
+      @viewer.load(@classification.subject.metadata.id)
+    else
+      alert "Sorry this feature is not supported on IE."
   
   # Enabled only when viewer is ready
   wheelHandler: (e) =>
@@ -572,7 +584,7 @@ class Classifier extends Page
     @svg.empty()
     
     # Clear viewer cache
-    @viewer.clearCache()
+    @viewer?.clearCache()
     
     # Get DOM elements
     target  = $(e.currentTarget)

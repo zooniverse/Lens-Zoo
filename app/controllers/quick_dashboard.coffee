@@ -4,7 +4,7 @@ browserDialog = require 'zooniverse/controllers/browser-dialog'
 {Dialog}      = require 'zootorial'
 
 
-class Viewer extends Controller
+class QuickDashboard extends Controller
   dimension: 441
   bands:  ['g', 'r', 'i']
   source: 'http://spacewarps.org.s3.amazonaws.com/subjects/raw/'
@@ -226,4 +226,4 @@ class Viewer extends Controller
       delete @cache[key]
 
 
-module.exports = Viewer
+module.exports = QuickDashboard
