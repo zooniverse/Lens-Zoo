@@ -6,7 +6,8 @@ class GuidePage extends Page
   className: 'guide'
   
   events:
-    'click .menu li'  : 'show'
+    'click .menu li'        : 'show'
+    'click .guide-menu li'  : 'show'
   
   active: ->
     super
