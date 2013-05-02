@@ -623,6 +623,9 @@ class Classifier extends Page
   onFinish: (e) =>
     e.preventDefault()
     
+    # Hide remove all button
+    @removeAllEl.removeClass('show')
+    
     if @isTrainingSubject
       # If finished is clicked again move to the next image
       if @feedbackShown
