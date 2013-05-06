@@ -25,8 +25,8 @@ module.exports =
       metadata:
         training:
           type: 'lensed galaxy'
-          x: 100
-          y: 355
+          x: 61.010010
+          y: 319.750000
         id: 'CFHTLS_079_2328'
       tutorial: true
       zooniverse_id: 'ASW0000002'

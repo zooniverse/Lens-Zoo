@@ -51,12 +51,12 @@ module.exports =
     number: 5
     header: 'Identifying gravitational lenses'
     details: "The yellow-ish looking galaxy is a gravitational lens. It is bending and magnifying the light from a faint blue galaxy, lying far behind, into a blue arc that surrounds the lensing galaxy."
-    attachment: 'left top .current 1 0.38'
+    attachment: 'left top .current 1 0.5'
     block: '.annotation, .controls:first'
     className: 'arrow-left'
     onEnter: ->
       bounding = document.createElementNS('http://www.w3.org/2000/svg', "circle")
-      bounding.setAttribute("transform", "translate(#{388}, #{270})")
+      bounding.setAttribute("transform", "translate(#{258}, #{324})")
       bounding.setAttribute("class", "outline")
       bounding.setAttribute("stroke", 'white')
       bounding.setAttribute("stroke-width", 2)
@@ -70,8 +70,8 @@ module.exports =
     number: 6
     header: 'Marking lensed features'
     details: 'If you see something that is being lensed, mark it. In this case, click on the blue arc.'
-    attachment: 'left top .current 1 0.44'
-    block: '.controls'
+    attachment: 'left top .current 1 0.52'
+    block: '.controls:first'
     className: 'arrow-left'
     onEnter: (tutorial) ->
       canvas = document.createElement('canvas')
@@ -95,7 +95,7 @@ module.exports =
   goodjob: new Step
     header: "Great job!"
     details: 'You’ve correctly identified a gravitational lens!'
-    attachment: 'left top .current 1 0.44'
+    attachment: 'left top .current 1 0.52'
     block: '.annotation, .controls'
     className: 'arrow-left'
     next: 'training'
