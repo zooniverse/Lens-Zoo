@@ -41,8 +41,6 @@ class Profile extends Page
       @nClassifiedEl.text(nClassified)
       @nPotentialsEl.text(nPotentials)
       @nFavoritesEl.text(nFavorites)
-    else
-      alert "Please sign in to see your profile."
   
   onRecent: (e, recents) =>
     @recents.removeClass('loading')
