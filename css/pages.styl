@@ -1,5 +1,9 @@
 .stack > :not(.classifier)
-
+  
+  // Offset the same way as the classifier page
+  // TODO: abstract this style further.
+  margin 4% 0 0 12%
+  
   &.home
 
     .portal
@@ -44,7 +48,6 @@
 
   .content
     color #EFEFEF
-    margin 0 auto
     padding 1px 0 0 0 // cheating
     text-shadow 0 1px 0 rgba(#013a66, 0.8)
     width 800px
@@ -54,7 +57,34 @@
       margin-top 30px
       line-height 40px
       text-align right
+    
+    h2
+      color #000d18
+      font-size 11px
+      font-weight 600
+      text-shadow 0px 1px 0px rgba(255, 255, 255, 0.25)
+      text-transform uppercase
+      padding 30px 0
+      border-bottom 1px solid #003461
+      box-shadow 0px 1px 0px #0072C9
+    
+    .q
+      font-weight 700
+      font-size 14px
       
+      &:before
+        content "Q:"
+        padding-right 10px
+    
+    .a
+      padding-bottom 10px
+      font-size 14px
+    
+      &:before
+        font-weight 700
+        content "A:"
+        padding-right 10px
+    
     .guide-menu
       @extends #clearfix
       @extends #semantic-list
@@ -82,7 +112,7 @@
       padding 1px 0 50px 0
 
     > header
-      padding 50px 0 30px 0
+      padding-bottom 30px
       text-align center
 
       h1:last-child

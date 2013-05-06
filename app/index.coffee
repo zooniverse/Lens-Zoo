@@ -8,6 +8,7 @@ SciencePage = require 'controllers/science_page'
 GuidePage   = require 'controllers/guide_page'
 Classifier  = require 'controllers/classifier'
 Profile     = require 'controllers/profile'
+FAQPage     = require 'controllers/faq_page'
 
 Api       = require 'zooniverse/lib/api'
 Analytics = require 'zooniverse/lib/google-analytics'
@@ -25,6 +26,7 @@ stack = new Stack
     science: SciencePage
     guide: GuidePage
     profile: Profile
+    faq: FAQPage
   
   routes:
     '/home'       : 'home'
@@ -32,6 +34,7 @@ stack = new Stack
     '/science'    : 'science'
     '/guide'      : 'guide'
     '/profile'    : 'profile'
+    '/faq'        : 'faq'
   
   default: 'home'
 
