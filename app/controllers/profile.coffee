@@ -34,7 +34,6 @@ class Profile extends Page
       Favorite.fetch()
       
       project = user.project
-      console.log project
       nClassified  = project.classification_count
       nPotentials  = project.annotation_count
       nFavorites   = project.favorite_count

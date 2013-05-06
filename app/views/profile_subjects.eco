@@ -1,7 +1,7 @@
 <ul>
   <% for subject in @subjects: %>
   <li>
-    <img src="<%- subject.subjects[0].location.thumbnail %>">
+    <img src="<%- subject.subjects[0].location.thumbnail %>" width="75%">
   </li>
   <% end %>
 </ul>
