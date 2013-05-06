@@ -13,8 +13,11 @@ class Profile extends Page
   subjectTemplate: require 'views/profile_subjects'
   
   elements:
-    '.favorites .subjects'  : 'favorites'
-    '.recents .subjects'    : 'recents'
+    '.favorites .subjects'      : 'favorites'
+    '.recents .subjects'        : 'recents'
+    '[data-type="classified"]'  : 'nClassifiedEl'
+    '[data-type="potentials"]'  : 'nPotentialsEl'
+    '[data-type="favorites"]'   : 'nFavoritesEl'
   
   
   constructor: ->
@@ -25,14 +28,25 @@ class Profile extends Page
     Recent.on 'fetch', @onRecent
     Favorite.on 'fetch', @onFavorite
   
-  onUserChange: (e, user) ->
+  onUserChange: (e, user) =>
     if user?
       Recent.fetch()
       Favorite.fetch()
+      
+      project = user.project
+      console.log project
+      nClassified  = project.classification_count
+      nPotentials  = project.annotation_count
+      nFavorites   = project.favorite_count
+      
+      @nClassifiedEl.text(nClassified)
+      @nPotentialsEl.text(nPotentials)
+      @nFavoritesEl.text(nFavorites)
+    else
+      alert "Please sign in to see your profile."
   
   onRecent: (e, recents) =>
     @recents.removeClass('loading')
-    console.log recents
     params =
       subjects: recents
     @recents.html @subjectTemplate(params)

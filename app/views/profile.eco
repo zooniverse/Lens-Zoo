@@ -1,11 +1,26 @@
+<div class='stats'>
+  <div class='stat'>
+    <p class='number' data-type='classified'>0</p>
+    <p class='description'>images viewed</p>
+  </div>
+  <div class='stat'>
+    <p class='number' data-type='potentials'>0</p>
+    <p class='description'>potential lenses</p>
+  </div>
+  <div class='stat'>
+    <p class='number' data-type='favorites'>0</p>
+    <p class='description'>favourite images</p>
+  </div>
+</div>
+
 <div class='favorites'>
-  <h1>Favourites</h1>
+  <h2>Favourites</h2>
   <div class='subjects loading'>
     <p>Just a moment ...</p>
   </div>
 </div>
 <div class='recents'>
-  <h1>Recents</h1>
+  <h2>Recents</h2>
   <div class='subjects loading'>
     <p>Just a moment ...</p>
   </div>
