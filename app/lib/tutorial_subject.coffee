@@ -4,7 +4,7 @@ Subject = require 'zooniverse/models/subject'
 module.exports =
   main:
     new Subject
-      id: '5101a1931a320ea77f000003'
+      id: '5183f151e4bb2102190033b1'
       location:
         standard: 'images/tutorial/tutorial-1.png'
       project_id: '5101a1341a320ea77f000001'
@@ -17,7 +17,7 @@ module.exports =
       zooniverse_id: 'ASW0000001'
   simulated:
     new Subject
-      id: '5101a1931a320ea77f000004'
+      id: '5183f151e4bb210219003bb1'
       location:
         standard: 'images/tutorial/tutorial-2.png'
       project_id: '5101a1341a320ea77f000001'
@@ -32,7 +32,7 @@ module.exports =
       zooniverse_id: 'ASW0000002'
   empty:
     new Subject
-      id: '5101a1931a320ea77f000005'
+      id: '5183f151e4bb210219004e43'
       location:
         standard: 'images/tutorial/tutorial-3.png'
       project_id: '5101a1341a320ea77f000001'
