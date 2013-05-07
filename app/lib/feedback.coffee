@@ -44,3 +44,12 @@ module.exports =
       "Very occasionally, if the cosmic alignment is very precise, the galaxy behind the lens will appear as an almost exactly circular Einstein Ring."
       "You can read more about lensed galaxies in the <em>Spotters Guide</em>."
       ]
+  
+  missed: [
+    "This image actually contains a simulated lens. Have you tried using the Quick Dashboard to get a better view?"
+    "This image actually contains a simulated lens. Have a browse around the site for some tips!"
+    "This image actually contains a simulated lens. Don't worry, you can see all your recent images on your profile page."
+    "This image actually contains a simulated lens. If you're not sure, why not head over to Talk to discuss this image?"
+    ]
+    
+    

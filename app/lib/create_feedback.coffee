@@ -39,6 +39,13 @@ module.exports =
             @viewer?.trigger 'close'
   
   createSimulationMissedFeedback: (e, trainingType, x, y) ->
+    
+    # Get random detail
+    missed = Feedback.missed
+    index = Math.floor(Math.random() * missed.length)
+    
+    detail = missed[index]
+    
     return new Tutorial
       id: 'simMissed'
       firstStep: 'simMissed'
@@ -48,8 +55,7 @@ module.exports =
         
         simMissed: new Step
           number: 1
-          header: 'Whoops!'
-          details: "You missed a simulated #{trainingType}!  Don't worry, let's move to the next image."
+          details: detail
           attachment: "left center .annotation #{x} #{y}"
           block: '.annotation'
           className: 'arrow-left'
