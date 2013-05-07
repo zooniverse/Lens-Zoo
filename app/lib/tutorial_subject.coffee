@@ -13,7 +13,7 @@ module.exports =
       metadata:
         training:
           type: 'lensed galaxy'
-        id: 'CFHTLS_078_1721'
+        id: 'CFHTLS_083_0111'
       tutorial: true
       zooniverse_id: 'ASW0000001'
   simulated:
@@ -29,7 +29,7 @@ module.exports =
           type: 'lensed galaxy'
           x: 61.010010
           y: 319.750000
-        id: 'CFHTLS_079_2328'
+        id: 'CFHTLS_085_0136'
       tutorial: true
       zooniverse_id: 'ASW0000002'
   empty:
@@ -43,7 +43,7 @@ module.exports =
       metadata:
         training:
           type: 'empty'
-        id: 'CFHTLS_082_0054'
+        id: 'CFHTLS_171_0493'
       tutorial: true
       zooniverse_id: 'ASW0000003'
     
