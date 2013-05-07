@@ -35,7 +35,7 @@ module.exports =
           $.ajax({
             url: "#{@constructor.host}/projects/spacewarp/talk/collections",
             type: 'POST',
-            data: {subject_id: 'ASW0000001', title: titles[index], description: descriptions[index]},
+            data: {subject_id: 'ASW0000a7l', title: titles[index], description: descriptions[index]},
             headers: @setAuthentication(user),
             success: (collection, status, response) =>
               @talkIds[title] = collection.zooniverse_id
@@ -45,9 +45,10 @@ module.exports =
   # Add subject to Talk collection
   addToTalkCollection: (user, collectionId, subjectId) ->
     
-    $.ajax({
-      url: "#{@constructor.host}/projects/spacewarp/talk/collections/#{collectionId}/add_subject",
-      type: 'POST',
-      data: {subject_id: subjectId},
-      headers: @setAuthentication(user),
-    })
+    if collectionId?
+      $.ajax({
+        url: "#{@constructor.host}/projects/spacewarp/talk/collections/#{collectionId}/add_subject",
+        type: 'POST',
+        data: {subject_id: subjectId},
+        headers: @setAuthentication(user),
+      })
