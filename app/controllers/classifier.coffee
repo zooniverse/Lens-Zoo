@@ -295,7 +295,7 @@ class Classifier extends Page
       img.src = $('.current .image img').attr('src')
     
     # Prompt login
-    if @nClassified in [5, 10, 15, 30, 50] and not User.current
+    if @nClassified in [5, 15, 30, 50] and not User.current
       require('zooniverse/controllers/signup-dialog').show()
     
     # Prompt Dashboard message
@@ -307,15 +307,14 @@ class Classifier extends Page
         parent: @el[0]
       tutorial.start()
     
-    # NOTE: Disabling during beta
-    # # Prompt Talk message
-    # if @nClassified is 7
-    #   tutorial = new Tutorial
-    #     id: 'talk'
-    #     firstStep: 'talk'
-    #     steps: TutorialTalk
-    #     parent: @el[0]
-    #   tutorial.start()
+    # Prompt Talk message
+    if @nClassified is 7
+      tutorial = new Tutorial
+        id: 'talk'
+        firstStep: 'talk'
+        steps: TutorialTalk
+        parent: @el[0]
+      tutorial.start()
       
   onNoMoreSubjects: ->
     alert "We've run out of subjects."
@@ -344,6 +343,8 @@ class Classifier extends Page
     position = $('.subject.current .image').position()
     x = e.pageX - position.left
     y = e.pageY - position.top
+    
+    console.log 'onAnnotation', e.pageX, e.pageY, position.left, position.top
     
     annotation = new Annotation({el: @svg, x: x, y: y, index: @annotationIndex})
     @annotations[@annotationIndex] = annotation
@@ -413,6 +414,8 @@ class Classifier extends Page
   checkImageMask: (x, y) =>
     pixel = @ctx.getImageData(x, y, 1, 1)
     mask = pixel.data[3]
+    
+    console.log 'checkImageMask', x, y, mask
     return if mask is 255 then true else false
   
   # Prevent annotations over SVG elements

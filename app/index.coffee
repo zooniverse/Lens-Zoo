@@ -46,7 +46,7 @@ new Analytics
 api = new Api
   project: 'spacewarp'
   host: "https://api.zooniverse.org"
-  # host: "https://dev.zooniverse.org"
+  host: "https://dev.zooniverse.org"
   # host: "http://0.0.0.0:3000"
   path: '/proxy'
 
