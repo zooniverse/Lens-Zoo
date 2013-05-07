@@ -344,8 +344,6 @@ class Classifier extends Page
     x = e.pageX - position.left
     y = e.pageY - position.top
     
-    console.log 'onAnnotation', e.pageX, e.pageY, position.left, position.top
-    
     annotation = new Annotation({el: @svg, x: x, y: y, index: @annotationIndex})
     @annotations[@annotationIndex] = annotation
     @annotationIndex += 1
@@ -415,7 +413,6 @@ class Classifier extends Page
     pixel = @ctx.getImageData(x, y, 1, 1)
     mask = pixel.data[3]
     
-    console.log 'checkImageMask', x, y, mask
     return if mask is 255 then true else false
   
   # Prevent annotations over SVG elements

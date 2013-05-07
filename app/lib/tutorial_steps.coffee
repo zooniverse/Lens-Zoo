@@ -82,11 +82,6 @@ module.exports =
         canvas.height = img.height
         ctx.drawImage(img, 0, 0, img.width, img.height)
       img.src = $('.current .image img').attr('src')
-    onExit: ->
-      setTimeout ( ->
-        console.log 'onExit', $('g').first()
-        $('g').first().click()
-      ), 200
     next:
       'mouseup svg.primary': (e, tutorial, step) ->
         mask = getMaskValue(e)
@@ -94,9 +89,9 @@ module.exports =
   
   goodjob: new Step
     header: "Great job!"
-    details: 'You’ve correctly identified a gravitational lens!'
+    details: "You’ve correctly identified a gravitational lens!<br/><br/>To remove a marker, just click it and you'll see the remove button."
     attachment: 'left top .current 1 0.52'
-    block: '.annotation, .controls'
+    block: '.controls'
     className: 'arrow-left'
     next: 'training'
     
