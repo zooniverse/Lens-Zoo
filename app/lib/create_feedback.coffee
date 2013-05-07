@@ -29,7 +29,7 @@ module.exports =
         simFound: new Step
           header: header
           details: detail
-          attachment: "left center .primary #{x} #{y}"
+          attachment: "left center .annotation #{x} #{y}"
           block: '.annotation'
           className: 'arrow-left'
           nextButton: 'Next image'
@@ -50,7 +50,7 @@ module.exports =
           number: 1
           header: 'Whoops!'
           details: "You missed a simulated #{trainingType}!  Don't worry, let's move to the next image."
-          attachment: "left center .primary #{x} #{y}"
+          attachment: "left center .annotation #{x} #{y}"
           block: '.annotation'
           className: 'arrow-left'
           nextButton: 'Next image'
@@ -70,7 +70,7 @@ module.exports =
         emptyFound: new Step
           header: 'Nice! There is no gravitational lens in this field!'
           details: "This is a different kind of Training Image, one that has already been inspected by the Science Team and found not to contain any gravitational lenses."
-          attachment: 'center center .primary center center'
+          attachment: 'center center .annotation center center'
           block: '.annotation'
           nextButton: 'Next image'
           next: true
@@ -89,7 +89,7 @@ module.exports =
         missed: new Step
           header: 'There is no gravitational lens in this field!'
           details: "This is a different kind of Training Image, one that has already been inspected by the Science Team and found not to contain any gravitational lenses."
-          attachment: 'center center .primary center center'
+          attachment: 'center center .annotation center center'
           block: '.annotation'
           nextButton: 'Next image'
           next: true
