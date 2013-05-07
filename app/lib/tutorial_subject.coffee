@@ -11,8 +11,9 @@ module.exports =
       project_id: '5101a1341a320ea77f000001'
       workflow_ids: ['5101a1361a320ea77f000002']
       metadata:
-        training:
+        training: [
           type: 'lensed galaxy'
+        ]
         id: 'CFHTLS_083_0111'
       tutorial: true
       zooniverse_id: 'ASW0000001'
@@ -25,10 +26,11 @@ module.exports =
       project_id: '5101a1341a320ea77f000001'
       workflow_ids: ['5101a1361a320ea77f000002']
       metadata:
-        training:
+        training: [
           type: 'lensed galaxy'
           x: 61.010010
           y: 319.750000
+        ]
         id: 'CFHTLS_085_0136'
       tutorial: true
       zooniverse_id: 'ASW0000002'
@@ -41,8 +43,9 @@ module.exports =
       project_id: '5101a1341a320ea77f000001'
       workflow_ids: ['5101a1361a320ea77f000002']
       metadata:
-        training:
+        training: [
           type: 'empty'
+        ]
         id: 'CFHTLS_171_0493'
       tutorial: true
       zooniverse_id: 'ASW0000003'

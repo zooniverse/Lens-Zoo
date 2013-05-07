@@ -564,7 +564,7 @@ class Classifier extends Page
     Subject.group = if @simRatio > Math.random() then @simulationGroup else @subjectGroup
     
     # Update sim freq text
-    @simFrequency.text("1 in #{denominator}")
+    @simFrequency.text("1 in #{Math.round(denominator)}")
   
   submit: (e) =>
     
@@ -631,7 +631,7 @@ class Classifier extends Page
       @feedbackShown = true
       
       # Get the training type (e.g. lens or empty)
-      training = @classification.subject.metadata.training
+      training = @classification.subject.metadata.training[0]
       trainingType = training.type
       
       if trainingType in ['lensing cluster', 'lensed quasar', 'lensed galaxy']

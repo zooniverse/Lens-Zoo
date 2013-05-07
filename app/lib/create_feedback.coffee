@@ -10,16 +10,14 @@ module.exports =
   createSimulationFoundFeedback: (e, trainingType, x, y) ->
     
     # Get random header and detail
-    if trainingType in ['lensing cluster', 'lensed quasar', 'lensed galaxy']
-      
-      header = Feedback.header
-      detail = Feedback.detail[trainingType]
-      
-      index1 = Math.floor(Math.random() * header.length)
-      index2 = Math.floor(Math.random() * detail.length)
-      
-      header = Feedback.header[index1] + '!'
-      detail = detail[index2]
+    header = Feedback.header
+    detail = Feedback.detail[trainingType]
+    
+    index1 = Math.floor(Math.random() * header.length)
+    index2 = Math.floor(Math.random() * detail.length)
+    
+    header = Feedback.header[index1] + '!'
+    detail = detail[index2]
     
     return new Tutorial
       id: 'simFound'
