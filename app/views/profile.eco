@@ -13,15 +13,21 @@
   </div>
 </div>
 
-<div class='favorites'>
-  <h2>Favourites</h2>
-  <div class='subjects loading'>
-    <p>Just a moment ...</p>
-  </div>
+<div class='no-user'>
+  <h2>Please sign in to keep track of your classifications.</h2>
 </div>
-<div class='recents'>
-  <h2>Recents</h2>
-  <div class='subjects loading'>
-    <p>Just a moment ...</p>
+
+<div class='user'>
+  <div class='favorites'>
+    <h2 class='border'>Favourites</h2>
+    <div class='subjects loading'>
+      <p>Just a moment ...</p>
+    </div>
+  </div>
+  <div class='recents'>
+    <h2 class='border'>Recents</h2>
+    <div class='subjects loading'>
+      <p>Just a moment ...</p>
+    </div>
   </div>
 </div>

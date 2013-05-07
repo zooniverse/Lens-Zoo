@@ -19,9 +19,10 @@ $thumbnail-dim = 160px
     text-shadow 0px 1px 0px rgba(255, 255, 255, 0.25)
     text-transform uppercase
     padding 30px 0
-    border-bottom 1px solid #003461
-    box-shadow 0px 1px 0px #0072C9
-  
+    
+    &.border
+      border-bottom 1px solid #003461
+      box-shadow 0px 1px 0px #0072C9
   
   .stats
     border-left 1px solid rgb(0, 52, 96)
@@ -50,6 +51,17 @@ $thumbnail-dim = 160px
         text-shadow 0px 1px 0px rgba(255, 255, 255, 0.25)
         text-transform uppercase
   
+  
+  .user
+    display none
+    
+    &.show
+      display block
+      
+  .no-user
+    
+    &.hide
+      display none
   
   .subjects
     max-width 896px
