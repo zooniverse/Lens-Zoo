@@ -584,7 +584,7 @@ class Classifier extends Page
       @classification.annotate {preset: @preset}
       
       # Push subject to Talk collection
-      @trigger 'addToTalk', @talkIds['Dashboard'], @classification.subject.zooniverse_id
+      @trigger 'addToTalk', @talkIds['My Dashboard'], @classification.subject.zooniverse_id
     
     # Training image with simulation
     if @isTrainingSubject
