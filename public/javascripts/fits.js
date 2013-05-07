@@ -590,13 +590,10 @@
       buffer = [];
       reader.onloadend = function(e) {
         var begin, end;
-        console.log('onloadend');
         buffer.push(e.target.result);
-        console.log(buffer);
         while (nChunks--) {
           begin = _this.chunkSize * i;
           end = begin + _this.chunkSize;
-          console.log(begin, end);
           i += 1;
         }
         context = context != null ? context : _this;
@@ -604,7 +601,6 @@
           return callback.apply(context, [args]);
         }
       };
-      console.log(0, this.chunkSize);
       chunk = this.blob.slice(0, this.chunkSize);
       return reader.readAsArrayBuffer(chunk);
     };
@@ -1408,9 +1404,6 @@
         } else if (value === -2147483646) {
           arr[i] = 0;
         } else {
-          if (this.rowsRead === 0) {
-            console.log(this.randomSeq[rIndex]);
-          }
           arr[i] = (value - this.randomSeq[rIndex] + 0.5) * scale + zero;
         }
         rIndex += 1;
