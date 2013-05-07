@@ -16,7 +16,7 @@ module.exports =
         ]
         id: 'CFHTLS_083_0111'
       tutorial: true
-      zooniverse_id: 'ASW0000001'
+      zooniverse_id: 'ASW0000a7l'
   simulated:
     new Subject
       id: '5183f151e4bb210219003bb1'
@@ -33,7 +33,7 @@ module.exports =
         ]
         id: 'CFHTLS_085_0136'
       tutorial: true
-      zooniverse_id: 'ASW0000002'
+      zooniverse_id: 'ASW0000bsh'
   empty:
     new Subject
       id: '5183f151e4bb210219004e43'
@@ -48,5 +48,5 @@ module.exports =
         ]
         id: 'CFHTLS_171_0493'
       tutorial: true
-      zooniverse_id: 'ASW0000003'
+      zooniverse_id: 'ASW0000fgj'
     

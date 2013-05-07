@@ -153,10 +153,11 @@ class Classifier extends Page
     if user?
       
       # Set up two collections (Dashboard and My Candidates)
-      names = ['Dashboard', 'My Candidates']
+      names = ['My Dashboard', 'My Candidates', 'My Simulations']
       descriptions = [
         'All Space Warp images examined in the Quick Dashboard.',
-        'Gravitational lens candidates.'
+        'Gravitational lens candidates.',
+        'Simulated gravitational lenses.'
       ]
       @setTalkCollections(user, names, descriptions)
       
@@ -568,6 +569,7 @@ class Classifier extends Page
   
   submit: (e) =>
     
+    # Add annotated subject to My Candidates Talk collection
     if _.keys(@annotations).length > 0
       @trigger 'addToTalk', @talkIds['My Candidates'], @classification.subject.zooniverse_id
     
@@ -575,7 +577,7 @@ class Classifier extends Page
     for index, annotation of @annotations
       @classification.annotate annotation.toJSON()
     
-    # Quick Dashboard was accessed
+    # Add Quick Dashboard subject to Dashboard Talk collection
     if @preset?
       
       # Record the Quick Dashboard preset
@@ -587,6 +589,10 @@ class Classifier extends Page
     # Training image with simulation
     if @isTrainingSubject
       @classification.annotate {simFound: @isLensMarked}
+      
+      # Add subject to My Simulations collection when marked
+      if @isLensMarked
+        @trigger 'addToTalk', @talkIds['My Simulations'], @classification.subject.zooniverse_id
     
     @classification.send()
     
