@@ -555,19 +555,16 @@ class Classifier extends Page
   
   # Training scheme using simulations and empty fields
   setSimulationRatio: ->
-    if true
-      # When duds are included in the @TrainingGroup, need to multiply @simratio by 2 to 
-      baseLevel = Math.floor(@nClassified / 20) + 1
-      @level = Math.min(baseLevel, 3)
-      @simRatio = 1 / (5 * Math.pow(Math.sqrt(2), @level - 1))
-      Subject.group = if @simRatio > Math.random() then @simulationGroup else @subjectGroup
-      # console.log "#{@nClassified}, #{@level}, #{@simRatio}, #{Subject.group}"
-    else
-      # NOTE: This is the old scheme with fall off of 1 / x
-      @simRatio = Math.floor(@nClassified / 20) + 2
-      Subject.group = if @nClassified % @simRatio is 0 then @simulationGroup else @subjectGroup
-      # console.log "#{@simRatio}, #{Subject.group}"
-    @simFrequency.text("#{@simRatio.toFixed(2)}")
+    
+    # When duds are included in the @TrainingGroup, need to multiply @simratio by 2 to 
+    baseLevel = Math.floor(@nClassified / 20) + 1
+    @level = Math.min(baseLevel, 3)
+    denominator = (5 * Math.pow(Math.sqrt(2), @level - 1))
+    @simRatio = 1 / denominator
+    Subject.group = if @simRatio > Math.random() then @simulationGroup else @subjectGroup
+    
+    # Update sim freq text
+    @simFrequency.text("1 in #{denominator}")
   
   submit: (e) =>
     
@@ -637,7 +634,7 @@ class Classifier extends Page
       training = @classification.subject.metadata.training
       trainingType = training.type
       
-      if trainingType in ['lensed galaxy', 'lensed quasar']
+      if trainingType in ['lensing cluster', 'lensed quasar', 'lensed galaxy']
         
         # Get the location for the dialog
         x = (training.x + 30) / @subjectDimension
