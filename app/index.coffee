@@ -40,7 +40,7 @@ stack = new Stack
 
 
 new Analytics
-  account: "UA-1224199-42"
+  account: "UA-1224199-43"
 
 # Configure connection to Api
 api = new Api
