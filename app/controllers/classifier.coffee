@@ -94,7 +94,6 @@ class Classifier extends Page
     # Storage for Talk collection ids
     @talkIds = {}
   
-  
   active: ->
     super
     

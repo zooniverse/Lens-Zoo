@@ -2,9 +2,25 @@
 {Tutorial}  = require 'zootorial'
 {Step}      = require 'zootorial'
 
+Feedback  = require 'lib/feedback'
+
+
 module.exports =
   
   createSimulationFoundFeedback: (e, trainingType, x, y) ->
+    
+    # Get random header and detail
+    if trainingType in ['lensing cluster', 'lensed quasar', 'lensed galaxy']
+      
+      header = Feedback.header
+      detail = Feedback.detail[trainingType]
+      
+      index1 = Math.floor(Math.random() * header.length)
+      index2 = Math.floor(Math.random() * detail.length)
+      
+      header = Feedback.header[index1] + '!'
+      detail = detail[index2]
+    
     return new Tutorial
       id: 'simFound'
       firstStep: 'simFound'
@@ -13,8 +29,8 @@ module.exports =
         length: 1
         
         simFound: new Step
-          header: 'Nice catch!'
-          details: "You found a simulated #{trainingType}!"
+          header: header
+          details: detail
           attachment: "left center .primary #{x} #{y}"
           block: '.annotation'
           className: 'arrow-left'
