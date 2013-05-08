@@ -16,7 +16,7 @@ module.exports =
     index1 = Math.floor(Math.random() * header.length)
     index2 = Math.floor(Math.random() * detail.length)
     
-    header = Feedback.header[index1] + '!'
+    header = "#{Feedback.header[index1]}! You spotted a simulated lens."
     detail = detail[index2]
     
     return new Tutorial
