@@ -571,8 +571,28 @@ class Classifier extends Page
   submit: (e) =>
     
     # Add annotated subject to My Candidates Talk collection
+    
+    # Conditionally push to My Candidates collection
     if _.keys(@annotations).length > 0
-      @trigger 'addToTalk', @talkIds['My Candidates'], @classification.subject.zooniverse_id
+       @trigger 'addToTalk', @talkIds['My Candidates'], @classification.subject.zooniverse_id
+    
+    # # Excuse this terrible code.
+    # # Case 1 Not training subject and annotated
+    # if not @isTrainingSubject and _.keys(@annotations).length > 0
+    #   @trigger 'addToTalk', @talkIds['My Candidates'], @classification.subject.zooniverse_id
+    # 
+    # # Case 2 Simulation present but not marked
+    # if @isTrainingSubject
+    #   if @classification.subject.metadata.training[0].type in ['lensing cluster', 'lensed quasar', 'lensed galaxy']
+    #     if _.keys(@annotations).length > 0
+    #       if not @isLensMarked
+    #         @trigger 'addToTalk', @talkIds['My Candidates'], @classification.subject.zooniverse_id
+    # 
+    # # Case 3 Simulation present and marked
+    # if @isTrainingSubject
+    #   if @classification.subject.metadata.training[0].type in ['lensing cluster', 'lensed quasar', 'lensed galaxy']
+    #     if _.keys(@annotations).length > 1
+    #       @trigger 'addToTalk', @talkIds['My Candidates'], @classification.subject.zooniverse_id
     
     # Process annotations and push to API
     for index, annotation of @annotations
