@@ -53,8 +53,12 @@ class QuickDashboard extends Controller
     
     # Determine if WebGL is supported, otherwise fall back to canvas
     canvas  = document.createElement('canvas')
-    context = canvas.getContext('webgl')
-    context = canvas.getContext('experimental-webgl') unless context?
+    for name in ['webgl', 'experimental-webgl']
+      try
+        context = canvas.getContext(name)
+      catch error
+        continue
+      break if context?
     
     lib = if context? then 'gl' else 'canvas'
     
