@@ -39,16 +39,21 @@ stack = new Stack
   default: 'home'
 
 
-new Analytics
-  account: "UA-1224199-43"
-
-# Configure connection to Api
-api = new Api
-  project: 'spacewarp'
-  host: "https://api.zooniverse.org"
-  # host: "https://dev.zooniverse.org"
-  # host: "http://0.0.0.0:3000"
-  path: '/proxy'
+if window.location.origin is 'http://0.0.0.0:9294'
+  # Configure connection to Api
+  api = new Api
+    project: 'spacewarp'
+    host: "http://0.0.0.0:3000"
+    path: '/proxy'
+else
+  new Analytics
+    account: "UA-1224199-43"
+    
+  # Configure connection to Api
+  api = new Api
+    project: 'spacewarp'
+    host: "https://api.zooniverse.org"
+    path: '/proxy'
 
 topBar = new TopBar
 User.fetch()

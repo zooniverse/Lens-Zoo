@@ -93,6 +93,10 @@ class Classifier extends Page
     
     # Storage for Talk collection ids
     @talkIds = {}
+    
+    # Setup offscreen canvas and context for mask
+    @canvas = document.createElement('canvas')
+    @ctx = @canvas.getContext('2d')
   
   active: ->
     super
@@ -119,8 +123,6 @@ class Classifier extends Page
     @isTrainingSubject  = false
     @isLensMarked       = false
     
-    @ctx = undefined
-    
     @warningDialog.close()
   
   # Called when the user changes.  Lots going on here:
@@ -142,8 +144,9 @@ class Classifier extends Page
       @viewer.trigger 'close'
       @viewer.clearCache()
     
-    # Unbind Talk event
+    # Unbind Talk event and clean collection ids
     @unbind 'addToTalk'
+    @talkIds = {}
     
     # Set default counts
     @nClassified  = 0
@@ -152,7 +155,7 @@ class Classifier extends Page
     
     if user?
       
-      # Set up two collections (Dashboard and My Candidates)
+      # Set up three collections (My Dashboard, My Candidates and My Simulations)
       names = ['My Dashboard', 'My Candidates', 'My Simulations']
       descriptions = [
         'All Space Warp images examined in the Quick Dashboard.',
@@ -286,14 +289,12 @@ class Classifier extends Page
       @isTrainingSubject = true
       
       # Set up offscreen canvas and cache the context
-      canvas = document.createElement('canvas')
-      @ctx = canvas.getContext('2d')
       img = new Image()
       img.onload = (e) =>
-        canvas.width = img.width
-        canvas.height = img.height
+        @canvas.width = img.width
+        @canvas.height = img.height
         @ctx.drawImage(img, 0, 0, img.width, img.height)
-      img.src = $('.current .image img').attr('src')
+      img.src = $('.current img').attr('src')
     
     # Prompt login
     if @nClassified in [5, 15, 30, 50] and not User.current
