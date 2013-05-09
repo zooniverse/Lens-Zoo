@@ -4,7 +4,7 @@ _     = require 'underscore/underscore'
 User            = require 'zooniverse/models/user'
 Subject         = require 'zooniverse/models/subject'
 Favorite        = require 'zooniverse/models/favorite'
-Classification  = require 'models/classification'
+Classification  = require 'zooniverse/models/classification'
 
 browserDialog = require 'zooniverse/controllers/browser-dialog'
 
@@ -12,6 +12,9 @@ Page            = require 'controllers/page'
 Annotation      = require 'controllers/Annotation'
 QuickDashboard  = require 'controllers/quick_dashboard'
 QuickGuide      = require 'controllers/quick_guide'
+Counters        = require 'controllers/counters'
+
+Counter = require 'models/counter'
 
 {Tutorial}  = require 'zootorial'
 {Dialog}    = require 'zootorial'
@@ -44,10 +47,6 @@ class Classifier extends Page
   
   
   elements:
-    '[data-type="classified"]'  : 'nClassifiedEl'
-    '[data-type="potentials"]'  : 'nPotentialsEl'
-    '[data-type="favorites"]'   : 'nFavoritesEl'
-    '[data-type="sim-freq"]'    : 'simFrequency'
     '.mask'                     : 'maskEl'
     '.viewer'                   : 'viewerEl'
     '.subjects'                 : 'subjectsEl'
@@ -77,6 +76,12 @@ class Classifier extends Page
       @viewer = new QuickDashboard({el: @el.find('.viewer')[0], classifier: @})
       @viewer.bind 'ready', @setupMouseControls
       @viewer.bind 'close', @onViewerClose
+    
+    # Create new controller for counters
+    new Counters({el: @el.find('.stats')})
+    
+    # Store the counter model
+    @counter = Counter.first()
     
     User.on 'change', @onUserChange
     
@@ -149,9 +154,7 @@ class Classifier extends Page
     @talkIds = {}
     
     # Set default counts
-    @nClassified  = 0
-    @nPotentials  = 0
-    @nFavorites   = 0
+    @counter.updateAttributes({'classified': 0, 'potentials': 0, 'favorites': 0})
     
     if user?
       
@@ -173,17 +176,14 @@ class Classifier extends Page
       unless 'tutorial_done' of project
         @startTutorial()
       else
-        @nClassified  = project.classification_count or 0
-        @nPotentials  = project.annotation_count or 0
-        @nFavorites   = project.favorite_count or 0
+        @counter.updateAttributes({
+          'classified': project.classification_count or 0,
+          'potentials': project.annotation_count or 0,
+          'favorites': project.favorite_count or 0
+        })
         @start()
     else
       @startTutorial()
-    
-    # Render counts to DOM
-    @setClassified()
-    @setPotentials()
-    @setFavorites()
     
     @setSimulationRatio()
   
@@ -297,11 +297,12 @@ class Classifier extends Page
       img.src = $('.current img').attr('src')
     
     # Prompt login
-    if @nClassified in [5, 15, 30, 50] and not User.current
+    nClassified = @counter.classified
+    if nClassified in [5, 15, 30, 50] and not User.current
       require('zooniverse/controllers/signup-dialog').show()
     
     # Prompt Dashboard message
-    if @nClassified is 3
+    if nClassified is 3
       tutorial = new Tutorial
         id: 'dashboard'
         firstStep: 'dashboard'
@@ -310,7 +311,7 @@ class Classifier extends Page
       tutorial.start()
     
     # Prompt Talk message
-    if @nClassified is 7
+    if nClassified is 7
       tutorial = new Tutorial
         id: 'talk'
         firstStep: 'talk'
@@ -320,19 +321,6 @@ class Classifier extends Page
       
   onNoMoreSubjects: ->
     alert "We've run out of subjects."
-  
-  #
-  # Counter functions
-  #
-  
-  setClassified: ->
-    @nClassifiedEl.text(@nClassified)
-  
-  setPotentials: ->
-    @nPotentialsEl.text(@nPotentials)
-  
-  setFavorites: ->
-    @nFavoritesEl.text(@nFavorites)
   
   #
   # Annotation functions
@@ -370,8 +358,7 @@ class Classifier extends Page
     
     # Update stats
     if @annotationCount is 1
-      @nPotentials += 1
-      @setPotentials()
+      @counter.increment('potentials')
     
     # Warn of overmarking
     if (@annotationCount > @maxAnnotations) and (Math.random() > 0.4) and (not @hasWarned)
@@ -401,8 +388,7 @@ class Classifier extends Page
     # Update stats
     @annotationCount -= 1
     if @annotationCount is 0
-      @nPotentials -= 1
-      @setPotentials()
+      @counter.decrement('potentials')
     
     # Update finish text if necessary
     count = _.keys(@annotations).length
@@ -429,19 +415,17 @@ class Classifier extends Page
       if el.hasClass('active')
         el.removeClass('active')
         @classification.favorite = false
-        @nFavorites -= 1
+        @counter.decrement('favorites')
       else
         el.addClass('active')
         @classification.favorite = true
-        @nFavorites += 1
-      @setFavorites()
+        @counter.increment('favorites')
     else
       alert ("Please sign in or make an account to save favourites.")
   
   # Set up inline dashboard with current subject
   onDashboard: (e) ->
     e.preventDefault()
-    
     
     if @viewer?
       # Show mask and viewer
@@ -559,14 +543,15 @@ class Classifier extends Page
   setSimulationRatio: ->
     
     # When duds are included in the @TrainingGroup, need to multiply @simratio by 2 to 
-    baseLevel = Math.floor(@nClassified / 20) + 1
+    nClassified = @counter.classified
+    baseLevel = Math.floor(nClassified / 20) + 1
     @level = Math.min(baseLevel, 3)
     denominator = (5 * Math.pow(Math.sqrt(2), @level - 1))
     @simRatio = 1 / denominator
     Subject.group = if @simRatio > Math.random() then @simulationGroup else @subjectGroup
     
     # Update sim freq text
-    @simFrequency.text("1 in #{Math.round(denominator)}")
+    @counter.updateAttribute('simFrequency', "1 in #{Math.round(denominator)}")
   
   submit: (e) =>
     
@@ -640,9 +625,9 @@ class Classifier extends Page
     , 400
     
     # Update stats
-    @nClassified += 1
-    @setClassified()
-  
+    @counter.increment('classified')
+    
+    
   onFinish: (e) =>
     e.preventDefault()
     

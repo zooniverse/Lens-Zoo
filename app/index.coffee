@@ -10,11 +10,16 @@ Classifier  = require 'controllers/classifier'
 Profile     = require 'controllers/profile'
 FAQPage     = require 'controllers/faq_page'
 
+Counter     = require 'models/counter'
+
 Api       = require 'zooniverse/lib/api'
 Analytics = require 'zooniverse/lib/google-analytics'
 TopBar    = require 'zooniverse/controllers/top-bar'
 User      = require 'zooniverse/models/user'
 Recent    = require 'zooniverse/models/recent'
+
+# Initialize Counter model
+new Counter({classified: 0, potentials: 0, favorites: 0}).save()
 
 # Setup the stack
 stack = new Stack
