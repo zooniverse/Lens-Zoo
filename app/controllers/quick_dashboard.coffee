@@ -47,7 +47,7 @@ class QuickDashboard extends Controller
     # Get the browser vendor and version
     userAgent = browserDialog.testAgent(navigator.userAgent)
     
-    unless (DataView?) or (userAgent.browser is 'msie')
+    unless (DataView?)
       alert 'Sorry, your browser does not support features needed for this tool.'
       return
     

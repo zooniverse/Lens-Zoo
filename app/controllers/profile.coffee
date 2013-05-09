@@ -16,9 +16,6 @@ class Profile extends Page
   elements:
     '.favorites .subjects'      : 'favorites'
     '.recents .subjects'        : 'recents'
-    '[data-type="classified"]'  : 'nClassifiedEl'
-    '[data-type="potentials"]'  : 'nPotentialsEl'
-    '[data-type="favorites"]'   : 'nFavoritesEl'
   
   
   constructor: ->
@@ -27,12 +24,18 @@ class Profile extends Page
     
     # Initialize Counters
     @counters = new Counters({el: @el.find('.stats')})
-    @counters.removeSimulationFrequency()
     @counters.bind 'update', @counters.update
     
     User.on 'change', @onUserChange
     Recent.on 'fetch', @onRecent
     Favorite.on 'fetch', @onFavorite
+  
+  active: ->
+    @el.find('[data-type="sim-freq"]').parent().remove()
+    if User.current
+      Favorite.fetch()
+      Recent.fetch()
+    super
   
   onUserChange: (e, user) =>
     

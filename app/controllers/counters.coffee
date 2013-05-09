@@ -14,9 +14,6 @@ class Counters extends Controller
   
   render: =>
     @html @template(Counter.first())
-    
-  removeSimulationFrequency: ->
-    @el.find('.stat').last().remove()
 
 
 module.exports = Counters
