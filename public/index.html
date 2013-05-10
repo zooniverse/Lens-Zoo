@@ -29,32 +29,24 @@
     <meta name="twitter:image" content="http://spacewarps.org/images/home.jpg">
     <meta name="twitter:site" content="@SpaceWarps">
     
-    <!--
-      <script type="text/javascript" src="https://raw.github.com/slowe/lensjs/master/lens.js"></script>
-      <script type="text/javascript" src="https://raw.github.com/slowe/lensjs/master/canvas.js"></script>
-      <script type="text/javascript" src="https://raw.github.com/jasondavies/conrec.js/master/conrec.js"></script>
-      <script type="text/javascript" src="https://raw.github.com/slowe/LensToy/master/lenstoy.js"></script>
-    -->
+    <script type="text/javascript" src="javascripts/lens.js"></script>
+    <script type="text/javascript" src="javascripts/canvas.js"></script>
+    <script type="text/javascript" src="javascripts/lenstoy.js"></script>
     
-    <!--
-    <script>
-    window.onload = function(e) {
-      var toy = new LensToy({
-        id: 'field',
-        pixscale: 0.186
-      });
-      toy.init("SW_field");
-      console.log(toy);
+    <script type="text/javascript">
+    window.onload = function(e){ 
+      var toy = new LensToy({id:'lenstoy', pixscale:0.186});
+      toy.init('SW_field');
     }
     </script>
-     -->
-     
-    <!-- Lens Toy gets its image size from the canvas size, so this line
-         is needed in the css somewhere. However, more css is needed to get 
-         the predicted features in the right place (ie the canvas needs to 
-         overlay the home.jpg image. --> 
     <style>
-/*    #field, #fieldimg { position: relative; top:10px; width:440px; height:440px; }*/
+/*    .lens-container {
+      position: relative;
+    }
+    #lenstoy, #lensimg {
+      position: absolute;
+      cursor: crosshair;
+    }*/
     </style>
     
   </head>
@@ -80,13 +72,12 @@
           </header>
           <div class="columns two">
             <div class="column">
-
-              <!-- A Lens Toy in a portal: -->
               <figure class="portal">
-                <img id="fieldimg" src="images/home.jpg"> <!-- NB images/home.jpg is the same as Lens Toy's own SW_field image -->
-                <!-- <div id="field"></div> -->
+                <div class='lenstoy'>
+                  <img id="lensimg" src="SW_field_440x440.png">
+                  <div id="lenstoy" style="z-index:10;position:absolute;width:440px;height:440px"></div>
+                </div>
               </figure>
-
              </div>
             <div class="column">
               <ul class="site-actions">
@@ -427,6 +418,8 @@
     });
     
     </script>
+    <!-- 
     <script onload="sleuth.init('SpaceWarps', '579b7703a4e0a4f88dd85e6fcad2491ca4a10477bdb6e2aa99519008ea893bbf');" src="http://ubret.s3.amazonaws.com/sleuth_client.js"></script>
+     -->
   </body>
 </html>
