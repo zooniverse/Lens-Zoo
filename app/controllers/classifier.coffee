@@ -328,6 +328,7 @@ class Classifier extends Page
   
   onAnnotation: (e) ->
     return unless @isAnnotatable
+    return if @feedbackShown
     
     # Create annotation and push to object
     position = $('.subject.current .image').position()
@@ -638,6 +639,7 @@ class Classifier extends Page
       # If finished is clicked again move to the next image
       if @feedbackShown
         @tutorial?.end()
+        @submit(e)
         return
       
       @feedbackShown = true
