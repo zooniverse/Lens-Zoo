@@ -620,7 +620,6 @@ class Classifier extends Page
     @removeAllEl.removeClass('show')
     
     if @isTrainingSubject
-      # If finished is clicked again move to the next image
       if @feedbackShown
         @tutorial?.end()
         @submit(e)

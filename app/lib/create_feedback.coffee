@@ -32,10 +32,9 @@ module.exports =
           attachment: "left center .annotation #{x} #{y}"
           block: '.annotation'
           className: 'arrow-left'
-          nextButton: 'Next image'
+          nextButton: 'Close'
           next: true
           onExit: =>
-            @submit(e)
             @viewer?.trigger 'close'
   
   createSimulationMissedFeedback: (e, trainingType, x, y) ->
@@ -77,10 +76,9 @@ module.exports =
           details: "This is a different kind of Training Image, one that has already been inspected by the Science Team and found not to contain any gravitational lenses."
           attachment: 'center center .annotation center center'
           block: '.annotation'
-          nextButton: 'Next image'
+          nextButton: 'Close'
           next: true
           onExit: =>
-            @submit(e)
             @viewer?.trigger 'close'
   
   createDudMissedFeedback: (e) ->
