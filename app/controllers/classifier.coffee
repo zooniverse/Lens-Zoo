@@ -274,6 +274,7 @@ class Classifier extends Page
       @subjectsEl.append @subjectTemplate(params)
   
   onSubjectSelect: (e, subject) =>
+    console.log 'start image\t\t', subject.zooniverse_id
     
     # Reset classification variables
     @reset()
@@ -295,6 +296,9 @@ class Classifier extends Page
         @canvas.height = img.height
         @ctx.drawImage(img, 0, 0, img.width, img.height)
       img.src = $('.current img').attr('src')
+    
+    # Enable controls
+    $('.controls').removeClass('disable')
     
     # Prompt login
     nClassified = @counter.classified
@@ -401,7 +405,6 @@ class Classifier extends Page
   checkImageMask: (x, y) =>
     pixel = @ctx.getImageData(x, y, 1, 1)
     mask = pixel.data[3]
-    
     return if mask is 255 then true else false
   
   # Prevent annotations over SVG elements
@@ -555,6 +558,7 @@ class Classifier extends Page
     @counter.updateAttribute('simFrequency', "1 in #{Math.round(denominator)}")
   
   submit: (e) =>
+    console.log 'submit image\t', @classification.subject.zooniverse_id
     
     # Get number of annotations
     nAnnotations = _.keys(@annotations).length
@@ -602,6 +606,9 @@ class Classifier extends Page
     current.removeClass('current')
     current.addClass('removing')
     next.removeClass('right')
+    
+    # Disable controls until next subject loaded
+    $('.controls').addClass('disable')
     
     # Remove subject from DOM and request next subject
     setTimeout ->
