@@ -10,7 +10,8 @@
   <p class='number' data-type='favorites'><%- @favorites %></p>
   <p class='description'>favourite images</p>
 </div>
-<div class='stat'>
+<div class='stat tool-container'>
   <p class='number' data-type='sim-freq'><%- @simFrequency %></p>
   <p class='description'>simulation frequency</p>
+  <span class='tooltip'>This shows the frequency of simulations that you will be shown.</span>
 </div>
