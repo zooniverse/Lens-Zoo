@@ -57,6 +57,8 @@ to_upload.each.with_index do |file, index|
     'application/x-gzip'
   when '.ico'
     'image/x-ico'
+  when '.webm'
+    'video/webm'
   else
     `file --mime-type -b #{ file }`.chomp
   end
