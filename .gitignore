@@ -20,3 +20,6 @@ data-import/beta/simlens_extra
 
 build/
 scripts/
+
+*.m4v
+*.webm

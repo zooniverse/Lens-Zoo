@@ -124,7 +124,8 @@ class Classifier extends Page
     @xDown            = null
     @yDown            = null
     @isAnnotatable    = true
-    @classification   = null
+    
+    delete @classification
     
     @isTrainingSubject  = false
     @isLensMarked       = false
