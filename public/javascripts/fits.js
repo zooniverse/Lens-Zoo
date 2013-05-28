@@ -13,7 +13,7 @@
 
   FITS = {};
 
-  FITS.version = '0.4.0';
+  FITS.version = '0.4.1';
 
   this.astro.FITS = FITS;
 
@@ -590,10 +590,13 @@
       buffer = [];
       reader.onloadend = function(e) {
         var begin, end;
+        console.log('onloadend');
         buffer.push(e.target.result);
+        console.log(buffer);
         while (nChunks--) {
           begin = _this.chunkSize * i;
           end = begin + _this.chunkSize;
+          console.log(begin, end);
           i += 1;
         }
         context = context != null ? context : _this;
@@ -601,6 +604,7 @@
           return callback.apply(context, [args]);
         }
       };
+      console.log(0, this.chunkSize);
       chunk = this.blob.slice(0, this.chunkSize);
       return reader.readAsArrayBuffer(chunk);
     };
@@ -1158,44 +1162,37 @@
     RiceSetup: {
       1: function(array) {
         var fsbits, fsmax, lastpix, pointer;
-        pointer = 0;
+        pointer = 1;
         fsbits = 3;
         fsmax = 6;
-        lastpix = array[pointer];
-        pointer += 1;
+        lastpix = array[0];
         return [fsbits, fsmax, lastpix, pointer];
       },
       2: function(array) {
         var bytevalue, fsbits, fsmax, lastpix, pointer;
-        pointer = 0;
+        pointer = 2;
         fsbits = 4;
         fsmax = 14;
         lastpix = 0;
-        bytevalue = array[pointer];
-        pointer += 1;
+        bytevalue = array[0];
         lastpix = lastpix | (bytevalue << 8);
-        bytevalue = array[pointer];
-        pointer += 1;
+        bytevalue = array[1];
         lastpix = lastpix | bytevalue;
         return [fsbits, fsmax, lastpix, pointer];
       },
       4: function(array) {
         var bytevalue, fsbits, fsmax, lastpix, pointer;
-        pointer = 0;
+        pointer = 4;
         fsbits = 5;
         fsmax = 25;
         lastpix = 0;
-        bytevalue = array[pointer];
-        pointer += 1;
+        bytevalue = array[0];
         lastpix = lastpix | (bytevalue << 24);
-        bytevalue = array[pointer];
-        pointer += 1;
+        bytevalue = array[1];
         lastpix = lastpix | (bytevalue << 16);
-        bytevalue = array[pointer];
-        pointer += 1;
+        bytevalue = array[2];
         lastpix = lastpix | (bytevalue << 8);
-        bytevalue = array[pointer];
-        pointer += 1;
+        bytevalue = array[3];
         lastpix = lastpix | bytevalue;
         return [fsbits, fsmax, lastpix, pointer];
       }
@@ -1216,15 +1213,13 @@
         nzero -= 1;
       }
       nonzeroCount[0] = 0;
-      b = array[pointer];
-      pointer += 1;
+      b = array[pointer++];
       nbits = 8;
       i = 0;
       while (i < nx) {
         nbits -= fsbits;
         while (nbits < 0) {
-          b = (b << 8) | array[pointer];
-          pointer += 1;
+          b = (b << 8) | array[pointer++];
           nbits += 8;
         }
         fs = (b >> nbits) - 1;
@@ -1235,8 +1230,8 @@
         }
         if (fs < 0) {
           while (i < imax) {
-            array[i] = lastpix;
-            i++;
+            pixels[i] = lastpix;
+            i += 1;
           }
         } else if (fs === fsmax) {
           while (i < imax) {
@@ -1244,14 +1239,12 @@
             diff = b << k;
             k -= 8;
             while (k >= 0) {
-              b = array[pointer];
-              pointer += 1;
+              b = array[pointer++];
               diff |= b << k;
               k -= 8;
             }
             if (nbits > 0) {
-              b = array[pointer];
-              pointer += 1;
+              b = array[pointer++];
               diff |= b >> (-k);
               b &= (1 << nbits) - 1;
             } else {
@@ -1262,24 +1255,22 @@
             } else {
               diff = ~(diff >> 1);
             }
-            array[i] = diff + lastpix;
-            lastpix = array[i];
+            pixels[i] = diff + lastpix;
+            lastpix = pixels[i];
             i++;
           }
         } else {
           while (i < imax) {
             while (b === 0) {
               nbits += 8;
-              b = array[pointer];
-              pointer += 1;
+              b = array[pointer++];
             }
             nzero = nbits - nonzeroCount[b];
             nbits -= nzero + 1;
             b ^= 1 << nbits;
             nbits -= fs;
             while (nbits < 0) {
-              b = (b << 8) | array[pointer];
-              pointer += 1;
+              b = (b << 8) | array[pointer++];
               nbits += 8;
             }
             diff = (nzero << fs) | (b >> nbits);
@@ -1404,6 +1395,9 @@
         } else if (value === -2147483646) {
           arr[i] = 0;
         } else {
+          if (this.rowsRead === 0) {
+            console.log(this.randomSeq[rIndex]);
+          }
           arr[i] = (value - this.randomSeq[rIndex] + 0.5) * scale + zero;
         }
         rIndex += 1;
