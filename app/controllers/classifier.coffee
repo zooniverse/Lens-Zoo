@@ -278,6 +278,9 @@ class Classifier extends Page
   onSubjectSelect: (e, subject) =>
     console.log 'start image\t\t', subject.zooniverse_id
     
+    # Ensure unique ids for upcoming subjects
+    Subject.instances = _.uniq(Subject.instances, true)
+    
     # Reset classification variables
     @reset()
     
