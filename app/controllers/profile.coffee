@@ -58,15 +58,25 @@ class Profile extends Page
   
   onRecent: (e, recents) =>
     @recents.removeClass('loading')
+    
+    height = @recents.height()
+    @recents.css('height', height)
+    
     params =
       subjects: recents
     @recents.html @subjectTemplate(params)
+    @recents.removeAttr("style")
   
   onFavorite: (e, favorites) =>
     @favorites.removeClass('loading')
+    
+    height = @favorites.height()
+    @favorites.css('height', height)
+    
     params =
       subjects: favorites
     @favorites.html @subjectTemplate(params)
+    @favorites.removeAttr("style")
   
   getPrevious: (e) ->
     type = e.target.dataset.type
