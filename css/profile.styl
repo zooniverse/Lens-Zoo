@@ -47,4 +47,26 @@ $thumbnail-dim = 160px
         
         img
           margin-bottom -3px
-        
+
+  .pagination
+    div
+      display inline-block
+      cursor pointer
+      width 0
+      height 0
+    
+    .next
+      border-top: 8px solid transparent
+      border-left: 12px solid black
+      border-bottom: 8px solid transparent
+      
+      &:hover
+        border-left-color #FAFAFA
+      
+    .previous
+      border-top: 8px solid transparent
+      border-right: 12px solid black
+      border-bottom: 8px solid transparent
+      
+      &:hover
+        border-right-color #FAFAFA

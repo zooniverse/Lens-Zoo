@@ -13,9 +13,16 @@ class Profile extends Page
   template: require 'views/profile'
   subjectTemplate: require 'views/profile_subjects'
   
+  favoritePage: 1
+  recentPage: 1
+  
   elements:
     '.favorites .subjects'      : 'favorites'
     '.recents .subjects'        : 'recents'
+  
+  events:
+    'click .previous' : 'getPrevious'
+    'click .next'     : 'getNext'
   
   
   constructor: ->
@@ -60,6 +67,20 @@ class Profile extends Page
     params =
       subjects: favorites
     @favorites.html @subjectTemplate(params)
+  
+  getPrevious: (e) ->
+    type = e.target.dataset.type
+    model = type.charAt(0).toUpperCase() + type.slice(1)
+    
+    @["#{type}Page"] = Math.max(1, @["#{type}Page"] - 1)
+    zooniverse.models[model].fetch({page: @["#{type}Page"]})
+  
+  getNext: (e) ->
+    type = e.target.dataset.type
+    model = type.charAt(0).toUpperCase() + type.slice(1)
+    
+    @["#{type}Page"] += 1
+    zooniverse.models[model].fetch({page: @["#{type}Page"]})
 
 
 module.exports = Profile
