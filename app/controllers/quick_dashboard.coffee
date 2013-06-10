@@ -56,11 +56,18 @@ class QuickDashboard extends Controller
     for name in ['webgl', 'experimental-webgl']
       try
         context = canvas.getContext(name)
+        
+        # Check if browser support floating-point textures
+        ext = context.getExtension('OES_texture_float')
+        
       catch error
         continue
       break if context?
     
     lib = if context? then 'gl' else 'canvas'
+    
+    # Default to canvas if browser does not support WebGL floating-point texture extension
+    lib = if ext? then 'gl' else 'canvas'
     
     # Default to canvas if Safari regardless of WebGL
     lib = 'canvas' if userAgent.browser is 'safari'
