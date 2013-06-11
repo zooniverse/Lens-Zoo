@@ -47,7 +47,7 @@
     <nav>
       <a data-page="home" href="#/home"><span>Spacewarps</span></a>
       <a data-page="classifier" href="#/classify"><span>Classify</span></a>
-      <a data-page="science" href="#/science"><span>Science</span></a>
+      <a data-page="about" href="#/about"><span>About</span></a>
       <a data-page="guide" href="#/guide"><span>Spotter's Guide</span></a>
       <a data-page="discuss" target="_blank" href="http://talk.spacewarps.org"><span>Discuss</span></a>
       <a data-page="profile" href="#/profile"><span>Profile</span></a>
@@ -94,36 +94,158 @@
         </div>
       </div>
       <div class="classifier"></div>
-      <div class="science">
+      <div class="about">
         <div class="content">
           <header>
             <p class='quote'>"Spacetime tells matter how to move; matter tells spacetime how to curve."<br/><em>John Archibald Wheeler</em></p>
           </header>
-          <h2>Gravitational Lensing</h2>
-          <p>Einstein's theory of gravity, General Relativity, made a remarkable prediction. Massive objects, such as stars, would bend the space around them such that passing light rays follow curved paths. Evidence for this revolutionary theory was first obtained by Arthur Eddington in 1919, when during a solar eclipse he observed that stars near the edge of the Sun appeared to be slightly out of position. The Sun was behaving like the lens in a magnifying glass and bending the light from the background stars!</p>
           
-          <p>In 1937,  Fritz Zwicky realized that massive galaxies (which can contain anywhere from ten million to a hundred trillion stars) or clusters of galaxies could be used to magnify distant galaxies that conventional telescopes couldn’t detect.
+          <ul class='guide-menu'>
+            <li data-type='science' class='show'>Science</li>
+            <li data-type='team'>Team</li>
+          </ul>
+          
+          <section data-type='science' class='show'>
             
-          As you can see, not unlike a conventional magnifying glass, these gravitational lenses not only magnify and focus the light of the distant background galaxies but they can, and mostly do, distort them as well.</p>
+            <h2>Gravitational Lensing</h2>
+            <p>Einstein's theory of gravity, General Relativity, made a remarkable prediction. Massive objects, such as stars, would bend the space around them such that passing light rays follow curved paths. Evidence for this revolutionary theory was first obtained by Arthur Eddington in 1919, when during a solar eclipse he observed that stars near the edge of the Sun appeared to be slightly out of position. The Sun was behaving like the lens in a magnifying glass and bending the light from the background stars!</p>
           
-          <p>When one of these gravitational lenses happens to sit right in front of a background galaxy, the magnification factor can be up to x10 or even more, giving us a zoomed-in view of the distant universe, just at that particular point. Lenses can help us investigate young galaxies more than halfway across the universe, as they formed stars and started to take on the familiar shapes we see nearby.</p>
+            <p>In 1937,  Fritz Zwicky realized that massive galaxies (which can contain anywhere from ten million to a hundred trillion stars) or clusters of galaxies could be used to magnify distant galaxies that conventional telescopes couldn’t detect.
+            
+            As you can see, not unlike a conventional magnifying glass, these gravitational lenses not only magnify and focus the light of the distant background galaxies but they can, and mostly do, distort them as well.</p>
           
-          <p>Observations of the distorted background galaxy can also give us useful information about the object that is behaving as a gravitational lens. The separation and distortion of the lensed images can tell astronomers how much mass there is in the object, and how it is arranged. It’s one of the few ways we have of mapping out where the dark matter in the universe is, how clumpy it is and how dense it is near the centers of galaxies. Knowing this can provide crucial information about how galaxies evolve.</p>
+            <p>When one of these gravitational lenses happens to sit right in front of a background galaxy, the magnification factor can be up to x10 or even more, giving us a zoomed-in view of the distant universe, just at that particular point. Lenses can help us investigate young galaxies more than halfway across the universe, as they formed stars and started to take on the familiar shapes we see nearby.</p>
           
-          <h2>Needles in a Haystack</h2>
-          <p>There is a lot of interesting science to be done with gravitational lenses. The problem is that they are very rare. Only about one in a thousand massive galaxies is aligned with a background object well enough to cause it to appear multiply-imaged. We currently know of about 400 objects that are behaving as gravitational lenses, largely because we have become very good at observing the night sky! Modern optical surveys cover thousands of square degrees, with images sharp and deep enough to resolve about 1 lens per square degree. There should be thousands of lenses that we can detect, but we will need to look at millions of galaxy images to find them!</p>
+            <p>Observations of the distorted background galaxy can also give us useful information about the object that is behaving as a gravitational lens. The separation and distortion of the lensed images can tell astronomers how much mass there is in the object, and how it is arranged. It’s one of the few ways we have of mapping out where the dark matter in the universe is, how clumpy it is and how dense it is near the centers of galaxies. Knowing this can provide crucial information about how galaxies evolve.</p>
           
-          <p>The ideal solution would be to get a computer to look through all of the images, but unfortunately this is not a straightforward solution. Teaching a computer to recognize the effects of gravitational lensing is not too difficult, but they can be easily confused by galaxies that look very similar to a distorted background galaxy. Also in order for the computer to run fast enough to analyse lots of images quickly, they have to cut a lot of corners, and this makes them less effective.</p>
+            <h2>Needles in a Haystack</h2>
+            <p>There is a lot of interesting science to be done with gravitational lenses. The problem is that they are very rare. Only about one in a thousand massive galaxies is aligned with a background object well enough to cause it to appear multiply-imaged. We currently know of about 400 objects that are behaving as gravitational lenses, largely because we have become very good at observing the night sky! Modern optical surveys cover thousands of square degrees, with images sharp and deep enough to resolve about 1 lens per square degree. There should be thousands of lenses that we can detect, but we will need to look at millions of galaxy images to find them!</p>
           
-          <div class='animation'>
-            <video controls>
-              <source src="video/eso0847b.m4v" />
-              <source src="video/eso0847b.webm" />
-            </video>
-          </div>
+            <p>The ideal solution would be to get a computer to look through all of the images, but unfortunately this is not a straightforward solution. Teaching a computer to recognize the effects of gravitational lensing is not too difficult, but they can be easily confused by galaxies that look very similar to a distorted background galaxy. Also in order for the computer to run fast enough to analyse lots of images quickly, they have to cut a lot of corners, and this makes them less effective.</p>
           
-          <h2>Discovering Lenses: a Human-Computer Partnership</h2>
-          <p>Human beings have a remarkable ability to recognise patterns and detect the unusual with only minimal training.  With a basic understanding of what the distorted images of galaxies that have passed through a gravitational lens look like, participants in the SpaceWarps project can help discover new examples of this amazing phenomenon, and enable our survey scientists to carry out new investigations of stars and dark matter  in the universe. We will be doing two types of lens search. In our blind searches, we’ll be asking volunteers to spot signs of gravitational lensing in images of the sky taken as part of the CFHT (Canada-France-Hawaii Telescope) legacy survey. This survey has been searched by computers, but we’re pretty sure they didn’t catch all the lenses to be found! These results will help us re-train the computers to do better on larger surveys in future. Then, in our targeted searches, in other upcoming sky surveys, we’ll be showing participants galaxies and groups of galaxies that our computers have selected as possibly being gravitational lenses.  The task will then be to assess whether or not they actually are! In both cases, there will be confusing objects around - the challenge is to come up with the most plausible explanation for what is going on, in collaboration with the rest of the SpaceWarps community. Do you think you can spot outer space being warped?  We do!</p>
+            <div class='animation'>
+              <video controls>
+                <source src="video/eso0847b.m4v" />
+                <source src="video/eso0847b.webm" />
+              </video>
+            </div>
+          
+            <h2>Discovering Lenses: a Human-Computer Partnership</h2>
+            <p>Human beings have a remarkable ability to recognise patterns and detect the unusual with only minimal training.  With a basic understanding of what the distorted images of galaxies that have passed through a gravitational lens look like, participants in the SpaceWarps project can help discover new examples of this amazing phenomenon, and enable our survey scientists to carry out new investigations of stars and dark matter  in the universe. We will be doing two types of lens search. In our blind searches, we’ll be asking volunteers to spot signs of gravitational lensing in images of the sky taken as part of the CFHT (Canada-France-Hawaii Telescope) legacy survey. This survey has been searched by computers, but we’re pretty sure they didn’t catch all the lenses to be found! These results will help us re-train the computers to do better on larger surveys in future. Then, in our targeted searches, in other upcoming sky surveys, we’ll be showing participants galaxies and groups of galaxies that our computers have selected as possibly being gravitational lenses.  The task will then be to assess whether or not they actually are! In both cases, there will be confusing objects around - the challenge is to come up with the most plausible explanation for what is going on, in collaboration with the rest of the SpaceWarps community. Do you think you can spot outer space being warped?  We do!</p>
+          </section>
+          
+          <section data-type='team'>
+            <h2>Science Team</h2>
+            
+            <div class='bio'>
+              <h4 class='name'>Phil Marshall<span class='twitter'><a href="https://twitter.com/intent/user?screen_name=drphilmarshall">@drphilmarshall</a></span></h4>
+              <p>Phil is an astronomer at the University of Oxford Physics department. After deciding he liked doing maths and physics problems at school and university enough to want to make up his own questions, Phil did a PhD at Cambridge University on using gravitational lensing to map the distribution of dark matter in galaxy clusters. He then did several postdoctoral research jobs in California, using strong lenses to weigh galaxies, and investigating automated strong lens detection. He knows very well how hard it is to teach a robot to spot lenses - or at least, how hard it is to teach them not to be confused by large numbers of galaxies that are not lenses.</p>
+            </div>
+            
+            <div class='bio'>
+              <h4 class='name'>Aprajita Verma<span class='twitter'><a href="https://twitter.com/intent/user?screen_name=aprajita">@aprajita</a></span></h4>
+              <p>Aprajita is an astronomer at the University of Oxford, and previously worked at Imperial College London and the Max Planck Institute for Extraterrestrial Physics (Germany). She became fascinated by gravitational lenses during her PhD in which she studied some of the most luminous galaxies seen in the Universe, some of which have been gravitationally lensed. Aprajita is interested in making use of gravitational lenses as natural telescopes to study the galaxies that are being lensed in more detail than would normally be possible, as well as measuring the light and dark matter in the lensing galaxies themselves. Having worked with citizen scientists looking for gravitational lenses in Galaxy Zoo, she was inspired by their efforts, motivating the emergence of Space Warps.</p>
+            </div>
+            
+            <div class='bio'>
+              <h4 class='name'>Anupreeta More<span class='twitter'><a href="https://twitter.com/intent/user?screen_name=anupreeta">@anupreeta</a></span></h4>
+              <p>Anupreeta is a JSPS postdoctoral fellow at the Kavli IPMU in the University of Tokyo (Todai). She has been captivated by gravitational lenses ever since she first saw one. She likes to find these rare systems and study them to learn more about the mysterious dark matter and how it influences the galaxies hosted within. She's interested in developing better algorithms to find lens systems automatically in order to solve the "needle in a haystack" problem. She’s leading the first Space Warps project using data from the CFHT Legacy Survey. With the help of citizen scientists, she can find the lenses that were missed by her arc-finding algorithm which will help her improve the algorithm. This will be extremely useful when doing lens searches with future large imaging surveys.</p>
+            </div>
+            
+            <div class='bio'>
+              <h4 class='name'>Elisabeth Baeten<span class='twitter'><a href="https://twitter.com/intent/user?screen_name=ElisabethB">@ElisabethB</a></span></h4>
+              <p>Els has always been interested in science, and astronomy in particular, but choices and career moves steered her in a very different direction. So, when she discovered GalaxyZoo, it was the chance of a lifetime to get seriously involved. This resulted in, among other things, moderating the discussion in several different projects (Solar StormWatch, Old Weather, IceHunters and recently for GalaxyZoo Talk) and classifying in many more. Before GalaxyZoo came along she had only some vague notions of what a gravitational lens was, but she quickly became intrigued by them and spent hours searching the SDSS images for potential lenses. She is looking forward to doing some serious lens hunting!</p>
+            </div>
+            
+            <div class='bio'>
+              <h4 class='name'>Claude Cornen</h4>
+              <p>Claude was an IT development manager and is now retired after a long professional life in the French consumer loan business. He could then take his time reading, learning history of sciences and attending lectures on astrophysical topics. In volunteering on Zooniverse projects , he uses his ability in data mining  to respond to calls for "wanted" objects in the Galaxy Zoo forum like "peas", "overlaps", "AGN with ionized clouds", and "strong gravitational lenses."</p>
+            </div>
+            
+            <div class='bio'>
+              <h4 class='name'>Cécile Faure<span class='twitter'><a href="https://twitter.com/intent/user?screen_name=cecilefaure">@cecilefaure</a></span></h4>
+              <p>Cécile is a former researcher in gravitational lensing, mostly known for her work on the COSMOS lens catalog. She is now retired from research. Nowadays, she actively participates in projects of science for the public in France.</p>
+            </div>
+            
+            <div class='bio'>
+              <h4 class='name'>Janine Fohlmeister<span class='twitter'><a href="https://twitter.com/intent/user?screen_name=JanineF">@JanineF</a></span></h4>
+              <p>Janine is astrophysicist at the University of Heidelberg. Since her undergraduate study in physics she has been fascinated by strong gravitational lens systems, and studied the effect during her PhD. She specialized in observing brightness variations of distant lensed quasars, and measuring their time delays. She found that galaxy clusters have the power to delay the light travel times between the different images of a background quasar by up to several years.</p>
+            </div>
+            
+            <div class='bio'>
+              <h4 class='name'>Mandeep Gill</h4>
+              <p>Mandeep is an observational cosmologist working at SLAC (Stanford University), with a collaborator affiliation also at CBPF in Rio de Janeiro.  Having done early undergrad research at NASA, he turned his attention “inward” for some time and did his graduate training as an experimental particle physicist.  Being lured back by the stars (and galaxies), he then did postdoctoral research in gravitational lensing in both the weak and strong regimes, focussing on weighing and counting galaxy clusters with the ultimate aim of helping the worldwide effort to figure out just what is driving the accelerated expansion of the Universe.  He is also a member of the Dark Energy Survey collaboration.</p>
+            </div>
+            
+            <div class='bio'>
+              <h4 class='name'>Thomas J<span class='twitter'><a href="https://twitter.com/intent/user?screen_name=thomas_j">@thomas_j</a></span></h4>
+              <p>Thomas has a long background in both business and astronomy; the latter has become his lifelong passion.  He is currently studying astronomy-related physics and mathematics and has studied many other subjects including planetary science, meteorology and geology. Thomas enjoys discussing and explaining difficult concepts in simple terms, to help ‘newbies’ in particular. He is attracted to deep space astronomy and can often be found chewing over the subject of dark matter.</p>
+            </div>
+            
+            <div class='bio'>
+              <h4 class='name'>Rafael Kueng</h4>
+              <p>After doing a Bachelor’s degree in physics, Rafael is a Master’s student in Computational Science at the Institute of Theoretical Physics at  University of Zurich. He works with Prasenjit on the reconstruction of identified gravitational lenses. For his Master’s thesis, he is writing a tool for further modeling already identified gravitational lenses, based on Jonathan Coles’ simulation program.</p>
+            </div>
+            
+            <div class='bio'>
+              <h4 class='name'>Christine Macmillan<span class='twitter'><a href="https://twitter.com/intent/user?screen_name=budgieye">@budgieye</a></span></h4>
+              <p>Christine, a planetarium presenter, participates in citizen science, classifying in Galaxy Zoo and posting in the forum. She has always been fascinated by the sky, starting with the Moon when a small child, then the solar system and stars, and then learning about galaxies and gravitational lenses in a natural progression of expanding horizons.</p>
+            </div>
+            
+            <div class='bio'>
+              <h4 class='name'>Surhud More</h4>
+              <p>Surhud is a long-term postdoctoral fellow at the Kavli-IPMU in the University of Tokyo (Todai). He wants to use gravitational lensing to learn about the formation and evolution of galaxies and the cosmological parameters of the Universe. He is interested in building statistically meaningful samples of strong gravitational lensing systems to achieve these goals.</p>
+            </div>
+            
+            <div class='bio'>
+              <h4 class='name'>Prasenjit Saha<span class='twitter'><a href="https://twitter.com/intent/user?screen_name=psaha">@psaha</a></span></h4>
+              <p>Prasenjit is an astrophysicist at the University of Zurich, and is especially interested in reconstructing lenses:  that means using what is observable on the sky (or in your Space Warps browser window) to figure out just how warped the space around the lens is, where the dark matter in the lensing galaxy or cluster would be, and what it can tell us about the Universe at large.</p>
+            </div>
+            
+            <div class='bio'>
+              <h4 class='name'>Matthias Tecza<span class='twitter'><a href="https://twitter.com/intent/user?screen_name=mtecza">@mtecza</a></span></h4>
+              <p>Matthias is an astronomer at the University of Oxford with a specialisation in astronomical instrumentation for large telescopes. In particular, the instruments he builds can be used to study galaxy dynamics, that is, determining how stars and gas move within galaxies. Gravitational lenses are ideal subjects for such studies, delivering data on the lensing galaxies and the lensed background galaxies simultaneously. Matthias is interested in comparing the mass of the lensing galaxies from his dynamical measurements to those obtained from gravitational lensing.</p>
+            </div>
+            
+            <div class='bio'>
+              <h4 class='name'>Julianne Wilcox<span class='twitter'><a href="https://twitter.com/intent/user?screen_name=capella05">@capella05</a></span></h4>
+              <p>Julianne stumbled across Galaxy Zoo several years ago following a report on BBC. Having been an avid amateur astronomer since childhood, she found the London skies somewhat lacklustre. After realising classifying galaxies was an excellent way to get back into astronomy, she has gone on to participate in many projects. Although not from a science background, she has found the Zooniverse to be an excellent way of learning new concepts, while making a valid contribution to science. When not glued to her PC participating in citizen science, she can be found testing and analysing software systems.</p>
+            </div>
+            
+            <div class='bio'>
+              <h4 class='name'>Layne Wright</h4>
+              <p>Layne is an electrical engineer with a physics background who became interested in gravitational lensing while participating in the Galaxy Zoo project. His focus shifted from primarily hunting lenses to modeling them after realizing that almost any galaxy cluster could host lensing of the most "beautiful complexity". Since then, he has been actively creating software to help visualize these more exotic, "multi-plane" lenses.</p>
+            </div>
+            
+            <h2>Development Team</h2>
+            
+            <div class='bio'>
+              <h4 class='name'>Kelly Borden<span class='twitter'><a href="https://twitter.com/intent/user?screen_name=BordenKelly">@BordenKelly</a></span></h4>
+              <p>Kelly is an archaeologist by training but an educator by passion. While working at the Museum of Science and Industry and the Adler Planetarium she became an enthusiastic science educator eager to bring science to the masses. When not pondering the wonders of science, Kelly can often be found baking or spending time with her herd of cats – Murray, Ada, & Kepler.</p>
+            </div>
+            
+            <div class='bio'>
+              <h4 class='name'>Amit Kapadia<span class='twitter'><a href="https://twitter.com/intent/user?screen_name=a_kapadia">@a_kapadia</a></span></h4>
+              <p>Amit joined the Zooniverse team at the Adler Planetarium in September of 2011. He comes from a background of physics and mathematics. He has worked for various astronomy outreach groups including three of NASA's Great Observatories.</p>
+            </div>
+            
+            <div class='bio'>
+              <h4 class='name'>David Miller<span class='twitter'><a href="https://twitter.com/intent/user?screen_name=davidmill">@davidmill</a></span></h4>
+              <p>As a visual communicator, David is passionate about tellings stories through clear, clean, and effective design. Before joining the Zooniverse team as Visual Designer, David worked for The Raindance Film Festival, the News 21 Initiative's Apart From War, Syracuse Magazine, and as a freelance designer for his small business, Miller Visual. David is a graduate of the S.I. Newhouse School of Public Communications at Syracuse University, where he studied Visual & Interactive Communications.</p>
+            </div>
+            
+            <div class='bio'>
+              <h4 class='name'>Michael Parrish<span class='twitter'><a href="https://twitter.com/intent/user?screen_name=michael_parrish">@michael_parrish</a></span></h4>
+              <p>Michael has a degree in Computer Science and has been working with The Zooniverse for the past three years as a Software Developer. Aside from web development; new technologies, science, AI, reptiles, and coffee tend to occupy his attention.</p>
+            </div>
+            
+            <div class='bio'>
+              <h4 class='name'>Arfon Smith<span class='twitter'><a href="https://twitter.com/intent/user?screen_name=arfon">@arfon</a></span></h4>
+              <p>As an undergraduate, Arfon studied Chemistry at the University of Sheffield before completing his Ph.D. in Astrochemistry at The University of Nottingham in 2006. He worked as a senior developer at the Wellcome Trust Sanger Institute (Human Genome Project) in Cambridge before joining the Galaxy Zoo team in Oxford. Over the past 3 years he has been responsible for leading the development of a platform for citizen science called Zooniverse. In August of 2011 he took up the position of Director of Citizen Science at the Adler Planetarium where he continues to lead the software and infrastructure development for the Zooniverse.</p>
+            </div>
+            
+          </section>
+          
         </div>
       </div>
       <div class="guide">
