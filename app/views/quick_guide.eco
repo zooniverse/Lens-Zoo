@@ -10,7 +10,7 @@
     <div class='lenses'>
       <img title='A distant quasar being lensed by a massive galaxy in the foreground.' data-type='lensed-quasars' src='images/guide/lenses/galaxy-quasar/CFHTLS_082_0427_gri_zoom.png' width='100' height='100'>
 
-      <img title='A group of massive galaxies acting as a gravitational lens.' data-type='lensed-galaxies' src='images/guide/lenses/disk-galaxy/CFHTLS_024_2215_gri_zoom.png' width='100' height='100'>
+      <img title='An edge-on spiral galaxy acting as a gravitational lens.' data-type='lensed-galaxies' src='images/guide/lenses/disk-galaxy/CFHTLS_024_2215_gri_zoom.png' width='100' height='100'>
       <img title='A group of massive galaxies acting as a gravitational lens.' data-type='lensing-clusters' src='images/guide/lenses/cluster-galaxy/CFHTLS_052_1191_gri_zoom.png' width='100' height='100'>
 
       <img title='A distant blue galaxy being lensed by a massive galaxy in the foreground.' data-type='lensed-galaxies' src='images/guide/lenses/elliptical-galaxy/CFHTLS_030_2132_gri_zoom.png' width='100' height='100'>
