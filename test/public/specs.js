@@ -53,7 +53,19 @@
   }
   return this.specs.define;
 }).call(this)({
-  "controllers/about_page": function(exports, require, module) {(function() {
+  "controllers/Mark": function(exports, require, module) {(function() {
+  var require;
+
+  require = window.require;
+
+  describe('Mark', function() {
+    var Mark;
+    Mark = require('controllers/mark');
+    return it('can noop', function() {});
+  });
+
+}).call(this);
+}, "controllers/about_page": function(exports, require, module) {(function() {
   var require;
 
   require = window.require;
@@ -97,18 +109,6 @@
   describe('HomePage', function() {
     var HomePage;
     HomePage = require('controllers/homepage');
-    return it('can noop', function() {});
-  });
-
-}).call(this);
-}, "controllers/Mark": function(exports, require, module) {(function() {
-  var require;
-
-  require = window.require;
-
-  describe('Mark', function() {
-    var Mark;
-    Mark = require('controllers/mark');
     return it('can noop', function() {});
   });
 
