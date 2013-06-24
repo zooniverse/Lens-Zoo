@@ -6,7 +6,7 @@
     "hem": "git+ssh://git@github.com:spine/hem.git",
     "es5-shimify": "~0.0.1",
     "json2ify": "~0.0.1",
-    "spine": "git://github.com:spine/spine.git#aa9b891",
+    "spine": "git+ssh://git@github.com:spine/spine.git#aa9b891",
     "underscore": "~1.4.2",
     "zooniverse": "git+ssh://git@github.com:zooniverse/Zooniverse.git#no-deps",
     "zootorial": "git+ssh://git@github.com:brian-c/zootorial.git#new-features",
