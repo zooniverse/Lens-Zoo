@@ -671,7 +671,7 @@ class Classifier extends Page
         if @isLensMarked is true
           # Lens was marked
           @tutorial = @createSimulationFoundFeedback(e, trainingType, x, y)
-        else if @isLensMarked is 254
+        else if @isLensMarked in [false, 254]
           # Lens was missed
           @tutorial = @createSimulationMissedFeedback(e, trainingType, x, y)
         else
