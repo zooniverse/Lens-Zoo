@@ -269,8 +269,18 @@ class Classifier extends Page
   
   # Append subject(s) to DOM
   appendSubjects: (e, subjects) =>
+    
+    # Check what is on the DOM
+    images = $(".subjects .image img")
+    ids = _.map(images, (d) ->
+      id = d.src.split('/').pop().split('.png').shift()
+      return id
+    )
+    
     for subject, index in subjects
-      params = 
+      continue if subject.id in ids
+      
+      params =
         url: subject.location.standard
         zooId: subject.zooniverse_id
       @subjectsEl.append @subjectTemplate(params)

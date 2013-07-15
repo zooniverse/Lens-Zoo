@@ -83,7 +83,7 @@ module.exports =
         ctx.drawImage(img, 0, 0, img.width, img.height)
       img.src = $('.current .image img').attr('src')
     next:
-      'mouseup svg.primary': (e, tutorial, step) ->
+      'mouseup .annotation': (e, tutorial, step) ->
         mask = getMaskValue(e)
         return if mask is 255 then 'goodjob' else 'tryagain'
   
@@ -102,7 +102,7 @@ module.exports =
     className: 'arrow-left'
     blocks: '.controls:first'
     next:
-      'mouseup svg.primary': (e, tutorial, step) ->
+      'mouseup .annotation': (e, tutorial, step) ->
         mask = getMaskValue(e)
         return if mask is 255 then 'goodjob' else false
   
