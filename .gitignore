@@ -1,6 +1,7 @@
 .DS_Store
 .fits
 .fits.fz
+npm-debug.log
 node_modules/
 public/data/
 public/subjects/
