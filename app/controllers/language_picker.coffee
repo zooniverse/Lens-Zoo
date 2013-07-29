@@ -3,18 +3,20 @@ translate = require 't7e'
 HTML = $(document.body.parentNode)
 
 DEFAULT = '$DEFAULT'
-enUS = require '../translations/en_us'
+enUS = require 'translations/en_us'
 
 class LanguagePicker
   @DEFAULT = DEFAULT
 
   languages:
     'English': DEFAULT
+    'Español': 'es_cl'
   
   el: null
   className: 'language-picker'
 
   constructor: ->
+    
     preferredLanguage = try location.search.match(/lang=([\$|\w]+)/)[1]
     preferredLanguage ||= localStorage.preferredLanguage
     preferredLanguage ||= DEFAULT
@@ -29,7 +31,6 @@ class LanguagePicker
       @select.append option
 
     @select.on 'change', => @onChange arguments...
-    @onChange()
     @select.trigger 'change' unless @select.val() is DEFAULT
 
   onChange: ->
@@ -39,12 +40,12 @@ class LanguagePicker
     localStorage.preferredLanguage = preferredLanguage
 
     if preferredLanguage is DEFAULT
-      translate.load enUs
+      translate.load enUS
       translate.refresh()
     else
-      $.getJSON "./translations/#{preferredLanguage}.json", (data) ->
-        console?.log? "Got translations for #{preferredLanguage}", data
+      $.getJSON("./translations/#{preferredLanguage}.json", (data) ->
         translate.load data
         translate.refresh()
+      )
 
 module.exports = LanguagePicker
