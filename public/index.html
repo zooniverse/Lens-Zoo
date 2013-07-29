@@ -29,34 +29,9 @@
     <meta name="twitter:image" content="http://spacewarps.org/images/home.jpg">
     <meta name="twitter:site" content="@SpaceWarps">
     
-    <!--
-    <script type="text/javascript" src="javascripts/lens.js"></script>
-    <script type="text/javascript" src="javascripts/canvas.js"></script>
-    <script type="text/javascript" src="javascripts/lenstoy.js"></script>
-    -->
-    
-    <script type="text/javascript">
-    /*
-    window.onload = function(e){ 
-      var toy = new LensToy({id:'lenstoy', pixscale:0.186});
-      toy.init('SW_field');
-    }
-    */
-    </script>
-    
   </head>
   
   <body>
-  
-    <nav>
-      <a data-page="home" href="#/home"><span>Spacewarps</span></a>
-      <a data-page="classifier" href="#/classify"><span>Classify</span></a>
-      <a data-page="about" href="#/about"><span>About</span></a>
-      <a data-page="guide" href="#/guide"><span>Spotter's Guide</span></a>
-      <a data-page="discuss" target="_blank" href="http://talk.spacewarps.org"><span>Discuss</span></a>
-      <a data-page="profile" href="#/profile"><span>Profile</span></a>
-      <a data-page="faq" href="#/faq"><span>FAQ</span></a>
-    </nav>
     
     <div class="main">
       <div class="home">
@@ -489,49 +464,52 @@
     </div>
     
     <script src="./application.js"></script>
-    <script type="text/javascript">
-      window.app = require('index');
-    </script>
     
     <script type="text/javascript">
+    window.app = require('index');
+    
     function touchHandler(event) {
-       var touches = event.changedTouches,
-       first = touches[0],
-       type = "";
+      var touches = event.changedTouches,
+      first = touches[0],
+      type = "";
+      
+      switch (event.type) {
+        case "touchstart":
+          type = "mousedown";
+          break;
+        case "touchmove":
+          type = "mousemove";
+          break;
+        case "touchend":
+          type = "mouseup";
+          break;
+        default:
+          return;
+      }
+      
+      var simulatedEvent = document.createEvent("MouseEvent");
+       
+      simulatedEvent.initMouseEvent(
+        type, true, true, window, 1, first.screenX, first.screenY, first.clientX, first.clientY, false, false, false, false, 0, null
+      );
+      first.target.dispatchEvent(simulatedEvent);
 
-       switch (event.type) {
-         case "touchstart":
-             type = "mousedown";
-             break;
-         case "touchmove":
-             type = "mousemove";
-             break;
-         case "touchend":
-             type = "mouseup";
-             break;
-         default:
-             return;
-       }
-
-       var simulatedEvent = document.createEvent("MouseEvent");
-
-       simulatedEvent.initMouseEvent(type, true, true, window, 1, first.screenX, first.screenY, first.clientX, first.clientY, false, false, false, false, 0, null);
-       first.target.dispatchEvent(simulatedEvent);
-
-       if (event.type == "touchend") {
-         var simulatedEvent = document.createEvent("MouseEvent");
-         simulatedEvent.initMouseEvent('click', true, true, window, 1, first.screenX, first.screenY, first.clientX, first.clientY, false, false, false, false, 0, null);
-         first.target.dispatchEvent(simulatedEvent);
-       }
-
-       event.preventDefault();
+      if (event.type == "touchend") {
+        var simulatedEvent = document.createEvent("MouseEvent");
+        simulatedEvent.initMouseEvent(
+          'click', true, true, window, 1, first.screenX, first.screenY, first.clientX, first.clientY, false, false, false, false, 0, null
+        );
+        first.target.dispatchEvent(simulatedEvent);
+      }
+      
+      event.preventDefault();
     }
-
+    
     $(document).ready(function(){
       $(".annotation").bind('touchmove', function(e) {
         e.preventDefault();
       });
-
+      
       var annotation = document.querySelector('.annotation');
       annotation.addEventListener("touchstart", touchHandler, true);
       annotation.addEventListener("touchmove", touchHandler, true);

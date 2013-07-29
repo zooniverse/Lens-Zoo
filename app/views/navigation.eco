@@ -1,0 +1,11 @@
+<% translate = require 't7e' %>
+
+<nav>
+  <a data-page="home" href="#/home"><span>Spacewarps</span></a>
+  <a data-page="classifier" href="#/classify"><%- translate 'span' 'navigation.classify' %></a>
+  <a data-page="about" href="#/about"><span>About</span></a>
+  <a data-page="guide" href="#/guide"><span>Spotter's Guide</span></a>
+  <a data-page="discuss" target="_blank" href="http://talk.spacewarps.org"><span>Discuss</span></a>
+  <a data-page="profile" href="#/profile"><span>Profile</span></a>
+  <a data-page="faq" href="#/faq"><span>FAQ</span></a>
+</nav>
