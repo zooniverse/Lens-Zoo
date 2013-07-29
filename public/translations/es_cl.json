@@ -6,5 +6,16 @@
     "discuss": "Discutir",
     "profile": "Perfil",
     "faq": "FAQ"
+  },
+  "home": {
+    "heading": "¡Imagínate una galaxía atras de otra!<br/>¿Crees que no lo verá? Piense otra vez.",
+    "subheading": "Galaxías gigantes deforman el espacio-tiempo, doblando los rayos de luz para que podamos ver a su alrededor. Son los telescopios del Universo, pero las lentes gravitacionales son muy raras: necesitamos tu ayuda para descubrirlos.",
+    "discover": "Descubir Lentes",
+    "discover_snippet": "Ayudar a los científicos a identificar estos objetos astronómicos muy raros.",
+    "learn": "Aprende sobre Lentes",
+    "learn_snippet": "Obtenga más información sobre las lentes se podrá encontrar en Space Warps.",
+    "news": "Últimas Noticias",
+    "news_snippet": "Ve lo que está pasando.",
+    "get_started": "Empezar"
   }
 }
