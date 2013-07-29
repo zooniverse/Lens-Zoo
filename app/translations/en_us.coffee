@@ -1,3 +1,4 @@
+
 module.exports =
   navigation:
     classify: 'Classify'
@@ -22,3 +23,26 @@ module.exports =
     favorite_images: "favorite images" 
     sim_freq: "simulation frequency"
     sim_freq_tip: "This shows the frequency of simulations that you will be shown."
+  classifier:
+    remove_markers: "Remove All Markers"
+    favorite: "Save this image to your profile."
+    discuss: "Discuss this image in Talk."
+    dashboard: "Explore this image further with Quick Dashboard."
+    next: "Next"
+  quick_guide:
+    heading: "Spotter's Guide"
+    instructions: "Click on the thumbnails to find out more."
+    lenses: "Lenses"
+    nonlenses: "Non-lenses"
+  tutorial:
+    welcomeHeader: "Welcome to Space Warps!"
+  faq:
+    heading: "Frequently Asked Questions"
+  guide:
+    heading: "Spotter's Guide"
+    tagline: "This guide contains examples of real lenses and other astronomical objects that are typically mistaken for gravitational lenses, resulting in false positives."
+    real_lenses: "Real Lenses"
+    false_positives: "False Positives"
+  about:
+    science: "Science"
+    team: "Team"

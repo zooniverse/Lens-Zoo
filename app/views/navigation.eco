@@ -2,10 +2,10 @@
 
 <nav>
   <a data-page="home" href="#/home"><span>Spacewarps</span></a>
-  <a data-page="classifier" href="#/classify"><%- translate 'span', 'navigation.classify' %></a>
-  <a data-page="about" href="#/about"><%- translate 'span', 'navigation.about' %></a>
-  <a data-page="guide" href="#/guide"><%- translate 'span', 'navigation.guide' %></a>
-  <a data-page="discuss" target="_blank" href="http://talk.spacewarps.org"><%- translate 'span', 'navigation.discuss' %></a>
-  <a data-page="profile" href="#/profile"><%- translate 'span', 'navigation.profile' %></a>
-  <a data-page="faq" href="#/faq"><%- translate 'span', 'navigation.faq' %></a>
+  <a data-page="classifier" href="#/classify"><%- translate 'span', 'navigation.classify', class: '' %></a>
+  <a data-page="about" href="#/about"><%- translate 'span', 'navigation.about', class: '' %></a>
+  <a data-page="guide" href="#/guide"><%- translate 'span', 'navigation.guide', class: '' %></a>
+  <a data-page="discuss" target="_blank" href="http://talk.spacewarps.org"><%- translate 'span', 'navigation.discuss', class: '' %></a>
+  <a data-page="profile" href="#/profile"><%- translate 'span', 'navigation.profile', class: '' %></a>
+  <a data-page="faq" href="#/faq"><%- translate 'span', 'navigation.faq', class: '' %></a>
 </nav>

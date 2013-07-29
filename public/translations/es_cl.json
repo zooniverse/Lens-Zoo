@@ -24,5 +24,34 @@
     "favorite_images": "imágenes favoritos",
     "sim_freq": "frec. de simulación",
     "sim_freq_tip": "La frecuencia de las simulaciones que se le mostrará."
+  },
+  "classifier": {
+    "remove_markers": "Quitar Las Marcadores",
+    "favorite": "Guarda esta imagen a tu perfil.",
+    "discuss": "Discutir esta imagen en Talk.",
+    "dashboard": "Examinar esta imagen con Quick Dashboard.",
+    "next": "Siguente"
+  },
+  "quick_guide": {
+    "heading": "La Guía Corta",
+    "instructions": "Clic en las imágenes para obtener más información.",
+    "lenses": "Lentes",
+    "nonlenses": "No-Lentes"
+  },
+  "tutorial": {
+    "welcomeHeader": "¡Bienvenidos a Space Warps!"
+  },
+  "faq": {
+    "heading": "Preguntas más frecuentes"
+  },
+  "guide": {
+    "heading": "La Guía",
+    "tagline": "Esta guía contiene ejemplos de lentes reales y otros objectos astronomicos que se confunden normalmente para las lentes gravitacionales, lo que resulta en falsos positivos.",
+    "real_lenses": "Lentes Reales",
+    "false_positives": "Falsos Positivos"
+  },
+  "about": {
+    "science": "Ciencias",
+    "team": "Grupo"
   }
 }
