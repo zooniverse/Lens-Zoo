@@ -16,3 +16,9 @@ module.exports =
     news: "Latest News"
     news_snippet: "Take a look to see what's happening."
     get_started: "Get Started"
+  counters:
+    images_viewed: "images viewed"
+    potential_lenses: "potential lenses"
+    favorite_images: "favorite images" 
+    sim_freq: "simulation frequency"
+    sim_freq_tip: "This shows the frequency of simulations that you will be shown."

@@ -2,7 +2,7 @@
   "navigation": {
     "classify": "Clasificar",
     "about": "Sobre",
-    "guide": "La Guía de Spotter's",
+    "guide": "La Guía",
     "discuss": "Discutir",
     "profile": "Perfil",
     "faq": "FAQ"
@@ -17,5 +17,12 @@
     "news": "Últimas Noticias",
     "news_snippet": "Ve lo que está pasando.",
     "get_started": "Empezar"
+  },
+  "counters": {
+    "images_viewed": "imágenes has visto",
+    "potential_lenses": "lentes potenciales",
+    "favorite_images": "imágenes favoritos",
+    "sim_freq": "frec. de simulación",
+    "sim_freq_tip": "La frecuencia de las simulaciones que se le mostrará."
   }
 }
