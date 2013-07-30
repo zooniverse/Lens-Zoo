@@ -28,6 +28,7 @@ TutorialTalk      = require 'lib/tutorial_talk'
 TalkIntegration = require 'lib/talk_integration'
 CreateFeedback  = require 'lib/create_feedback'
 
+translate = require 't7e'
 
 class Classifier extends Page
   @include TalkIntegration
@@ -240,6 +241,7 @@ class Classifier extends Page
     @el.find('.subject').first().addClass('current')
     
     @tutorial.start()
+    translate.refresh()
   
   # Set up the staged tutorial subjects.  This should only be run once.
   createStagedTutorial: (e, subjects) =>
@@ -607,6 +609,9 @@ class Classifier extends Page
       # Add subject to My Simulations collection
       if @classification.subject.metadata.training[0].type in ['lensing cluster', 'lensed quasar', 'lensed galaxy']
         @trigger 'addToTalk', @talkIds['My Simulations'], @classification.subject.zooniverse_id
+    
+    # Record language
+    @classification.annotate {language: localStorage.preferredLanguage}
     
     @classification.send()
     
