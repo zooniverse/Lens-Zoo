@@ -302,7 +302,7 @@ class Classifier extends Page
     @el.find('.subject').first().addClass('current')
     
     # Check if training subject
-    if subject.metadata.training?
+    if subject.group_id is @simulationGroup
       @isTrainingSubject = true
       
       # Set up offscreen canvas and cache the context
