@@ -1,4 +1,5 @@
 require 'lib/setup'
+translate = require 't7e'
 
 {Stack} = require 'spine/lib/manager'
 Route   = require 'spine/lib/route'
@@ -12,13 +13,14 @@ FAQPage     = require 'controllers/faq_page'
 
 Counter     = require 'models/counter'
 
-Api       = require 'zooniverse/lib/api'
-Analytics = require 'zooniverse/lib/google-analytics'
-TopBar    = require 'zooniverse/controllers/top-bar'
-User      = require 'zooniverse/models/user'
-Recent    = require 'zooniverse/models/recent'
+Api               = require 'zooniverse/lib/api'
+Analytics         = require 'zooniverse/lib/google-analytics'
+LanguageManager   = require 'zooniverse/lib/language-manager'
+TopBar            = require 'zooniverse/controllers/top-bar'
+User              = require 'zooniverse/models/user'
+Recent            = require 'zooniverse/models/recent'
 
-LanguagePicker = require 'controllers/language_picker'
+# LanguagePicker = require 'controllers/language_picker'
 
 # Initialize Counter model
 new Counter({classified: 0, potentials: 0, favorites: 0}).save()
@@ -26,8 +28,8 @@ new Counter({classified: 0, potentials: 0, favorites: 0}).save()
 # Navigation
 $('body').append require 'views/navigation'
 
-languagePicker = new LanguagePicker
-languagePicker.el.prependTo document.body
+# languagePicker = new LanguagePicker
+# languagePicker.el.prependTo document.body
 
 # Setup the stack
 stack = new Stack
@@ -52,24 +54,32 @@ stack = new Stack
   default: 'home'
 
 
-if window.location.origin is 'http://0.0.0.0:9294'
-  # Configure connection to Api
-  api = new Api
-    project: 'spacewarp'
-    host: "https://dev.zooniverse.org"
-    # host: "http://0.0.0.0:3000"
-    path: '/proxy'
-else
-  new Analytics
-    account: "UA-1224199-43"
+api = new Api
+  project: 'spacewarp'
+# if window.location.origin is 'http://0.0.0.0:9294'
+#   # Configure connection to Api
+#   api = new Api
+#     project: 'spacewarp'
+#     host: "https://dev.zooniverse.org"
+#     # host: "http://0.0.0.0:3000"
+#     path: '/proxy'
+# else
+#   new Analytics
+#     account: "UA-1224199-43"
     
-  # Configure connection to Api
-  api = new Api
-    project: 'spacewarp'
-    host: "https://api.zooniverse.org"
-    path: '/proxy'
+#   # Configure connection to Api
+#   api = new Api
+#     project: 'spacewarp'
+#     host: "https://api.zooniverse.org"
+#     path: '/proxy'
+
+languageManager = new LanguageManager
+languageManager.on 'language-fetched', (e, languageStrings) ->
+  translate.load languageStrings
+  translate.refresh()
 
 topBar = new TopBar
+
 User.fetch()
 topBar.el.appendTo 'body'
 stack.el.appendTo 'body'
