@@ -10,8 +10,13 @@
     "jqueryify": "~0.0.1",
     "spine": "1.0.8",
     "underscore": "~1.4.2",
-	"zooniverse": "git://github.com/zooniverse/Zooniverse.git#no-deps",
-	"zootorial": "git://github.com/brian-c/zootorial.git#new-features",
-    "nib": "~0.9.1"
+    "zootorial": "~0.3.4",
+    "nib": "~0.9.1",
+    "zapper": "0.0.4",
+    "zooniverse": "git://github.com/chrissnyder/Zooniverse#no-deps",
+    "publisssh": "~0.2.1"
+  },
+  "scripts": {
+    "deploy-to-demo": "ruby build.rb && publisssh build zooniverse-demo/spacewarps-z8e && trash ./build && zapper zooniverse-demo/spacewarps-z8e"
   }
 }
