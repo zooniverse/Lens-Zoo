@@ -17,6 +17,12 @@ module.exports =
     news_snippet: "Take a look to see what's happening."
     get_started: "Get Started"
 
+  profile:
+    no_user: "Please sign in to keep track of your classifications."
+    loading: "Just a moment..."
+    favorites: "Favorites"
+    recents: "Recents"
+
   counters:
     images_viewed: "images viewed"
     potential_lenses: "potential lenses"
