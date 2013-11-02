@@ -1,6 +1,5 @@
-{Tutorial}  = require 'zootorial'
-{Step}      = require 'zootorial'
-translate   = require 't7e'
+{ Tutorial, Step } = require 'zootorial'
+translate = require 't7e'
 
 ctx = null
 

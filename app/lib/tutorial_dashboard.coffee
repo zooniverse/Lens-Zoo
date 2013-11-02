@@ -1,5 +1,4 @@
-{Tutorial}  = require 'zootorial'
-{Step}      = require 'zootorial'
+{ Tutorial, Step }  = require 'zootorial'
 
 module.exports =
   length: 1

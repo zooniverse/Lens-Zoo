@@ -1,5 +1,6 @@
 
 translate = require 't7e'
+
 if localStorage['spacewarp-languageStrings']
   languageStrings = JSON.parse localStorage['spacewarp-languageStrings']
 else

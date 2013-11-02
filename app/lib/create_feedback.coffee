@@ -1,12 +1,7 @@
-
-{Tutorial}  = require 'zootorial'
-{Step}      = require 'zootorial'
-
+{ Tutorial, Step }  = require 'zootorial'
 Feedback  = require 'lib/feedback'
 
-
 module.exports =
-  
   createSimulationFoundFeedback: (e, trainingType, x, y) ->
     
     # Get random header and detail
