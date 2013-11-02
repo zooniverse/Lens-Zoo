@@ -134,6 +134,58 @@ module.exports =
       header: "Quick Dashboard"
       details: "As gravitationally lensed features can be faint and/or small, you can explore an image in more detail in the Quick Dashboard. Try clicking on this button."
 
+  feedback:
+    base_header: "You spotted a simulated lens."
+    headers:
+      nice_catch: 'Nice catch!'
+      super: 'Super!'
+      great: 'Great!'
+      good_job: 'Good job!'
+      well_done: 'Well done!'
+      yesss: 'Yessss!'
+      jolly_good: 'Jolly good!'
+      excellent: 'Excellent!'
+      marvellous: 'Marvellous!'
+      splendid: 'Splendid!'
+      wonderful: 'Wonderful!'
+      terrific: 'Terrific!'
+      lovely: 'Lovely!'
+    details:
+      lensing_cluster:
+        option_1: "Groups/Clusters of galaxies are the most massive objects in the universe! They can cause arcs to appear many galaxy diameters away from the centre of the group."
+        option_2: "The massive galaxies in a lensing group typically have similar yellow-red colors. This should help you figure out which galaxies are in the group, and which are not."
+        option_3: "Typically, any lensed arcs will appear to be surrounding the cluster as a whole - although galaxies within the cluster can also act as lenses on their own."
+        option_4: "If you see an arc, look for a “counter-image” with the about the same color and brightness somewhere else around the centre of the group, usually on the opposite side. Mark the counter-images as well, if you can!"
+        option_5: "Remember, the arcs are most likely to be blue, but can be yellow or red in some cases. Multiple “images” of the same background galaxy are always the same color as each other! Try and mark each one."
+        option_6: "The large separation between the group centre and the arc suggests that more mass is required in the lens than meets the eye: groups/clusters are mostly made of Dark Matter!"
+        option_7: "You can read more about group lenses in the <em>Spotters Guide</em>."
+      lensed_quasar:
+        option_1: "Typically, lensed quasar systems show either two ('doubles') or four ('quads') small lensed features, which look like stars. Mark each of the two, or four, quasars that you see!"
+        option_2: "See how the 'multiple images' of the background quasar are arranged in symmetrical patterns around the lens galaxy. Mark each one! You might have to zoom in, using the Quick Dashboard."
+        option_3: "Most lensed quasars look blue, but the more distant ones look fainter, and yellow or red (having been 'redshifted' by the expansion of the universe)."
+        option_4: "Quasars look different from other galaxies, because we are not seeing starlight but rather the light from supermassive black holes in their centres. These monsters often outshine the light from the rest of the galaxy."
+        option_5: "We expect lensed quasars to be about 10 times rarer than lensed galaxies, but they are really useful. You can read more about what we use gravitational lenses for on the <em>Science</em> page."
+        option_6: "You can read more about lensed quasars in the <em>Spotters Guide</em>."
+      lensed_galaxy:
+        option_1: "The most common background galaxies in the universe (those little blobs you see everywhere) are faint, blue, and star-forming, so usually (but not always!), lensed galaxies appear blue."
+        option_2: "Unlike most little blue galaxies you see, lensed galaxies appear stretched and curved around the lens."
+        option_3: "The lensed features in these systems are typically only a galaxy diameter or two away from the centre of the lens. You might have to zoom in, with the Quick Dashboard!"
+        option_4: "Look for a faint “counter-image” with the same colour on the opposite side of the lens to the arc. Sometimes these are too faint to see though. Mark the counter-image too, if you can!"
+        option_5: "The galaxy acting as a lens is most likely to be a bright, smooth, yellow or red elliptical galaxy, since these are the most massive galaxies."
+        option_6: "Very occasionally, if the cosmic alignment is very precise, the galaxy behind the lens will appear as an almost exactly circular Einstein Ring."
+        option_7: "You can read more about lensed galaxies in the <em>Spotters Guide</em>."
+      missed:
+        option_1: "This image actually contains a simulated lens. Have you tried using the Quick Dashboard to get a better view?"
+        option_2: "This image actually contains a simulated lens. Have a browse around the site for some tips!"
+        option_3: "This image actually contains a simulated lens. Don't worry, you can see all your recent images on your profile page." 
+        option_4: "This image actually contains a simulated lens. If you're not sure, why not head over to Talk to discuss this image?"
+    dud_found:
+      header: "Nice! There is no gravitational lens in this field!"
+      details: "This is a different kind of Training Image, one that has already been inspected by the Science Team and found not to contain any gravitational lenses."
+    dud_missed:
+      header: "There is no gravitational lens in this field!"
+      details: "This is a different kind of Training Image, one that has already been inspected by the Science Team and found not to contain any gravitational lenses."
+
   faq:
     heading: "Frequently Asked Questions"
     interface:
