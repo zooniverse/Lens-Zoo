@@ -6,6 +6,7 @@ module.exports =
     discuss: 'Discuss'
     profile: 'Profile'
     faq: 'FAQ'
+    
   home:
     heading: "Imagine a galaxy, behind another galaxy.<br/>Think you won't see it? Think again."
     subheading: "Massive galaxies warp space-time around themselves, bending light rays so that we can see around them. They're the Universe's own telescopes, but these gravitational lenses are very rare: we need your help to find them!"
