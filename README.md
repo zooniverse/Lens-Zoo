@@ -29,7 +29,7 @@ or to build against staging server
 
 ## Building and deploying project
 
-    ./build.rb
+    npm run-script deploy
   
   
 ### Notes
