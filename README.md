@@ -7,7 +7,7 @@
     
 ## Starting local server
 
-    hem server --includeCss
+    npm run-script start
 
 ## Building subjects
 
