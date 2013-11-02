@@ -29,6 +29,9 @@
       </video>
     </div>
     
+    <%- translate 'h2', 'about.searching' %>
+    <%- translate 'p', 'about.searching_text' %>
+    
     <%- translate 'h2', 'about.discovering' %>
     <%- translate 'p', 'about.discovering_text' %>
   </section>
