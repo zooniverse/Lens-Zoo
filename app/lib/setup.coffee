@@ -1,9 +1,12 @@
+
 translate = require 't7e'
-enUs = require 'translations/en_us'
 
-require 'jqueryify'
+if localStorage['spacewarp-languageStrings']
+  languageStrings = JSON.parse localStorage['spacewarp-languageStrings']
+else
+  languageStrings = require 'translations/en_us'
 
-translate.load enUs
+translate.load languageStrings
 
 require 'json2ify'
 require 'es5-shimify'
