@@ -53,9 +53,14 @@ stack = new Stack
 
 stack.el.appendTo 'body'
 
+enUs = require 'translations/en_us'
+
 languageManager = new LanguageManager
-languageManager.on 'language-fetched', (e, languageStrings) ->
-  translate.load languageStrings
+  translations:
+    en: label: 'English', strings: enUs
+
+languageManager.on 'change-language', (e, code, strings) ->
+  translate.load strings
   translate.refresh()
 
 topBar = new TopBar
