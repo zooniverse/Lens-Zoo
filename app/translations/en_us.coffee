@@ -187,6 +187,7 @@ module.exports =
       header: "There is no gravitational lens in this field!"
       details: "This is a different kind of Training Image, one that has already been inspected by the Science Team and found not to contain any gravitational lenses."
     false_positives:
+      header: "False positive! There no gravitational lens in this field:"
       CFHTLS_stage2_fps:
         stars: "Yellow-red (or white-blue or white-green) stars can look like lens galaxies, but are smaller, very close to circular, and in CFHTLS images often have 'spikes' coming out of them at 12, 3, 6 and 9 o clock."
         stars_1: "A bright blue star, that has two red compact sources neighbouring it i.e. there is no lensing galaxy in this image. Also, if the two red compact sources were lensed background galaxies, they would be symmetrically arranged either side of the lens to be a lensing feature."
