@@ -54,10 +54,12 @@ stack = new Stack
 stack.el.appendTo 'body'
 
 enUs = require 'translations/en_us'
+esCl = require '/translations/es_cl'
 
 languageManager = new LanguageManager
   translations:
     en: label: 'English', strings: enUs
+    es: label: 'Español', strings: esCl
 
 languageManager.on 'change-language', (e, code, strings) ->
   translate.load strings

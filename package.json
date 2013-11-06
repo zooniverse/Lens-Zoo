@@ -2,7 +2,6 @@
   "name": "spacewarps",
   "version": "0.0.1",
   "dependencies": {
-    "serveup": "~0.0.5",
     "hem": "~0.2.7",
     "t7e": "~0.2.1",
     "es5-shimify": "~0.0.1",
