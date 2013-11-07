@@ -96,3 +96,56 @@ module.exports =
           next: true
           onExit: =>
             @viewer?.trigger 'close'
+    
+  createFalsePositiveFoundFeedback: (e, trainingType, x, y) ->
+    
+    # Get failure header
+    header = translate 'span', 'feedback.false_positives.failure'
+    
+    # get details
+    detail = translate 'span', "feedback.false_positives.CFHTLS_stage2_fps.#{ trainingType }"
+    
+    return new Tutorial
+      id: 'fpFound'
+      firstStep: 'fpFound'
+      parent: @el[0]
+      steps:
+        length: 1
+        
+        fpFound: new Step
+          number: 1
+          header: header
+          details: detail
+          attachment: "left center .annotation #{x} #{y}"
+          block: '.annotation'
+          nextButton: 'Close'
+          next: true
+          onExit: =>
+            @viewer?.trigger 'close'
+  
+  createFalsePositiveMissedFeedback: (e, trainingType, x, y) ->
+    
+    # Get success header
+    header = translate 'span', 'feedback.false_positives.success'
+    
+    # get details
+    detail = translate 'span', "feedback.false_positives.CFHTLS_stage2_fps.#{ trainingType }"
+    
+    return new Tutorial
+      id: 'fpMissed'
+      firstStep: 'fpMissed'
+      parent: @el[0]
+      steps:
+        length: 1
+        
+        fpMissed: new Step
+          number: 1
+          header: header
+          details: detail
+          attachment: "left center .annotation #{x} #{y}"
+          block: '.annotation'
+          nextButton: 'Close'
+          next: true
+          onExit: =>
+            @viewer?.trigger 'close'
+  

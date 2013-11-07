@@ -568,10 +568,14 @@ class Classifier extends Page
   setSimulationRatio: ->
     
     # When duds are included in the @TrainingGroup, need to multiply @simratio by 2 to 
-    nClassified = @counter.classified
-    baseLevel = Math.floor(nClassified / 20) + 1
-    @level = Math.min(baseLevel, 3)
-    denominator = (5 * Math.pow(Math.sqrt(2), @level - 1))
+    # nClassified = @counter.classified
+    # baseLevel = Math.floor(nClassified / 20) + 1
+    # @level = Math.min(baseLevel, 3)
+    # denominator = (5 * Math.pow(Math.sqrt(2), @level - 1))
+    # @simRatio = 1 / denominator
+    
+    # Everyone gets a sim or an FP every four images at Stage 2!
+    denominator = 4.0
     @simRatio = 1 / denominator
     Subject.group = if @simRatio > Math.random() then @simulationGroup else @subjectGroup
     
@@ -692,6 +696,25 @@ class Classifier extends Page
         nAnnotations = _.keys(@annotations).length
         
         @tutorial = if nAnnotations > 0 then @createDudMissedFeedback(e) else @createDudFoundFeedback(e)
+      
+      else
+        # New for stage 2 - false positives! Marked by any training type
+        # other than lensing cluster, lensed quasar, lensed galaxy or empty.
+
+        # Get the location for the dialog
+        x = (training.x + 30) / @subjectDimension
+        y = 1 - (training.y / @subjectDimension)
+        
+        # Count the number of annotations
+        nAnnotations = _.keys(@annotations).length
+                
+        if nAnnotations > 0 
+          # Something - possibly the FP - was marked
+          @tutorial = @createFalsePositiveFoundFeedback(e, trainingType, x, y)
+        else 
+          # FP was ignored. Good!
+          @tutorial = @createFalsePositiveMissedFeedback(e, trainingType, x, y)
+      
       
       # Start the tutorial
       @tutorial?.start()
