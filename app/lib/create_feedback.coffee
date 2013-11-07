@@ -4,6 +4,7 @@ translate = require 't7e'
 FeedbackStrings  = translate.strings.feedback
 
 module.exports =
+  
   createSimulationFoundFeedback: (e, trainingType, x, y) ->
     
     headers = details = []
@@ -36,6 +37,7 @@ module.exports =
           onExit: =>
             @viewer?.trigger 'close'
   
+  
   createSimulationMissedFeedback: (e, trainingType, x, y) ->
     
     # Get random detail
@@ -61,6 +63,7 @@ module.exports =
           onExit: =>
             @viewer?.trigger 'close'
   
+  
   createDudFoundFeedback: (e) ->
     return new Tutorial
       id: 'emptyFound'
@@ -78,6 +81,7 @@ module.exports =
           next: true
           onExit: =>
             @viewer?.trigger 'close'
+  
   
   createDudMissedFeedback: (e) ->
     return new Tutorial
@@ -97,12 +101,13 @@ module.exports =
           onExit: =>
             @viewer?.trigger 'close'
     
+  
   createFalsePositiveFoundFeedback: (e, trainingType, x, y) ->
     
     # Get failure header
     header = translate 'span', 'feedback.false_positives.failure'
     
-    # get details
+    # Get details
     detail = translate 'span', "feedback.false_positives.CFHTLS_stage2_fps.#{ trainingType }"
     
     return new Tutorial
@@ -123,12 +128,13 @@ module.exports =
           onExit: =>
             @viewer?.trigger 'close'
   
+  
   createFalsePositiveMissedFeedback: (e, trainingType, x, y) ->
     
     # Get success header
     header = translate 'span', 'feedback.false_positives.success'
     
-    # get details
+    # Get details
     detail = translate 'span', "feedback.false_positives.CFHTLS_stage2_fps.#{ trainingType }"
     
     return new Tutorial

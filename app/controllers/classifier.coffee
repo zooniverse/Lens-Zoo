@@ -698,10 +698,11 @@ class Classifier extends Page
         @tutorial = if nAnnotations > 0 then @createDudMissedFeedback(e) else @createDudFoundFeedback(e)
       
       else
+      
         # New for stage 2 - false positives! Marked by any training type
         # other than lensing cluster, lensed quasar, lensed galaxy or empty.
 
-        # Get the location for the dialog
+        # Get the location for the dialog, as with sims
         x = (training.x + 30) / @subjectDimension
         y = 1 - (training.y / @subjectDimension)
         
@@ -709,10 +710,10 @@ class Classifier extends Page
         nAnnotations = _.keys(@annotations).length
                 
         if nAnnotations > 0 
-          # Something - possibly the FP - was marked
+          # Something - possibly the FP - was marked. That's bad!
           @tutorial = @createFalsePositiveFoundFeedback(e, trainingType, x, y)
         else 
-          # FP was ignored. Good!
+          # FP was ignored. That's good!
           @tutorial = @createFalsePositiveMissedFeedback(e, trainingType, x, y)
       
       
