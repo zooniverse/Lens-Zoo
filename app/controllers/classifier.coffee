@@ -666,7 +666,7 @@ class Classifier extends Page
       training = @classification.subject.metadata.training[0]
       trainingType = training.type
 
-      if trainingType in ['lensing cluster', 'lensed quasar', 'lensed galaxy']
+      if trainingType in ['lensing_cluster', 'lensed_quasar', 'lensed_galaxy', 'lensing cluster', 'lensed quasar', 'lensed galaxy']
 
         # Snake-case trainingType
         trainingType = trainingType.replace ' ', '_'
