@@ -389,7 +389,7 @@ module.exports =
     group_lenses_text_2: "Groups or clusters of massive red galaxies can lens background galaxies into long, bright arcs. These arcs are typically less curved and at larger separations from the lensing galaxies than would be seen for a single lensing galaxy. This is because groups and clusters of galaxies are much more massive than a single galaxy and so the deflection of the image (or separation) can be larger."
     group_lenses_text_3: "Groups and clusters of massive galaxies can form many images, often of more than one background galaxy. The bright images curve around the entire lens that can be several galaxies."
     
-    gallery_text: "Automated searches have detected nearly one hundred gravitational lenses (or high probability candidates) in the CFHTLS area. In this gallery they are shown at the centre of a zoomed-in image that is one quarter the size of a regular Space Warps image."
+    gallery_text: "Automated searches have detected nearly one hundred gravitational lenses (or high probability candidates) in the CFHTLS area. In this gallery, each one is shown at the centre of a zoomed-in image that is one quarter the size of a regular Space Warps image."
     
     rings_spirals: "Star-forming galaxies"
     loners: "Loners"
