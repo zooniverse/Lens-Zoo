@@ -356,6 +356,7 @@ module.exports =
     miller_bio: "As a visual communicator, David is passionate about tellings stories through clear, clean, and effective design. Before joining the Zooniverse team as Visual Designer, David worked for The Raindance Film Festival, the News 21 Initiative's Apart From War, Syracuse Magazine, and as a freelance designer for his small business, Miller Visual. David is a graduate of the S.I. Newhouse School of Public Communications at Syracuse University, where he studied Visual & Interactive Communications."
     parrish_bio: "Michael has a degree in Computer Science and has been working with The Zooniverse for the past three years as a Software Developer. Aside from web development; new technologies, science, AI, reptiles, and coffee tend to occupy his attention."
     smith_bio: "As an undergraduate, Arfon studied Chemistry at the University of Sheffield before completing his Ph.D. in Astrochemistry at The University of Nottingham in 2006. He worked as a senior developer at the Wellcome Trust Sanger Institute (Human Genome Project) in Cambridge before joining the Galaxy Zoo team in Oxford. Over the past 3 years he has been responsible for leading the development of a platform for citizen science called Zooniverse. In August of 2011 he took up the position of Director of Citizen Science at the Adler Planetarium where he continues to lead the software and infrastructure development for the Zooniverse."
+
   guide:
     heading: "Spotter's Guide"
     tagline: "This guide contains examples of real lenses and other astronomical objects that are typically mistaken for gravitational lenses, resulting in false positives."
@@ -364,6 +365,7 @@ module.exports =
     lensed_galaxies: "Lensed Galaxies"
     lensed_quasars: "Lensed Quasars"
     group_lenses: "Group Lenses"
+    gallery: "Gallery"
     
     lensed_galaxies_text_1: "In general, galaxies can be big (massive) or small (compact), with a clear shape or morphology (e.g. spiral and elliptical galaxies) or messy (e.g. irregular, clumpy and merging galaxies). As they are made up of many stars, galaxies generally appear to be extended in astronomical images, unlike single stars that just look like compact, round sources."
     lensed_galaxies_text_2: "Galaxies with lots of stars or mass can act as cosmic telescopes and bend light of a galaxy lying behind them into multiple images. Typically the most massive galaxies appear yellow-red in colour (the colour is indicative of old stars that are massive). They usually have a smooth distribution of light and are spherical or elliptical in shape. Similarly, the central bulges of large galaxies can be massive enough to cause lensing."
@@ -386,6 +388,8 @@ module.exports =
     group_lenses_text_1: "Galaxy groups and clusters are gravitationally bound entities. They mark the most massive regions in the Universe. As such these are the most powerful cosmic telescopes and can produce large and spectacular arcs and multiple images. See the examples below."
     group_lenses_text_2: "Groups or clusters of massive red galaxies can lens background galaxies into long, bright arcs. These arcs are typically less curved and at larger separations from the lensing galaxies than would be seen for a single lensing galaxy. This is because groups and clusters of galaxies are much more massive than a single galaxy and so the deflection of the image (or separation) can be larger."
     group_lenses_text_3: "Groups and clusters of massive galaxies can form many images, often of more than one background galaxy. The bright images curve around the entire lens that can be several galaxies."
+    
+    gallery_text: "Automated searches have detected nearly one hundred gravitational lenses (or high probability candidates) in the CFHTLS area. In this gallery they are shown at the centre of a zoomed-in image that is one quarter the size of a regular Space Warps image."
     
     rings_spirals: "Star-forming galaxies"
     loners: "Loners"

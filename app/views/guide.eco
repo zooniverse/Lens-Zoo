@@ -19,6 +19,7 @@
         <%- translate 'li', 'guide.lensed_galaxies', 'data-type': 'lensed-galaxies', class: 'show' %>
         <%- translate 'li', 'guide.lensed_quasars', 'data-type': 'lensed-quasars' %>
         <%- translate 'li', 'guide.group_lenses', 'data-type': 'lensing-clusters' %>
+        <%- translate 'li', 'guide.gallery', 'data-type': 'gallery' %>
       </ul>
       
       <section data-type="lensed-galaxies" class="show">
@@ -92,6 +93,24 @@
         
         <%- translate 'p', 'guide.group_lenses_text_3' %>
         
+      </section>
+
+      <section data-type='gallery'>
+        
+        <%- translate 'p', 'guide.gallery_text' %>
+        
+        <img class='lazy' src='' data-original='images/guide/lenses/cluster-galaxy/CFHTLS_037_1973_gri_zoom.png' width='154' height='154'>
+        <img class='lazy' src='' data-original='images/guide/lenses/cluster-galaxy/CFHTLS_037_1973_gri_zoom.png' width='154' height='154'>
+        <img class='lazy' src='' data-original='images/guide/lenses/cluster-galaxy/CFHTLS_052_1191_gri_zoom.png' width='154' height='154'>
+        <img class='lazy' src='' data-original='images/guide/lenses/cluster-galaxy/CFHTLS_052_1191_gri_zoom.png' width='154' height='154'>
+        <img class='lazy' src='' data-original='images/guide/lenses/cluster-galaxy/CFHTLS_052_1191_gri_zoom.png' width='154' height='154'>
+
+        <img class='lazy' src='' data-original='images/guide/lenses/cluster-galaxy/CFHTLS_037_1973_gri_zoom.png' width='154' height='154'>
+        <img class='lazy' src='' data-original='images/guide/lenses/cluster-galaxy/CFHTLS_037_1973_gri_zoom.png' width='154' height='154'>
+        <img class='lazy' src='' data-original='images/guide/lenses/cluster-galaxy/CFHTLS_052_1191_gri_zoom.png' width='154' height='154'>
+        <img class='lazy' src='' data-original='images/guide/lenses/cluster-galaxy/CFHTLS_052_1191_gri_zoom.png' width='154' height='154'>
+        <img class='lazy' src='' data-original='images/guide/lenses/cluster-galaxy/CFHTLS_052_1191_gri_zoom.png' width='154' height='154'>
+
       </section>
 
     </section>
