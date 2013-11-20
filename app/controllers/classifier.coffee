@@ -576,7 +576,7 @@ class Classifier extends Page
 
     # Everyone gets a sim or an FP every four images at Stage 2!
     denominator = 4.0
-    @simRatio = 1 / denominator
+    @simRatio = 2.0 / denominator
     Subject.group = if @simRatio > Math.random() then @simulationGroup else @subjectGroup
 
     # Update sim freq text
@@ -702,6 +702,9 @@ class Classifier extends Page
         # New for stage 2 - false positives! Marked by any training type
         # other than lensing cluster, lensed quasar, lensed galaxy or empty.
 
+        # Snake-case trainingType
+        trainingType = trainingType.replace ' ', '_'
+        
         # Get the location for the dialog, as with sims
         x = (training.x + 30) / @subjectDimension
         y = 1 - (training.y / @subjectDimension)

@@ -31,6 +31,8 @@ module.exports =
     favorite_images: "favorite images" 
     sim_freq: "simulation frequency"
     sim_freq_tip: "This shows the frequency of simulations that you will be shown."
+    fp_freq: "false positives"
+    fp_freq_tip: "This shows the frequency with which you will be shown known non-lenses"
 
   classifier:
     remove_markers: "Remove All Markers"
