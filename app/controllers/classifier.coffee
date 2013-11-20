@@ -586,9 +586,9 @@ class Classifier extends Page
     # denominator = (5 * Math.pow(Math.sqrt(2), @level - 1))
     # @simRatio = 1 / denominator
 
-    # Everyone gets a sim or an FP every four images at Stage 2!
-    denominator = 4.0
-    @simRatio = 2.0 / denominator
+    # Everyone gets a sim or an FP every three images at Stage 2!
+    denominator = 3.0
+    @simRatio = 1.0 / denominator
     Subject.group = if @simRatio > Math.random() then @simulationGroup else @subjectGroup
 
     # Update sim freq text
