@@ -14,6 +14,6 @@
 </div>
 <div class='stat tool-container'>
   <p class='number' data-type='sim-freq'><%- @simFrequency %></p>
-  <%- translate 'p', 'counters.sim_freq', class: 'description' %>
-  <%- translate 'span', 'counters.sim_freq_tip', class: 'tooltip' %>
+  <%- translate 'p', 'counters.fp_freq', class: 'description' %>
+  <%- translate 'span', 'counters.fp_freq_tip', class: 'tooltip' %>
 </div>
