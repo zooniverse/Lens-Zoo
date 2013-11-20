@@ -103,6 +103,7 @@ module.exports =
     welcome:
       header: "Welcome to Space Warps!"
       details: "Gravitational Lenses are very rare astronomical objects. We need your help finding them!"
+      details_stage2: "Gravitational Lenses are very rare astronomical objects. In the first stage of the project, we found around 3300 candidates. Now we are trying to refine this sample to identify the really convincing ones, and we need your help!"
     what_are_lenses_1: 
       header: "What are gravitational lenses?"
       details: "Gravitational lenses are massive astronomical objects &ndash; such as galaxies &ndash; that lie in front of other, more distant galaxies. These massive objects act like huge, natural magnifying glasses. They focus light from distant objects towards us, allowing us to see further into the Universe."
@@ -118,6 +119,7 @@ module.exports =
     mark: 
       header: "Marking lensed features"
       details: "If you see something that is being lensed, mark it. In this case, click on the blue arc."
+      details_stage2: "If you see something that is being lensed, and you've checked the Spotter's Guide to make sure it's not a False Positive, mark it. In this case, click on the blue arc!"
     good_job:
       header: "Great job!"
       details: "You’ve correctly identified a gravitational lens!<br/><br/>To remove a marker, just click it and you'll see the remove button."
@@ -127,9 +129,11 @@ module.exports =
     training:
       header: "Training images"
       details: "From time to time we'll throw in a training image like this one, that contains a simulated or previously known gravitational lens. We'll let you know if you spot the lenses in training images."
+      details_stage2: "From time to time we'll throw in a training image like this one, that either contains a simulated gravitational lens, or an object that could be confused with a lens (a 'False Positive'). We'll let you know how you got on!"
     thanks:
       header: "Thanks!"
       details: "Remember lensed galaxies are rare: many of the images you will see won't contain a gravitational lens. You can keep track of the expected lens frequency as you go at the top of this page.<br/><br/>Over your first few classifications we'll give you a few more tips and access to some different tools to help you as you search for these rare objects.<br/><br/>Click 'Finished marking!' to continue."
+      details_stage2: "Remember, lensed galaxies are rare: even at this refinement stage, most of the images you will see won't contain a real gravitational lens. Be skeptical, and only mark the really convincing candidates!<br/><br/>Over your first few classifications we'll give you a few more tips and access to some different tools to help you as you search for these rare objects.<br/><br/>Click 'Finished marking!' to continue."
     talk:
       header: "Talk"
       details: "Talk is a place to discuss the things you find with the rest of the Space Warps community: together we aim to build a catalog of new lenses, some of the rarest objects in the universe. If you have questions, the Science Team and other astronomers will help answer them. If you find something that looks interesting, come and show it to the group!"
