@@ -258,9 +258,10 @@ module.exports =
       header: "Interface"
       questions: """
         <h3>What is my main task?</h3>
-        <p>The main task for the current project is to inspect the images on the classification page, look for a gravitational lens and mark (at least) any one of the lensed images within a lens system in an image. Lens systems are rare. Most of the images won’t have any lenses, a few images will have a lens and in extremely rare cases, there might be more than one lens in an image. So, watch out!</p>
-
-        <h3>I marked a simulated lens but was told that I missed it. What’s the problem?</h3>
+        <p>The main task for the current project is to inspect the images on the classification page, look for a gravitational lens and mark any one of the lensed images within a lens system in an image. Lens systems are rare. Most of the images won't have any lenses, a few images will have a lens and in extremely rare cases, there might be more than one lens in an image. So, watch out!</p>
+        <h3>Should I try and be inclusive, or discerning?</h3>
+        <p>During a first pass through the images, when the website has a blue background, we don't want to miss any lenses: if in doubt, mark them. However, when we are trying to refine a list of candidates to identify the best ones (when the site has an orange background), we need to be more skeptical: only mark the features that you really think are due to lensing. The <a href=\"#/guide\">Spotter's Guide</a> can help you make your judgement.</p>
+        <h3>I marked a simulated lens but was told that I missed it. What's the problem?</h3>
         <p>We'd like you to mark any lensed object that you see i.e. you can mark one or all of the curved arcs, or multiple quasars. Sometimes the site will tell you that you missed a simulated lens, when you actually marked something nearby the lensed object, e.g. the marker might have been placed on the lens galaxy itself instead of the lensed features.</p>
         <h3>What do I do if I see more than one lensed image per lens system?</h3>
         <p>You should place a marker on at least one lensed feature that you see per lens system. If you see an arc, mark it and preferably, mark its counter-arc if you can see it. If you see a pair of quasars (compact objects) either side of a lensing galaxy, mark both of them preferably.</p>
@@ -271,18 +272,17 @@ module.exports =
         <h3>Can I delete my markers?</h3>
         <p>Yes, if you click on one of your markers, a little cross should appear above it. If you click on this cross, the marker is deleted.</p>
         <h3>Can I turn off the simulated lenses?</h3>
-        <p>We found that without the simulated lenses, we started to make mistakes. We don’t want to miss any lenses, so we thought it best to keep showing simulated lenses, just in case! As you do more classifications we will show you a smaller number of simulated lenses.</p>
+        <p>We found that without the simulated lenses, we started to make mistakes. We don't want to miss any lenses, so we thought it best to keep showing simulated lenses, just in case! As you do more classifications we will show you a smaller number of simulated lenses.</p>
         <h3>Can I turn off the feedback messages?</h3>
-        <p>As with the simulated lenses, we found that without the messages, we also started to make mistakes. We don’t want to miss any lenses, so we thought it best to keep the messages turned on!</p>
+        <p>As with the simulated lenses, we found that without the messages, we also started to make mistakes. We don't want to miss any lenses, so we thought it best to keep the messages turned on!</p>
         <h3>The images are really small! Can I make them bigger?</h3>
         <p>Yes. Click on the Quick Dashboard, and scroll with your mouse to zoom in. You can move around in the image by dragging it with your cursor.</p>
         <h3>I found something interesting! What do I do?</h3>
-        <p>The markers are only for lensed features, but you can add any image, whether you think it has a lens in it or not, to your favourites using the button. This will appear in your favourites list on your profile page. You can then click on that image to take it to Talk, where you can discuss it with with other people.</p>
-        <h3>Sometimes a vertical/horizontal section of the image looks completely dark. why is that?</h3>
-        <p>Nothing to worry. These images are at the edges of the survey region where the telescope did not collect data. Since there’s no data, these sections look dark.</p>
+        <p>The markers are only for lensed features, but you can add any image, whether you think it has a lens in it or not, to your favourites using the button. This will appear in your favourites list on your profile page. You can then click on that image to take it to <a href='http://talk.spacewarps.org/'>Talk</a>, where you can discuss it with with other people.</p>
+        <h3>Sometimes a vertical/horizontal section of the image looks completely dark. Why is that?</h3>
+        <p>Nothing to worry about. These images are at the edges of the survey region where the telescope did not collect data. Since there's no data, these sections look dark.</p>
         <h3>I can't see some pages on the website. What internet browser should I use?</h3>
-        <p>
-          We support modern browsers, although the site is optimized for Chrome.
+        <p>We support modern browsers, although the site is optimized for Chrome.
           <ul>
             <li>Google Chrome</li>
             <li>Firefox 19 and up</li>
@@ -300,7 +300,7 @@ module.exports =
         <h3>What does a typical lens system look like?</h3>
         <p>A typical lens system will show a massive lensing galaxy or a galaxy group surrounded by magnified and distorted multiple images of a background galaxy.</p>
         
-        <h3>What’s the difference between a lens(ing) galaxy and a lensed galaxy?</h3>
+        <h3>What's the difference between a lens(ing) galaxy and a lensed galaxy?</h3>
         <p>A lens galaxy or a lensing galaxy is the foreground massive galaxy which warps the space around it and causes light to bend around it. A lensed galaxy is a distant background galaxy from which light rays emerge and get bent or deflected due to the lens galaxy before arriving on earth.</p>
         
         <h3>Why are gravitational lens systems interesting?</h3>
@@ -309,14 +309,14 @@ module.exports =
         <h3>Why do you need my help to look for gravitational lenses?</h3>
         <p>How a lens system will look like in the sky depends on several factors relating to properties of the foreground and the background object. There is enough complexity in these lens systems that the process of detection has not been fully automated till date. One of the major problems is contamination from lens-like systems e.g., spiral galaxies, ring galaxies and other artefacts in the images that mimic arc-like shapes. Human beings are better at processing and filtering objects that have multiple levels of complexities even if they are non-standard. Lens systems fall in this category and we need your help both in discovering newer types of lenses and building better algorithms.</p>
         
-        <h3>How do I know what’s a lens and what isn’t?</h3>
-        <p>We’ve put up some examples of lenses, and non-lenses, in the Spotter’s Guide. You can see these examples on the main classification page (on the pull-out tab on the right hand side), and you can click on them to read more about them in the Guide page. You can also go to <a href='http://talk.spacewarps.org/'>Talk</a> and see what other people have found.</p>
+        <h3>How do I know what's a lens and what isn't?</h3>
+        <p>We've put up some examples of lenses, and non-lenses, in the <a href=\"#/guide\">Spotter's Guide</a>. You can see these examples on the main classification page (on the pull-out tab on the right hand side), and you can click on them to read more about them in the Guide page. You can also go to <a href='http://talk.spacewarps.org/'>Talk</a> and see what other people have found.</p>
         
         <h3>What are simulated lens systems?</h3>
         <p>Simulated lens systems are computer generated images of gravitational lens systems using standard models for a foreground galaxy (or galaxy group) and a background galaxy (or a quasar). These simulated lenses are then added to the real images of the sky observed with a telescope.</p>
         
         <h3>Why do the images have simulated lens systems?</h3>
-        <p>Lens systems come in a wide variety and Spotter’s Guide page can be used to show only typical examples of lenses. Hence, we use simulated lens system to provide further training for the users. Also, we want to do a comparison of human vs. robots (ie. automated lens finding codes) for which we need a large test sample. Adding a large sample of simulated lenses to the real data help us achieve such comparison.</p>
+        <p>Lens systems come in a wide variety and <a href=\"#/guide\">Spotter's Guide</a> page can be used to show only typical examples of lenses. Hence, we use simulated lens system to provide further training for the users. Also, we want to do a comparison of human vs. robots (ie. automated lens finding codes) for which we need a large test sample. Adding a large sample of simulated lenses to the real data help us achieve such comparison.</p>
       """
 
   about:
