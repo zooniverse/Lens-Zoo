@@ -27,7 +27,7 @@ module.exports =
         length: 1
 
         simFound: new Step
-          header: "#{ base_header } #{ header }"
+          header: "#{ header } #{ base_header }"
           details: detail
           attachment: "left center .annotation #{x} #{y}"
           block: '.annotation'
