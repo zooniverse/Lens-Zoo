@@ -14,15 +14,15 @@
       <%- translate 'li', 'guide.false_positives', 'data-type': 'false-positives', class: '' %>
     </ul>
     
-    <section data-type="real-lenses" class="show">
+    <section data-type="real-lenses" class='show'>
       <ul class="menu">
-        <%- translate 'li', 'guide.lensed_galaxies', 'data-type': 'lensed-galaxies', class: 'show' %>
+        <%- translate 'li', 'guide.gallery', 'data-type': 'gallery', class: 'show' %>
+        <%- translate 'li', 'guide.lensed_galaxies', 'data-type': 'lensed-galaxies' %>
         <%- translate 'li', 'guide.lensed_quasars', 'data-type': 'lensed-quasars' %>
         <%- translate 'li', 'guide.group_lenses', 'data-type': 'lensing-clusters' %>
-        <%- translate 'li', 'guide.gallery', 'data-type': 'gallery' %>
       </ul>
       
-      <section data-type="lensed-galaxies" class="show">
+      <section data-type="lensed-galaxies">
         <%- translate 'p', 'guide.lensed_galaxies_text_1' %>
         <%- translate 'p', 'guide.lensed_galaxies_text_2' %>
         <%- translate 'p', 'guide.lensed_galaxies_text_3' %>
@@ -95,7 +95,7 @@
         
       </section>
 
-      <section data-type='gallery'>
+      <section data-type='gallery' class='show'>
         
         <%- translate 'p', 'guide.gallery_text' %>
         
@@ -207,6 +207,7 @@
         <%- translate 'li', 'guide.loners', 'data-type': 'loners' %>
         <%- translate 'li', 'guide.lightweights', 'data-type': 'lightweights' %>
         <%- translate 'li', 'guide.mergers_neighbors', 'data-type': 'mergers-neighbors' %>
+        <%- translate 'li', 'guide.stars', 'data-type': 'stars' %>
       </ul>
 
       <section data-type="rings-spirals" class="show">
@@ -275,6 +276,15 @@
         <img class='lazy' src='' data-original='images/guide/non-lenses/lightweights/CFHTLS_084_6943_2087_b_gri_zoom.png' width='340' height='340'>
         <%- translate 'p', 'guide.mergers_neighbors_text_4' %>
       </section>
+      
+      <section data-type="stars">
+        <%- translate 'p', 'guide.stars_text_1' %>
+        
+        <img class='lazy' src='' data-original='images/guide/non-lenses/stars/star_b_gri.png' width='340' height='340'>
+        <img class='lazy' src='' data-original='images/guide/non-lenses/stars/star_b_gri_zoom.png' width='340' height='340'>
+        <%- translate 'p', 'guide.stars_text_2' %>
+      </section>
+       
     </section>
     
   </div>
