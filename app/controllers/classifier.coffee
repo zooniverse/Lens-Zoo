@@ -350,7 +350,7 @@ class Classifier extends Page
 
       tutorial.el.on 'start-tutorial enter-tutorial-step', ->
         translate.refresh tutorial.el.get 0
-        
+
       tutorial.start()
       
   onNoMoreSubjects: ->
@@ -706,7 +706,7 @@ class Classifier extends Page
         @tutorial = if nAnnotations > 0 then @createDudMissedFeedback(e) else @createDudFoundFeedback(e)
       
       # Start the tutorial
-      @tutorial.el.on 'start-tutorial enter-tutorial-step', =>
+      @tutorial?.el.on 'start-tutorial enter-tutorial-step', =>
         translate.refresh @tutorial.el.get 0
 
       @tutorial?.start()
