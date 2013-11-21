@@ -692,7 +692,7 @@ class Classifier extends Page
           @isLensMarked = @checkImageMask(annotation.x, annotation.y)
           break if @isLensMarked is true
 
-        alert @isLensMarked
+        # alert @isLensMarked
 
         if @isLensMarked is true
           # Lens was marked
