@@ -692,12 +692,10 @@ class Classifier extends Page
           @isLensMarked = @checkImageMask(annotation.x, annotation.y)
           break if @isLensMarked is true
 
-        # alert @isLensMarked
-
         if @isLensMarked is true
           # Lens was marked
           @tutorial = @createSimulationFoundFeedback(e, trainingType, x, y)
-        else if @isLensMarked in [false, 254, 0]
+        else if @isLensMarked in [false, 254]
           # Lens was missed
           @tutorial = @createSimulationMissedFeedback(e, trainingType, x, y)
         else
