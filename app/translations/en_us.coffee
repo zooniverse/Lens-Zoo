@@ -264,7 +264,7 @@ module.exports =
         <h3>I marked a simulated lens but was told that I missed it. What's the problem?</h3>
         <p>We'd like you to mark any lensed object that you see i.e. you can mark one or all of the curved arcs, or multiple quasars. Sometimes the site will tell you that you missed a simulated lens, when you actually marked something nearby the lensed object, e.g. the marker might have been placed on the lens galaxy itself instead of the lensed features.</p>
         <h3>What do I do if I see more than one lensed image per lens system?</h3>
-        <p>You should place a marker on at least one lensed feature that you see per lens system. If you see an arc, mark it and preferably, mark its counter-arc if you can see it. If you see a pair of quasars (compact objects) either side of a lensing galaxy, mark both of them preferably.</p>
+        <p>You should place a marker on at least one lensed feature that you see per lens system. If you see an arc, mark it and preferably, mark its counter-arc if you can see it. If you see a pair of quasars (compact objects) either side of a lensing galaxy, mark both of them preferably. You only need to mark one lensed feature for your identification to be registered, but you can mark multiple features if you wish.</p>
         <h3>When should I use the Quick Dashboard?</h3>
         <p>Many lensed images are faint and very close to the bright yellow lensing galaxies. You can switch to the Quick Dashboard to play with different settings or zoom/pan to get a detailed view near the lensing galaxy and be more confident of not missing a faint lens.</p>
         <h3>I missed a lens! How do I go back?</h3>
