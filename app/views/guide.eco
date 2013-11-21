@@ -206,7 +206,7 @@
         <%- translate 'li', 'guide.rings_spirals', 'data-type': 'rings-spirals', class: 'show' %>
         <%- translate 'li', 'guide.loners', 'data-type': 'loners' %>
         <%- translate 'li', 'guide.lightweights', 'data-type': 'lightweights' %>
-        <%- translate 'li', 'guide.mergers_neighbors', 'data-type': 'merger-neighbors' %>
+        <%- translate 'li', 'guide.mergers_neighbors', 'data-type': 'mergers-neighbors' %>
       </ul>
 
       <section data-type="rings-spirals" class="show">
@@ -224,9 +224,9 @@
       </section>
     
       <section data-type="loners">
-        
         <%- translate 'p', 'guide.loners_text_1' %>
         <%- translate 'h2', 'guide.isolated_blue' %>
+
         <img class='lazy' src='' data-original='images/guide/non-lenses/loners/CFHTLS_050_8615_13075_b_gri.png' width='340' height='340'>
         <img class='lazy' src='' data-original='images/guide/non-lenses/loners/CFHTLS_050_8615_13075_b_gri_zoom.png' width='340' height='340'>
         
@@ -264,15 +264,15 @@
         <%- translate 'p', 'guide.mergers_neighbors_text_2' %>
 
         <%- translate 'h2', 'guide.mergers' %>
+        
         <img class='lazy' src='' data-original='images/guide/non-lenses/spirals-rings/CFHTLS_001_1555_gri.png' width='340' height='340'>
         <img class='lazy' src='' data-original='images/guide/non-lenses/spirals-rings/CFHTLS_001_1555_gri_zoom.png' width='340' height='340'>
-        
         <%- translate 'p', 'guide.mergers_neighbors_text_3' %>
         
         <%- translate 'h2', 'guide.neighbouring_galaxies' %>
+        
         <img class='lazy' src='' data-original='images/guide/non-lenses/lightweights/CFHTLS_084_6943_2087_b_gri.png' width='340' height='340'>
         <img class='lazy' src='' data-original='images/guide/non-lenses/lightweights/CFHTLS_084_6943_2087_b_gri_zoom.png' width='340' height='340'>
-        
         <%- translate 'p', 'guide.mergers_neighbors_text_4' %>
       </section>
     </section>
