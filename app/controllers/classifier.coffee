@@ -45,12 +45,7 @@ class Classifier extends Page
 
   subjectGroup: '5154a3783ae74086ab000001'
   simulationGroup: '5154a3783ae74086ab000002'
-<<<<<<< HEAD
 
-
-=======
-  
->>>>>>> translations
   elements:
     '.mask'                     : 'maskEl'
     '.viewer'                   : 'viewerEl'
@@ -66,10 +61,6 @@ class Classifier extends Page
     'click g'                                 : 'stopPropagation'
     'click .remove-all'                       : 'removeAnnotations'
 
-<<<<<<< HEAD
-
-=======
->>>>>>> translations
   constructor: ->
     super
 
@@ -375,13 +366,8 @@ class Classifier extends Page
     position = $('.subject.current .image').position()
 
     x = e.pageX - position.left
-<<<<<<< HEAD
-    y = e.pageY - position.top
-
-=======
-    y = e.pageY - position.top + 11
+    y = e.pageY - position.top + 11 #HACK (Snyder): to make up for missing 'English' sign
     
->>>>>>> translations
     annotation = new Annotation({el: @svg, x: x, y: y, index: @annotationIndex})
     @annotations[@annotationIndex] = annotation
     @annotationIndex += 1
