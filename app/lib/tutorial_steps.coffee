@@ -16,7 +16,7 @@ module.exports =
   
   welcome: new Step
     number: 1
-    header: translate 'span', 'tutorial.welcome.header'
+    header: translate 'span', 'tutorial.welcome.header_stage2'
     details: translate 'span', 'tutorial.welcome.details_stage2'
     attachment: 'center center .current center center'
     block: '.annotation, .controls:first'

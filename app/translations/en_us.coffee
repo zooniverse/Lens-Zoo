@@ -102,6 +102,7 @@ module.exports =
   tutorial:
     welcome:
       header: "Welcome to Space Warps!"
+      header_stage2: "Welcome to Space Warps Refine!"
       details: "Gravitational Lenses are very rare astronomical objects. We need your help finding them!"
       details_stage2: "Gravitational Lenses are very rare astronomical objects. In the first stage of the project, we found around 3300 candidates. Now we are trying to refine this sample to identify the really convincing ones, and we need your help!"
     what_are_lenses_1: 
