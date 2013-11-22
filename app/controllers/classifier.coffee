@@ -719,7 +719,9 @@ class Classifier extends Page
         
         # Get the location for the dialog, as with sims
         x = (training.x + 30) / @subjectDimension
-        y = 1 - (training.y / @subjectDimension)
+        # HACK: y positions of FPs seem to be wrong: correcting them here rather than in metadata...
+        # y = 1 - (training.y / @subjectDimension)
+        y = training.y / @subjectDimension
 
         # Count the number of annotations
         nAnnotations = _.keys(@annotations).length

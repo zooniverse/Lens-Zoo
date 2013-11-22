@@ -127,7 +127,7 @@ module.exports =
           details: detail
           attachment: "left center .annotation #{x} #{y}"
           block: '.annotation'
-          # className: 'arrow-left'
+          className: 'arrow-left'
           nextButton: 'Close'
           next: true
           onExit: =>
@@ -155,7 +155,7 @@ module.exports =
           details: detail
           attachment: "left center .annotation #{x} #{y}"
           block: '.annotation'
-          # className: 'arrow-left'
+          className: 'arrow-left'
           nextButton: 'Close'
           next: true
           onExit: =>
