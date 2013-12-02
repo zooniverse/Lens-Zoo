@@ -212,16 +212,33 @@
 
       <section data-type="rings-spirals" class="show">
         <%- translate 'p', 'guide.rings_spirals_text_1' %>
+
+        <%- translate 'h2', 'guide.arms' %>
         
         <img class='lazy' src='' data-original='images/guide/non-lenses/spirals-rings/CFHTLS_008_10921_6476_b_gri.png' width='340' height='340'>
         <img class='lazy' src='' data-original='images/guide/non-lenses/spirals-rings/CFHTLS_008_10921_6476_b_gri_zoom.png' width='340' height='340'>
         
         <%- translate 'p', 'guide.rings_spirals_text_2' %>
         
+        <%- translate 'h2', 'guide.rings' %>
+
         <img class='lazy' src='' data-original='images/guide/non-lenses/spirals-rings/CFHTLS_074_0786_gri.png' width='340' height='340'>
         <img class='lazy' src='' data-original='images/guide/non-lenses/spirals-rings/CFHTLS_074_0786_gri_zoom.png' width='340' height='340'>
         
         <%- translate 'p', 'guide.rings_spirals_text_3' %>
+
+        <img class='lazy' src='' data-original='images/guide/non-lenses/spirals-rings/SF_halo_arms.png' width='340' height='340'>
+        <img class='lazy' src='' data-original='images/guide/non-lenses/spirals-rings/SF_halo_arms_zoom.png' width='340' height='340'>
+        
+        <%- translate 'p', 'guide.rings_spirals_text_4' %>
+
+        <%- translate 'h2', 'guide.clumps' %>
+        <img class='lazy' src='' data-original='images/guide/non-lenses/spirals-rings/SF_clumpy_ring.png' width='340' height='340'>
+        <img class='lazy' src='' data-original='images/guide/non-lenses/spirals-rings/SF_clumpy_ring_zoom.png' width='340' height='340'>
+        
+        <%- translate 'p', 'guide.rings_spirals_text_5' %>
+
+
       </section>
     
       <section data-type="loners">
@@ -238,11 +255,16 @@
         
         <%- translate 'p', 'guide.loners_text_3' %>
 
+        <img class='lazy' src='' data-original='images/guide/non-lenses/loners/LN_faintred.png' width='340' height='340'>
+        <img class='lazy' src='' data-original='images/guide/non-lenses/loners/LN_faintred_zoom.png' width='340' height='340'>
+        
+        <%- translate 'p', 'guide.loners_text_4' %>
+
         <%- translate 'h2', 'guide.blue_group' %>
         <img class='lazy' src='' data-original='images/guide/non-lenses/loners/CFHTLS_110_1042_7688_b_gri.png' width='340' height='340'>
         <img class='lazy' src='' data-original='images/guide/non-lenses/loners/CFHTLS_110_1042_7688_b_gri_zoom.png' width='340' height='340'>
         
-        <%- translate 'p', 'guide.loners_text_4' %>
+        <%- translate 'p', 'guide.loners_text_5' %>
       </section>
     
       <section data-type="lightweights">
@@ -275,14 +297,32 @@
         <img class='lazy' src='' data-original='images/guide/non-lenses/lightweights/CFHTLS_084_6943_2087_b_gri.png' width='340' height='340'>
         <img class='lazy' src='' data-original='images/guide/non-lenses/lightweights/CFHTLS_084_6943_2087_b_gri_zoom.png' width='340' height='340'>
         <%- translate 'p', 'guide.mergers_neighbors_text_4' %>
+
+
+        <img class='lazy' src='' data-original='images/guide/non-lenses/lightweights/MN_satellites.png' width='340' height='340'>
+        <img class='lazy' src='' data-original='images/guide/non-lenses/lightweights/MN_satellites_zoom.png' width='340' height='340'>
+        <%- translate 'p', 'guide.mergers_neighbors_text_5' %>
+
       </section>
       
       <section data-type="stars">
         <%- translate 'p', 'guide.stars_text_1' %>
         
-        <img class='lazy' src='' data-original='images/guide/non-lenses/stars/star_b_gri.png' width='340' height='340'>
-        <img class='lazy' src='' data-original='images/guide/non-lenses/stars/star_b_gri_zoom.png' width='340' height='340'>
+        <img class='lazy' src='' data-original='images/guide/non-lenses/stars/ST_colhalo.png' width='340' height='340'>
+        <img class='lazy' src='' data-original='images/guide/non-lenses/stars/ST_colhalo_annot.png' width='340' height='340'>
         <%- translate 'p', 'guide.stars_text_2' %>
+
+        <img class='lazy' src='' data-original='images/guide/non-lenses/stars/ST_vsaturated.png' width='340' height='340'>
+        <%- translate 'p', 'guide.stars_text_3' %>
+
+        <img class='lazy' src='' data-original='images/guide/non-lenses/stars/ST_bright_trio.png' width='340' height='340'>
+        <%- translate 'p', 'guide.stars_text_4' %>
+
+        <img class='lazy' src='' data-original='images/guide/non-lenses/stars/ST_bluehalo.png' width='340' height='340'>
+        <img class='lazy' src='' data-original='images/guide/non-lenses/stars/ST_bluehalo_annot.png' width='340' height='340'>
+        <%- translate 'p', 'guide.stars_text_5' %>
+
+
       </section>
        
     </section>
