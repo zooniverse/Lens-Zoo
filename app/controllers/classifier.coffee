@@ -629,6 +629,9 @@ class Classifier extends Page
     # Record language
     @classification.annotate {language: localStorage.preferredLanguage}
 
+    # Record stage
+    @classification.annotate {stage: 2}
+
     @classification.send()
 
     # Empty SVG element
