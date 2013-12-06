@@ -238,6 +238,12 @@
         
         <%- translate 'p', 'guide.rings_spirals_text_5' %>
 
+        <%- translate 'h2', 'guide.red' %>
+        <img class='lazy' src='' data-original='images/guide/non-lenses/spirals-rings/SF_red_spiral.png' width='340' height='340'>
+        <img class='lazy' src='' data-original='images/guide/non-lenses/spirals-rings/SF_red_spiral_zoom.png' width='340' height='340'>
+
+        <%- translate 'p', 'guide.rings_spirals_text_6' %>
+
 
       </section>
     
@@ -299,8 +305,8 @@
         <%- translate 'p', 'guide.mergers_neighbors_text_4' %>
 
 
-        <img class='lazy' src='' data-original='images/guide/non-lenses/lightweights/MN_satellites.png' width='340' height='340'>
-        <img class='lazy' src='' data-original='images/guide/non-lenses/lightweights/MN_satellites_zoom.png' width='340' height='340'>
+        <img class='lazy' src='' data-original='images/guide/non-lenses/neighbours/MN_satellites.png' width='340' height='340'>
+        <img class='lazy' src='' data-original='images/guide/non-lenses/neighbours/MN_satellites_zoom.png' width='340' height='340'>
         <%- translate 'p', 'guide.mergers_neighbors_text_5' %>
 
       </section>
