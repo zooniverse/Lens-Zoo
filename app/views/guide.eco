@@ -12,6 +12,7 @@
     <ul class="guide-menu">
       <%- translate 'li', 'guide.real_lenses', 'data-type': 'real-lenses', class: 'show' %>
       <%- translate 'li', 'guide.false_positives', 'data-type': 'false-positives', class: '' %>
+      <%- translate 'li', 'guide.artifacts', 'data-type': 'artifacts', class: '' %>
     </ul>
     
     <section data-type="real-lenses" class='show'>
@@ -328,10 +329,35 @@
         <img class='lazy' src='' data-original='images/guide/non-lenses/stars/ST_bluehalo_annot.png' width='340' height='340'>
         <%- translate 'p', 'guide.stars_text_5' %>
 
+        <img class='lazy' src='' data-original='images/guide/non-lenses/stars/black_square.png' width='340' height='340'>
+        <%- translate 'p', 'guide.stars_text_6' %>
 
       </section>
        
+
     </section>
-    
+
+    <section data-type="artifacts" class='show'>
+        <%- translate 'p', 'guide.artifacts_text_1' %>
+        
+        <%- translate 'h2', 'guide.fast_moving' %>
+        <img class='lazy' src='' data-original='images/guide/artifacts/AT_satellite_green.png' width='340' height='340'>
+        <img class='lazy' src='' data-original='images/guide/artifacts/AT_satellite_blue_annot.png' width='340' height='340'>
+        <%- translate 'p', 'guide.artifacts_text_2' %>
+        
+        <%- translate 'h2', 'guide.slow_moving' %>
+        <img class='lazy' src='' data-original='images/guide/artifacts/AT_asteroid_n_zoom.png' width='340' height='340'>
+        <img class='lazy' src='' data-original='images/guide/artifacts/AT_asteroid_r_annot.png' width='340' height='340'>
+        <%- translate 'p', 'guide.artifacts_text_3' %>
+        <%- translate 'p', 'guide.artifacts_text_4' %>
+
+        <img class='lazy' src='' data-original='images/guide/artifacts/funny_green_spot.png' width='340' height='340'>
+        <img class='lazy' src='' data-original='images/guide/artifacts/funny_green_spot_zoom.png' width='340' height='340'>
+        <%- translate 'p', 'guide.artifacts_text_5' %>
+
+    </section>
+
+
+
   </div>
 </div>
