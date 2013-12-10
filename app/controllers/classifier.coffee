@@ -470,7 +470,7 @@ class Classifier extends Page
       @viewerEl.addClass('show')
 
       # Load current subject
-      @viewer.load(@classification.subject.metadata.id)
+      @viewer.load(@classification.subject.metadata.original_id || @classification.subject.metadata.id)
     else
       alert "Sorry this feature is not supported on IE."
 
