@@ -306,7 +306,7 @@
 
 
         <img class='lazy' src='' data-original='images/guide/non-lenses/neighbours/MN_satellites.png' width='340' height='340'>
-        <img class='lazy' src='' data-original='images/guide/non-lenses/neighbours/MN_satellites_zoom.png' width='340' height='340'>
+        <img class='lazy' src='' data-original='images/guide/non-lenses/neighbours/MN_satellites_zoom_annot.png' width='340' height='340'>
         <%- translate 'p', 'guide.mergers_neighbors_text_5' %>
 
       </section>
