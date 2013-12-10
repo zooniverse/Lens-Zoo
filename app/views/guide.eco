@@ -245,7 +245,6 @@
 
         <%- translate 'p', 'guide.rings_spirals_text_6' %>
 
-
       </section>
     
       <section data-type="loners">
@@ -337,7 +336,7 @@
 
     </section>
 
-    <section data-type="artifacts" class='show'>
+    <section data-type="artifacts">
         <%- translate 'p', 'guide.artifacts_text_1' %>
         
         <%- translate 'h2', 'guide.fast_moving' %>
