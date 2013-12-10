@@ -352,7 +352,7 @@ class Classifier extends Page
       tutorial.start()
 
   onNoMoreSubjects: ->
-    alert "We've run out of subjects."
+    alert "Thanks! You've classified all of the available candidates. To see what everyone else thought about them, please head over to Talk. You can use the 'Discuss' button on the lefthand sidebar, or choose a subject from your profile page and go from there. Have fun!"
 
   #
   # Annotation functions
