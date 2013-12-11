@@ -25,7 +25,16 @@ api = new Api
 
 # Initialize Counter model
 new Counter({classified: 0, potentials: 0, favorites: 0}).save()
-  
+
+enUs = require 'translations/en_us'
+esCl = require 'translations/es_cl'
+translate.load enUs
+
+languageManager = new LanguageManager
+  translations:
+    en: label: 'English', strings: enUs
+    es: label: 'Español', strings: esCl
+
 # Navigation
 $('body').append require 'views/navigation'
 
@@ -52,14 +61,6 @@ stack = new Stack
   default: 'home'
 
 stack.el.appendTo 'body'
-
-enUs = require 'translations/en_us'
-esCl = require '/translations/es_cl'
-
-languageManager = new LanguageManager
-  translations:
-    en: label: 'English', strings: enUs
-    es: label: 'Español', strings: esCl
 
 languageManager.on 'change-language', (e, code, strings) ->
   translate.load strings
