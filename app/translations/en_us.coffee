@@ -366,8 +366,11 @@ module.exports =
   guide:
     heading: "Spotter's Guide"
     tagline: "This guide contains examples of real lenses and other astronomical objects that are typically mistaken for gravitational lenses, resulting in &quot;false positive&quot; detections."
+    
+    home: "Home"
     real_lenses: "Real Lenses"
     false_positives: "False Positives"
+    artifacts: "Artifacts"
     
     lensed_galaxies: "Lensed Galaxies"
     lensed_quasars: "Lensed Quasars"
@@ -443,7 +446,6 @@ module.exports =
     stars_text_5: "Here's one of the CFHTLS images that we've marked up with stars and galaxies. It doesn't contain any gravitational lens candidates, but it hopefully gives you an idea of what different kinds of objects look like in the CFHT images. Note that the blue star to the left has black marks above and below the white/blue core. This is one of the artifacts associated to saturation. The detector becomes so overwhelmed that the data recorded in that pixel becomes unreadable and in software the pixel is flagged as not having a real measurement in it. This results in black pixels that do not contain any information as the measurement is unreliable."
     stars_text_6: "Another example of the effect of saturated pixels is shown to the right where you see a black rectangle around the north-south diffraction spike, note the yellow and red along the centre are also a saturation effect and no reliable flux measurement can be taken for such a saturated object."
 
-    artifacts: "Artifacts"
     artifacts_text_1: "The process of recording astronomical images into the nice maps of the sky you see here  can lead to some interesting looking artifacts in the data that aren't real. In addition there are real objects in the sky that are moving (either fast or slow) that can leave strange features in the data. In looking for these artifacts remember that the images we present you are colour images made up of three channels: red, green and blue. Some of these artifacts effects can only one of the channels, leading to pure red, green or blue features. The actual astronomical filters we use in these colour channels are red: i-band (just outside the visible range our eyes are sensitive to), green: r-band (middle wavelength, the reddest light our eyes can see), and blue: g-band (what our eyes would see as green). There are some examples of moving target artifacts below and examples of artifacts caused by bright stars can be found in False Positives: Stars." 
     fast_moving: "Fast moving objects (e.g. fast asteroids, satellites, planes)"
     artifacts_text_2: "These are examples of fast moving objects. As the camera observes the sky for a fixed amount of time per exposure, fast moving objects make trails in the data. Left image: the object was only in the field when the green image was taken therefore it appears green. Right image: the object was only in the field in the blue image and therefore it appears blue. Its trail has a break in it as the image you see is actually made up of several images that were taken close together (probably consecutive exposures), so the moving target looks like it has effectively jumped in it's trails from one frame to the next."
@@ -452,6 +454,11 @@ module.exports =
     artifacts_text_4: "You can also see another artifact in this image. There is some green fuzz in a vertical stripe down one third of the way from the left of the image. This is the result of the stacking and stiching of images to produce this image. Because this is green, it means that this noisy component comes from the green channel which is the r-band image. So you can also see it as a noisy stripe in the r-band image on the right above. This marks an overlap between individual images where the edge of one of the input images is noisier than the others. This is usually becuase in these stripes there is actually less data than other regions of the image, less data means the noise is a more dominant feature."
     artifacts_text_5: "In this image there is a pure green spot. This is likely to be a moving target that was slow moving so it doesn't appear as a trail. What has happened in this case is that the images used for the red and blue channels were taken at a very different time to the green by which time the object has moved. Note that stars and galaxies are never single colours as they have a broad wavelength range over which they emit and they do not move fast enough to cause trails or appear in only one of the colour channels."
 
+    home_VICS82_text_1: "Welcome to the VICS82 survey!"
+    home_VICS82_whats_all_this: "What are we looking at?"
+    home_VICS82_text_2: "Infrared images!"
+    home_VICS82_hows_it_different: "How is this different from previous Space Warps projects?"
+    home_VICS82_text_3: "Infrared images look different!"
 
 
 
