@@ -21,9 +21,12 @@
         
         <%- translate 'h2', 'guide.intro_VICS82_whats_all_this' %>
         <%- translate 'p', 'guide.intro_VICS82_text_2' %>
+        <%- translate 'p', 'guide.intro_VICS82_text_3' %>
+        <%- translate 'p', 'guide.intro_VICS82_text_4' %>
         
         <%- translate 'h2', 'guide.intro_VICS82_hows_it_different' %>
-        <%- translate 'p', 'guide.intro_VICS82_text_3' %>
+        <%- translate 'p', 'guide.intro_VICS82_text_5' %>
+        <%- translate 'p', 'guide.intro_VICS82_text_6' %>
     </section>
 
     <section data-type="real-lenses" class=''>
