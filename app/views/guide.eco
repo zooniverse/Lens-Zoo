@@ -10,30 +10,25 @@
 <div class="guide-content">
   <div class="content">
     <ul class="guide-menu">
-      <%- translate 'li', 'guide.home', 'data-type': 'home', class: 'show' %>
+      <%- translate 'li', 'guide.intro', 'data-type': 'intro', class: 'show' %>
       <%- translate 'li', 'guide.real_lenses', 'data-type': 'real-lenses', class: '' %>
       <%- translate 'li', 'guide.false_positives', 'data-type': 'false-positives', class: '' %>
       <%- translate 'li', 'guide.artifacts', 'data-type': 'artifacts', class: '' %>
     </ul>
 
-    BUG: guide shows home tab on load, but does not display home content 
-         when navigation returns to that tab. Error message is:
-         XMLHttpRequest cannot load https://sleuther.herokuapp.com/events/. No 'Access-Control-Allow-Origin' header is present on the requested resource. Origin 'http://0.0.0.0:9294' is therefore not allowed access. 
-     
-
-    <section data-type="home" class="show">
-        <%- translate 'p', 'guide.home_VICS82_text_1' %>
+    <section data-type="intro" class='show'>
+        <%- translate 'p', 'guide.intro_VICS82_text_1' %>
         
-        <%- translate 'h2', 'guide.home_VICS82_whats_all_this' %>
-        <%- translate 'p', 'guide.home_VICS82_text_2' %>
+        <%- translate 'h2', 'guide.intro_VICS82_whats_all_this' %>
+        <%- translate 'p', 'guide.intro_VICS82_text_2' %>
         
-        <%- translate 'h2', 'guide.home_VICS82_hows_it_different' %>
-        <%- translate 'p', 'guide.home_VICS82_text_3' %>
+        <%- translate 'h2', 'guide.intro_VICS82_hows_it_different' %>
+        <%- translate 'p', 'guide.intro_VICS82_text_3' %>
     </section>
 
     <section data-type="real-lenses" class=''>
       <ul class="menu">
-        <%- translate 'li', 'guide.lensed_galaxies', 'data-type': 'lensed-galaxies' %>
+        <%- translate 'li', 'guide.lensed_galaxies', 'data-type': 'lensed-galaxies', class: 'show' %>
         <%- translate 'li', 'guide.lensed_quasars', 'data-type': 'lensed-quasars' %>
         <%- translate 'li', 'guide.group_lenses', 'data-type': 'lensing-clusters' %>
       </ul>

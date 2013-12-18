@@ -367,7 +367,7 @@ module.exports =
     heading: "Spotter's Guide"
     tagline: "This guide contains examples of real lenses and other astronomical objects that are typically mistaken for gravitational lenses, resulting in &quot;false positive&quot; detections."
     
-    home: "Home"
+    intro: "Home"
     real_lenses: "Real Lenses"
     false_positives: "False Positives"
     artifacts: "Artifacts"
@@ -454,11 +454,11 @@ module.exports =
     artifacts_text_4: "You can also see another artifact in this image. There is some green fuzz in a vertical stripe down one third of the way from the left of the image. This is the result of the stacking and stiching of images to produce this image. Because this is green, it means that this noisy component comes from the green channel which is the r-band image. So you can also see it as a noisy stripe in the r-band image on the right above. This marks an overlap between individual images where the edge of one of the input images is noisier than the others. This is usually becuase in these stripes there is actually less data than other regions of the image, less data means the noise is a more dominant feature."
     artifacts_text_5: "In this image there is a pure green spot. This is likely to be a moving target that was slow moving so it doesn't appear as a trail. What has happened in this case is that the images used for the red and blue channels were taken at a very different time to the green by which time the object has moved. Note that stars and galaxies are never single colours as they have a broad wavelength range over which they emit and they do not move fast enough to cause trails or appear in only one of the colour channels."
 
-    home_VICS82_text_1: "Welcome to the VICS82 survey!"
-    home_VICS82_whats_all_this: "What are we looking at?"
-    home_VICS82_text_2: "Infrared images!"
-    home_VICS82_hows_it_different: "How is this different from previous Space Warps projects?"
-    home_VICS82_text_3: "Infrared images look different!"
+    intro_VICS82_text_1: "Welcome to the VICS82 survey!"
+    intro_VICS82_whats_all_this: "What are we looking at?"
+    intro_VICS82_text_2: "Infrared images!"
+    intro_VICS82_hows_it_different: "How is this different from previous Space Warps projects?"
+    intro_VICS82_text_3: "Infrared images look different!"
 
 
 
