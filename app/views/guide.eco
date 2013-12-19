@@ -20,13 +20,20 @@
         <%- translate 'p', 'guide.intro_VICS82_text_1' %>
         
         <%- translate 'h2', 'guide.intro_VICS82_whats_all_this' %>
+
         <%- translate 'p', 'guide.intro_VICS82_text_2' %>
+        
+        <img class='lazy' src='' data-original='images/guide/lenses/cluster-galaxy/VICS82_5000179_iJK.png' width='200' height='200'>
+        <img class='lazy' src='' data-original='images/guide/lenses/elliptical-galaxy/VICS82_5000326_iJK.png' width='200' height='200'>
+        <img class='lazy' src='' data-original='images/guide/lenses/cluster-galaxy/VICS82_5003998_iJK.png' width='200' height='200'>
+        
         <%- translate 'p', 'guide.intro_VICS82_text_3' %>
         <%- translate 'p', 'guide.intro_VICS82_text_4' %>
         
         <%- translate 'h2', 'guide.intro_VICS82_hows_it_different' %>
         <%- translate 'p', 'guide.intro_VICS82_text_5' %>
         <%- translate 'p', 'guide.intro_VICS82_text_6' %>
+        <%- translate 'p', 'guide.intro_VICS82_text_7' %>
     </section>
 
     <section data-type="real-lenses" class=''>
