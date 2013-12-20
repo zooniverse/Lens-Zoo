@@ -6,25 +6,40 @@ browserDialog = require 'zooniverse/controllers/browser-dialog'
 
 class QuickDashboard extends Controller
   dimension: 441
-  bands:  ['g', 'r', 'i']
+  bands:  ['i', 'J', 'Ks']
   source: 'http://spacewarps.org.s3.amazonaws.com/subjects/raw/'
   
   cache: {}
   prefix: null
   
   parameters:
+    # VICS82 VISTA IR data, PROV = 'V':
     0:
-      alpha: 0.09
-      Q: 1.0
-      scales: [0.4, 0.6, 1.7]
+      alpha: 0.0040
+      Q: 1.5
+      scales: [1.0, 1.4, 2.0]
     1:
-      alpha: 0.17
-      Q: 1.0
-      scales: [0.4, 0.6, 1.7]
+      alpha: 0.0080
+      Q: 1.5
+      scales: [1.0, 1.4, 2.0]
     2:
-      alpha: 0.11
-      Q: 2
-      scales: [0.4, 0.6, 2.5]
+      alpha: 0.0060
+      Q: 2.0
+      scales: [1.0, 1.4, 4.0]
+
+    # CICS82, CFHT IR data, PROV = 'C':
+    3:
+      alpha: 0.0020
+      Q: 1.5
+      scales: [1.0, 1.4, 6.0]
+    4:
+      alpha: 0.0040
+      Q: 1.5
+      scales: [1.0, 1.4, 6.0]
+    5:
+      alpha: 0.0032
+      Q: 2.0
+      scales: [1.0, 1.4, 12.0]
   
   events:
     'click a[data-preset]'  : 'onParameterChange'
@@ -190,19 +205,17 @@ class QuickDashboard extends Controller
       <div class='viewer-tools'>
         <div class='controls'>
           <a title='See the same view as on the main interface.' href='' data-preset='0'>Standard</a>
-          <a title="Turn down the yellow galaxies’ brightness" href='' data-preset='1'>Brighter</a>
-          <a title='Turn up the brightness of the faintest objects' href='' data-preset='2'>Bluer</a>
+          <a title="Turn down the bright galaxies' brightness" href='' data-preset='1'>Brighter</a>
+          <a title='Turn up the brightness of the bluer objects' href='' data-preset='2'>Bluer</a>
           <a title='Back to main interface' href='' data-preset='finished'>Return</a>
         </div>
         <div class='flag'>?</div>
         <div class='instructions'>Scroll to zoom.  Drag to move around the image.</div>
         <div class='download'>
           Download Data:
-          <a href='#{@source}#{@prefix}_u.fits.fz'>u</a>
-          <a href='#{@source}#{@prefix}_g.fits.fz'>g</a>
-          <a href='#{@source}#{@prefix}_r.fits.fz'>r</a>
           <a href='#{@source}#{@prefix}_i.fits.fz'>i</a>
-          <a href='#{@source}#{@prefix}_z.fits.fz'>z</a>
+          <a href='#{@source}#{@prefix}_J.fits.fz'>J</a>
+          <a href='#{@source}#{@prefix}_Ks.fits.fz'>Ks</a>
         </div>
       </div>
       """
@@ -225,12 +238,17 @@ class QuickDashboard extends Controller
     @classifier.preset = preset
     
     # Get a preset and apply to color composite
+    # NEED CONDITIONAL HERE BASED ON VALUE OF PROV KEYWORD IN KS IMAGE HEADER!
+    #   New wfits method? Add 3 to preset to get CICS82 instructions.
+    
     parameters = @parameters[preset]
+    
+    # NEED TO READ ZPTS HERE! New wfits method?
     @wfits.setCalibrations(1, 1, 1)
     @wfits.setScales.apply(@wfits, parameters.scales)
     @wfits.setAlpha(parameters.alpha)
     @wfits.setQ(parameters.Q)
-    @wfits.drawColor('i', 'r', 'g')
+    @wfits.drawColor('Ks', 'J', 'i')
   
   teardown: =>
     @wfits?.teardown()
