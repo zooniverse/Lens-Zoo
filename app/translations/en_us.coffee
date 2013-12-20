@@ -116,20 +116,20 @@ module.exports =
       details: "Check out The Spotter's Guide  for detailed descriptions and reference images of Real Lenses and False Positives.  You can use the Spotter's Guide as a reference throughout your time on Space Warps."
     identify: 
       header: "Identifying gravitational lenses"
-      details: "The yellow-ish looking galaxy is a gravitational lens. It is bending and magnifying the light from a faint blue galaxy, lying far behind, into a blue arc that surrounds the lensing galaxy."
+      details: "The group of orange galaxies is a gravitational lens. It is bending and magnifying the light from a faint galaxy, lying far behind, into a blue arc that surrounds the lensing galaxy."
     mark: 
       header: "Marking lensed features"
-      details: "If you see something that is being lensed, mark it. In this case, click on the blue arc."
-      details_stage2: "If you see something that is being lensed, and you have checked the Spotter's Guide to make sure it is not a False Positive, mark it. In this case, click on the blue arc!"
+      details: "If you see something that is being lensed, mark it. In this case, click on the arc."
+      details_stage2: "If you see something that is being lensed, and you have checked the Spotter's Guide to make sure it is not a False Positive, mark it. In this case, click on the arc!"
     good_job:
       header: "Great job!"
-      details: "You’ve correctly identified a gravitational lens!<br/><br/>To remove a marker, just click it and you will see the remove button."
+      details: "You've correctly identified a gravitational lens!<br/><br/>To remove a marker, just click it and you will see the remove button."
     try_again:
       header: "Whoops, try again."
-      details: "Drag the marker over the blue arc to identify the lens."
+      details: "Drag the marker over the arc to identify the lens."
     training:
       header: "Training images"
-      details: "From time to time we'll throw in a training image like this one, that contains a simulated or previously known gravitational lens. We'll let you know if you spot the lenses in training images."
+      details: "From time to time we'll throw in a training image like this one, that contains a simulated gravitational lens. We'll let you know if you spot the lenses in training images."
       details_stage2: "From time to time we'll throw in a training image like this one, that either contains a simulated gravitational lens, or an object that could be confused with a lens (a 'False Positive'). We'll let you know how you got on!"
     thanks:
       header: "Thanks!"
