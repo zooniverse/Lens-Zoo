@@ -355,7 +355,8 @@ class Classifier extends Page
     # Create annotation and push to object
     position = $('.subject.current .image').position()
     x = e.pageX - position.left
-    y = e.pageY - position.top
+    y = e.pageY - position.top + 10 
+    #HACK (Snyder): +10 pixels to make up for missing 'English' sign
     
     annotation = new Annotation({el: @svg, x: x, y: y, index: @annotationIndex})
     @annotations[@annotationIndex] = annotation
