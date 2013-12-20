@@ -238,12 +238,13 @@ class QuickDashboard extends Controller
     @classifier.preset = preset
     
     # Get a preset and apply to color composite
+    parameters = @parameters[preset]
+
     # NEED CONDITIONAL HERE BASED ON VALUE OF PROV KEYWORD IN KS IMAGE HEADER!
     #   New wfits method? Add 3 to preset to get CICS82 instructions.
-    
-    parameters = @parameters[preset]
-    
-    # NEED TO READ ZPTS HERE! New wfits method?
+        
+    # NEED TO READ ZPTS HERE FROM IMAGE HEADER, TO GET IMAGES CALIBRATED! 
+    # Needs a new wfits method?
     @wfits.setCalibrations(1, 1, 1)
     @wfits.setScales.apply(@wfits, parameters.scales)
     @wfits.setAlpha(parameters.alpha)
