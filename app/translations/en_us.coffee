@@ -170,16 +170,16 @@ module.exports =
       lensed_quasar:
         option_1: "Typically, lensed quasar systems show either two ('doubles') or four ('quads') small lensed features, which look like stars. Mark each of the two, or four, quasars that you see!"
         option_2: "See how the 'multiple images' of the background quasar are arranged in symmetrical patterns around the lens galaxy. Mark each one! You might have to zoom in, using the Quick Dashboard."
-        option_3: "Most lensed quasars look blue, but the more distant ones look fainter, and yellow or red (having been 'redshifted' by the expansion of the universe)."
+        option_3: "Quasars can have a wide variety of colours in infrared images, as you'll see from the many images that contain unlensed quasars at their centres."
         option_4: "Quasars look different from other galaxies, because we are not seeing starlight but rather the light from supermassive black holes in their centres. These monsters often outshine the light from the rest of the galaxy."
         option_5: "We expect lensed quasars to be about 10 times rarer than lensed galaxies, but they are really useful. You can read more about what we use gravitational lenses for on the <em>Science</em> page."
         option_6: "You can read more about lensed quasars in the <em>Spotters Guide</em>."
       lensed_galaxy:
-        option_1: "The most common background galaxies in the universe (those little blobs you see everywhere) are faint, blue, and star-forming, so usually (but not always!), lensed galaxies appear blue."
-        option_2: "Unlike most little blue galaxies you see, lensed galaxies appear stretched and curved around the lens."
+        option_1: "The most common background galaxies in the universe are faint, blue, and star-forming, so lensed galaxies often (but not always!) appear blue-ish."
+        option_2: "Unlike most galaxies you see in these images, lensed galaxies appear stretched and curved around a lensing object."
         option_3: "The lensed features in these systems are typically only a galaxy diameter or two away from the centre of the lens. You might have to zoom in, with the Quick Dashboard!"
         option_4: "Look for a faint “counter-image” with the same colour on the opposite side of the lens to the arc. Sometimes these are too faint to see though. Mark the counter-image too, if you can!"
-        option_5: "The galaxy acting as a lens is most likely to be a bright, smooth, yellow or red elliptical galaxy, since these are the most massive galaxies."
+        option_5: "The galaxy acting as a lens is most likely to be a bright, smooth, orange elliptical galaxy, since these are the most massive galaxies."
         option_6: "Very occasionally, if the cosmic alignment is very precise, the galaxy behind the lens will appear as an almost exactly circular Einstein Ring."
         option_7: "You can read more about lensed galaxies in the <em>Spotters Guide</em>."
       missed:
