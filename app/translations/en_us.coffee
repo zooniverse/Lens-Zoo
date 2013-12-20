@@ -267,7 +267,7 @@ module.exports =
         <h3>What do I do if I see more than one lensed image per lens system?</h3>
         <p>You should place a marker on at least one lensed feature that you see per lens system. If you see an arc, mark it and preferably, mark its counter-arc if you can see it. If you see a pair of quasars (compact objects) either side of a lensing galaxy, mark both of them preferably. You only need to mark one lensed feature for your identification to be registered, but you can mark multiple features if you wish.</p>
         <h3>When should I use the Quick Dashboard?</h3>
-        <p>Many lensed images are faint and very close to the bright yellow lensing galaxies. You can switch to the Quick Dashboard to play with different settings or zoom/pan to get a detailed view near the lensing galaxy and be more confident of not missing a faint lens.</p>
+        <p>Many lensed images are faint and very close to the bright orange lensing galaxies. You can switch to the Quick Dashboard to play with different settings or zoom/pan to get a detailed view near the lensing galaxy and be more confident of not missing a faint lens.</p>
         <h3>I missed a lens! How do I go back?</h3>
         <p>The last image you saw is in your 'Recents' list, on your <a href=\"#/profile\">Profile</a>. You can click on this image to take it to Talk, where you can tag it for other people to see, and discuss it with them.</p>
         <h3>Can I delete my markers?</h3>
