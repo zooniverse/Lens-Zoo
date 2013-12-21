@@ -30,7 +30,7 @@
     </div>
     
     <%- translate 'h2', 'about.discovering' %>
-    <%- translate 'p', 'about.discovering_text' %>
+    <%- translate 'p', 'about.discovering_targeted_text' %>
   </section>
   
   <section data-type='team'>
@@ -38,11 +38,11 @@
     
     <div class='bio'>
       <h4 class='name'>Phil Marshall<span class='twitter'><a href="https://twitter.com/intent/user?screen_name=drphilmarshall">@drphilmarshall</a></span></h4>
-      <%- translate 'p', 'about.marshall_bio' %>
+      <%- translate 'p', 'about.marshall_bio2' %>
     </div>
     
     <div class='bio'>
-      <h4 class='name'>Aprajita Verma<span class='twitter'><a href="https://twitter.com/intent/user?screen_name=aprajita">@aprajita</a></span></h4>
+      <h4 class='name'>Aprajita Verma<span class='twitter'><a href="https://twitter.com/intent/user?screen_name=aprajitaverma">@aprajitaverma</a></span></h4>
       <%- translate 'p', 'about.verma_bio' %>
     </div>
     
@@ -52,7 +52,7 @@
     </div>
     
     <div class='bio'>
-      <h4 class='name'>Elisabeth Baeten<span class='twitter'><a href="https://twitter.com/intent/user?screen_name=ElisabethB">@ElisabethB</a></span></h4>
+      <h4 class='name'>Elisabeth Baeten<span class='twitter'><a href="https://twitter.com/intent/user?screen_name=ElisabethBaeten">@ElisabethBaeten</a></span></h4>
       <%- translate 'p', 'about.baeten_bio' %>
     </div>
     
@@ -62,12 +62,12 @@
     </div>
     
     <div class='bio'>
-      <h4 class='name'>Cécile Faure<span class='twitter'><a href="https://twitter.com/intent/user?screen_name=cecilefaure">@cecilefaure</a></span></h4>
+      <h4 class='name'>Cécile Faure<span class='twitter'><a href="https://twitter.com/intent/user?screen_name=DrCecileFaure">@DrCecileFaure</a></span></h4>
       <%- translate 'p', 'about.faure_bio' %>
     </div>
     
     <div class='bio'>
-      <h4 class='name'>Janine Fohlmeister<span class='twitter'><a href="https://twitter.com/intent/user?screen_name=JanineF">@JanineF</a></span></h4>
+      <h4 class='name'>Janine Fohlmeister</h4>
       <%- translate 'p', 'about.fohlmeister_bio' %>
     </div>
     
@@ -77,7 +77,7 @@
     </div>
     
     <div class='bio'>
-      <h4 class='name'>Thomas J<span class='twitter'><a href="https://twitter.com/intent/user?screen_name=thomas_j">@thomas_j</a></span></h4>
+      <h4 class='name'>Thomas J</h4>
       <%- translate 'p', 'about.thomas_j_bio' %>
     </div>
     
@@ -97,17 +97,17 @@
     </div>
     
     <div class='bio'>
-      <h4 class='name'>Prasenjit Saha<span class='twitter'><a href="https://twitter.com/intent/user?screen_name=psaha">@psaha</a></span></h4>
+      <h4 class='name'>Prasenjit Saha</h4>
       <%- translate 'p', 'about.saha_bio' %>
     </div>
     
     <div class='bio'>
-      <h4 class='name'>Matthias Tecza<span class='twitter'><a href="https://twitter.com/intent/user?screen_name=mtecza">@mtecza</a></span></h4>
+      <h4 class='name'>Matthias Tecza</h4>
       <%- translate 'p', 'about.tecza_bio' %>
     </div>
     
     <div class='bio'>
-      <h4 class='name'>Julianne Wilcox<span class='twitter'><a href="https://twitter.com/intent/user?screen_name=capella05">@capella05</a></span></h4>
+      <h4 class='name'>Julianne Wilcox<span class='twitter'><a href="https://twitter.com/intent/user?screen_name=Capella_SA">@Capella_SA</a></span></h4>
       <%- translate 'p', 'about.wilcox_bio' %>
     </div>
     

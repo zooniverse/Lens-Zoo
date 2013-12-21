@@ -46,6 +46,7 @@ class Classifier extends Page
   subjectGroup: '5154a3783ae74086ab000001'
   simulationGroup: '5154a3783ae74086ab000002'
   
+  
   elements:
     '.mask'                     : 'maskEl'
     '.viewer'                   : 'viewerEl'
@@ -60,7 +61,8 @@ class Classifier extends Page
     'click .annotation'                       : 'onAnnotation'
     'click g'                                 : 'stopPropagation'
     'click .remove-all'                       : 'removeAnnotations'
-
+  
+  
   constructor: ->
     super
     
@@ -213,10 +215,6 @@ class Classifier extends Page
       firstStep: 'welcome'
       steps: TutorialSteps
       parent: @el[0]
-
-    @tutorial.el.on 'start-tutorial enter-tutorial-step', =>
-      translate.refresh @tutorial.el.get 0
-      
     @tutorial.el.bind('end-tutorial', @onTutorialEnd)
     
     # Set first tutorial subject
@@ -332,10 +330,6 @@ class Classifier extends Page
         firstStep: 'dashboard'
         steps: TutorialDashboard
         parent: @el[0]
-
-      tutorial.el.on 'start-tutorial enter-tutorial-step', ->
-        translate.refresh tutorial.el.get 0
-
       tutorial.start()
     
     # Prompt Talk message
@@ -345,10 +339,6 @@ class Classifier extends Page
         firstStep: 'talk'
         steps: TutorialTalk
         parent: @el[0]
-
-      tutorial.el.on 'start-tutorial enter-tutorial-step', ->
-        translate.refresh tutorial.el.get 0
-
       tutorial.start()
       
   onNoMoreSubjects: ->
@@ -364,9 +354,9 @@ class Classifier extends Page
     
     # Create annotation and push to object
     position = $('.subject.current .image').position()
-
     x = e.pageX - position.left
-    y = e.pageY - position.top + 11
+    y = e.pageY - position.top + 10 
+    #HACK (Snyder): +10 pixels to make up for missing 'English' sign
     
     annotation = new Annotation({el: @svg, x: x, y: y, index: @annotationIndex})
     @annotations[@annotationIndex] = annotation
@@ -705,9 +695,6 @@ class Classifier extends Page
         @tutorial = if nAnnotations > 0 then @createDudMissedFeedback(e) else @createDudFoundFeedback(e)
       
       # Start the tutorial
-      @tutorial?.el.on 'start-tutorial enter-tutorial-step', =>
-        translate.refresh @tutorial.el.get 0
-
       @tutorial?.start()
       
     else
