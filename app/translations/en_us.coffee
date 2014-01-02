@@ -100,19 +100,19 @@ module.exports =
       header_stage2: "Welcome to Space Warps Refine!"
       details: "Gravitational Lenses are very rare astronomical objects. We need your help finding them!"
       details_stage2: "Gravitational Lenses are very rare astronomical objects. In the first stage of the project, we found a few thousand candidates. Now we are trying to refine this sample to identify the really convincing ones, and we need your help!"
-    what_are_lenses_1: 
+    what_are_lenses_1:
       header: "What are gravitational lenses?"
       details: "Gravitational lenses are massive astronomical objects &ndash; such as galaxies &ndash; that lie in front of other, more distant galaxies. These massive objects act like huge, natural magnifying glasses. They focus light from distant objects towards us, allowing us to see further into the Universe."
     what_are_lenses_2:
       header: "What do gravitational lenses look like?"
       details: "Gravitational lenses can look different, depending on how they line up along the line-of-sight to us, and on the shape and type of the foreground lens and background objects."
-    spotters_guide: 
+    spotters_guide:
       header: "Spotter's Guide"
       details: "Check out The Spotter's Guide  for detailed descriptions and reference images of Real Lenses and False Positives.  You can use the Spotter's Guide as a reference throughout your time on Space Warps."
-    identify: 
+    identify:
       header: "Identifying gravitational lenses"
       details: "The group of orange galaxies in the center of the image is a gravitational lens. It is bending and magnifying the light from a faint galaxy, lying far behind, into a blue arc that surrounds the lensing galaxy."
-    mark: 
+    mark:
       header: "Marking lensed features"
       details: "If you see something that is being lensed, mark it. In this case, click on the arc."
       details_stage2: "If you see something that is being lensed, and you have checked the Spotter's Guide to make sure it is not a False Positive, mark it. In this case, click on the arc!"

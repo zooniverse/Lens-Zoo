@@ -184,8 +184,8 @@ class QuickDashboard extends Controller
   
   # NOTE: Using exposure time = 1.0
   getCalibration: (header) ->
-    zeroPoint = header.get('MZP_AB') or header.get('PHOT_C')
-    return Math.pow(10, zeroPoint - 30.0)
+    zeroPoint = header.get('MZP_AB')
+    return Math.pow(10, 0.4*(30.0 - zeroPoint))
   
   # Call when all channels are received (i.e. each deferred is resolved)
   allChannelsReceived: =>
@@ -239,13 +239,10 @@ class QuickDashboard extends Controller
     
     # Get a preset and apply to color composite
     parameters = @parameters[preset]
-
-    # NEED CONDITIONAL HERE BASED ON VALUE OF PROV KEYWORD IN KS IMAGE HEADER!
-    #   New wfits method? Add 3 to preset to get CICS82 instructions.
         
-    # NEED TO READ ZPTS HERE FROM IMAGE HEADER, TO GET IMAGES CALIBRATED! 
-    # Needs a new wfits method?
-    @wfits.setCalibrations(1, 1, 1)
+    # PJM: not sure this is the best way to pass down the calibrations array but it works:
+    # @wfits.setCalibrations(1, 1, 1)
+    @wfits.setCalibrations(@calibrations['Ks'],@calibrations['J'],@calibrations['i'])
     @wfits.setScales.apply(@wfits, parameters.scales)
     @wfits.setAlpha(parameters.alpha)
     @wfits.setQ(parameters.Q)
