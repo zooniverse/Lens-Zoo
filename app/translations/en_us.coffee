@@ -8,16 +8,11 @@ module.exports =
     faq: 'FAQ'
 
   home:
-    heading: "Imagine a galaxy, behind another galaxy.<br/>Think you won't see it? Think again."
-    subheading: "Massive galaxies warp space-time around themselves, bending light rays so that we can see around them. They're the Universe's own telescopes, but these gravitational lenses are very rare: we need your help to find them!"
-    discover: "Discover Lenses"
-    discover_snippet: "Help scientists identify these very rare astronomical objects."
-    refine_snippet: "Help scientists refine a sample of Space Warps lens candidates."
-    learn: "Learn about Lenses"
-    learn_snippet: "Find out more about the lenses you might spot in Space Warps."
-    news: "Latest News"
-    news_snippet: "Take a look to see what's happening."
-    get_started: "Get Started"
+    heading: "With the help of Stargazing Live, citizen scientists are finding hidden galaxies!"
+    participants: "Participants Worldwide"
+    imagesClassified: "Images Classified"
+    explanation: "Massive galaxies warp space-time around themselves, bending light rays so that we can see around them. They're the Universe's own telescopes, but these gravitational lenses are very rare: we need your help to find them!"
+    start: "Start Classifying"
 
   profile:
     no_user: "Please sign in to keep track of your classifications."
