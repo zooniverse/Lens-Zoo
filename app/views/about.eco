@@ -50,6 +50,12 @@
       <h4 class='name'>Anupreeta More<span class='twitter'><a href="https://twitter.com/intent/user?screen_name=anupreeta">@anupreeta</a></span></h4>
       <%- translate 'p', 'about.a_more_bio' %>
     </div>
+
+    <div class='bio'>
+      <h4 class='name'>Jim Geach<span class='twitter'><a href="https://twitter.com/intent/user?screen_name=jgeach">@jgeach</a></span></h4>
+      <%- translate 'p', 'about.geach_bio' %>
+    </div>
+    
     
     <div class='bio'>
       <h4 class='name'>Elisabeth Baeten<span class='twitter'><a href="https://twitter.com/intent/user?screen_name=ElisabethBaeten">@ElisabethBaeten</a></span></h4>
@@ -59,6 +65,11 @@
     <div class='bio'>
       <h4 class='name'>Claude Cornen</h4>
       <%- translate 'p', 'about.cornen_bio' %>
+    </div>
+    
+    <div class='bio'>
+      <h4 class='name'>Tom Collett<span class='twitter'><a href="https://twitter.com/intent/user?screen_name=TomCollettAstro">@TomCollettAstro</a></span></h4>
+      <%- translate 'p', 'about.collett_bio' %>
     </div>
     
     <div class='bio'>
@@ -84,6 +95,11 @@
     <div class='bio'>
       <h4 class='name'>Rafael Kueng</h4>
       <%- translate 'p', 'about.kueng_bio' %>
+    </div>
+    
+    <div class='bio'>
+      <h4 class='name'>Yen-Ting Lin</h4>
+      <%- translate 'p', 'about.lin_bio' %>
     </div>
     
     <div class='bio'>
@@ -116,7 +132,10 @@
       <%- translate 'p', 'about.wright_bio' %>
     </div>
     
+
+
     <%- translate 'h2', 'about.development_team' %>
+
     <div class='bio'>
       <h4 class='name'>Kelly Borden<span class='twitter'><a href="https://twitter.com/intent/user?screen_name=BordenKelly">@BordenKelly</a></span></h4>
       <%- translate 'p', 'about.borden_bio' %>
