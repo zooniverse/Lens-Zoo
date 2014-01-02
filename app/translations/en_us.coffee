@@ -8,16 +8,11 @@ module.exports =
     faq: 'FAQ'
 
   home:
-    heading: "Imagine a galaxy, behind another galaxy.<br/>Think you won't see it? Think again."
-    subheading: "Massive galaxies warp space-time around themselves, bending light rays so that we can see around them. They're the Universe's own telescopes, but these gravitational lenses are very rare: we need your help to find them!"
-    discover: "Discover Lenses"
-    discover_snippet: "Help scientists identify these very rare astronomical objects."
-    refine_snippet: "Help scientists refine a sample of Space Warps lens candidates."
-    learn: "Learn about Lenses"
-    learn_snippet: "Find out more about the lenses you might spot in Space Warps."
-    news: "Latest News"
-    news_snippet: "Take a look to see what's happening."
-    get_started: "Get Started"
+    heading: "With the help of Stargazing Live, citizen scientists are finding hidden galaxies!"
+    participants: "Participants Worldwide"
+    imagesClassified: "Images Classified"
+    explanation: "Massive galaxies warp space-time around themselves, bending light rays so that we can see around them. They're the Universe's own telescopes, but these gravitational lenses are very rare: we need your help to find them!"
+    start: "Start Classifying"
 
   profile:
     no_user: "Please sign in to keep track of your classifications."
@@ -468,4 +463,4 @@ module.exports =
     intro_VICS82_hows_it_different: "How is this different from previous Space Warps projects?"
     intro_VICS82_text_5: "Previously on Space Warps we were investigating images taken in the  optical part of the spectrum as part of the CFHT Legacy Survey (CFHTLS), where nearby massive galaxies look bright yellow, and star-forming galaxies in the background look bright blue. We were also doing a &quot;blind&quot; search, where there was not a target in the center of each image - and the images had larger fields of view, about 70 arcsec compared to the 40 arcsec of VICS82. Finally, the CFHTLS images are &quot;deeper&quot; (the exposure times were longer), so more galaxies can be seen in any given area than in VICS82. The consequence of this is that lenses will be harder to spot in VICS82!"
     intro_VICS82_text_6: "However, gravitational lensing works in the infrared the same way as it does in the optical: this means that we should see the same characteristic patterns of arcs, counter-arcs, rings and multiple image systems in the VICS82 images as we did in the CFHTLS ones, its just the colours will be a bit different - and the lensed features will be more difficult to pick out."
-    intro_VICS82_text_7: "There are a few ways to get round these problems, and explore the data further. On the main classification page you can check out any faint fuzzy features using the &quot;Quick Dashboard&quot;, where you can zoom in on an interesting object, and view it using different colour settings. If you look to the bottom right of the Quick Dashboard disply you can also download the individual files that make up the colour image. The image shown in blue is from the i-band, and is the deepest, most sensitive one; the near-infrared J-band is shown in green and the longer wavelength Ks-band in shown in red. Another way to explore these images in more detail is in Talk, where you can use the Full Dashboard in &quot;Tools&quot; to view the separate channel images and play with the display levels for each."
+    intro_VICS82_text_7: "There are a few ways to get round these problems, and explore the data further. On the main classification page you can check out any faint fuzzy features using the &quot;Quick Dashboard,&quot; where you can zoom in on an interesting object, and view it using different colour settings. If you look to the bottom right of the Quick Dashboard disply you can also download the individual files that make up the colour image. The image shown in blue is from the i-band, and is the deepest, most sensitive one; the near-infrared J-band is shown in green and the longer wavelength Ks-band in shown in red. Another way to explore these images in more detail is in Talk, where you can use the Full Dashboard in &quot;Tools&quot; to view the separate channel images and play with the display levels for each."

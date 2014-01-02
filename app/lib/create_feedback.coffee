@@ -1,23 +1,24 @@
 { Tutorial, Step }  = require 'zootorial'
 translate = require 't7e'
 
-FeedbackStrings  = translate.strings.feedback
-
 module.exports =
   createSimulationFoundFeedback: (e, trainingType, x, y) ->
-    
-    headers = details = []
-    headers.push key for key, value of FeedbackStrings.headers
-    details.push key for key, value of FeedbackStrings.details[trainingType]
+    FeedbackStrings  = translate.strings.feedback
+
+    headers = []
+    details = []
+
+    headers.push key for key of FeedbackStrings.headers
+    details.push key for key of FeedbackStrings.details[trainingType]
     
     # Get random header and detail
     index1 = Math.floor(Math.random() * headers.length)
-    index2 = Math.floor(Math.random() * details.length)
-    
+    index2 = Math.floor(Math.random() * details.length) + 1
+
     base_header = translate 'span', "feedback.base_header"
-    header = translate 'span', "feedback.headers[#{ index1 }]"
-    detail = translate 'span', "feedback.details.#{ trainingType }.#{ index2 }"
-    
+    header = translate 'span', "feedback.headers.#{ headers[index1] }"
+    detail = translate 'span', "feedback.details.#{ trainingType }.option_#{ index2 }"
+
     return new Tutorial
       id: 'simFound'
       firstStep: 'simFound'
@@ -37,12 +38,13 @@ module.exports =
             @viewer?.trigger 'close'
   
   createSimulationMissedFeedback: (e, trainingType, x, y) ->
+    FeedbackStrings  = translate.strings.feedback
     
     # Get random detail
     details = []
     details.push key for key, value of FeedbackStrings.details['missed']
-    index = Math.floor(Math.random() * details.length)
-    
+    index = Math.floor(Math.random() * details.length) + 1
+
     return new Tutorial
       id: 'simMissed'
       firstStep: 'simMissed'
