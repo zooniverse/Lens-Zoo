@@ -40,19 +40,22 @@ class Profile extends Page
   active: ->
     @el.find('[data-type="sim-freq"]').parent().remove()
     if User.current
-      Favorite.fetch()
-      Recent.fetch()
+      Favorite.fetch per_page: 8
+      Recent.fetch per_page: 8
+      @prefetched = true
     super
   
   onUserChange: (e, user) =>
-    
     if user?
-      Recent.fetch()
-      Favorite.fetch()
+      if not @prefetched and @isActive()
+        Favorite.fetch per_page: 8
+        Recent.fetch per_page: 8
+        @prefetched = true
       
       @el.find('.user').addClass('show')
       @el.find('.no-user').addClass('hide')
     else
+      @prefetched = false
       @el.find('.user').removeClass('show')
       @el.find('.no-user').removeClass('hide')
   
@@ -82,15 +85,17 @@ class Profile extends Page
     type = e.target.dataset.type
     model = type.charAt(0).toUpperCase() + type.slice(1)
     
-    @["#{type}Page"] = Math.max(1, @["#{type}Page"] - 1)
-    zooniverse.models[model].fetch({page: @["#{type}Page"]})
+    prevPage = Math.max 1, @["#{ type }Page"] - 1
+    if prevPage isnt @["#{ type }Page"]
+      @["#{ type }Page"] = prevPage
+      zooniverse.models[model].fetch page: @["#{ type }Page"], per_page: 8
   
   getNext: (e) ->
     type = e.target.dataset.type
     model = type.charAt(0).toUpperCase() + type.slice(1)
     
-    @["#{type}Page"] += 1
-    zooniverse.models[model].fetch({page: @["#{type}Page"]})
+    @["#{ type }Page"] += 1
+    zooniverse.models[model].fetch page: @["#{ type }Page"], per_page: 8
 
 
 module.exports = Profile

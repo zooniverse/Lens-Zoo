@@ -215,6 +215,10 @@ class Classifier extends Page
       firstStep: 'welcome'
       steps: TutorialSteps
       parent: @el[0]
+
+    @tutorial.el.on 'start-tutorial enter-tutorial-step', =>
+      translate.refresh @tutorial.el.get 0
+      
     @tutorial.el.bind('end-tutorial', @onTutorialEnd)
     
     # Set first tutorial subject
