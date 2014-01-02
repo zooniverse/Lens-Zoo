@@ -111,7 +111,7 @@ module.exports =
       details: "Check out The Spotter's Guide  for detailed descriptions and reference images of Real Lenses and False Positives.  You can use the Spotter's Guide as a reference throughout your time on Space Warps."
     identify: 
       header: "Identifying gravitational lenses"
-      details: "The group of orange galaxies is a gravitational lens. It is bending and magnifying the light from a faint galaxy, lying far behind, into a blue arc that surrounds the lensing galaxy."
+      details: "The group of orange galaxies in the center of the image is a gravitational lens. It is bending and magnifying the light from a faint galaxy, lying far behind, into a blue arc that surrounds the lensing galaxy."
     mark: 
       header: "Marking lensed features"
       details: "If you see something that is being lensed, mark it. In this case, click on the arc."
@@ -254,13 +254,15 @@ module.exports =
       header: "Interface"
       questions: """
         <h3>What is my main task?</h3>
-        <p>The main task for the current project is to inspect the images on the classification page, look for a gravitational lens and mark any one of the lensed images within a lens system in an image. Lens systems are rare. Most of the images won't have any lenses, a few images will have a lens and in extremely rare cases, there might be more than one lens in an image. So, watch out!</p>
+        <p>The main task for the current project is to inspect each image on the classification page, look for a gravitational lens, and mark any of the lensed features you see in the image. Lens systems are rare: most of the images won't contain any lenses, but a few images will have a lens and in extremely rare cases, there might be more than one lens in an image. So, watch out!</p>
         <h3>Should I try and be inclusive, or discerning?</h3>
         <p>During a first pass through the images, when the website has a blue background, we don't want to miss any lenses: if in doubt, mark them. However, when we are trying to refine a list of candidates to identify the best ones (when the site has an orange background), we need to be more skeptical: only mark the features that you really think are due to lensing. The <a href=\"#/guide\">Spotter's Guide</a> can help you make your judgement.</p>
         <h3>I marked a simulated lens but was told that I missed it. What's the problem?</h3>
         <p>We'd like you to mark any lensed object that you see i.e. you can mark one or all of the curved arcs, or multiple quasars. Sometimes the site will tell you that you missed a simulated lens, when you actually marked something nearby the lensed object, e.g. the marker might have been placed on the lens galaxy itself instead of the lensed features.</p>
         <h3>What do I do if I see more than one lensed image per lens system?</h3>
         <p>You should place a marker on at least one lensed feature that you see per lens system. If you see an arc, mark it and preferably, mark its counter-arc if you can see it. If you see a pair of quasars (compact objects) either side of a lensing galaxy, mark both of them preferably. You only need to mark one lensed feature for your identification to be registered, but you can mark multiple features if you wish.</p>
+        <h3>Are the lenses all in the middle of the images?</h3>
+        <p>The images were selected to all contain objects that could either be lenses (like massive orange galaxies, or groups of galaxies), or would make interesting background sources (like quasars). The images were made so that these objects all lie at the centres of the images - so it's most likely (although not guaranteed) that if a lens is present, it will be in the middle of the field.</p>
         <h3>When should I use the Quick Dashboard?</h3>
         <p>Many lensed images are faint and very close to the bright orange lensing galaxies. You can switch to the Quick Dashboard to play with different settings or zoom/pan to get a detailed view near the lensing galaxy and be more confident of not missing a faint lens.</p>
         <h3>I missed a lens! How do I go back?</h3>
