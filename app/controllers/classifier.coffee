@@ -673,15 +673,21 @@ class Classifier extends Page
         trainingType = trainingType.replace ' ', '_'
 
         # Get the location for the dialog
-        x = (training.x + 30) / @subjectDimension
-        y = 1 - (training.y / @subjectDimension)
+        x = (training.x + 200) / @subjectDimension
+        y = 1 - 2.25 * (training.y / @subjectDimension)
         
         # Check if any annotation over lens
         for index, annotation of @annotations
           @isLensMarked = @checkImageMask(annotation.x, annotation.y)
           break if @isLensMarked is true
         
-        if @isLensMarked is true
+        console.log "isLensMarked: ", @isLensMarked
+        
+        # HACK (PJM): marking anywhere in image returns value 0, so interpret this
+        # as a vote for a lens... Real issue is that alpha channel images seem 
+        # to be absent?
+        
+        if @isLensMarked in [true, 0]
           # Lens was marked
           @tutorial = @createSimulationFoundFeedback(e, trainingType, x, y)
         else if @isLensMarked in [false, 254]
