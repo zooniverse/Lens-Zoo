@@ -710,9 +710,6 @@ class Classifier extends Page
       
       # Start the tutorial
       @tutorial?.start()
-
-      @tutorial?.el.on 'start-tutorial enter-tutorial-step', =>
-        translate.refresh @tutorial.el.get 0
       
     else
       @submit(e)
