@@ -93,6 +93,11 @@
     </div>
     
     <div class='bio'>
+      <h4 class='name'>Jean-Paul Kneib<span class='twitter'><a href="https://twitter.com/intent/user?screen_name=jpkneib">@jpkneib</a></span></h4>
+      <%- translate 'p', 'about.kneib_bio' %>
+    </div>
+    
+    <div class='bio'>
       <h4 class='name'>Rafael Kueng</h4>
       <%- translate 'p', 'about.kueng_bio' %>
     </div>
