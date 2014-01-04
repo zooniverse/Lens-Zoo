@@ -334,7 +334,6 @@ class Classifier extends Page
         firstStep: 'dashboard'
         steps: TutorialDashboard
         parent: @el[0]
-      tutorial.start()
     
     # Prompt Talk message
     if nClassified is 7
@@ -343,6 +342,11 @@ class Classifier extends Page
         firstStep: 'talk'
         steps: TutorialTalk
         parent: @el[0]
+
+    if tutorial?
+      tutorial.el.on 'start-tutorial enter-tutorial-step', =>
+        translate.refresh tutorial.el.get 0
+
       tutorial.start()
       
   onNoMoreSubjects: ->
@@ -705,7 +709,11 @@ class Classifier extends Page
         @tutorial = if nAnnotations > 0 then @createDudMissedFeedback(e) else @createDudFoundFeedback(e)
       
       # Start the tutorial
-      @tutorial?.start()
+      if @tutorial?
+        @tutorial.el.on 'start-tutorial enter-tutorial-step', =>
+          translate.refresh @tutorial.el.get 0
+
+        @tutorial.start()
       
     else
       @submit(e)
