@@ -52,6 +52,7 @@ class QuickDashboard extends Controller
     super
     
     @calibrations = {}
+    @provenances = {}
     @dfs =
       webfits: new $.Deferred()
       fitsjs: new $.Deferred()
@@ -134,6 +135,7 @@ class QuickDashboard extends Controller
           width = cache[band].width
           height = cache[band].height
           @calibrations[band] = cache[band].calibration
+          @provenances[band] = cache[band].provenance
           
           @wfits.loadImage(band, arr, width, height)
           @dfs[band].resolve()
@@ -160,8 +162,10 @@ class QuickDashboard extends Controller
             width = dataunit.width
             height = dataunit.height
             calibration = @getCalibration(header)
+            provenance = @getProvenance(header)
             
             @calibrations[band] = calibration
+            @provenances[band] = provenance
             @wfits.loadImage(band, arr, width, height)
             
             # Cache some data
@@ -171,7 +175,8 @@ class QuickDashboard extends Controller
             @cache['prefix'][band].width = width
             @cache['prefix'][band].height = height
             @cache['prefix'][band].calibration = calibration
-            
+            @cache['prefix'][band].provenance = provenance
+
             @dfs[band].resolve()
           )
   
@@ -186,6 +191,9 @@ class QuickDashboard extends Controller
   getCalibration: (header) ->
     zeroPoint = header.get('MZP_AB')
     return Math.pow(10, 0.4*(30.0 - zeroPoint))
+  
+  getProvenance: (header) ->
+    return header.get('PROV')
   
   # Call when all channels are received (i.e. each deferred is resolved)
   allChannelsReceived: =>
@@ -234,11 +242,16 @@ class QuickDashboard extends Controller
       @trigger 'close'
       return
     
+    # PJM: Adjust preset if provenance of IR data is CFHT:
+    if @provenances['Ks'] is 'C'
+      preset = parseInt(preset,10) + 3
+    
     # Pass preset to classifier so it can be stored on annotation
     @classifier.preset = preset
     
     # Get a preset and apply to color composite
     parameters = @parameters[preset]
+    # console.log "preset, @parameters = ",preset,@parameters
         
     # PJM: not sure this is the best way to pass down the calibrations array but it works:
     # @wfits.setCalibrations(1, 1, 1)
