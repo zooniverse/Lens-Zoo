@@ -155,17 +155,17 @@ module.exports =
       lovely: 'Lovely!'
     details:
       lensing_cluster:
-        option_1: "Groups/Clusters of galaxies are the most massive objects in the universe! They can cause arcs to appear many galaxy diameters away from the centre of the group."
-        option_2: "The massive galaxies in a lensing group typically have similar yellow-red colors. This should help you figure out which galaxies are in the group, and which are not."
+        option_1: "Groups/clusters of galaxies are the most massive objects in the universe! They can cause arcs to appear many galaxy diameters away from the centre of the group."
+        option_2: "The massive galaxies in a lensing group typically have similar yellow-red colors, and are rarely very elongated. This should help you figure out which galaxies are in the group, and which are not."
         option_3: "Typically, any lensed arcs will appear to be surrounding the cluster as a whole - although galaxies within the cluster can also act as lenses on their own."
-        option_4: "If you see an arc, look for a “counter-image” with the about the same color and brightness somewhere else around the centre of the group, usually on the opposite side. Mark the counter-images as well, if you can!"
-        option_5: "Remember, the arcs are most likely to be blue, but can be yellow or red in some cases. Multiple “images” of the same background galaxy are always the same color as each other! Try and mark each one."
-        option_6: "The large separation between the group centre and the arc suggests that more mass is required in the lens than meets the eye: groups/clusters are mostly made of Dark Matter!"
+        option_4: "If you see an arc, look for a &quot;counter-image&quot; with the about the same color and brightness somewhere else around the centre of the group, usually on the opposite side. Mark the counter-images as well, if you can!"
+        option_5: "Remember, the arcs are most likely to be blue or greenish, but they can be yellow or red in some cases. Multiple &quot;images&quot; of the same background galaxy are always the same color as each other! Try and mark each one."
+        option_6: "The large separation between the group centre and the arc suggests that more mass is required in the lens than meets the eye: groups and clusters are mostly made of Dark Matter!"
         option_7: "You can read more about group lenses in the <em>Spotters Guide</em>."
       lensed_quasar:
-        option_1: "Typically, lensed quasar systems show either two ('doubles') or four ('quads') small lensed features, which look like stars. Mark each of the two, or four, quasars that you see!"
-        option_2: "See how the 'multiple images' of the background quasar are arranged in symmetrical patterns around the lens galaxy. Mark each one! You might have to zoom in, using the Quick Dashboard."
-        option_3: "Quasars can have a wide variety of colours in infrared images, as you'll see from the many images that contain unlensed quasars at their centres."
+        option_1: "Typically, lensed quasar systems show either two ('doubles') or four ('quads') small lensed features, each of which looks like a star. Mark each of the two, or four, quasars that you see!"
+        option_2: "See how the &quot;multiple images&quot; of the background quasar are arranged in symmetrical patterns around the lens galaxy. Mark each one! You might have to zoom in, using the Quick Dashboard."
+        option_3: "Quasars can have a wide variety of colours in infrared images, as you'll see from the many images that contain unlensed quasars at their centres: turquoise, purple, pink, yellow and red are all possible."
         option_4: "Quasars look different from other galaxies, because we are not seeing starlight but rather the light from supermassive black holes in their centres. These monsters often outshine the light from the rest of the galaxy."
         option_5: "We expect lensed quasars to be about 10 times rarer than lensed galaxies, but they are really useful. You can read more about what we use gravitational lenses for on the <em>Science</em> page."
         option_6: "You can read more about lensed quasars in the <em>Spotters Guide</em>."
@@ -173,13 +173,13 @@ module.exports =
         option_1: "The most common background galaxies in the universe are faint, blue, and star-forming, so lensed galaxies often (but not always!) appear blue-ish."
         option_2: "Unlike most galaxies you see in these images, lensed galaxies appear stretched and curved around a lensing object."
         option_3: "The lensed features in these systems are typically only a galaxy diameter or two away from the centre of the lens. You might have to zoom in, with the Quick Dashboard!"
-        option_4: "Look for a faint “counter-image” with the same colour on the opposite side of the lens to the arc. Sometimes these are too faint to see though. Mark the counter-image too, if you can!"
-        option_5: "The galaxy acting as a lens is most likely to be a bright, smooth, orange elliptical galaxy, since these are the most massive galaxies."
+        option_4: "Look for a faint &quot;counter-image&quot; with the same colour on the opposite side of the lens to the arc. Sometimes these are too faint to see though. Mark the counter-image too, if you can!"
+        option_5: "The galaxy acting as a lens is most likely to be a bright, smooth, orange-ish elliptical galaxy, since these are the most massive galaxies."
         option_6: "Very occasionally, if the cosmic alignment is very precise, the galaxy behind the lens will appear as an almost exactly circular Einstein Ring."
         option_7: "You can read more about lensed galaxies in the <em>Spotters Guide</em>."
       missed:
-        option_1: "This image actually contains a simulated lens. Have you tried using the Quick Dashboard to get a better view?"
-        option_2: "This image actually contains a simulated lens. Have a browse around the site for some tips!"
+        option_1: "This image actually contains a simulated lens. Have you tried using the Quick Dashboard to get a better view of the images?"
+        option_2: "This image actually contains a simulated lens. Have a browse around the site for some tips on what to look for!"
         option_3: "This image actually contains a simulated lens. Don't worry, you can see all your recent images on your profile page." 
         option_4: "This image actually contains a simulated lens. If you are not sure, why not head over to Talk to discuss this image?"
     dud_found:
