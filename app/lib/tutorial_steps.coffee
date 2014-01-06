@@ -105,7 +105,7 @@ module.exports =
     next:
       'mouseup .annotation': (e, tutorial, step) ->
         mask = getMaskValue(e)
-        return if mask is 254 then 'good_job' else false
+        return if mask is 255 then 'good_job' else false
   
   training: new Step
     number: 7
