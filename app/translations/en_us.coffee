@@ -11,6 +11,7 @@ module.exports =
     heading: "With the help of Stargazing Live, citizen scientists are finding hidden galaxies!"
     participants: "Participants Worldwide"
     imagesClassified: "Images Classified"
+    tagline: "Imagine a galaxy, behind another galaxy. Think you won't see it? Think again."
     explanation: "Massive galaxies warp space-time around themselves, bending light rays so that we can see around them. They're the Universe's own telescopes, but these gravitational lenses are very rare: we need your help to find them!"
     start: "Start Classifying"
 
