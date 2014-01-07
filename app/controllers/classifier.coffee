@@ -684,12 +684,6 @@ class Classifier extends Page
           @isLensMarked = @checkImageMask(annotation.x, annotation.y)
           break if @isLensMarked is true
         
-        # HACK (PJM): marking anywhere in image returns value 0, so interpret this
-        # as a vote for a lens... 0 is returned if there is an error reading the
-        # mask in @checkImageMask, this is the workaround:
-        # if @isLensMarked in [true, 0]
-        
-        # Normal functioning (needs testing!!)
         if @isLensMarked in [true, 255]
           # Lens was marked
           @tutorial = @createSimulationFoundFeedback(e, trainingType, x, y)
