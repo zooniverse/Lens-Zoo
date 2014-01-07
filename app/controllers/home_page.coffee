@@ -1,7 +1,7 @@
 Page  = require 'controllers/page'
 Api = require 'zooniverse/lib/api'
 
-FILMING = true
+FILMING = false
 
 class HomePage extends Page
   el: $('.home')
