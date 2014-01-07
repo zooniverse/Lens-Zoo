@@ -70,6 +70,10 @@ languageManager.on 'change-language', (e, code, strings) ->
 topBar = new TopBar
 topBar.el.appendTo 'body'
 
+new Analytics
+  account: 'UA-1224199-43'
+  domain: 'spacewarps.org'
+
 User.fetch()
 Route.setup()
 
