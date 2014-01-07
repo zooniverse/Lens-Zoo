@@ -4,7 +4,7 @@ Api = require 'zooniverse/lib/api'
 FILMING = true
 
 FROM_BEFORE_BBC = 
-  user_count: 11858
+  user_count: 11857
   classification_count: 10921085
 
 class HomePage extends Page
