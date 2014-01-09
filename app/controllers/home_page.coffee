@@ -27,8 +27,18 @@ class HomePage extends Page
       else
         @participants.html @formatNumber project.user_count
         @images.html @formatNumber project.classification_count
+    setInterval @cycleNames, 5000
 
   formatNumber: (n) ->
     n.toString().replace /(\d)(?=(\d{3})+(?!\d))/g, '$1,'
+
+  cycleNames:->
+    $(".observers").each ->
+      to_activate = $(@).find(".showme").next(".chunk")
+      if to_activate.length==0
+        to_activate = $(@).find(".chunk")[0] 
+      $(@).find(".chunk").removeClass("showme")
+      $(to_activate).addClass("showme")
+
 
 module.exports = HomePage

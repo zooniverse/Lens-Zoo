@@ -28,24 +28,28 @@
       text-shadow: 0 1px 0 rgba(#000, 0.7)
 
     .candidate-list
+      clearfix()
       margin: 20px 0
 
       .candidate
-        display: inline-block
-        height: 170px
+        float: left
+        
         width: 33%
-
+        min-height: 200px 
         &.final
           text-align: center
 
         .candidate-header
           font-size: 16px
+          margin-left: 10px
 
         img
           border: 2px solid #fff
-          box-shadow: 0 1px 3px 1px rgba(#000, 0.7)
+          box-shadow: 0 1px 3px 1px rgba(#000, 0.5)
           float: left
           width: 130px
+          margin: 10px
+
 
         .observers
           font-size: 12px
@@ -54,6 +58,10 @@
           overflow-x: hidden
           overflow-y: scroll
           padding: 0 0 0 5px
+          .chunk 
+            display: none 
+            &.showme 
+              display: block
 
     .project-footer
       .project-header
@@ -85,7 +93,7 @@
             z-index: 1
 
           &:before
-            background-color: rgba(#01a0e2, 0.5)
+            background-color: rgba(#01a0e2, 0.75)
             content: ""
             height: 100%
             left: 0
