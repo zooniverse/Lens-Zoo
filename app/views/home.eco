@@ -41,7 +41,7 @@
       </div>
     </div>
     <div class="candidate">
-      <div class="candidate-header">Candidate #1</div>
+      <div class="candidate-header">Candidate #2</div>
       <img src="images/candidates/ASW0009l59.png" />
       <div class="observers">
         <b>Observed by:</b><br>
@@ -133,7 +133,7 @@
       </div>
     </div>
     <div class="candidate">
-      <div class="candidate-header">Candidate #1</div>
+      <div class="candidate-header">Candidate #3</div>
       <img src="images/candidates/ASW0009iov.png" />
       <div class="observers">
         <b>Observed by:</b><br>
@@ -174,7 +174,7 @@
       </div>
     </div>
     <div class="candidate">
-      <div class="candidate-header">Candidate #1</div>
+      <div class="candidate-header">Candidate #4</div>
       <img src="images/candidates/ASW0009dqb.png" />
       <div class="observers">
         <b>Observed by:</b><br>
@@ -229,7 +229,7 @@
       </div>
     </div>
     <div class="candidate">
-      <div class="candidate-header">Candidate #1</div>
+      <div class="candidate-header">Candidate #5</div>
       <img src="images/candidates/ASW0009dk6.png" />
       <div class="observers">
         <b>Observed by:</b><br>
@@ -381,23 +381,23 @@
   </div>
 
   <div class="project-footer">
-    <p class="project-header">Check out other awesome <b>Zooniverse</b> projects!</p>
+    <p class="project-header">Other <a href="http://www.zooniverse.org/"><b>Zooniverse</b></a> science teams need your help!</p>
     <div class="project-list">
       <div class="project">
-        <a href="http://radio.galaxyzoo.org/"><div class="image" style="background-image:url(images/logos/planet-four.jpg)"><span>Planet Four</span></div></a>
-        <p>Planetary scientists need your help to discover what the weather is like on Mars.</p>
+        <a href="http://www.planetfour.org/"><div class="image" style="background-image:url(images/logos/planet-four.jpg)"><span>Planet Four</span></div></a>
+        <p>Measure dust features on the surface of Mars to gain new insights into Martian weather.</p>
       </div>
       <div class="project">
         <a href="http://www.planktonportal.org/"><div class="image" style="background-image:url(images/logos/plankton-portal.jpg)"><span>Plankton Portal</span></div></a>
-        <p>Plankton are a critically important food source for our oceans.</p>
+        <p>Measure and identify different species of plankton to assess the health of the ocean.</p>
       </div>
       <div class="project">
         <a href="http://radio.galaxyzoo.org/"><div class="image" style="background-image:url(images/logos/radio-galaxy-zoo.jpg)"><span>Radio Galaxy Zoo</span></div></a>
-        <p>We need help to compare infrared and radio data to spot black holes in the Universe.</p>
+        <p>Compare infrared and radio telescope data to discover black holes in the Universe.</p>
       </div>
       <div class="project">
         <a href="http://www.cyclonecenter.org/"><div class="image" style="background-image:url(images/logos/cyclone-center.jpg)"><span>Cyclone Center</span></div></a>
-        <p>Scientists at NOAA's National Climatic Data Center need your help.</p>
+        <p>Unify the global record of tropical cyclone intensity by analyzing storm images.</p>
       </div>
     </div>
   </div>
