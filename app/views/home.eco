@@ -1,6 +1,347 @@
 <% t = require 't7e' %>
 
 <div class="content">
+  <div class="content-header">
+    <img src="images/sgl-logo.jpg" />
+    <div class="home-heading">These are the candidates <b>you</b> found in SpaceWarps!</div>
+    <div class="sub-heading">
+        <div class="metric images">-</div> Classifications by
+        <div class="metric participants">-</div> volunteers!
+    </div>
+  </div>
+
+  <div class="candidate-list">
+    <div class="candidate">
+      <div class="candidate-header">Candidate #1</div>
+      <img src="images/candidates/ASW0009io9.png" />
+      <div class="observers">
+        <b>Observed by:</b><br>
+        Paul Goodwin's Eyes<br>
+        sidneysnot<br>
+        awdean1<br>
+        Toxolight<br>
+        C_cld<br>
+        CalSNova<br>
+        Gary85<br>
+        dwarfedgiant<br>
+        Ben85<br>
+        pete.h<br>
+        Danl45<br>
+        selfda<br>
+        V3nd3x<br>
+        StarchildPhantom<br>
+        Leeroy33
+      </div>
+    </div>
+    <div class="candidate">
+      <div class="candidate-header">Candidate #1</div>
+      <img src="images/candidates/ASW0009l59.png" />
+      <div class="observers">
+        <b>Observed by:</b><br>
+        trekjock<br>
+        bbbarry<br>
+        CarolG<br>
+        robinharris55<br>
+        Lucy C<br>
+        rbernie<br>
+        gearlyred<br>
+        Chessen<br>
+        mcaroe<br>
+        mrjackoboy<br>
+        Marcustinley<br>
+        leecherry<br>
+        edbox<br>
+        lawrburk1<br>
+        andrew.crawshaw<br>
+        emeraldscorpio1888<br>
+        bethanyymilam<br>
+        TIm Stamper<br>
+        c newman<br>
+        Dome<br>
+        kelseyharknessjones<br>
+        spin007<br>
+        nickames<br>
+        Epicier Normand<br>
+        Jen-r-ator<br>
+        jalafroman<br>
+        PotterNo7<br>
+        zbish<br>
+        Damidge69<br>
+        Steveo2629<br>
+        Agriffindor<br>
+        blurk99<br>
+        jatmon<br>
+        apollomarco<br>
+        Woomaster<br>
+        The Bowmans<br>
+        cjhopwood0301<br>
+        lbeard81<br>
+        JogiC<br>
+        pogline<br>
+        diwright<br>
+        sue_bubbles<br>
+        BeckyGalaxyStar<br>
+        Julie Armstrong<br>
+        Neo Nox<br>
+        dolych<br>
+        borrobil<br>
+        Hetti1990<br>
+        kanda1<br>
+        ian leach<br>
+        playwrightpete<br>
+        DarkestNight<br>
+        magicnightjar<br>
+        emmastargirl<br>
+        Misty Blue<br>
+        The_King<br>
+        MixedVariety<br>
+        Astrospade<br>
+        Edge1980<br>
+        brusk<br>
+        md45<br>
+        gaztom70<br>
+        colinhall
+      </div>
+    </div>
+    <div class="candidate">
+      <div class="candidate-header">Candidate #1</div>
+      <img src="images/candidates/ASW0009iov.png" />
+      <div class="observers">
+        <b>Observed by:</b><br>
+        kirsty1981<br>
+        KevCahill<br>
+        ashimmin<br>
+        maristo<br>
+        marcusthedude<br>
+        ashris<br>
+        sarahrendall<br>
+        HughA<br>
+        JJesterUK<br>
+        mattysp911<br>
+        thist<br>
+        zbish<br>
+        Sarah Young<br>
+        zedlexx<br>
+        cargriff<br>
+        Hughmac<br>
+        salbod<br>
+        jenjee<br>
+        mlivemore<br>
+        Aaron.mullan<br>
+        dogwalker1<br>
+        Jamehall<br>
+        rjvader<br>
+        kenmanonthemoon<br>
+        hcsmith<br>
+        Rob020977<br>
+        Little Big Planet
+      </div>
+    </div>
+    <div class="candidate">
+      <div class="candidate-header">Candidate #1</div>
+      <img src="images/candidates/ASW0009dqb.png" />
+      <div class="observers">
+        <b>Observed by:</b><br>
+        The Hudson Clan, Skipton<br>
+        petrolhead<br>
+        Isabellagarner<br>
+        Majickmike<br>
+        nrsteady<br>
+        slartman<br>
+        kirsty1981<br>
+        kaptain tripps<br>
+        astro_den<br>
+        cpl43uk<br>
+        alisha.salkeld<br>
+        giddgvb2<br>
+        rubincain<br>
+        SparkleDesigner<br>
+        obsidian980<br>
+        Ahar61<br>
+        DrDance<br>
+        angela77<br>
+        DeweyLens<br>
+        Lennon96<br>
+        cantab<br>
+        scullerina<br>
+        Chopper8055<br>
+        Chris56<br>
+        Edge1980<br>
+        efekt<br>
+        LindonD<br>
+        AgentSparky<br>
+        Steveo2629<br>
+        sueburr<br>
+        Ooh la la<br>
+        Jetstream Rider<br>
+        Melanin219<br>
+        triggergsy79<br>
+        cookieanonymous_<br>
+        selfda<br>
+        Aaron.mullan<br>
+        smokeintheeye<br>
+        erewhon<br>
+        necrosnuffer
+      </div>
+    </div>
+    <div class="candidate">
+      <div class="candidate-header">Candidate #1</div>
+      <img src="images/candidates/ASW0009dk6.png" />
+      <div class="observers">
+        <b>Observed by:</b><br>
+        GraveMind<br>
+        ozzhawk<br>
+        Marja A. Brouwer<br>
+        sjoh1141<br>
+        DeMc<br>
+        Taslaw<br>
+        Leah Fiona<br>
+        dlawr42103<br>
+        Nickvig<br>
+        kitkatkookie333<br>
+        angie_tianshi<br>
+        Theritz<br>
+        mpatell<br>
+        spin007<br>
+        PeterBlenkinsopp<br>
+        david.sanders<br>
+        burne<br>
+        lynne and oli<br>
+        lousully1974<br>
+        VictoriaFY<br>
+        FeynGuy<br>
+        poojarathod<br>
+        Sandie Lambert<br>
+        Paralyzed Horse<br>
+        AdamQureshi<br>
+        Lunar Lol<br>
+        Geneva742<br>
+        CRoC<br>
+        Lorac21<br>
+        02lyons<br>
+        Evermore123<br>
+        Stoners<br>
+        pinkshifter<br>
+        Jen0151<br>
+        Joannemachin<br>
+        garnett10<br>
+        dudegit<br>
+        probe239er<br>
+        jeanette_mullins<br>
+        CW24582<br>
+        lottie13<br>
+        Lulatrix<br>
+        sgtdaveo<br>
+        xscode<br>
+        johngalpin1<br>
+        govner_1987<br>
+        rupegroup<br>
+        MckellanG<br>
+        fireisntaghost<br>
+        magsf45<br>
+        NemesisCaine<br>
+        Superfx101<br>
+        mikolais<br>
+        Andymottram1@aol.com<br>
+        OBO WILSON<br>
+        Huw01<br>
+        11Sparky11<br>
+        avielord1<br>
+        Texas Chainstore Manager<br>
+        Toby_yboT<br>
+        Cheryl Skinner<br>
+        white_morningstar<br>
+        as1161<br>
+        JudgeDread1984UK<br>
+        Cookie2pob<br>
+        billyp<br>
+        benldavis31<br>
+        Stevejd38<br>
+        tea dog<br>
+        expofever<br>
+        Zoomify<br>
+        Jill_Lylie<br>
+        Ken Funnell<br>
+        ClaireH83<br>
+        vicz1998<br>
+        shaneha<br>
+        HolsOlivia<br>
+        Marvo-less<br>
+        Lostwithinadream <br>
+        AnnularDJD<br>
+        Nikonian<br>
+        Kelly0123456789<br>
+        Jason3937<br>
+        Castrodan<br>
+        jedinish@hotmail.com<br>
+        annemarie baillie<br>
+        mellowyellowgem<br>
+        julie ann<br>
+        Amit55<br>
+        LauraJLSmith<br>
+        LoisH<br>
+        TheOracle<br>
+        MoonSquirrel<br>
+        backybaxter<br>
+        Flanz82<br>
+        johnsthomas1969<br>
+        sunteam<br>
+        JNA<br>
+        blackpoint<br>
+        Annaliza Nyxi<br>
+        salbod<br>
+        Bob Seath<br>
+        LSE<br>
+        Mrspippa<br>
+        Drwatson79<br>
+        mikeyb2535<br>
+        J&amp;J<br>
+        trowland10<br>
+        BillyBinks2014<br>
+        craig1ee<br>
+        paulspensley<br>
+        steveokey<br>
+        DanCowie<br>
+        RossTuck<br>
+        Jadlian<br>
+        Marlbro<br>
+        gshaw45026<br>
+        gnuoyneb<br>
+        Gohanlaw
+      </div>
+    </div>
+    <div class="candidate final">
+      <p><b>Keep Going!</b></p>
+      <p>You can still keep classifying! There is a chance to make an amazing discovery.</p>
+      <a href="#/classify"><%- t 'button.small', 'home.start' %></a>
+    </div>
+  </div>
+
+  <div class="project-footer">
+    <p class="project-header">Check out other awesome <b>Zooniverse</b> projects!</p>
+    <div class="project-list">
+      <div class="project">
+        <a href="http://radio.galaxyzoo.org/"><div class="image" style="background-image:url(images/logos/planet-four.jpg)"><span>Planet Four</span></div></a>
+        <p>Planetary scientists need your help to discover what the weather is like on Mars.</p>
+      </div>
+      <div class="project">
+        <a href="http://www.planktonportal.org/"><div class="image" style="background-image:url(images/logos/plankton-portal.jpg)"><span>Plankton Portal</span></div></a>
+        <p>Plankton are a critically important food source for our oceans.</p>
+      </div>
+      <div class="project">
+        <a href="http://radio.galaxyzoo.org/"><div class="image" style="background-image:url(images/logos/radio-galaxy-zoo.jpg)"><span>Radio Galaxy Zoo</span></div></a>
+        <p>We need help to compare infrared and radio data to spot black holes in the Universe.</p>
+      </div>
+      <div class="project">
+        <a href="http://www.cyclonecenter.org/"><div class="image" style="background-image:url(images/logos/cyclone-center.jpg)"><span>Cyclone Center</span></div></a>
+        <p>Scientists at NOAA's National Climatic Data Center need your help.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SGL stuff
+<div class="content">
   <img src="images/sgl-logo.jpg" />
   <%- t 'div.home-heading', 'home.heading' %>
 
@@ -8,7 +349,7 @@
     <div class="bubble-content">
       <div class="metric participants">-</div>
       <%- t 'div.sub-head', 'home.participants' %>
-      <div class="gap"><!-- sigh --></div>
+      <div class="gap"></div>
       <div class="metric images">-</div>
       <%- t 'div.sub-head', 'home.imagesClassified' %>
     </div>
@@ -21,7 +362,8 @@
   <ul class="social-icons">
     <li><a href="https://www.facebook.com/SpaceWarps" target="_blank"><img src="images/icons/facebook.png"></a></li>
     <li><a href="https://twitter.com/SpaceWarps" target="_blank"><img src="images/icons/twitter.png" /></a></li>
-    <!-- <li><a href="https://plus.google.com/+ZooniverseOrgReal" target="_blank"><img src="images/icons/google-plus.png" /></a></li> -->
+    <li><a href="https://plus.google.com/+ZooniverseOrgReal" target="_blank"><img src="images/icons/google-plus.png" /></a></li>
   </ul>
 
 </div>
+ -->
