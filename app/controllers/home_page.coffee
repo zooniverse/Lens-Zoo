@@ -27,6 +27,7 @@ class HomePage extends Page
       else
         @participants.html @formatNumber project.user_count
         @images.html @formatNumber project.classification_count
+
     setInterval @cycleNames, 5000
 
   formatNumber: (n) ->
@@ -39,6 +40,5 @@ class HomePage extends Page
         to_activate = $(@).find(".chunk")[0] 
       $(@).find(".chunk").removeClass("showme")
       $(to_activate).addClass("showme")
-
 
 module.exports = HomePage
