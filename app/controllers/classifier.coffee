@@ -346,7 +346,7 @@ class Classifier extends Page
       tutorial.start()
       
   onNoMoreSubjects: ->
-    alert "We've run out of subjects."
+    alert "The classification phase of the project is now finished, but you can carry on discussing the candidates in Talk - Thank you very much for all your contributions!"
   
   #
   # Annotation functions
