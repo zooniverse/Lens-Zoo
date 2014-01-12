@@ -84,7 +84,10 @@ class Classifier extends Page
     # Store the counter model
     @counter = Counter.first()
     
-    User.on 'change', @onUserChange
+    # SHORT-CIRCUIT APP LOGIC UNTIL WE LOAD MORE DATA
+    # User.on 'change', @onUserChange
+    @el.find('.annotation').remove()
+    @el.find('.subjects').html require 'views/out_of_subjects'
     
     # Dialog for warning of over excessive annotations
     @warningDialog = new Dialog
@@ -139,7 +142,6 @@ class Classifier extends Page
   # 2) Check talk collection
   # 3) Set user counters
   onUserChange: (e, user) =>
-    
     # Reset subjects
     Subject.instances = []
     $('.subjects').empty()
