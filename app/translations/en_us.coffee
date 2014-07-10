@@ -102,9 +102,9 @@ module.exports =
   tutorial:
     welcome:
       header: "Welcome to Space Warps!"
-      header_stage2: "Welcome to Space Warps Refine!"
+      header_stage2: "Welcome to Space Warps Testing!"
       details: "Gravitational Lenses are very rare astronomical objects. We need your help finding them!"
-      details_stage2: "Space Warps is currently between projects. In the meantime we have a subset of images from Space Warps Refine on the site available for browsing that we are also using to test the analysis. So, while any classifications made at the moment will not be used for Space Warps science, they will be useful nonetheless."
+      details_stage2: "Space Warps is currently between projects. In the meantime, we've put up some images from last December's Space Warps Refine for you to browse, that we are also using to test the analysis. So, while any classifications made at the moment will not be used for Space Warps science, they will be useful nonetheless."
     what_are_lenses_1: 
       header: "What are gravitational lenses?"
       details: "Gravitational lenses are massive astronomical objects &ndash; such as galaxies &ndash; that lie in front of other, more distant galaxies. These massive objects act like huge, natural magnifying glasses. They focus light from distant objects towards us, allowing us to see further into the Universe."
