@@ -3,7 +3,8 @@
 <div class="content">
   <header>
     <%- translate 'h1', 'home.heading', class: '' %>
-    <%- translate 'p', 'home.subheading', class: '' %>
+
+    <p class="flash-message">Space Warps is currently between projects. In the meantime we have a subset of images from Space Warps Refine on the site available for browsing that we are also using to test the analysis. So, while any classifications made at the moment will not be used for Space Warps science, they will be useful nonetheless. And please feel free to browse and comment on subjects in Talk!</p>
   </header>
   <div class="columns two">
     <div class="column">
