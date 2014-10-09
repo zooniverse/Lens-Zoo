@@ -1,6 +1,5 @@
 Page  = require 'controllers/page'
 
-# TODO: Merge this class with GuidePage.
 class AboutPage extends Page
   el: $('.about')
   className: 'about'
@@ -9,7 +8,6 @@ class AboutPage extends Page
   events:
     'click .menu li'        : 'show'
     'click .guide-menu li'  : 'show'
-  
   
   constructor: ->
     super
@@ -27,6 +25,5 @@ class AboutPage extends Page
     $("section[data-type='#{type}']").addClass('show').siblings('section').removeClass('show')
 
     @el.scroll() # trick lazyload
-
 
 module.exports = AboutPage
