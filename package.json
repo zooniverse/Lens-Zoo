@@ -12,12 +12,13 @@
     "nib": "~0.9.1",
     "zooniverse": "0.2.3",
     "publisssh": "~0.2.3",
-    "coffee-script": "~1.6.3"
+    "coffee-script": "~1.6.3",
+    "stack-of-pages": "^0.1.5"
   },
   "scripts": {
     "start": "hem server --includeCss",
-    "deploy-to-production": "ruby build.rb && publisssh build spacewarps.org && trash ./build",
-    "deploy-to-beta": "ruby build.rb && publisssh build spacewarps.org/beta2 && trash ./build",
+    "deploy-to-production": "ruby build.rb && publisssh build zooniverse-static/spacewarps.org && trash ./build",
+    "deploy-to-beta": "ruby build.rb && publisssh build zooniverse-static/spacewarps.org/beta && trash ./build",
     "deploy-to-demo": "ruby build.rb && publisssh build zooniverse-demo/spacewarps-z8e && trash ./build"
   }
 }

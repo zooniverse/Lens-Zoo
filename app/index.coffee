@@ -10,6 +10,7 @@ GuidePage = require 'controllers/guide_page'
 Classifier = require 'controllers/classifier'
 Profile = require 'controllers/profile'
 FAQPage = require 'controllers/faq_page'
+Results = require 'controllers/results'
 
 Counter = require 'models/counter'
 
@@ -49,6 +50,7 @@ stack = new Stack
     guide: GuidePage
     profile: Profile
     faq: FAQPage
+    results: Results
   
   routes:
     '/home'       : 'home'
@@ -57,6 +59,7 @@ stack = new Stack
     '/guide'      : 'guide'
     '/profile'    : 'profile'
     '/faq'        : 'faq'
+    '/results'    : 'results'
   
   default: 'home'
 

@@ -192,7 +192,8 @@
       border-bottom 1px solid $boxline
       box-shadow 0px 1px 0px $boxlineshadow
     
-    .guide-menu
+    .guide-menu,
+    .page-menu
       @extends #clearfix
       @extends #semantic-list
       border-bottom 5px solid black
@@ -214,6 +215,11 @@
           color #FFF
           background-color black
           text-shadow 0 1px 0 $textshadow
+
+        a
+          display block
+          margin: 0 -10px // sigh
+          text-decoration none
     
     &:last-child
       padding 1px 0 50px 0

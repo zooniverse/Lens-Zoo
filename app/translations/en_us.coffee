@@ -6,6 +6,7 @@ module.exports =
     discuss: 'Discuss'
     profile: 'Profile'
     faq: 'FAQ'
+    results: 'Results'
 
   home:
     heading: "With the help of Stargazing Live, citizen scientists are finding hidden galaxies!"

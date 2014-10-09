@@ -1,0 +1,12 @@
+<div class="content">
+  <header>
+    <h1>Results Header</h1>
+  </header>
+
+  <ul class="page-menu">
+    <li class="show" data-type="initial-results"><a href="#/results">Initial Results</a></li>
+    <li data-type="contributors"><a href="#/results/contributors">Contributors</a></li>
+  </ul>
+
+  <div id="results-stack"></div>
+</div>
