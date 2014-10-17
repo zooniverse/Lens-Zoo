@@ -1,10 +1,9 @@
+Controller = require 'zooniverse/controllers/base-controller'
 StackOfPages = require 'stack-of-pages'
 
-Page = require 'controllers/page'
 ProjectResults = require 'controllers/project-results'
 
-class Results extends Page
-  el: $('.results')
+class Results extends Controller
   className: 'results'
   template: require 'views/results'
 
@@ -15,14 +14,13 @@ class Results extends Page
   
   constructor: ->
     super
-    @html @template @
-
     stackHash = 'default': "#/projects/#{ @projects[0] }/summary"
     for project in @projects
       stackHash["#/projects/#{ project }/*"] = (class extends ProjectResults then project: project)
 
     resultsStack = new StackOfPages stackHash
-    document.querySelector('#results-stack').appendChild resultsStack.el
+    console.log resultsStack
+    @el.find('#results-stack').append resultsStack.el
 
   show: ({ currentTarget }) =>
     $(currentTarget).addClass('show').siblings('li').removeClass('show')

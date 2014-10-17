@@ -1,14 +1,11 @@
+Controller = require 'zooniverse/controllers/base-controller'
+User = require 'zooniverse/models/user'
+Recent = require 'zooniverse/models/recent'
+Favorite = require 'zooniverse/models/favorite'
 
-Page      = require 'controllers/page'
-Counters  = require 'controllers/counters'
+Counters = require 'controllers/counters'
 
-User      = require 'zooniverse/models/user'
-Recent    = require 'zooniverse/models/recent'
-Favorite  = require 'zooniverse/models/favorite'
-
-
-class Profile extends Page
-  el: $('.profile')
+class Profile extends Controller
   className: 'profile'
   template: require 'views/profile'
   subjectTemplate: require 'views/profile_subjects'
@@ -17,17 +14,15 @@ class Profile extends Page
   recentPage: 1
   
   elements:
-    '.favorites .subjects'      : 'favorites'
-    '.recents .subjects'        : 'recents'
+    '.favorites .subjects': 'favorites'
+    '.recents .subjects': 'recents'
   
   events:
-    'click .previous' : 'getPrevious'
-    'click .next'     : 'getNext'
-  
+    'click .previous': 'getPrevious'
+    'click .next': 'getNext'
   
   constructor: ->
     super
-    @html @template
     
     # Initialize Counters
     @counters = new Counters({el: @el.find('.stats')})
@@ -36,8 +31,10 @@ class Profile extends Page
     User.on 'change', @onUserChange
     Recent.on 'fetch', @onRecent
     Favorite.on 'fetch', @onFavorite
+
+    @el.on StackOfPages::activateEvent, @activate
   
-  active: ->
+  activate: =>
     @el.find('[data-type="sim-freq"]').parent().remove()
     if User.current
       Favorite.fetch per_page: 8
@@ -47,7 +44,7 @@ class Profile extends Page
   
   onUserChange: (e, user) =>
     if user?
-      if not @prefetched and @isActive()
+      if @el.data('active-in-stack')
         Favorite.fetch per_page: 8
         Recent.fetch per_page: 8
         @prefetched = true
@@ -96,6 +93,5 @@ class Profile extends Page
     
     @["#{ type }Page"] += 1
     zooniverse.models[model].fetch page: @["#{ type }Page"], per_page: 8
-
 
 module.exports = Profile

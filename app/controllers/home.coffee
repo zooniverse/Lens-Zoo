@@ -1,4 +1,4 @@
-Page  = require 'controllers/page'
+Controller = require 'zooniverse/controllers/base-controller'
 Api = require 'zooniverse/lib/api'
 
 FILMING = true
@@ -7,8 +7,7 @@ FROM_BEFORE_BBC =
   user_count: -23711 # this is arbitrary, but i promise the resulting number is close
   classification_count: 10027682
 
-class HomePage extends Page
-  el: $('.home')
+class Home extends Controller
   className: 'home'
   template: require 'views/home'
   
@@ -18,7 +17,6 @@ class HomePage extends Page
 
   constructor: ->
     super
-    @html @template
 
     Api.current.get '/projects/spacewarp', (project) =>
       if FILMING
@@ -33,12 +31,12 @@ class HomePage extends Page
   formatNumber: (n) ->
     n.toString().replace /(\d)(?=(\d{3})+(?!\d))/g, '$1,'
 
-  cycleNames:->
+  cycleNames: ->
     $(".observers").each ->
       to_activate = $(@).find(".showme").next(".chunk")
-      if to_activate.length==0
+      if to_activate.length is 0
         to_activate = $(@).find(".chunk")[0] 
       $(@).find(".chunk").removeClass("showme")
       $(to_activate).addClass("showme")
 
-module.exports = HomePage
+module.exports = Home

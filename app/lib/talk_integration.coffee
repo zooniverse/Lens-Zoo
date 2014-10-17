@@ -1,7 +1,6 @@
 
 
 module.exports =
-  
   # Authentication appended to header
   setAuthentication: (user) ->
     auth = base64.encode("#{user.name}:#{user.api_key}")

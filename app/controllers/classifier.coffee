@@ -1,40 +1,35 @@
+_ = require 'underscore/underscore'
+StackofPages = require 'stack-of-pages'
+translate = require 't7e'
 
-_     = require 'underscore/underscore'
-
-User            = require 'zooniverse/models/user'
-Subject         = require 'zooniverse/models/subject'
-Favorite        = require 'zooniverse/models/favorite'
-Classification  = require 'zooniverse/models/classification'
+User = require 'zooniverse/models/user'
+Subject = require 'zooniverse/models/subject'
+Favorite = require 'zooniverse/models/favorite'
+Classification = require 'zooniverse/models/classification'
 
 browserDialog = require 'zooniverse/controllers/browser-dialog'
+Controller = require 'zooniverse/controllers/base-controller'
 
-Page            = require 'controllers/page'
-Annotation      = require 'controllers/Annotation'
-QuickDashboard  = require 'controllers/quick_dashboard'
-QuickGuide      = require 'controllers/quick_guide'
-Counters        = require 'controllers/counters'
+Annotation = require 'controllers/Annotation'
+QuickDashboard = require 'controllers/quick_dashboard'
+QuickGuide = require 'controllers/quick_guide'
+Counters = require 'controllers/counters'
 
 Counter = require 'models/counter'
 
-{Tutorial}  = require 'zootorial'
-{Dialog}    = require 'zootorial'
-{Step}      = require 'zootorial'
+{Tutorial} = require 'zootorial'
+{Dialog} = require 'zootorial'
+{Step} = require 'zootorial'
 
-TutorialSubject   = require 'lib/tutorial_subject'
-TutorialSteps     = require 'lib/tutorial_steps'
+TutorialSubject = require 'lib/tutorial_subject'
+TutorialSteps = require 'lib/tutorial_steps'
 TutorialDashboard = require 'lib/tutorial_dashboard'
-TutorialTalk      = require 'lib/tutorial_talk'
+TutorialTalk = require 'lib/tutorial_talk'
 
 TalkIntegration = require 'lib/talk_integration'
-CreateFeedback  = require 'lib/create_feedback'
+CreateFeedback = require 'lib/create_feedback'
 
-translate = require 't7e'
-
-class Classifier extends Page
-  @include TalkIntegration
-  @include CreateFeedback
-  
-  el: $('.classifier')
+class Classifier extends Controller
   className: 'classifier'
   template: require 'views/classifier'
   subjectTemplate: require 'views/subject'
@@ -45,7 +40,6 @@ class Classifier extends Page
   
   subjectGroup: '5154a3783ae74086ab000001'
   simulationGroup: '5154a3783ae74086ab000002'
-  
   
   elements:
     '.mask'                     : 'maskEl'
@@ -62,12 +56,13 @@ class Classifier extends Page
     'click g'                                 : 'stopPropagation'
     'click .remove-all'                       : 'removeAnnotations'
   
-  
   constructor: ->
     super
     
-    @html @template
-    
+    for module in [TalkIntegration, CreateFeedback]
+      for name, func of module
+        @[name] = func
+
     # Initialize Quick Guide
     @quickGuide = new QuickGuide({el: @el.find('.quick-guide')})
     
@@ -106,10 +101,10 @@ class Classifier extends Page
     # Setup offscreen canvas and context for mask
     @canvas = document.createElement('canvas')
     @ctx = @canvas.getContext('2d')
+
+    @el.on StackOfPages::activateEvent, @activate
   
-  active: ->
-    super
-    
+  activate: ->
     # Trick zootorial to show when page is active.
     $(window).resize()
   
@@ -717,6 +712,5 @@ class Classifier extends Page
       
     else
       @submit(e)
-
 
 module.exports = Classifier

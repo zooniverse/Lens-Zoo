@@ -1,20 +1,19 @@
-Page  = require 'controllers/page'
+Controller = require 'zooniverse/controllers/base-controller'
+StackOfPages = require 'stack-of-pages'
 
-
-class GuidePage extends Page
-  el: $('.guide')
-  className: 'guide'
-  template: require 'views/guide'
+class About extends Controller
+  className: 'about'
+  template: require 'views/about'
+  
   events:
-    'click .menu li'        : 'show'
-    'click .guide-menu li'  : 'show'
+    'click .menu li': 'show'
+    'click .guide-menu li': 'show'
   
   constructor: ->
     super
-    @html @template
+    @el.on StackOfPages::activateEvent, @activate
   
-  active: ->
-    super
+  activate: =>
     @el.scroll()  # trick lazyload
   
   show: (e) =>
@@ -26,5 +25,4 @@ class GuidePage extends Page
 
     @el.scroll() # trick lazyload
 
-
-module.exports = GuidePage
+module.exports = About

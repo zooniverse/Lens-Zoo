@@ -8,5 +8,5 @@
   <a data-page="discuss" target="_blank" href="http://talk.spacewarps.org"><%- translate 'span', 'navigation.discuss', class: '' %></a>
   <a data-page="profile" href="#/profile"><%- translate 'span', 'navigation.profile', class: '' %></a>
   <a data-page="faq" href="#/faq"><%- translate 'span', 'navigation.faq', class: '' %></a>
-  <a data-page="results" href="#/results"><i class="fa fa-bar-chart fa-2x"></i><%- translate 'span', 'navigation.results', class: '' %></a>
+  <a data-page="results" href="#/projects"><i class="fa fa-bar-chart fa-2x"></i><%- translate 'span', 'navigation.results', class: '' %></a>
 </nav>

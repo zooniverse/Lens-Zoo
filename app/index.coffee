@@ -1,16 +1,6 @@
 require 'lib/setup'
 translate = require 't7e'
-
-{Stack} = require 'spine/lib/manager'
-Route   = require 'spine/lib/route'
-
-HomePage = require 'controllers/home_page'
-AboutPage = require 'controllers/about_page'
-GuidePage = require 'controllers/guide_page'
-Classifier = require 'controllers/classifier'
-Profile = require 'controllers/profile'
-FAQPage = require 'controllers/faq_page'
-Results = require 'controllers/results'
+StackOfPages = require 'stack-of-pages'
 
 Counter = require 'models/counter'
 
@@ -21,8 +11,7 @@ TopBar = require 'zooniverse/controllers/top-bar'
 User = require 'zooniverse/models/user'
 Recent = require 'zooniverse/models/recent'
 
-api = new Api
-  project: 'spacewarp'
+api = new Api project: 'spacewarp'
 
 # Initialize Counter model
 new Counter({classified: 0, potentials: 0, favorites: 0}).save()
@@ -39,31 +28,16 @@ languageManager = new LanguageManager
 # Navigation
 $('body').append require 'views/navigation'
 
-# Setup the stack
-stack = new Stack
-  el: $('.main')
-  
-  controllers:
-    home: HomePage
-    classify: Classifier
-    about: AboutPage
-    guide: GuidePage
-    profile: Profile
-    faq: FAQPage
-    results: Results
-  
-  routes:
-    '/home'       : 'home'
-    '/classify'   : 'classify'
-    '/about'      : 'about'
-    '/guide'      : 'guide'
-    '/profile'    : 'profile'
-    '/faq'        : 'faq'
-    '/results'    : 'results'
-  
-  default: 'home'
-
-stack.el.appendTo 'body'
+stack = new StackOfPages
+  '#/home': require 'controllers/home'
+  '#/classify': require 'controllers/classifier'
+  '#/about': require 'controllers/about'
+  '#/guide': require 'controllers/guide'
+  '#/profile': require 'controllers/profile'
+  '#/faq': require 'controllers/faq'
+  '#/projects/*': require 'controllers/results'
+  default: '#/'
+document.body.appendChild stack.el
 
 languageManager.on 'change-language', (e, code, strings) ->
   translate.load strings
@@ -77,10 +51,6 @@ new Analytics
   domain: 'spacewarps.org'
 
 User.fetch()
-Route.setup()
-
-# Pass host to Classifier instance
-stack.controllers.classify.host = api.proxyFrame.host
 
 # Lazy loading of Guide images
 $('img.lazy').lazyload({threshold : 200, effect: 'fadeIn'})
