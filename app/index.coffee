@@ -55,4 +55,12 @@ User.fetch()
 # Lazy loading of Guide images
 $('img.lazy').lazyload({threshold : 200, effect: 'fadeIn'})
 
+# Redirects
+projects = require 'lib/project-surveys'
+initRedirects = ->
+  switch location.hash
+    when '#/projects' then location.hash = "#/projects/#{ projects[0] }/summary"
+addEventListener 'hashchange', initRedirects
+initRedirects()
+
 module.exports = {stack, api, topBar}

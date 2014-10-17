@@ -17,10 +17,9 @@ class Results extends Controller
 
   constructor: ->
     super
-    stackHash = 'default': "#/projects/#{ @projects[0] }/summary"
+    stackHash = {}
     for project in @projects
       stackHash["#/projects/#{ project }/*"] = (class extends ProjectResults then project: project)
-
     resultsStack = new StackOfPages stackHash
     @el.find('#results-stack').append resultsStack.el
 
