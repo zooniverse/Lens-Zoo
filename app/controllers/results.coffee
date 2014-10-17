@@ -19,7 +19,6 @@ class Results extends Controller
       stackHash["#/projects/#{ project }/*"] = (class extends ProjectResults then project: project)
 
     resultsStack = new StackOfPages stackHash
-    console.log resultsStack
     @el.find('#results-stack').append resultsStack.el
 
   show: ({ currentTarget }) =>

@@ -1,1 +1,8 @@
+
+<ul class="page-menu">
+  <li><a href="#/projects/<%- @project %>/summary">Summary</a></li>
+  <li><a href="#/projects/<%- @project %>/discoveries">Discoveries</a></li>
+  <li><a href="#/projects/<%- @project %>/contributors">Contributors</a></li>
+</ul>
+
 <div class="project-stack"></div>
