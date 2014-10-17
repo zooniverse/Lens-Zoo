@@ -7,6 +7,7 @@ Counter = require 'models/counter'
 Api = require 'zooniverse/lib/api'
 Analytics = require 'zooniverse/lib/google-analytics'
 LanguageManager = require 'zooniverse/lib/language-manager'
+activeHashLinks = require 'zooniverse/util/active-hash-links'
 TopBar = require 'zooniverse/controllers/top-bar'
 User = require 'zooniverse/models/user'
 Recent = require 'zooniverse/models/recent'
@@ -25,6 +26,13 @@ languageManager = new LanguageManager
     en: label: 'English', strings: enUs
     es: label: 'Español', strings: esCl
 
+languageManager.on 'change-language', (e, code, strings) ->
+  translate.load strings
+  translate.refresh()
+
+topBar = new TopBar
+topBar.el.appendTo 'body'
+
 # Navigation
 $('body').append require 'views/navigation'
 
@@ -38,13 +46,6 @@ stack = new StackOfPages
   '#/projects/*': require 'controllers/results'
   default: '#/'
 document.body.appendChild stack.el
-
-languageManager.on 'change-language', (e, code, strings) ->
-  translate.load strings
-  translate.refresh()
-
-topBar = new TopBar
-topBar.el.appendTo 'body'
 
 new Analytics
   account: 'UA-1224199-43'

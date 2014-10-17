@@ -6,8 +6,9 @@ class ProjectResults extends Controller
   template: require 'views/project-results'
 
   project: null
-
+  
   elements:
+    '.project-results-menu li': 'menuItems'
     '.project-stack': 'projectStack'
 
   constructor: ->
@@ -20,5 +21,12 @@ class ProjectResults extends Controller
 
     stack = new StackOfPages stackHash
     @projectStack.append stack.el
+
+    window.addEventListener 'hashchange', @onHashChange
+    @onHashChange()
+
+  onHashChange: =>
+    # yuck
+    @menuItems.removeClass('show').find("a[href='#{ location.hash }']").parent().addClass('show')
 
 module.exports = ProjectResults
