@@ -43,7 +43,7 @@ stack = new StackOfPages
   '#/profile': require 'controllers/profile'
   '#/faq': require 'controllers/faq'
   '#/projects/*': require 'controllers/results'
-  default: '#/'
+  default: '#/home'
 document.body.appendChild stack.el
 
 new Analytics
