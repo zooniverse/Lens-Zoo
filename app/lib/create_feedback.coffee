@@ -43,11 +43,14 @@ module.exports =
   createSimulationMissedFeedback: (e, trainingType, x, y) ->
 
     FeedbackStrings  = translate.strings.feedback
-    
+
     # Get random detail
     details = []
+    console.log "details1 ", details
     details.push key for key, value of FeedbackStrings.details['missed']
+    console.log "details2 ",details
     index = Math.floor(Math.random() * details.length) + 1
+    console.log "index ", index
 
     return new Tutorial
       id: 'simMissed'
@@ -160,4 +163,3 @@ module.exports =
           next: true
           onExit: =>
             @viewer?.trigger 'close'
-
