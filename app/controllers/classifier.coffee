@@ -216,7 +216,7 @@ class Classifier extends Page
 
     @tutorial.el.on 'start-tutorial enter-tutorial-step', =>
       translate.refresh @tutorial.el.get 0
-      
+
     @tutorial.el.bind('end-tutorial', @onTutorialEnd)
 
     # Set first tutorial subject
@@ -291,8 +291,6 @@ class Classifier extends Page
       @subjectsEl.append @subjectTemplate(params)
 
   onSubjectSelect: (e, subject) =>
-    console.log 'start image\t\t', subject.zooniverse_id
-
     # Ensure unique ids for upcoming subjects
     Subject.instances = _.unique(Subject.instances, false, (d) -> return d.id)
 
@@ -366,9 +364,9 @@ class Classifier extends Page
     position = $('.subject.current .image').position()
 
     x = e.pageX - position.left
-    y = e.pageY - position.top + 11 
+    y = e.pageY - position.top + 11
     #HACK (Snyder): +11 pixels to make up for missing 'English' sign
-    
+
     annotation = new Annotation({el: @svg, x: x, y: y, index: @annotationIndex})
     @annotations[@annotationIndex] = annotation
     @annotationIndex += 1
@@ -595,8 +593,6 @@ class Classifier extends Page
     @counter.updateAttribute('simFrequency', "1 in #{Math.round(denominator)}")
 
   submit: (e) =>
-    console.log 'submit image\t', @classification.subject.zooniverse_id
-
     # Get number of annotations
     nAnnotations = _.keys(@annotations).length
 
@@ -619,6 +615,7 @@ class Classifier extends Page
       @trigger 'addToTalk', @talkIds['My Dashboard'], @classification.subject.zooniverse_id
 
     # Training image with simulation
+
     if @isTrainingSubject
       @classification.annotate {simFound: @isLensMarked}
 
@@ -719,7 +716,7 @@ class Classifier extends Page
 
         # Snake-case trainingType
         trainingType = trainingType.replace ' ', '_'
-        
+
         # Get the location for the dialog, as with sims
         x = (training.x + 30) / @subjectDimension
         # HACK: y positions of FPs seem to be wrong: correcting them here rather than in metadata...
