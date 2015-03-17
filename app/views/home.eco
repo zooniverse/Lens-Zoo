@@ -1,13 +1,35 @@
 <% t = require 't7e' %>
 
 <div class="content">
+
   <div class="content-header">
     <img src="images/sgl-logo.jpg" />
-    <div class="home-heading">These are the candidates <b>you</b> found in SpaceWarps!</div>
+    <div class="home-heading">Last year <b>you</b> helped us find gravitational lenses candidates in SpaceWarps!</div>
+
     <div class="sub-heading">
         <div class="metric images">More than 7,500,000</div> classifications by
         <div class="metric participants">more than 50,000</div> volunteers!
     </div>
+
+    <div class="this-years-project">
+      <div class="home-heading">This year help us find Supernovae!</div>
+      <a href='https://stargazing2015.zooniverse.org'><img src='https://raw.githubusercontent.com/zooniverse/Panoptes-Design/07b77022c869e158b202d385913429c9d12df31f/Design%20Files/Supernovae%20Avatar/avatar_supernovae.jpg'></img></a>
+    </div>
+
+
+      <div class="project-footer">
+        <p class="project-header">Previous Stargazing Live projects</p>
+        <div class="project-list">
+          <div class="project">
+            <a href="http://www.planetfour.org/"><div class="image" style="background-image:url(images/logos/planet-four.jpg)"><span>Planet Four</span></div></a>
+            <p>Measure dust features on the surface of Mars to gain new insights into Martian weather.</p>
+          </div>
+          <div class="project">
+            <a href="http://www.planethunters.org/"><div class="image" style="background-image:url(images/logos/planet-hunters.jpg)"><span>Planet Hunters</span></div></a>
+            <p>With your help, we are looking for planets around other stars.</p>
+          </div>
+        </div>
+      </div>
   </div>
 
   <div class="candidate-list">
@@ -159,7 +181,7 @@
             salbod<br>
             jenjee<br>
             mlivemore<br>
-            
+
         </div><div class='chunk'>
             Aaron.mullan<br>
             dogwalker1<br>
@@ -375,25 +397,4 @@
     </div>
   </div>
 
-  <div class="project-footer">
-    <p class="project-header">Other <a href="http://www.zooniverse.org/"><b>Zooniverse</b></a> science teams need your help!</p>
-    <div class="project-list">
-      <div class="project">
-        <a href="http://www.planetfour.org/"><div class="image" style="background-image:url(images/logos/planet-four.jpg)"><span>Planet Four</span></div></a>
-        <p>Measure dust features on the surface of Mars to gain new insights into Martian weather.</p>
-      </div>
-      <div class="project">
-        <a href="http://www.planktonportal.org/"><div class="image" style="background-image:url(images/logos/plankton-portal.jpg)"><span>Plankton Portal</span></div></a>
-        <p>Measure and identify different species of plankton to assess the health of the ocean.</p>
-      </div>
-      <div class="project">
-        <a href="http://radio.galaxyzoo.org/"><div class="image" style="background-image:url(images/logos/radio-galaxy-zoo.jpg)"><span>Radio Galaxy Zoo</span></div></a>
-        <p>Compare infrared and radio telescope data to discover black holes in the Universe.</p>
-      </div>
-      <div class="project">
-        <a href="http://www.cyclonecenter.org/"><div class="image" style="background-image:url(images/logos/cyclone-center.jpg)"><span>Cyclone Center</span></div></a>
-        <p>Unify the global record of tropical cyclone intensity by analyzing storm images.</p>
-      </div>
-    </div>
-  </div>
 </div>

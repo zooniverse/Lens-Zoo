@@ -1,9 +1,9 @@
 body > .stack-of-pages > :not(.classifier)
-  
+
   // Offset the same way as the classifier page
   // TODO: abstract this style further.
   margin 4% 0 0 12%
-  
+
   &.home
 
     .content-header
@@ -33,9 +33,9 @@ body > .stack-of-pages > :not(.classifier)
 
       .candidate
         float: left
-        
+
         width: 33%
-        min-height: 200px 
+        min-height: 200px
         &.final
           text-align: center
 
@@ -58,9 +58,9 @@ body > .stack-of-pages > :not(.classifier)
           overflow-x: hidden
           padding: 0 0 0 5px
 
-          .chunk 
-            display: none 
-            &.showme 
+          .chunk
+            display: none
+            &.showme
               display: block
 
     .project-footer
@@ -72,6 +72,7 @@ body > .stack-of-pages > :not(.classifier)
           display: inline-block
           margin: 0 5px 0 0
           width: 23%
+          vertical-align: top
 
         a
           font-size: 13px
@@ -155,14 +156,14 @@ body > .stack-of-pages > :not(.classifier)
       padding: 0 0 8px 0
       text-shadow: 1px 1px 2px rgba(#000, 0.5)
       text-transform: none
-      
+
       &:before
         content "Q:"
         padding-right 10px
 
     p
       margin: 8px 0 24px 0
-    
+
       &:before
         font-weight 700
         content "A:"
@@ -172,13 +173,13 @@ body > .stack-of-pages > :not(.classifier)
     color #EFEFEF
     padding 1px 0 0 0 // cheating
     width 800px
-    
+
     .quote
       font-size 20px
       margin-top 30px
       line-height 40px
       text-align right
-    
+
     h2
       color #000d18
       font-size 11px
@@ -188,7 +189,7 @@ body > .stack-of-pages > :not(.classifier)
       padding 10px 0
       border-bottom 1px solid $boxline
       box-shadow 0px 1px 0px $boxlineshadow
-    
+
     .guide-menu,
     .page-menu,
     .project-results-menu
@@ -223,7 +224,7 @@ body > .stack-of-pages > :not(.classifier)
             color white
             background-color black
             text-shadow 0 1px 0 $textshadow
-    
+
     &:last-child
       padding 1px 0 50px 0
 
@@ -238,32 +239,32 @@ body > .stack-of-pages > :not(.classifier)
         font-size 16px
         margin 0 auto
         width 86%
-    
+
     section
 
       &:not(.show)
         display none
-    
+
     .bio
-      
+
       h4
         letter-spacing 1px
         font-weight 400
-      
+
       .name
         font-size 14px
-      
+
       .twitter
         &:before
           content "\2003"
-          
+
         font-size 12px
-        
+
       p
         padding-bottom 10px
         font-weight 200
         letter-spacing 1px
-    
+
     ul.menu
       @extends #semantic-list
       height 40px
@@ -295,4 +296,3 @@ body > .stack-of-pages > :not(.classifier)
         &.show
           color #FFF
           text-shadow none
-
