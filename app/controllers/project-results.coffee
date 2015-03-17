@@ -1,12 +1,12 @@
 Controller = require 'zooniverse/controllers/base-controller'
-StackOfPages = require 'stack-of-pages'
+StackOfPages = require 'stack-of-pages/stack-of-pages'
 
 class ProjectResults extends Controller
   className: 'project-results'
   template: require 'views/project-results'
 
   project: null
-  
+
   elements:
     '.project-results-menu li': 'menuItems'
     '.project-stack': 'projectStack'
