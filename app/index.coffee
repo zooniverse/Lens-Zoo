@@ -42,7 +42,7 @@ stack = new StackOfPages
   '#/guide': require 'controllers/guide'
   '#/profile': require 'controllers/profile'
   '#/faq': require 'controllers/faq'
-  '#/projects/*': require 'controllers/results'
+  # '#/projects/*': require 'controllers/results'
   default: '#/home'
 document.body.appendChild stack.el
 
