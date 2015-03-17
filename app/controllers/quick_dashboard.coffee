@@ -7,11 +7,11 @@ browserDialog = require 'zooniverse/controllers/browser-dialog'
 class QuickDashboard extends Controller
   dimension: 441
   bands:  ['g', 'r', 'i']
-  source: 'http://spacewarps.org.s3.amazonaws.com/subjects/raw/'
-  
+  source: 'http://spacewarps.org/subjects/raw/'
+
   cache: {}
   prefix: null
-  
+
   parameters:
     0:
       alpha: 0.09
@@ -25,53 +25,53 @@ class QuickDashboard extends Controller
       alpha: 0.11
       Q: 2
       scales: [0.4, 0.6, 2.5]
-  
+
   events:
     'click a[data-preset]'  : 'onParameterChange'
-  
+
   elements:
     'a[data-preset]'  : 'presetEl'
-  
-  
+
+
   constructor: ->
     super
-    
+
     @calibrations = {}
     @dfs =
       webfits: new $.Deferred()
       fitsjs: new $.Deferred()
-    
+
     @getApi()
-  
+
   getApi: ->
     # Get the browser vendor and version
     userAgent = browserDialog.testAgent(navigator.userAgent)
-    
+
     unless (DataView?)
       alert 'Sorry, your browser does not support features needed for this tool.'
       return
-    
+
     # Determine if WebGL is supported, otherwise fall back to canvas
     canvas  = document.createElement('canvas')
     for name in ['webgl', 'experimental-webgl']
       try
         context = canvas.getContext(name)
-        
+
         # Check if browser support floating-point textures
         ext = context.getExtension('OES_texture_float')
-        
+
       catch error
         continue
       break if context?
-    
+
     lib = if context? then 'gl' else 'canvas'
-    
+
     # Default to canvas if browser does not support WebGL floating-point texture extension
     lib = if ext? then 'gl' else 'canvas'
-    
+
     # Default to canvas if Safari regardless of WebGL
     lib = 'canvas' if userAgent.browser is 'safari'
-    
+
     # Load appropriate WebFITS library asynchronously
     url = "javascripts/webfits-#{lib}.js"
     $.getScript(url, =>
@@ -81,35 +81,35 @@ class QuickDashboard extends Controller
     $.getScript("javascripts/fits.js", =>
       @dfs.fitsjs.resolve()
     )
-  
+
   load: (prefix) ->
     @prefix = prefix
-    
+
     # Add loading class
     $('.mask').addClass('loading')
-    
+
     # Setup WebFITS object
     @wfits = new astro.WebFITS(@el.find('.webfits')[0], @dimension)
     @wfits.setupControls()
-    
+
     # Create new deferreds for each channel
     for band in @bands
       @dfs[band] = new $.Deferred()
-    
+
     # Create deferred and set up callback for error handling
     errDfd = new $.Deferred()
-    
+
     $.when(errDfd)
       .done(@onError)
-    
+
     # Set callback for when all channels and astrojs libraries received
     dfs = $.map(@dfs, (v, k) -> v)
     $.when.apply(null, dfs)
       .done(@allChannelsReceived)
-    
+
     if 'prefix' of @cache and Object.keys(@cache.prefix).length > 0
       cache = @cache['prefix']
-      
+
       # Load files from cache
       for band, index in @bands
         do (band, index) =>
@@ -119,7 +119,7 @@ class QuickDashboard extends Controller
           width = cache[band].width
           height = cache[band].height
           @calibrations[band] = cache[band].calibration
-          
+
           @wfits.loadImage(band, arr, width, height)
           @dfs[band].resolve()
     else
@@ -127,28 +127,28 @@ class QuickDashboard extends Controller
       @cache['prefix'] = {}
       for band, index in @bands
         do (band, index) =>
-          
+
           path = "#{@source}#{prefix}_#{band}.fits.fz"
           new astro.FITS.File(path, (fits) =>
             if fits is null
               errDfd.resolve()
               return
-            
+
             @cache['prefix'][band] = {}
-            
+
             hdu = fits.getHDU()
             header = hdu.header
             dataunit = hdu.data
-            
+
             arr = dataunit.getFrame(0)
             [min, max] = dataunit.getExtent(arr)
             width = dataunit.width
             height = dataunit.height
             calibration = @getCalibration(header)
-            
+
             @calibrations[band] = calibration
             @wfits.loadImage(band, arr, width, height)
-            
+
             # Cache some data
             @cache['prefix'][band].min = min
             @cache['prefix'][band].max = max
@@ -156,36 +156,36 @@ class QuickDashboard extends Controller
             @cache['prefix'][band].width = width
             @cache['prefix'][band].height = height
             @cache['prefix'][band].calibration = calibration
-            
+
             @dfs[band].resolve()
           )
-  
+
   onError: =>
     @trigger 'close'
     errorDialog = new Dialog
       content: "Oh no! We had trouble getting the data. Try the Quick Dashboard on the next image."
       attachment: 'center center .annotation center center'
     errorDialog.open()
-  
+
   # NOTE: Using exposure time = 1.0
   getCalibration: (header) ->
     zeroPoint = header.get('MZP_AB') or header.get('PHOT_C')
     return Math.pow(10, zeroPoint - 30.0)
-  
+
   # Call when all channels are received (i.e. each deferred is resolved)
   allChannelsReceived: =>
-    
+
     # Remove loading class
     $('.mask').removeClass('loading')
-    
+
     # Setup callback for escape key
     document.onkeydown = (e) =>
       if e.keyCode is 27
         @trigger 'close'
-        
+
         # Remove the callback
         document.onkeydown = null
-    
+
     @append("""
       <div class='viewer-tools'>
         <div class='controls'>
@@ -209,21 +209,21 @@ class QuickDashboard extends Controller
     )
     @el.find('a[data-preset="0"]').click()
     @trigger "ready"
-  
+
   onParameterChange: (e) =>
     e.preventDefault()
-    
+
     @presetEl.removeClass('selected')
     $(e.currentTarget).addClass('selected')
-    
+
     preset = e.currentTarget.dataset.preset
     if preset is 'finished'
       @trigger 'close'
       return
-    
+
     # Pass preset to classifier so it can be stored on annotation
     @classifier.preset = preset
-    
+
     # Get a preset and apply to color composite
     parameters = @parameters[preset]
     @wfits.setCalibrations(1, 1, 1)
@@ -231,13 +231,13 @@ class QuickDashboard extends Controller
     @wfits.setAlpha(parameters.alpha)
     @wfits.setQ(parameters.Q)
     @wfits.drawColor('i', 'r', 'g')
-  
+
   teardown: =>
     @wfits?.teardown()
     @wfits = undefined
     @prefix = null
     @el.find('.viewer-tools').remove()
-  
+
   clearCache: ->
     for key, value of @cache
       delete @cache[key]
