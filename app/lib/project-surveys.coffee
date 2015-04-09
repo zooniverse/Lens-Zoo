@@ -1,1 +1,1 @@
-module.exports = ['VICS82', 'CFHTLS']
+module.exports = ['VICS82']
