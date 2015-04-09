@@ -1,5 +1,5 @@
 Page  = require 'controllers/page'
-StackOfPages = require 'stack-of-pages'
+StackOfPages = require 'stack-of-pages/stack-of-pages'
 
 class Results extends Page
   el: $('.results')
@@ -8,7 +8,7 @@ class Results extends Page
 
   events:
     'click .page-menu li': 'show'
-  
+
   constructor: ->
     super
     @html @template
