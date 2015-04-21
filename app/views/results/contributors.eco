@@ -1,0 +1,8 @@
+<% contributors = try require "lib/results/#{ @project }-contributors" %>
+<% contributors ?= [] %>
+
+<div>
+  <% for contributor in contributors: %>
+    <%- contributor %>,&nbsp;
+  <% end %>
+</div>

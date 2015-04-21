@@ -15,9 +15,9 @@ class ProjectResults extends Controller
     super
 
     stackHash = {}
-    stackHash["#/projects/#{ @project }/summary"] = require("views/results/#{ @project }/summary")()
-    stackHash["#/projects/#{ @project }/discoveries"] = require("views/results/#{ @project }/discoveries")()
-    stackHash["#/projects/#{ @project }/contributors"] = require("views/results/#{ @project }/contributors")()
+    stackHash["#/projects/#{ @project }/summary"] = require("views/results/#{ @project }/summary")({ @project })
+    stackHash["#/projects/#{ @project }/discoveries"] = require("views/results/#{ @project }/discoveries")({ @project })
+    stackHash["#/projects/#{ @project }/contributors"] = require("views/results/contributors")({ @project })
 
     stack = new StackOfPages stackHash
     @projectStack.append stack.el
