@@ -1,3 +1,7 @@
+<% translate = require 't7e' %>
+
+<div><%- translate 'results.thankyou' %></div>
+
 <% contributors = try require "lib/results/#{ @project }-contributors" %>
 <% contributors ?= [] %>
 

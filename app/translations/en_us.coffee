@@ -25,7 +25,7 @@ module.exports =
   counters:
     images_viewed: "images viewed"
     potential_lenses: "potential lenses"
-    favorite_images: "favorite images" 
+    favorite_images: "favorite images"
     sim_freq: "simulation frequency"
     sim_freq_tip: "This shows the frequency of simulations that you will be shown."
     fp_freq: "training images"
@@ -53,7 +53,7 @@ module.exports =
         title: "A distant blue galaxy being lensed by a group of massive galaxies."
         image: "images/guide/lenses/lensing-group/VICS82_5008231_iJKs_zoom.png"
         data_type: "lensing-clusters"
-      example_3: 
+      example_3:
         title: "A group of massive galaxies acting as a gravitational lens."
         image: "images/guide/lenses/lensing-group/VICS82_5004036_iJKs_zoom.png"
         data_type: "lensing-clusters"
@@ -71,27 +71,27 @@ module.exports =
         data_type: "lensed-quasars"
 
     non_lens_examples:
-      example_1: 
+      example_1:
         title: "Often galaxies have companions the same colour, or a nearby low mass galaxy or star sitting in front of them in the foreground."
         image: "images/guide/non-lenses/neighbours/VICS82_3010391_iJKs_zoom.png"
         data_type: "mergers-neighbors"
-      example_2: 
+      example_2:
         title: "Some compact galaxy groups can look like lensed image configurations - check for arcs stretched around massive galaxies, usually with different colours to the lensing objects."
         image: "images/guide/non-lenses/groups/VICS82_3000813_iJKs_zoom.png"
         data_type: "groups"
-      example_3: 
+      example_3:
         title: "Some faint galaxies are naturally long and curved; if you see one without a massive galaxy nearby, it's not being lensed."
         image: "images/guide/non-lenses/lightweights/VICS82_3010235_iJKs_zoom.png"
         data_type: "loners"
-      example_4: 
+      example_4:
         title: "Noise in the image can look like patterns of lensed images - beware of pure green or red features!"
         image: "images/guide/artifacts/noise/VICS82_1001584_iJKs_zoom.png"
         data_type: "noise"
-      example_5: 
+      example_5:
         title: "Spirals and ring galaxies can host arc-like features. However, they are often larger, fuzzier, or too asymmetric to be lensed arcs."
         image: "images/guide/non-lenses/spirals-rings/VICS82_2070266_iJKs_zoom.png"
         data_type: "rings-spirals"
-      example_6: 
+      example_6:
         title: "Some images' red, green and blue channels are not well aligned, making all the objects in the field look a bit like lenses!"
         image: "images/guide/artifacts/offsets/VICS82_1000232_iJKs_zoom.png"
         data_type: "offsets"
@@ -182,7 +182,7 @@ module.exports =
       missed:
         option_1: "This image actually contains a simulated lens - sometimes the lensed features can be difficult to pick out. Have you tried using the Quick Dashboard to get a better view of the images?"
         option_2: "This image actually contains a simulated lens - these can be easily confused with other objects that are not lenses. Have a browse around the Spotter's Guide for some tips on what to look for!"
-        option_3: "This image actually contains a simulated lens. If you'd like to go back and look at it again, you can see all your recent images on your Profile page - click on them there to view and discuss them in Talk." 
+        option_3: "This image actually contains a simulated lens. If you'd like to go back and look at it again, you can see all your recent images on your Profile page - click on them there to view and discuss them in Talk."
         option_4: "This image actually contains a simulated lens. If you marked it, it could be that the marker didn't quite land on the arc - don't worry, practice makes perfect!"
     dud_found:
       header: "Nice! There is no gravitational lens in this field!"
@@ -299,22 +299,22 @@ module.exports =
 
         <h3>What does a typical lens system look like?</h3>
         <p>A typical lens system will show a massive lensing galaxy or a galaxy group surrounded by magnified and distorted multiple images of a background galaxy.</p>
-        
+
         <h3>What's the difference between a lens(ing) galaxy and a lensed galaxy?</h3>
         <p>A lens galaxy or a lensing galaxy is the foreground massive galaxy which warps the space around it and causes light to bend around it. A lensed galaxy is a distant background galaxy from which light rays emerge and get bent or deflected due to the lens galaxy before arriving on earth.</p>
-        
+
         <h3>Why are gravitational lens systems interesting?</h3>
         <p>Gravitational lenses have a plethora of applications in astrophysics. Most importantly, they are used for understanding properties of Dark Matter which is very difficult to probe by other methods. Since lens systems also create magnified images of the distant background galaxies, we get a detailed view and hence, better understanding of these distant and faint galaxies which would be impossible otherwise. Other interesting applications include measuring the age of the Universe, finding exoplanets, etc.</p>
-        
+
         <h3>Why do you need my help to look for gravitational lenses?</h3>
         <p>How a lens system will look like in the sky depends on several factors relating to properties of the foreground and the background object. There is enough complexity in these lens systems that the process of detection has not been fully automated till date. One of the major problems is contamination from lens-like systems e.g., spiral galaxies, ring galaxies and other artefacts in the images that mimic arc-like shapes. Human beings are better at processing and filtering objects that have multiple levels of complexities even if they are non-standard. Lens systems fall in this category and we need your help both in discovering newer types of lenses and building better algorithms.</p>
-        
+
         <h3>How do I know what's a lens and what isn't?</h3>
         <p>We've put up some examples of lenses, and non-lenses, in the <a href=\"#/guide\">Spotter's Guide</a>. You can see these examples on the main classification page (on the pull-out tab on the right hand side), and you can click on them to read more about them in the Guide page. You can also go to <a href='http://talk.spacewarps.org/'>Talk</a> and see what other people have found.</p>
-        
+
         <h3>What are simulated lens systems?</h3>
         <p>Simulated lens systems are computer generated images of gravitational lens systems using standard models for a foreground galaxy (or galaxy group) and a background galaxy (or a quasar). These simulated lenses are then added to the real images of the sky observed with a telescope.</p>
-        
+
         <h3>Why do the images have simulated lens systems?</h3>
         <p>Lens systems come in a wide variety and <a href=\"#/guide\">Spotter's Guide</a> page can be used to show only typical examples of lenses. Hence, we use simulated lens system to provide further training for the users. Also, we want to do a comparison of human vs. robots (ie. automated lens finding codes) for which we need a large test sample. Adding a large sample of simulated lenses to the real data help us achieve such comparison.</p>
       """
@@ -362,7 +362,7 @@ module.exports =
     lin_bio: "Yen-Ting is fascinated by galaxies.  He tries to understand the formation and evolution of galaxies by focusing on two interesting galaxy &quot;species:&quot; those living inside massive clusters, and those emitting  prodigiously in radio wavelengths (know as radio galaxies). With the same imaging data used in Space Warps, he hopes to find distant galaxy clusters (in order to probe the initial states of cluster galaxies), and to understand how and when did galaxies become &quot;radio-active.&quot;"
     kneib_bio: "Jean-Paul is a Professor at the Ecole Polytechnique Federale de Lausanne. Watching the first human steps on the Moon as a kid sparkled his interests to discover more of our unknown Universe. Jean-Paul did his PhD at Toulouse University on the modeling of the &quot;gravitational arcs&quot; that had just been discovered in massive galaxy  clusters in the late 1980's. He has since explored many aspects of strong and weak gravitational lensing and their potential uses to in understanding our  model of cosmology. The VICS82 survey is the first attempt to kick start the search for these rare lenses in the infrared domain and learn more about our Universe."
     makler_bio: "Martin Makler is a researcher at the Brazilian Center for Physics Research (CBPF) in Rio de Janeiro. The Cosmos TV series by Carl Sagan and the passage of Comet Halley in 1986 during his childhood sparked his fascination with the heavens. After receiving his physics degree he decided to study the Universe on scales not accessible by his amateur astronomer telescope. Most of his PhD studies were devoted to theoretical studies of the Large Scale Structure of the Universe. Then, motivated by the evidences for Dark Matter and Dark Energy he proposed and tested models which aimed to unify these two unknown components. He now likes to see the Universe through gravitational lenses, specially the strong ones, hoping to shed light on the dark side of the Universe. Martin is excited about the potential science impact of gravitational lenses in CS82 and VICS82, in particular from the combination of these data sets and the use of other unique multi-wavelength data on the Stripe 82 region of the sky."
-    
+
     development_team: "Development Team"
     borden_bio: "Kelly is an archaeologist by training but an educator by passion. While working at the Museum of Science and Industry and the Adler Planetarium she became an enthusiastic science educator eager to bring science to the masses. When not pondering the wonders of science, Kelly can often be found baking or spending time with her herd of cats - Murray, Ada, & Kepler."
     kapadia_bio: "Amit joined the Zooniverse team at the Adler Planetarium in September of 2011. He comes from a background of physics and mathematics. He has worked for various astronomy outreach groups including three of NASA's Great Observatories."
@@ -376,17 +376,17 @@ module.exports =
   guide:
     heading: "Spotter's Guide"
     tagline: "This guide contains examples of real lenses and other astronomical objects that are typically mistaken for gravitational lenses, resulting in &quot;false positive&quot; detections."
-    
+
     intro: "Home"
     real_lenses: "Real Lenses"
     false_positives: "False Positives"
     artifacts: "Artifacts"
-    
+
     lensed_galaxies: "Lensed Galaxies"
     lensed_quasars: "Lensed Quasars"
     group_lenses: "Group Lenses"
     gallery: "Gallery"
-    
+
     lensed_galaxies_text_1: "In general, galaxies can be big (massive) or small (compact), with a clear shape or morphology (e.g. spiral and elliptical galaxies) or messy (e.g. irregular, clumpy and merging galaxies). As they are made up of many stars, galaxies generally appear to be extended in astronomical images, unlike single stars that just look like compact, round sources."
     lensed_galaxies_text_2: "Galaxies with lots of stars or mass can act as cosmic telescopes and bend light of a galaxy lying behind them into multiple images. Typically the most massive galaxies appear yellow-red in colour (the colour is indicative of old stars that are massive). They usually have a smooth distribution of light and are spherical or elliptical in shape. Similarly, the central bulges of large galaxies can be massive enough to cause lensing."
     lensed_galaxies_text_3: "When a distant galaxy (background source) is lensed by a galaxy lying between us and the galaxy, you can get multiple images of the galaxy that typically trace a circle around the lensing galaxy, see the examples below. The last example shows the case when the background source and the lensing galaxy almost exactly aligned along the of sight to us - this produces a lensed image that is a ring, usually referred to as an Einstein ring."
@@ -396,7 +396,7 @@ module.exports =
     lensed_galaxies_text_7: "Very massive galaxies (here a galaxy pair) can cause multiple images to form. You can see a green arc and two additional green images, these are arranged roughly on a circle around the lensing galaxy. This standard lens configuration is called the fold configuration."
     lensed_galaxies_text_8: "In the very rare instance that a background galaxy is (almost perfectly) aligned to the foreground galaxy along the line of sight to us, the light of the background galaxy is deflected in all directions. This give rise to a ring-like lensed image and is called an Einstein Ring."
     lensed_galaxies_text_9: "Spiral galaxies are like fried eggs: the bulge of stars in the middle is the yolk, while the spiral arms lie in the thin layer of egg white. Imagine sticking two fried eggs to either side of a circle of cardboard, and then looking at the whole thing from the side. That's what an edge-on spiral galaxy looks like. These are not usually very massive but some of them can act as lenses. Above is an example of what edge-on lens system could look like. Note that the resolution of this image is lower than the earlier image, this is because the infrared-data in this project comes from two different telescopes, one has a camera with poorer resolution (larger pixels on the sky). You can still see lensed features in this data (as shown here) but it's more tricky than the higher resolution data."
-    
+
     lensed_quasars_text_1: "Quasars or quasi-stellar objects are very compact galaxies that have very bright central regions that outshine the rest of the galaxy making it look &quot;star-like&quot;. The nucleus is so bright because it is massive and it is made up of millions of stars with a very massive black hole. As matter falls into the black hole it lights up making the nucleus very bright. When a compact object like a quasar is lensed by a galaxy that's lying between us and the quasar it is lensed into discrete multiple images like the examples shown below. Quasars are rare compared to galaxies and hence, lensed quasars are even rarer than lensed galaxies. Below the examples show quasars lensed by a single galaxy, quasars lensed by a galaxy group are even rarer. To date, only three quasars lensed by a galaxy group/cluster have been found."
     double: "Double"
     lensed_quasars_text_2: "This is a bright blue &quot;quasi-stellar object&quot; behind a massive galaxy: it has been lensed into two images, one on either side of the lens galaxy."
@@ -413,19 +413,19 @@ module.exports =
     group_lenses_text_5: "Individual or a few galaxies within the group or cluster can produce small scale arcs, like this example and those seen in the Lensed Galaxy tab. This is anohter example of what a lensed arc would like in the low resolution data."
     group_lenses_text_6: "As explained on the previous pages, lensed galaxies that are at high redshift appear redder in colour. This is an example of a high-redshift galaxy that has been lensed into a beautiful red arc by a group of galaxies."
 
-    
+
     gallery_text: "Automated searches have detected nearly one hundred gravitational lenses (or high probability candidates) in the CFHTLS area. In this gallery, each one is shown at the centre of a zoomed-in image that is one quarter the size of a regular Space Warps image."
-    
+
     rings_spirals: "Disk Galaxies"
     loners: "Loners &amp; Lightweights"
     mergers_neighbors: "Neighbours"
     groups: "Group Members"
     stars: "Stars"
-    
+
     rings_spirals_text_1: "A disk galaxy with star-forming spiral arms, or a star forming ring might look like the images below. If you look at Real Lenses: Lensed Galaxies, some of them galaxies look similar... This is how you distinguish between the two..."
 
     face: "Face-on Disks"
-    
+
     rings_spirals_text_2: "Notice how these galaxies appear blue-ish all over, and somewhat fuzzy, unlike the well-defined massive, orangey lens galaxies in the Lensed Galaxies section. If you can see structure in the fuzz, look for an arc plus a counter-arc on the opposite side as signs of lensing - the galaxies above don't have this symmetry."
 
     edge: "Edge-on Disks"
@@ -435,8 +435,8 @@ module.exports =
     loners_text_1: "In this page you see a couple of examples of things that might be mistaken for lensed arcs, however these are not gravitationally lensed systems. The easiest check is that there is no plausible massive gravitational lens in their vicinity."
     loners_text_2: "In this image there is a red arc like feature close to a yellow galaxy that might be a potential lensing galaxy. However, if this was a real arc one would expect the arc to curve around the lensing galaxy. This arc clearly doesn't, and it is displaced from the lensing galaxy suggesting that this is not a lensed arc."
     loners_text_3: "This is an example of an edge on red galaxy that might be mistaken for being lensed by the yellow galaxy at the centre of the image. In this case the yellow galaxy at the cnetre is much to small to produce an arc so far away from it. It would have to have a great deal more mass for this to be a real lens at this distance. If this were a galaxy cluster or group then large scale arcs can be expected but we would see many more yellow galaxies in this image. The fact that we do not just means these are two unrelated galaxies. The red object is an edge-on galaxy that is not lensed!"
-    
-    
+
+
     mergers_neighbors_text_1: "Images taken of the sky are a flattened 2-D projection of a 3D universe. This means that galaxies that are physically unrelated to each other or distant in space and time appear next to each in the images - this is a chance or random alignment. Sometimes the shape of these neighbouring galaxies are such that they can mimic lenses, but there are clear signs that these are not lensed images. For lens candidates remember to look for an arc that is defined and curved around a plausible lensing galaxy, and also look for hints of a counter image. If things look very extended and fuzzy, or curved the wrong way or too straight, it is most likely this isn't a lens. Some examples follow."
     mergers_neighbors_text_2: "This is an example of a yellow galaxy with a neighbouring, edge-on, disk galaxy that is orange in colour. This is not a lensed arc as it is too straight, it is not cureved around the lensing yellow galaxy, and there is a sign of the bulge with a tapered disk that would not be seen in a lensed arc."
     mergers_neighbors_text_3: "These are examples of galaxies that are neighbouring yellow/pink potential lensing galaxies. Left: a red compact object is located close to a galaxy group, this is a round object, there is no hint of any accompanyign counter image and there is little evidence that this red object is a lensed image. Middle: Here you see a blue galaxy next to an edge on galaxy. The most mass in edge on galaxies is at the central bulge, this is the only part of the galaxy that is capable of producing gravitational lensing asn therefore any lensed images would appear around the bulge and not at the extremeity of the disk. This is a simple neighbouring blue star-forming galaxy that happens to appear close to the potential lens. Right: This is a compact high redshift galaxy that appers pink rather than yellow-orange, there are two red blobs nearby, this cannot be lensing as they are not in the right configuration to belensed and too far form the lensing galaxy. This must be a chance alignemnt of neighbouring high-redshift galaxies."
@@ -454,15 +454,15 @@ module.exports =
     stars_text_5: "Here's one of the CFHTLS images that we've marked up with stars and galaxies. It doesn't contain any gravitational lens candidates, but it hopefully gives you an idea of what different kinds of objects look like in the CFHT images. Note that the blue star to the left has black marks above and below the white/blue core. This is one of the artifacts associated to saturation. The detector becomes so overwhelmed that the data recorded in that pixel becomes unreadable and in software the pixel is flagged as not having a real measurement in it. This results in black pixels that do not contain any information as the measurement is unreliable."
     stars_text_6: "Another example of the effect of saturated pixels is shown to the right where you see a black rectangle around the north-south diffraction spike, note the yellow and red along the centre are also a saturation effect and no reliable flux measurement can be taken for such a saturated object."
 
-    artifacts_text: "The process of recording astronomical images can lead to some artifacts in the data that might look interesting but aren't real." 
-    
+    artifacts_text: "The process of recording astronomical images can lead to some artifacts in the data that might look interesting but aren't real."
+
     noise: "Noise"
     noise_text_1: "The night sky is not completely dark: moonlight, man-made light pollution, the glow of gas and dust in our own galaxy all add up to a certain level of &quot;background&quot; sky brightness that is present in all astronomical images, even those taken at very remote sites. We can subtract off this sky brightness, but we are always left with the random fluctuations in the background light level, which we call &quot;noise.&quot; In the infrared, the sky is much brighter and more variable than in the optical, so the red and green channel images are quite noisy. You can see this in the lefthand and central images above, where we've zoomed into show you what the noise looks like."
     noise_text_2: "Sometimes noise features can make patterns that can deceive us. In the righthand image, you can see green noise features around the central galaxy, being boosted a bit by appearing superimposed on the galaxy. The way you can tell them apart from lensed features are: they are too green, suggesting that they are only coming from the J-band image, and not the others (as we would expect from a real object); they are not shaped like lensed features would be, with no symmetry or curvature; many of them are quite small, smaller than a star would be. Real objects in images are at least as big as stars."
-    
+
     offsets: "Image Offsets"
     offsets_text_1: "Sometimes the different filters' images are not aligned correctly before combining them into the colour image you see - they are offset from each other by some small amount, typically a pixel or two. These &quot;registration errors&quot; lead to all the colour of every object in the image changing in a particular direction. Take a look at the images above for some examples. Some individual objects look a bit like gravitational lenses - but because they all have the same odd colours and shapes, we know its because the images are offset instead."
-    
+
     asteroids: "Moving Objects"
     asteroids_text_0: "Some objects in the sky are moving (either fast or slow), and they can leave strange features in the data. In looking for these artifacts remember that the images we present you are colour images made up of three channels: red, green and blue. Some of these artifacts effects can only one of the channels, leading to pure red, green or blue features. In this section, the images are taken from a different survey, that's why the background and the objects look different colours - but the pure red/green/blue colours, and shapes, of moving objects will be the same in the VICS82 images."
     fast_moving: "Fast moving objects (e.g. fast asteroids, satellites, planes)"
@@ -470,7 +470,7 @@ module.exports =
     slow_moving: "Slow moving objects (e.g. distant asteroids, slow moving satellites)"
     asteroids_text_2: "In the top left of the left image above you see an object that is lime green with a very blue neighbour (a zoomed in view is seen in the top right box). This is an asteroid. The asteroid appears both lime green and blue becuase it has moved between exposures taken in the filters that make up this colour image. As the sky images are collected filter by filter (not necessarily on consecutive nights) moving objects like these get smeared out. In this case, the green and red channel data were taken close together, this produces the lime green image of the object, and then blue channel data was taken at a different time causing the blue image to be offset from the lime green one. The history behind this is image is actually a little more complicated than that, as the image in each channel is actually made up of several images that have been stacked and stiched onto each other. If you look carefully at the blue image of the asteroid, you will see that it is not just a uniform blue, there is a greenish-blue bright semi-circle. What you are seeing here is that the upper corner of the green channel image is actually made up of another image in which the asteroid has moved. This was taken at a close time to the blue image, but in this case not all the asteroid was covered by that image. The bottom line of the semi-circle denotes the edge of one of the input images where the asteroid was only partially captured by that image. This is why you see a differently coloured (green) semi-circle in the blue image. Below you can see the image that went into the green channel (this is taken with the r-band filter) where you can clearly see the asteroid and a half!"
     asteroids_text_3: "You can also see another artifact in this image. There is some green fuzz in a vertical stripe down one third of the way from the left of the image. This is the result of the stacking and stiching of images to produce this image. Because this is green, it means that this noisy component comes from the green channel which is the r-band image. So you can also see it as a noisy stripe in the r-band image on the right above. This marks an overlap between individual images where the edge of one of the input images is noisier than the others. This is usually because in these stripes there is actually less data than other regions of the image, less data means the noise is a more dominant feature."
-    
+
     bad: "Bad Data"
     bad_text_1: "Very bright objects, like stars and sometimes quasars, can cause the detector in the camera to saturate - the object provides more light than can be captured, and those parts of the image become unreliable for astronomy. When this happens, the image processing software masks out the saturated pixels, leaving regularly shaped, empty black regions in the images. In VICS82, these regions are usually square, as in the lefthand image above. Bright stars have diffraction spikes, which appear as long stripes in the images - these form differently in different telescopes, and don't always saturate the detector. On the right above you see a diffraction spike in the i-band image (blue) from a bright star somewhere off to the bottom of the page."
     bad_text_2: "Another reason for parts of the image appearing black is that the images are incomplete there - one or more filters' images may contain the edge of the field of view. When we have data from only one or two filters, we mask out the entire region, so as not to be confused by objects with strange colours there. In the righthand image above, you can see that the whole of the righthand third of the image has been masked in this way."
@@ -485,3 +485,11 @@ module.exports =
     intro_VICS82_text_5: "Previously on Space Warps we were investigating images taken in the  optical part of the spectrum as part of the CFHT Legacy Survey (CFHTLS), where nearby massive galaxies look bright yellow, and star-forming galaxies in the background look bright blue. We were also doing a &quot;blind&quot; search, where there was not a target in the center of each image - and the images had larger fields of view, about 70 arcsec compared to the 40 arcsec of VICS82. Finally, the CFHTLS images are &quot;deeper&quot; (the exposure times were longer), so more galaxies can be seen in any given area than in VICS82. The consequence of this is that lenses will be harder to spot in VICS82!"
     intro_VICS82_text_6: "However, gravitational lensing works in the infrared the same way as it does in the optical: this means that we should see the same characteristic patterns of arcs, counter-arcs, rings and multiple image systems in the VICS82 images as we did in the CFHTLS ones, its just the colours will be a bit different - and the lensed features will be more difficult to pick out."
     intro_VICS82_text_7: "There are a few ways to get round these problems, and explore the data further. On the main classification page you can check out any faint fuzzy features using the &quot;Quick Dashboard,&quot; where you can zoom in on an interesting object, and view it using different colour settings. If you look to the bottom right of the Quick Dashboard disply you can also download the individual files that make up the colour image. The image shown in blue is from the i-band, and is the deepest, most sensitive one; the near-infrared J-band is shown in green and the longer wavelength Ks-band in shown in red. Another way to explore these images in more detail is in Talk, where you can use the Full Dashboard in &quot;Tools&quot; to view the separate channel images and play with the display levels for each."
+
+  results:
+    summary: "Summary"
+    discoveries: "Discoveries"
+    contributors: "Contributors"
+
+    comingsoon: "Coming soon..."
+    thankyou: "Below are the usernames of all the people who participated in this Space Warps project. Thank you!"
