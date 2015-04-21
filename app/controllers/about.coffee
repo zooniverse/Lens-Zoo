@@ -1,5 +1,5 @@
 Controller = require 'zooniverse/controllers/base-controller'
-StackOfPages = require 'stack-of-pages'
+StackOfPages = require 'stack-of-pages/stack-of-pages'
 
 class About extends Controller
   className: 'about'

@@ -1,6 +1,6 @@
 require 'lib/setup'
 translate = require 't7e'
-StackOfPages = require 'stack-of-pages'
+StackOfPages = require 'stack-of-pages/stack-of-pages'
 
 Counter = require 'models/counter'
 

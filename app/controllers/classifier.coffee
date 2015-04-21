@@ -1,5 +1,5 @@
 _ = require 'underscore/underscore'
-StackofPages = require 'stack-of-pages'
+StackofPages = require 'stack-of-pages/stack-of-pages'
 translate = require 't7e'
 
 User = require 'zooniverse/models/user'

@@ -1,5 +1,5 @@
 Controller = require 'zooniverse/controllers/base-controller'
-StackOfPages = require 'stack-of-pages'
+StackOfPages = require 'stack-of-pages/stack-of-pages'
 
 ProjectResults = require 'controllers/project-results'
 
@@ -20,6 +20,7 @@ class Results extends Controller
     stackHash = {}
     for project in @projects
       stackHash["#/projects/#{ project }/*"] = (class extends ProjectResults then project: project)
+
     resultsStack = new StackOfPages stackHash
     @el.find('#results-stack').append resultsStack.el
 
