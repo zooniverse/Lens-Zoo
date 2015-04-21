@@ -1,1 +1,7 @@
-<div>v c</div>
+<% contributors = require 'lib/results/vics82-contributors' %>
+
+<div>
+  <% for contributor in contributors: %>
+    <%- contributor %>,&nbsp;
+  <% end %>
+</div>
