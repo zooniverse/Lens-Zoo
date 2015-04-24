@@ -493,3 +493,5 @@ module.exports =
 
     comingsoon: "Coming soon..."
     thankyou: "Below are the usernames of all the people who participated in this Space Warps project. Thank you!"
+
+    CFHTLS_intro: "In our first project, we asked you to spot lensed features in images from the Canada-France-Hawaii Telescope Legacy Survey, so that we could discover new lenses, and find out how visual inspection by citizen scientists compares with automated image analysis by software robots. Here are the two papers reporting the results."
