@@ -1,9 +1,8 @@
 <% translate = require 't7e' %>
 
 <div class="content">
-  <div class="content-header">
-    <%- translate 'div.home-heading', 'results.VICS82_announcement' %>
-    <%- translate 'div.sub-heading', 'results.VICS82_efforts' %>
+  <div>
+    <%- translate 'div.text-header', 'results.VICS82_announcement' %>
   </div>
 
   <div class="candidate-list">

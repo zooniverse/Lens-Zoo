@@ -9,12 +9,23 @@ module.exports =
     results: 'Results'
 
   home:
-    heading: "With the help of Stargazing Live, citizen scientists are finding hidden galaxies!"
-    participants: "Participants Worldwide"
-    imagesClassified: "Images Classified"
     tagline: "Imagine a galaxy, behind another galaxy. Think you won't see it? Think again."
     explanation: "Massive galaxies warp space-time around themselves, bending light rays so that we can see around them. They're the Universe's own telescopes, but these gravitational lenses are very rare: we need your help to find them!"
+
     start: "Start Classifying"
+    discover: "Discover Lenses"
+    discover_snippet: "Help scientists identify these very rare astronomical objects."
+    refine_snippet: "Help scientists refine a sample of Space Warps lens candidates."
+    learn: "Learn about Lenses"
+    learn_snippet: "Find out more about the lenses you might spot in Space Warps."
+    news: "Latest News"
+    news_snippet: "Take a look to see what's happening."
+    get_started: "Get Started"
+
+    heading_sgl: "With the help of Stargazing Live, citizen scientists are finding hidden galaxies!"
+    participants: "Participants Worldwide"
+    imagesClassified: "Images Classified"
+
 
   profile:
     no_user: "Please sign in to keep track of your classifications."
@@ -495,10 +506,8 @@ module.exports =
     comingsoon: "Coming soon..."
     thankyou: "Below are the usernames of all the people who participated in this Space Warps project. Thank you!"
 
-    CFHTLS_intro: "In our first project, we asked you to spot lensed features in images from the Canada-France-Hawaii Telescope Legacy Survey, so that we could discover new lenses, and find out how visual inspection by citizen scientists compares with automated image analysis by software robots. Here are the two papers reporting the results."
+    CFHTLS_intro: "In our first project, we asked you to spot lensed features in images from the Canada-France-Hawaii Telescope Legacy Survey, so that we could discover new lenses, and find out how visual inspection by citizen scientists compares with automated image analysis by software robots. Here are the two papers reporting the results, based on nearly 11,000,000 classifications made by more than 36,000 volunteers."
     CFHTLS_announcement: "These are the candidates <b>you</b> found in Space Warps CFHTLS!"
-    CFHTLS_efforts: "Nearly 11,000,000 classifications, by more than 36,000 volunteers."
 
     VICS82_intro: "In our second project, we asked you to spot lensed features in infrared images from the VISTA/CFHT Stripe 82 survey (VICS82). Some of the systems you found have very red sources behind them, indicative of dusty star-forming galaxies in the early Universe. Here's the follow-up paper on one of these objects, known to us all as ASW0009io9."
     VICS82_announcement: "These are the candidates <b>you</b> found in Space Warps VICS82!"
-    VICS82_efforts: " "

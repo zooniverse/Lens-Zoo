@@ -1,11 +1,9 @@
 <% translate = require 't7e' %>
 
 <div class="content">
-  <div class="content-header">
-    <%- translate 'div.home-heading', 'results.CFHTLS_announcement' %>
-    <%- translate 'div.sub-heading', 'results.CFHTLS_efforts' %>
+  <div>
+    <%- translate 'div.text-header', 'results.CFHTLS_announcement' %>
   </div>
-
   <div>
     <img src="https://lenszoo.files.wordpress.com/2015/04/cfhtls_paper_candidates.jpg" width="800pix"/>
   </div>
