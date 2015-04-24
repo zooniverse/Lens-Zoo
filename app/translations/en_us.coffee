@@ -487,6 +487,7 @@ module.exports =
     intro_VICS82_text_7: "There are a few ways to get round these problems, and explore the data further. On the main classification page you can check out any faint fuzzy features using the &quot;Quick Dashboard,&quot; where you can zoom in on an interesting object, and view it using different colour settings. If you look to the bottom right of the Quick Dashboard disply you can also download the individual files that make up the colour image. The image shown in blue is from the i-band, and is the deepest, most sensitive one; the near-infrared J-band is shown in green and the longer wavelength Ks-band in shown in red. Another way to explore these images in more detail is in Talk, where you can use the Full Dashboard in &quot;Tools&quot; to view the separate channel images and play with the display levels for each."
 
   results:
+    title: "Project Results"
     summary: "Summary"
     discoveries: "Discoveries"
     contributors: "Contributors"
@@ -495,3 +496,5 @@ module.exports =
     thankyou: "Below are the usernames of all the people who participated in this Space Warps project. Thank you!"
 
     CFHTLS_intro: "In our first project, we asked you to spot lensed features in images from the Canada-France-Hawaii Telescope Legacy Survey, so that we could discover new lenses, and find out how visual inspection by citizen scientists compares with automated image analysis by software robots. Here are the two papers reporting the results."
+    CFHTLS_announcement: "These are the candidates <b>you</b> found in Space Warps CFHTLS!"
+    CFHTLS_efforts: "Nearly 11,000,000 classifications, by more than 36,000 volunteers."

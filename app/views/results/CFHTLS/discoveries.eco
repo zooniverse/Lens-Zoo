@@ -1,3 +1,26 @@
 <% translate = require 't7e' %>
 
-<div><%- translate 'results.comingsoon' %></div>
+<div class="content">
+  <div class="content-header">
+    <%- translate 'div.home-heading', 'results.CFHTLS_announcement' %>
+    <%- translate 'div.sub-heading', 'results.CFHTLS_efforts' %>
+  </div>
+
+  <div>
+    <img src="https://lenszoo.files.wordpress.com/2015/04/cfhtls_paper_candidates.jpg" width="800pix"/>
+  </div>
+</div>
+
+<!-- This is to be experimented with next...
+  <div class="candidate-list">
+    <div class="candidate">
+      <div class="candidate-header">Candidate #4</div>
+      <img src="images/candidates/ASW0009dqb.png" />
+    </div>
+    <div class="candidate">
+      <div class="candidate-header">Candidate #5</div>
+      <img src="images/candidates/ASW0009dk6.png" />
+    </div>
+    <!-- etc --/>
+  </div>
+--/>

@@ -1,7 +1,9 @@
+<% translate = require 't7e' %>
+
 <div class="content">
-  <header>
-    <h1>Project Results</h1>
-  </header>
+  <div class="content-header">
+    <%- translate 'h1', 'results.title' %>
+  </div>
 
   <ul class="page-menu">
     <% for project, i in @projects: %>
