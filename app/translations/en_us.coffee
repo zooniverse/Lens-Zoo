@@ -498,3 +498,7 @@ module.exports =
     CFHTLS_intro: "In our first project, we asked you to spot lensed features in images from the Canada-France-Hawaii Telescope Legacy Survey, so that we could discover new lenses, and find out how visual inspection by citizen scientists compares with automated image analysis by software robots. Here are the two papers reporting the results."
     CFHTLS_announcement: "These are the candidates <b>you</b> found in Space Warps CFHTLS!"
     CFHTLS_efforts: "Nearly 11,000,000 classifications, by more than 36,000 volunteers."
+
+    VICS82_intro: "In our second project, we asked you to spot lensed features in infrared images from the VISTA/CFHT Stripe 82 survey (VICS82). Some of the systems you found have very red sources behind them, indicative of dusty star-forming galaxies in the early Universe. Here's the follow-up paper on one of these objects, known to us all as ASW0009io9."
+    VICS82_announcement: "These are the candidates <b>you</b> found in Space Warps VICS82!"
+    VICS82_efforts: " "
