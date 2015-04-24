@@ -27,6 +27,14 @@ class ProjectResults extends Controller
 
   onHashChange: =>
     # yuck
+    currentHash = if location.hash[location.hash.length - 1] == '/'
+      location.hash.slice(0, location.hash.length - 1)
+    else
+      location.hash
+
+    if currentHash.indexOf(@project) == currentHash.length - @project.length
+      location.hash = currentHash + '/summary'
+
     @menuItems.removeClass('show').find("a[href='#{ location.hash }']").parent().addClass('show')
 
 module.exports = ProjectResults
