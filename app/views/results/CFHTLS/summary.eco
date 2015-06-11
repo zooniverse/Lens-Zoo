@@ -8,25 +8,28 @@
   <br>
   <div>
     <p class='title'>Space Warps: I. Crowd-sourcing the Discovery of Gravitational Lenses</p>
-    <p class='abstract'>We describe Space Warps, a novel gravitational lens discovery service that yields
-    samples of high purity and completeness through crowd-sourced visual inspection.
-    Carefully produced colour composite images are displayed to volunteers via a
-    classification interface which records their estimates of the positions of
-    candidate lensed features. Simulated lenses, and expert-classified images which
-    lack lenses, are inserted into the image stream at random intervals; this
-    training set is used to give the volunteers feedback on their performance, as
-    well as to calibrate it in order to allow dynamical updates to the probability
-    of any image they classify to contain a lens. Low probability systems are
-    retired from the site periodically, concentrating the sample towards a set of
-    candidates. Having divided 160 square degrees of Canada-France-Hawaii Telescope
-    Legacy Survey (CFHTLS) imaging into some 430,000 overlapping 84 by 84 arcsecond
-    tiles and displaying them on the site, we were joined by around 37,000
-    volunteers who contributed 11~million image classifications over the course of 8
-    months. The sample was reduced to 3368 stage one candidates; these were then
-    refined to yield a sample that we expect to be over 90% complete and 30% pure.
-    We comment on the scalability of the Space Warps system to the wide field survey era,
-    based on our finding that searches of 10^5 images can be performed by a
-    crowd of 10^5 volunteers in 6 days.</p>
+    <p class='abstract'>We describe Space Warps, a novel gravitational lens
+    discovery service that yields
+samples of high purity and completeness through crowd-sourced visual inspection.
+Carefully produced colour composite images are displayed to volunteers via a
+web-based classification interface, which records their estimates of the
+positions of candidate lensed features. Simulated lenses, and expert-classified
+images which lack lenses, are inserted into the image stream at random
+intervals; this training set is used to give the volunteers instantaneous
+feedback on their performance, as well as to calibrate a model of the system
+that provides dynamical updates to the probability that a classified image
+contains a lens. Low probability systems are retired from the site periodically,
+concentrating the sample towards a set of lens candidates. Having divided 160
+square degrees of Canada-France-Hawaii Telescope Legacy Survey (CFHTLS) imaging
+into some 430,000 overlapping 82 by 82 arcsecond tiles and displaying them on
+the site, we were joined by around 37,000 volunteers who contributed 11~million
+image classifications over the course of 8 months. This Stage 1 search reduced
+the sample to 3381 images containing candidates; these were then refined in
+Stage 2 to yield a sample that we expect to be over 90\% complete and 30\%
+pure, based on our analysis of the volunteers performance on training images.
+We comment on the scalability of the Space Warps system to the wide field
+survey era, based on our projection that searches of 10<sup>5</sup>
+images could be performed by a crowd of 10<sup>5</sup> volunteers in 6 days.</p>
     <p><a href="https://github.com/drphilmarshall/SpaceWarps/blob/master/doc/sw-system.pdf" target="_blank">Latest version</a> |
        <a href="http://arxiv.org/abs/1504.06148" target="_blank">ArXiV pre-print</a> |
        <a href="https://github.com/drphilmarshall/SpaceWarps/issues" target="_blank">Give Feedback</a></span>
@@ -35,28 +38,29 @@
     <div>
       <p class='title'>Space Warps: II. New Gravitational Lens Candidates from the CFHTLS Discovered
       through Citizen Science</p>
-      <p class='abstract'>We report the discovery of 28 promising and a total of 58 new lens
-      candidates from the CFHT Legacy Survey (CFHTLS) based on about 11
-      million classifications performed by citizen scientists as part of the
-      first Space Warps lens search.  The goal of the blind lens search was to
-      identify lenses missed by lens finding robots (the RingFinder on galaxy scales
-      and ArcFinder on group/cluster scales), which have been previously used to
-      mine the CFHTLS for lenses.  We compare some properties of lens samples
-      detected by these algorithms to the Space Warps sample and found that they are
-      broadly similar.  The image separation distribution calculated from the
-      Space Warps discovered sample shows that our previous constraints on the average
-      density profile of the lens population are robust. Space Warps recovers about
-      60% of the known sample and the new candidates show a richer variety
-      compared to the lenses found by the two robots. We find that analyzing
-      only those classifications which are performed by the high power
-      volunteers, Space Warps can achieve a detection rate of up to 75% for the known
-      lens sample.  Training and calibration of the performance of citizen
-      scientists is crucial for the success of Space Warps. We also present the SIMCT
-      pipeline, used for generating a sample of realistic simulated lensed
-      images in the CFHTLS, and a sample of duds and false positives used in
-      the training.  Such a training sample has a legacy value for testing
-      future lens finding algorithms. We make our training sample publicly
-      available.</p>
+      <p class='abstract'>
+      We report the discovery of 29 promising (and 59 total) new lens
+candidates from the CFHT Legacy Survey (CFHTLS) based on about 11
+million classifications performed by citizen scientists as part of the
+first Space Warps lens search.  The goal of the blind lens search was to
+identify lens candidates missed by robots (the RingFinder on galaxy scales and
+ArcFinder on group/cluster scales) which had been previously used to mine the
+CFHTLS for lenses.  We compare some properties of the samples detected
+by these algorithms to the Space Warps sample and find them to be broadly
+similar.  The image separation distribution calculated from the Space Warps
+sample shows that previous constraints on the average density profile of
+lens galaxies are robust. Space Warps recovers about 65% of known lenses, while
+the new candidates show a richer variety compared to those found by the
+two robots. This detection rate could be increased to 80% by only using
+classifications performed by expert volunteers (albeit at the cost of a
+higher false positive rate), indicating that the training and
+performance calibration of the citizen scientists is very important for
+the success of Space Warps. In this work we present the SIMCT pipeline, used for
+generating in situ a sample of realistic  simulated lensed images.
+This training sample, along with the false positives identified during
+the search, has a legacy value for testing future lens finding
+algorithms. We make the pipeline and the training set publicly
+available.</p>
       <p><a href="https://github.com/drphilmarshall/SpaceWarps/blob/master/doc/sw-cfhtls.pdf" target="_blank">Latest version</a> |
          <a href="http://arxiv.org/abs/1504.05587" target="_blank">ArXiV pre-print</a> |
          <a href="https://github.com/drphilmarshall/SpaceWarps/issues" target="_blank">Give Feedback</a></span>
