@@ -3,14 +3,14 @@ Api = require 'zooniverse/lib/api'
 
 FILMING = true
 
-FROM_BEFORE_BBC = 
+FROM_BEFORE_BBC =
   user_count: -23711 # this is arbitrary, but i promise the resulting number is close
   classification_count: 10027682
 
 class Home extends Controller
   className: 'home'
-  template: require 'views/home'
-  
+  template: require 'views/home'  # This could point to a different home.eco view, in a project specific subfolder.
+
   elements:
     '.participants': 'participants'
     '.images': 'images'
@@ -35,7 +35,7 @@ class Home extends Controller
     $(".observers").each ->
       to_activate = $(@).find(".showme").next(".chunk")
       if to_activate.length is 0
-        to_activate = $(@).find(".chunk")[0] 
+        to_activate = $(@).find(".chunk")[0]
       $(@).find(".chunk").removeClass("showme")
       $(to_activate).addClass("showme")
 
