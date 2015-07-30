@@ -83,11 +83,11 @@ class Classifier extends Controller
     # RECONFIGURATION:
     #
     # Normal operation:
-    # User.on 'change', @onUserChange
+    User.on 'change', @onUserChange
     #
     # Short circuit app logic until we load more data:
-    @el.find('.annotation').remove()
-    @el.find('.subjects').html require 'views/out_of_subjects'
+    # @el.find('.annotation').remove()
+    # @el.find('.subjects').html require 'views/out_of_subjects'
     #
     # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
