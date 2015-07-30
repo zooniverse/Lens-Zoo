@@ -55,7 +55,60 @@ module.exports =
     lenses: "Lenses"
     nonlenses: "Non-lenses"
 
-    lens_examples:
+    CFHTLS_lens_examples:
+      example_1:
+        title: "A distant quasar being lensed by a massive galaxy in the foreground."
+        image: "images/guide/lenses/galaxy-quasar/CFHTLS_082_0427_gri_zoom.png"
+        data_type: "lensed-quasars"
+      example_2:
+        title: "An edge-on spiral galaxy acting as a gravitational lens."
+        image: "images/guide/lenses/disk-galaxy/CFHTLS_024_2215_gri_zoom.png"
+        data_type: "lensed-galaxies"
+      example_3:
+        title: "A group of massive galaxies acting as a gravitational lens."
+        image: "images/guide/lenses/cluster-galaxy/CFHTLS_052_1191_gri_zoom.png"
+        data_type: "lensing-clusters"
+      example_4:
+        title: "A distant blue galaxy being lensed by a massive galaxy in the foreground."
+        image: "images/guide/lenses/elliptical-galaxy/CFHTLS_030_2132_gri_zoom.png"
+        data_type: "lensed-galaxies"
+      example_5:
+        title: "A distant blue galaxy being lensed by a massive galaxy in the foreground."
+        image: "images/guide/lenses/elliptical-galaxy/CFHTLS_039_1471_gri_zoom.png"
+        data_type: "lensed-galaxies"
+      example_6:
+        title: "A distant quasar being lensed by a massive galaxy in the foreground."
+        image: "images/guide/lenses/galaxy-quasar/CFHTLS_082_1138_gri_zoom.png"
+        data_type: "lensed-quasars"
+
+    CFHTLS_non_lens_examples:
+      example_1:
+        title: "Some lightweight galaxies have arms and tails that can look like lensed arcs."
+        image: "images/guide/non-lenses/lightweights/CFHTLS_022_14405_13384_b_gri_zoom.png"
+        data_type: "lightweights"
+      example_2:
+        title: "Some lightweight galaxies have arms and tails that can look like lensed arcs."
+        image: "images/guide/non-lenses/lightweights/CFHTLS_084_6943_2087_b_gri_zoom.png"
+        data_type: "mergers-neighbors"
+      example_3:
+        title: "Some faint blue galaxies are naturally long and curved; if you see one without a massive galaxy nearby, it’s not being lensed."
+        image: "images/guide/non-lenses/loners/CFHTLS_050_8615_13075_b_gri_zoom.png"
+        data_type: "loners"
+      example_4:
+        title: "Some faint blue galaxies are naturally long and curved; if you see one without a massive galaxy nearby, it’s not being lensed."
+        image: "images/guide/non-lenses/loners/CFHTLS_110_1042_7688_b_gri_zoom.png"
+        data_type: "loners"
+      example_5:
+        title: "Spirals and ring galaxies can host blue arc-like features. However, they are often larger, fuzzier, or too asymmetric to be lensed arcs."
+        image: "images/guide/non-lenses/spirals-rings/CFHTLS_001_1555_gri_zoom.png"
+        data_type: "mergers-neighbors"
+      example_6:
+        title: "Spirals and ring galaxies can host blue arc-like features. However, they are often larger, fuzzier, or too asymmetric to be lensed arcs."
+        image: "images/guide/non-lenses/spirals-rings/CFHTLS_074_0786_gri_zoom.png"
+        data_type: "rings-spirals"
+
+
+    VICS82_lens_examples:
       example_1:
         title: "A distant quasar being lensed by a massive galaxy in the foreground."
         image: "images/guide/lenses/lensed-quasar/VICS82_7009427_iJKs_zoom.png"
@@ -81,7 +134,7 @@ module.exports =
         image: "images/guide/lenses/lensed-galaxy/VICS82_7008406_iJKs_zoom.png"
         data_type: "lensed-quasars"
 
-    non_lens_examples:
+    VICS82_non_lens_examples:
       example_1:
         title: "Often galaxies have companions the same colour, or a nearby low mass galaxy or star sitting in front of them in the foreground."
         image: "images/guide/non-lenses/neighbours/VICS82_3010391_iJKs_zoom.png"
