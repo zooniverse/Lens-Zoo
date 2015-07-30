@@ -1,0 +1,27 @@
+<% t = require 't7e' %>
+
+<div class="content">
+  <img src="images/sgl-logo.jpg" />
+  <%- t 'div.home-heading', 'home.heading' %>
+
+  <div class="bubble">
+    <div class="bubble-content">
+      <div class="metric participants">-</div>
+      <%- t 'div.sub-head', 'home.participants' %>
+      <div class="gap"><!-- sigh --></div>
+      <div class="metric images">-</div>
+      <%- t 'div.sub-head', 'home.imagesClassified' %>
+    </div>
+  </div>
+
+  <%- t 'p.tagline', 'home.tagline' %>
+  <%- t 'p', 'home.explanation' %>
+  <a href="#/classify"><%- t 'button.large', 'home.start' %></a>
+
+  <ul class="social-icons">
+    <li><a href="https://www.facebook.com/SpaceWarps" target="_blank"><img src="images/icons/facebook.png"></a></li>
+    <li><a href="https://twitter.com/SpaceWarps" target="_blank"><img src="images/icons/twitter.png" /></a></li>
+    <!-- <li><a href="https://plus.google.com/+ZooniverseOrgReal" target="_blank"><img src="images/icons/google-plus.png" /></a></li> -->
+  </ul>
+
+</div>

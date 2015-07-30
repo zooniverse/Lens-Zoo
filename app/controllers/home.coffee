@@ -9,7 +9,17 @@ FROM_BEFORE_BBC =
 
 class Home extends Controller
   className: 'home'
-  template: require 'views/home'  # This could point to a different home.eco view, in a project specific subfolder.
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  # RECONFIGURATION:
+  # Which survey are we currently hosting? Or are we re-directing people?
+  #
+  # template: require 'views/home/landingCFHTLSstage1'
+  # template: require 'views/home/landingCFHTLSstage2'
+  # template: require 'views/home/landingVICS82'
+  # template: require 'views/home/celebrate-VICS82-then-divert'
+  template: require 'views/home/landingCFHTLSreboot'
+  #
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
   elements:
     '.participants': 'participants'
