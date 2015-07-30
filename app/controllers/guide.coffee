@@ -6,9 +6,9 @@ class Guide extends Controller
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # RECONFIGURATION:
   # Which survey are we supporting with this Spotter's Guide?
-  # template: require 'views/about/guideCFHTLSstage1'
+  # template: require 'views/about/guideCFHTLSstage1' - NOT TESTED, DO NOT USE. IT HAS BEEN SUPERCEDED BY THE STAGE 2 GUIDE.
   template: require 'views/guide/guideCFHTLSstage2'
-  # template: require 'views/about/guideVICS82'
+  # template: require 'views/guide/guideVICS82'
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
   events:
