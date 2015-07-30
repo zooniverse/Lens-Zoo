@@ -7,8 +7,9 @@ class About extends Controller
   # RECONFIGURATION:
   # Which survey are we introducing?
   # template: require 'views/about/aboutCFHTLSstage1'
-  template: require 'views/about/aboutCFHTLSstage2'
+  # template: require 'views/about/aboutCFHTLSstage2'
   # template: require 'views/about/aboutVICS82'
+  template: require 'views/about/aboutCFHTLSreboot'
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
   events:
