@@ -11,11 +11,13 @@ module.exports =
   home:
     tagline: "Imagine a galaxy, behind another galaxy. Think you won't see it? Think again."
     explanation: "Massive galaxies warp space-time around themselves, bending light rays so that we can see around them. They're the Universe's own telescopes, but these gravitational lenses are very rare: we need your help to find them!"
+    reboot_explanation: "Massive galaxies warp space-time, bending light rays so that we can see around them. These gravitational lenses are very rare, but you already helped us find dozens of new candidates. We're improving our analysis using your data, and finding even more interesting images - come and help us find a few more lenses!"
 
     start: "Start Classifying"
     discover: "Discover Lenses"
     discover_snippet: "Help scientists identify these very rare astronomical objects."
     refine_snippet: "Help scientists refine a sample of Space Warps lens candidates."
+    reboot_snippet: "Help scientists find even more gravitational lens candidates."
     learn: "Learn about Lenses"
     learn_snippet: "Find out more about the lenses you might spot in Space Warps."
     news: "Latest News"
@@ -426,7 +428,7 @@ module.exports =
     collett_bio: "Tom is an astronomer at the Institute of Astronomy, Cambridge. He's interested in using gravitational lenses to measure the Universe's expansion. Tom is particularly interested in the very rare gravitational lenses where two background sources are being lensed by the same galaxy."
     davis_bio: "Chris is a graduate research student in astronomy at Stanford University, working with Phil on the analysis of Space Warps classification data (among other things)."
 
-    survey_team: "VICS82 Team"
+    VICS82_survey_team: "VICS82 Team"
     geach_bio: "Jim is an astronomer at the Centre for Astrophysics Research at the University of Hertfordshire. It was the dark skies of his native Cornwall that first lured Jim's gaze and sparked his fascination with the Galaxy we live in and the other galaxies in the Universe. After studying for a degree in Physics at Imperial College London, Jim did a PhD at Durham University, specialising in galaxy evolution with a particular focus on the role a galaxy's local environment has on its evolution. He is using the VICS82 imaging data to address this question. You can follow Jim on twitter at <a href='https://twitter.com//intent/user?screen_name=jgeach'>@jgeach</a>."
     lin_bio: "Yen-Ting is fascinated by galaxies.  He tries to understand the formation and evolution of galaxies by focusing on two interesting galaxy &quot;species:&quot; those living inside massive clusters, and those emitting  prodigiously in radio wavelengths (know as radio galaxies). With the same imaging data used in Space Warps, he hopes to find distant galaxy clusters (in order to probe the initial states of cluster galaxies), and to understand how and when did galaxies become &quot;radio-active.&quot;"
     kneib_bio: "Jean-Paul is a Professor at the Ecole Polytechnique Federale de Lausanne. Watching the first human steps on the Moon as a kid sparkled his interests to discover more of our unknown Universe. Jean-Paul did his PhD at Toulouse University on the modeling of the &quot;gravitational arcs&quot; that had just been discovered in massive galaxy  clusters in the late 1980's. He has since explored many aspects of strong and weak gravitational lensing and their potential uses to in understanding our  model of cosmology. The VICS82 survey is the first attempt to kick start the search for these rare lenses in the infrared domain and learn more about our Universe."
