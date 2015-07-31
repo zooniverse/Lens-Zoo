@@ -168,6 +168,7 @@ module.exports =
       header_stage2: "Welcome to Space Warps Refine!"
       details: "Gravitational Lenses are very rare astronomical objects. We need your help finding them!"
       details_stage2: "Gravitational Lenses are very rare astronomical objects. In the first stage of the project, we found a few thousand candidates. Now we are trying to refine this sample to identify the really convincing ones, and we need your help!"
+      details_CFHTLSreboot: "Gravitational Lenses are very rare astronomical objects. In our first project, we found a few dozen new candidates. Now we are trying to enlarge this sample by taking a closer look at some of the images, and we need your help!"
     what_are_lenses_1:
       header: "What are gravitational lenses?"
       details: "Gravitational lenses are massive astronomical objects &ndash; such as galaxies &ndash; that lie in front of other, more distant, very faint galaxies. These massive objects act like huge, natural magnifying glasses. They focus light from distant objects towards us, allowing us to see further into the Universe."
