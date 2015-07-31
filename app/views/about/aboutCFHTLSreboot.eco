@@ -45,52 +45,52 @@
     <br>
 
     <div class='bio'>
-      <h4 class='name'>Phil Marshall<span class='twitter'><a href="https://twitter.com/intent/user?screen_name=drphilmarshall">@drphilmarshall</a></span></h4>
+      <h4 class='name'>Phil Marshall<span class='twitter'>@drphilmarshall</span></h4>
       <%- translate 'p', 'about.marshall_bio2' %>
     </div>
 
     <div class='bio'>
-      <h4 class='name'>Aprajita Verma<span class='twitter'><a href="https://twitter.com/intent/user?screen_name=aprajita">@aprajita</a></span></h4>
+      <h4 class='name'>Aprajita Verma<span class='twitter'>@aprajita</span></h4>
       <%- translate 'p', 'about.verma_bio' %>
     </div>
 
     <div class='bio'>
-      <h4 class='name'>Anupreeta More<span class='twitter'><a href="https://twitter.com/intent/user?screen_name=anupreeta">@anupreeta</a></span></h4>
+      <h4 class='name'>Anupreeta More<span class='twitter'>@anupreeta</span></h4>
       <%- translate 'p', 'about.a_more_bio' %>
     </div>
 
     <div class='bio'>
-      <h4 class='name'>Elisabeth Baeten<span class='twitter'><a href="https://twitter.com/intent/user?screen_name=ElisabethB">@ElisabethB</a></span></h4>
+      <h4 class='name'>Elisabeth Baeten<span class='twitter'>@ElisabethB</span></h4>
       <%- translate 'p', 'about.baeten_bio' %>
     </div>
 
     <div class='bio'>
-      <h4 class='name'>Claude Cornen</h4>
+      <h4 class='name'>Claude Cornen<span class='twitter'>@C_cld</span></h4>
       <%- translate 'p', 'about.cornen_bio' %>
     </div>
 
     <div class='bio'>
-      <h4 class='name'>Rafael Kueng</h4>
+      <h4 class='name'>Rafael Kueng<span class='twitter'>@rafael_kueng</span></h4>
       <%- translate 'p', 'about.kueng_bio' %>
     </div>
 
     <div class='bio'>
-      <h4 class='name'>Christine Macmillan<span class='twitter'><a href="https://twitter.com/intent/user?screen_name=budgieye">@budgieye</a></span></h4>
+      <h4 class='name'>Christine Macmillan<span class='twitter'>@budgieye</span></h4>
       <%- translate 'p', 'about.macmillan_bio' %>
     </div>
 
     <div class='bio'>
-      <h4 class='name'>Surhud More</h4>
+      <h4 class='name'>Surhud More<span class='twitter'>@surhudm</span></h4>
       <%- translate 'p', 'about.s_more_bio' %>
     </div>
 
     <div class='bio'>
-      <h4 class='name'>Prasenjit Saha<span class='twitter'><a href="https://twitter.com/intent/user?screen_name=psaha">@psaha</a></span></h4>
+      <h4 class='name'>Prasenjit Saha<span class='twitter'>@psaha</span></h4>
       <%- translate 'p', 'about.saha_bio' %>
     </div>
 
     <div class='bio'>
-      <h4 class='name'>Julianne Wilcox<span class='twitter'><a href="https://twitter.com/intent/user?screen_name=capella05">@capella05</a></span></h4>
+      <h4 class='name'>Julianne Wilcox<span class='twitter'>@capella05</span></h4>
       <%- translate 'p', 'about.wilcox_bio' %>
     </div>
 
@@ -100,8 +100,38 @@
     </div>
 
     <div class='bio'>
-       <h4 class='name'>Tom Collett<span class='twitter'></span></h4>
+       <h4 class='name'>Tom Collett<span class='twitter'><span class='twitter'>@Tom Collett</span></span></h4>
        <%- translate 'p', 'about.collett_bio' %>
+    </div>
+
+    <div class='bio'>
+       <h4 class='name'>Thomas J<span class='twitter'>@thomas_j</span></h4>
+       <%- translate 'p', 'about.thomas_j_bio' %>
+    </div>
+
+    <div class='bio'>
+       <h4 class='name'>Layne Wright<span class='twitter'>@gumbosea</span></h4>
+       <%- translate 'p', 'about.wright_bio' %>
+    </div>
+
+    <div class='bio'>
+       <h4 class='name'>Matthias Tecza<span class='twitter'></span></h4>
+       <%- translate 'p', 'about.tecza_bio' %>
+    </div>
+
+    <div class='bio'>
+       <h4 class='name'>Cecile Faure<span class='twitter'></span></h4>
+       <%- translate 'p', 'about.faure_bio' %>
+    </div>
+
+    <div class='bio'>
+       <h4 class='name'>Janine Fohlmeister<span class='twitter'></span></h4>
+       <%- translate 'p', 'about.fohlmeister_bio' %>
+    </div>
+
+    <div class='bio'>
+       <h4 class='name'>Mandeep Gill<span class='twitter'></span></h4>
+       <%- translate 'p', 'about.gill_bio' %>
     </div>
 
 
