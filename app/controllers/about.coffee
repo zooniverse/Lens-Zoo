@@ -1,16 +1,10 @@
 Controller = require 'zooniverse/controllers/base-controller'
 StackOfPages = require 'stack-of-pages/stack-of-pages'
+Configuration = require '../lib/configuration'
 
 class About extends Controller
   className: 'about'
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  # RECONFIGURATION:
-  # Which survey are we introducing?
-  # template: require 'views/about/aboutCFHTLSstage1'
-  # template: require 'views/about/aboutCFHTLSstage2'
-  # template: require 'views/about/aboutVICS82'
-  template: require 'views/about/aboutCFHTLSreboot'
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  template: Configuration.AboutTemplate
 
   events:
     'click .menu li': 'show'

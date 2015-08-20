@@ -1,5 +1,6 @@
 Controller = require 'zooniverse/controllers/base-controller'
 Api = require 'zooniverse/lib/api'
+Configuration = require '../lib/configuration'
 
 FILMING = true
 
@@ -9,17 +10,7 @@ FROM_BEFORE_BBC =
 
 class Home extends Controller
   className: 'home'
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  # RECONFIGURATION:
-  # Which survey are we currently hosting? Or are we re-directing people?
-  #
-  # template: require 'views/home/landingCFHTLSstage1'
-  # template: require 'views/home/landingCFHTLSstage2'
-  # template: require 'views/home/landingVICS82'
-  # template: require 'views/home/celebrate-VICS82-then-divert'
-  template: require 'views/home/landingCFHTLSreboot'
-  #
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  template: Configuration.HomeTemplate
 
   elements:
     '.participants': 'participants'

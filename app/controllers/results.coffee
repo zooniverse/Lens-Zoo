@@ -6,9 +6,8 @@ ProjectResults = require 'controllers/project-results'
 class Results extends Controller
   className: 'results'
   template: require 'views/results'
-
   projects: require 'lib/project-surveys'
-  
+
   elements:
     '.page-menu li': 'menuItems'
 

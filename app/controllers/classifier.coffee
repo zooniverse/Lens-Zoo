@@ -1,6 +1,7 @@
 _ = require 'underscore/underscore'
 StackofPages = require 'stack-of-pages/stack-of-pages'
 translate = require 't7e'
+{Dialog, Step, Tutorial} = require 'zootorial'
 
 User = require 'zooniverse/models/user'
 Subject = require 'zooniverse/models/subject'
@@ -17,35 +18,16 @@ Counters = require 'controllers/counters'
 
 Counter = require 'models/counter'
 
-{Tutorial} = require 'zootorial'
-{Dialog} = require 'zootorial'
-{Step} = require 'zootorial'
-
-# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-# RECONFIGURATION:
-# Which survey are we providing a tutorial on? We'll need to
-# specify the images to use, and the text to display, at each step.
-#
-TutorialSubject = require 'lib/tutorial/tutorial_subjectCFHTLS'
-# TutorialSubject = require 'lib/tutorial/tutorial_subjectVICS82'
-#
-# TutorialSteps = require 'lib/tutorial/tutorial_stepsCFHTLSstage1'
-# TutorialSteps = require 'lib/tutorial/tutorial_stepsCFHTLSstage2'
-# TutorialSteps = require 'lib/tutorial/tutorial_stepsVICS82'
-TutorialSteps = require 'lib/tutorial/tutorial_stepsCFHTLSreboot'
-#
 TutorialDashboard = require 'lib/tutorial/tutorial_dashboard'
 TutorialTalk = require 'lib/tutorial/tutorial_talk'
-#
 TalkIntegration = require 'lib/talk_integration'
-#
-# Instant feedback is survey and stage dependent:
-# CreateFeedback = require 'lib/feedback/create_feedbackCFHTLSstage1'
-CreateFeedback = require 'lib/feedback/create_feedbackCFHTLSstage2'
-# CreateFeedback = require 'lib/feedback/create_feedbackVICS82'
-#
-# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
+# Survey-specific modules
+Configuration = require '../lib/configuration'
+
+TutorialSteps = Configuration.TutorialSteps
+TutorialSubject = Configuration.TutorialSubject
+CreateFeedback = Configuration.CreateFeedback
 
 class Classifier extends Controller
   className: 'classifier'

@@ -1,15 +1,9 @@
 { Controller } = require 'spine'
+Configuration = require '../lib/configuration'
 
 class QuickGuide extends Controller
   className: 'quick-guide'
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  # RECONFIGURATION:
-  # Which survey are we supporting with this Quick Spotter's Guide?
-  # Note that the images to use (and the title text to pop up) are
-  # specified in translations/en_US.coffee!
-  template: require 'views/quick_guide/quick_guideCFHTLSstage2' # This was unchanged from CFHTLS Stage 1.
-  # template: require 'views/quick_guide/quick_guideVICS82'
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  template: Configuration.QuickGuideTemplate
 
   show: false
 
