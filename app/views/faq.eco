@@ -4,11 +4,11 @@
   <header>
     <%- translate 'h1', 'faq.heading' %>
   </header>
-  
+
   <div class="content">
     <%- translate 'h2', 'faq.interface.header' %>
     <%- translate 'div.questions', 'faq.interface.questions' %>
-    
+
     <%- translate 'h2', 'faq.science.header' %>
     <%- translate 'div.questions', 'faq.science.questions' %>
   </div>
