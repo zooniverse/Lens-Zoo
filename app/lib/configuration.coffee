@@ -1,3 +1,5 @@
+# Which survey are we providing a tutorial on? We'll need to
+# specify the images to use, and the text to display, at each step.
 CFHTLSStage1TutorialSteps = require 'lib/tutorial/tutorial_stepsCFHTLSstage1'
 CFHTLSStage2TutorialSteps = require 'lib/tutorial/tutorial_stepsCFHTLSstage2'
 VICS82TutorialSteps = require 'lib/tutorial/tutorial_stepsVICS82'
@@ -6,14 +8,17 @@ CFHTLSRebootTutorialSteps = require 'lib/tutorial/tutorial_stepsCFHTLSreboot'
 CFHTLSTutorialSubject = require 'lib/tutorial/tutorial_subjectCFHTLS'
 VICS82TutorialSubject = require 'lib/tutorial/tutorial_subjectVICS82'
 
+# Instant feedback is survey and stage dependent
 CFHTLSStage1CreateFeedback = require 'lib/feedback/create_feedbackCFHTLSstage1'
 CFHTLSStage2CreateFeedback = require 'lib/feedback/create_feedbackCFHTLSstage2'
 VICS82CreateFeedback = require 'lib/feedback/create_feedbackVICS82'
 
+# Which survey are we supporting with this Spotter's Guide?
 CFHTLSStage2GuideTemplate = require 'views/guide/guideCFHTLSstage2'
 VICS82GuideTemplate = require 'views/guide/guideVICS82'
 
-CFHTLSStage1AboutTemplate = require 'views/about/aboutCFHTLSstage1' # Untested!
+# Which survey are we introducing?
+CFHTLSStage1AboutTemplate = require 'views/about/aboutCFHTLSstage1'
 CFHTLSStage2AboutTemplate = require 'views/about/aboutCFHTLSstage2'
 VICS82AboutTemplate = require 'views/about/aboutVICS82'
 CFHTLSRebootAboutTemplate = require 'views/about/aboutCFHTLSreboot'
