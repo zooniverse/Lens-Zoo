@@ -7,44 +7,54 @@
 
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/application.css" type="text/css" charset="utf-8">
-    
+
     <!--[if lte IE 9]>
       <script src="javascripts/placeholders.js"></script>
     <![endif]-->
-    
+
     <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    
+
     <meta name="description" content="Massive galaxies warp space-time around themselves, bending light rays so that we can see around them. They're the Universe's own telescopes, but these gravitational lenses are very rare: we need your help to find them!">
     <link rel="publisher" href="https://zooniverse.org"/>
-    
+
     <meta property="og:title" content="Space Warps"/>
     <meta property="og:url" content="http://spacewarps.org/index.html"/>
     <meta property="og:description" content="Space Warps is a citizen science project from the Zooniverse, hunting for rare gravitational lenses"/>
     <meta property="og:image" content="http://spacewarps.org/images/home.jpg"/>
     <meta property="og:type" content="image"/>
-    
+
     <meta name="twitter:card" content="summary">
     <meta name="twitter:url" content="http://spacewarps.org/">
     <meta name="twitter:description" content="Space Warps is a citizen science project from the Zooniverse, hunting for rare gravitational lenses">
     <meta name="twitter:image" content="http://spacewarps.org/images/home.jpg">
     <meta name="twitter:site" content="@SpaceWarps">
-    
+
   </head>
-  
+
   <body>
+    <!-- Google Tag Manager -->
+    <noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-WDW6V4"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    '//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-WDW6V4');</script>
+    <!-- End Google Tag Manager -->
+
     <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <script src="./application.js"></script>
-    
+
     <script type="text/javascript">
     window.app = require('index');
-    
+
     function touchHandler(event) {
       var touches = event.changedTouches,
       first = touches[0],
       type = "";
-      
+
       switch (event.type) {
         case "touchstart":
           type = "mousedown";
@@ -58,9 +68,9 @@
         default:
           return;
       }
-      
+
       var simulatedEvent = document.createEvent("MouseEvent");
-       
+
       simulatedEvent.initMouseEvent(
         type, true, true, window, 1, first.screenX, first.screenY, first.clientX, first.clientY, false, false, false, false, 0, null
       );
@@ -73,15 +83,15 @@
         );
         first.target.dispatchEvent(simulatedEvent);
       }
-      
+
       event.preventDefault();
     }
-    
+
     $(document).ready(function(){
       $(".annotation").bind('touchmove', function(e) {
         e.preventDefault();
       });
-      
+
       var annotation = document.querySelector('.annotation');
       if(annotation) {
         annotation.addEventListener("touchstart", touchHandler, true);
@@ -90,9 +100,9 @@
         annotation.addEventListener("touchcancel", touchHandler, true);
       }
     });
-    
+
     </script>
-    
+
 
   </body>
 </html>
