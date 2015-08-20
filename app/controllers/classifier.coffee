@@ -176,14 +176,13 @@ class Classifier extends Controller
       @viewer.clearCache()
 
     # Unbind Talk event and clean collection ids
-    @unbind 'addToTalk'
+    @off 'addToTalk'
     @talkIds = {}
 
     # Set default counts
     @counter.updateAttributes({'classified': 0, 'potentials': 0, 'favorites': 0})
 
     if user?
-
       # Set up three collections (My Dashboard, My Candidates and My Simulations)
       names = ['My Dashboard', 'My Candidates', 'My Simulations']
       descriptions = [
@@ -193,7 +192,7 @@ class Classifier extends Controller
       ]
       @setTalkCollections(user, names, descriptions)
 
-      @bind 'addToTalk', (collectionId, subjectId) =>
+      @on 'addToTalk', (collectionId, subjectId) =>
         @addToTalkCollection(user, collectionId, subjectId)
 
       project = user.project
