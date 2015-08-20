@@ -6,7 +6,7 @@ class ProjectResults extends Controller
   template: require 'views/project-results'
 
   project: null
-  
+
   elements:
     '.project-results-menu li': 'menuItems'
     '.project-stack': 'projectStack'
@@ -26,13 +26,12 @@ class ProjectResults extends Controller
     @onHashChange()
 
   onHashChange: =>
-    # yuck
     currentHash = if location.hash[location.hash.length - 1] == '/'
-      location.hash.slice(0, location.hash.length - 1)
+      location.hash.slice 0, location.hash.length - 1
     else
       location.hash
 
-    if currentHash.indexOf(@project) == currentHash.length - @project.length
+    if (currentHash.indexOf(@project) > -1) and (currentHash.indexOf(@project) == currentHash.length - @project.length)
       location.hash = currentHash + '/summary'
 
     @menuItems.removeClass('show').find("a[href='#{ location.hash }']").parent().addClass('show')
