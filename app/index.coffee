@@ -58,7 +58,6 @@ $('img.lazy').lazyload({threshold : 200, effect: 'fadeIn'})
 # Redirects
 projects = require 'lib/project-surveys'
 initRedirects = ->
-  console.log 'here', location.hash
   switch location.hash
     when '#/projects' then location.hash = "#/projects/#{ projects[0] }/summary"
 addEventListener 'hashchange', initRedirects
