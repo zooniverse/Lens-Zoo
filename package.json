@@ -1,6 +1,9 @@
 {
   "name": "spacewarps",
   "version": "0.0.1",
+  "engines": {
+    "node": "0.10.x"
+  }
   "dependencies": {
     "hem": "~0.2.7",
     "t7e": "~0.2.1",
@@ -11,14 +14,14 @@
     "zootorial": "~0.3.4",
     "nib": "~0.9.1",
     "zooniverse": "0.2.3",
-    "publisssh": "~0.2.3",
+    "publisssh": "0.2.6",
     "coffee-script": "~1.6.3",
     "stack-of-pages": "^0.1.5"
   },
   "scripts": {
     "start": "hem server --includeCss",
-    "deploy-to-production": "ruby build.rb && publisssh build zooniverse-static/spacewarps.org && trash ./build",
-    "deploy-to-beta": "ruby build.rb && publisssh build zooniverse-static/spacewarps.org/beta && trash ./build",
-    "deploy-to-demo": "ruby build.rb && publisssh build zooniverse-demo/spacewarps-z8e && trash ./build"
+    "deploy-to-production": "ruby build.rb && publisssh build zooniverse-static/spacewarps.org && rm -rf ./build",
+    "deploy-to-beta": "ruby build.rb && publisssh build zooniverse-static/spacewarps.org/beta && rm -rf ./build",
+    "deploy-to-demo": "ruby build.rb && publisssh build zooniverse-demo/spacewarps-z8e && rm -rf ./build"
   }
 }
