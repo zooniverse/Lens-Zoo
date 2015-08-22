@@ -1,0 +1,31 @@
+<% translate = require 't7e' %>
+
+<div>
+  <br>
+  <div>
+    <%- translate 'div.p', 'results.VICS82_intro' %>
+  </div>
+  <br>
+  <div>
+    <p class='title'>The Red Radio Ring: a gravitationally lensed hyperluminous infrared radio galaxy at z=2.553 discovered through citizen science</p>
+    <p class='abstract'>We report the discovery of a gravitationally lensed
+    hyperluminous infrared galaxy (L_IR~10^13 L_sun) with strong radio emission
+    (L_1.4GHz~10^25 W/Hz) at z=2.553. The source was identified in the citizen
+    science project SpaceWarps through the visual inspection of tens of
+    thousands of iJKs colour composite images of Luminous Red Galaxies (LRGs),
+    groups and clusters of galaxies and quasars. Appearing as a partial Einstein
+    ring (r_e~3") around an LRG at z=0.2, the galaxy is extremely bright in the
+    sub-millimetre for a cosmological source, with the thermal dust emission
+    approaching 1 Jy at peak. The redshift of the lensed galaxy is determined
+    through the detection of the CO(3-2) molecular emission line with the Large
+    Millimetre Telescope's Redshift Search Receiver and through [OIII] and
+    H-alpha line detections in the near-infrared from Subaru/IRCS. We have
+    resolved the radio emission with high resolution (300-400 mas) eMERLIN
+    L-band and JVLA C-band imaging. These observations are used in combination
+    with the near-infrared imaging to construct a lens model, which indicates a
+    lensing magnification of ~10x. The source reconstruction appears to support
+    a radio morphology comprised of a compact (<250 pc) core and more extended
+    component, perhaps indicative of an active nucleus and jet or lobe.</p>
+    <p><a href="http://arxiv.org/abs/1503.05824" target="_blank">ArXiV pre-print</a></p>
+  </div>
+</div>

@@ -1,0 +1,9 @@
+<% translate = require 't7e' %>
+
+<ul class="project-results-menu">
+  <li><a href="#/projects/<%- @project %>/summary"><%- translate 'results.summary' %></a></li>
+  <li><a href="#/projects/<%- @project %>/discoveries"><%- translate 'results.discoveries', class: 'show' %></a></li>
+  <li><a href="#/projects/<%- @project %>/contributors"><%- translate 'results.contributors' %></a></li>
+</ul>
+
+<div class="project-stack"></div>

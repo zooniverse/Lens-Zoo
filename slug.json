@@ -2,9 +2,9 @@
   "dependencies": [
     "es5-shimify",
     "json2ify",
-    "jqueryify",
     
     "t7e",
+    "stack-of-pages",
     
     "spine",
     "spine/lib/route",
@@ -23,7 +23,6 @@
   ],
   "libs": [
     "node_modules/zooniverse/vendor/base64.js",
-    "./app/lib/jquery.js",
     "./app/lib/jquery.lazyload.js"
   ]
 }

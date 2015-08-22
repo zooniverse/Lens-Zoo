@@ -1,0 +1,28 @@
+<% translate = require 't7e' %>
+
+<%- translate 'div', 'quick_guide.heading', class: 'tab' %>
+
+<div class="content">
+  <%- translate 'h1', 'quick_guide.heading', class: '' %>
+  <%- translate 'h2', 'quick_guide.instructions', class: 'instruction' %>
+
+  <div class="lenses">
+    <%- translate 'h2', 'quick_guide.lenses', class: '' %>
+    <div class="lenses">
+      <% lens_examples = [] %>
+      <% lens_examples.push "example_#{ i }" for i in [1..6] %>
+      <% for example in lens_examples: %>
+        <%- translate 'img', '', title: "quick_guide.CFHTLS_lens_examples.#{ example }.title", "data-type": "quick_guide.CFHTLS_lens_examples.#{ example }.data_type", src: "quick_guide.CFHTLS_lens_examples.#{ example }.image" %>
+      <% end %>
+    </div>
+
+    <%- translate 'h2', 'quick_guide.nonlenses', class: '' %>
+    <div class="non-lenses">
+      <% non_lens_examples = [] %>
+      <% non_lens_examples.push "example_#{ i }" for i in [1..6] %>
+      <% for example in non_lens_examples: %>
+        <%- translate 'img', '', title: "quick_guide.CFHTLS_non_lens_examples.#{ example }.title", "data-type": "quick_guide.CFHTLS_non_lens_examples.#{ example }.data_type", src: "quick_guide.CFHTLS_non_lens_examples.#{ example }.image" %>
+      <% end %>
+    </div>
+  </div>
+</div>

@@ -1,14 +1,11 @@
+Controller = require 'zooniverse/controllers/base-controller'
+User = require 'zooniverse/models/user'
+Recent = require 'zooniverse/models/recent'
+Favorite = require 'zooniverse/models/favorite'
 
-Page      = require 'controllers/page'
-Counters  = require 'controllers/counters'
+Counters = require 'controllers/counters'
 
-User      = require 'zooniverse/models/user'
-Recent    = require 'zooniverse/models/recent'
-Favorite  = require 'zooniverse/models/favorite'
-
-
-class Profile extends Page
-  el: $('.profile')
+class Profile extends Controller
   className: 'profile'
   template: require 'views/profile'
   subjectTemplate: require 'views/profile_subjects'
@@ -17,17 +14,15 @@ class Profile extends Page
   recentPage: 1
   
   elements:
-    '.favorites .subjects'      : 'favorites'
-    '.recents .subjects'        : 'recents'
+    '.favorites .subjects': 'favorites'
+    '.recents .subjects': 'recents'
   
   events:
-    'click .previous' : 'getPrevious'
-    'click .next'     : 'getNext'
-  
+    'click .previous': 'getPrevious'
+    'click .next': 'getNext'
   
   constructor: ->
     super
-    @html @template
     
     # Initialize Counters
     @counters = new Counters({el: @el.find('.stats')})
@@ -36,23 +31,28 @@ class Profile extends Page
     User.on 'change', @onUserChange
     Recent.on 'fetch', @onRecent
     Favorite.on 'fetch', @onFavorite
+
+    @el.on StackOfPages::activateEvent, @activate
   
-  active: ->
+  activate: =>
     @el.find('[data-type="sim-freq"]').parent().remove()
     if User.current
-      Favorite.fetch()
-      Recent.fetch()
+      Favorite.fetch per_page: 8
+      Recent.fetch per_page: 8
+      @prefetched = true
     super
   
   onUserChange: (e, user) =>
-    
     if user?
-      Recent.fetch()
-      Favorite.fetch()
+      if @el.data('active-in-stack')
+        Favorite.fetch per_page: 8
+        Recent.fetch per_page: 8
+        @prefetched = true
       
       @el.find('.user').addClass('show')
       @el.find('.no-user').addClass('hide')
     else
+      @prefetched = false
       @el.find('.user').removeClass('show')
       @el.find('.no-user').removeClass('hide')
   
@@ -82,15 +82,16 @@ class Profile extends Page
     type = e.target.dataset.type
     model = type.charAt(0).toUpperCase() + type.slice(1)
     
-    @["#{type}Page"] = Math.max(1, @["#{type}Page"] - 1)
-    zooniverse.models[model].fetch({page: @["#{type}Page"]})
+    prevPage = Math.max 1, @["#{ type }Page"] - 1
+    if prevPage isnt @["#{ type }Page"]
+      @["#{ type }Page"] = prevPage
+      zooniverse.models[model].fetch page: @["#{ type }Page"], per_page: 8
   
   getNext: (e) ->
     type = e.target.dataset.type
     model = type.charAt(0).toUpperCase() + type.slice(1)
     
-    @["#{type}Page"] += 1
-    zooniverse.models[model].fetch({page: @["#{type}Page"]})
-
+    @["#{ type }Page"] += 1
+    zooniverse.models[model].fetch page: @["#{ type }Page"], per_page: 8
 
 module.exports = Profile

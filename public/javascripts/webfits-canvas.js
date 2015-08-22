@@ -330,6 +330,7 @@
         arr[length + 3] = 255;
       }
       imgData.data = arr;
+      this.ctx.scale(1.22, 1.22);
       this.ctx.putImageData(imgData, 0, 0);
       return this._applyTransforms();
     };
@@ -489,6 +490,21 @@
 
     Api.prototype.getYOffset = function() {
       return this.yOffset - this.height / 2;
+    };
+
+    Api.prototype.setZoom = function(zoom) {
+      this.zoom = zoom * this.width / 2.0;
+      return null;
+    };
+
+    Api.prototype.setXOffset = function(xOffset) {
+      this.xOffset = xOffset + this.width / 2;
+      return null;
+    };
+
+    Api.prototype.setYOffset = function(yOffset) {
+      this.yOffset = yOffset + this.height / 2;
+      return null;
     };
 
     Api.prototype.teardown = function() {

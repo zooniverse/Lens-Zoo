@@ -1,4 +1,4 @@
-.stack > :not(.classifier)
+body > .stack-of-pages > :not(.classifier)
   
   // Offset the same way as the classifier page
   // TODO: abstract this style further.
@@ -6,53 +6,167 @@
   
   &.home
 
-    .portal
-      border-radius 50%
-      position relative
+    .content-header
+      text-align: center
 
-      &:before
-        border-radius 50%
-        box-shadow: inset 0 0 15px 5px rgba(#000, 1),
-          0 1px 1px 0 rgba(#fff, 0.25)
-        content ""
-        height 100%
-        position absolute
-        width 100%
-        z-index 1
-      
-      .lenstoy
-        position relative
+      .home-heading
+        font-size: 30px
+        font-weight: 300
+        margin: 15px 0
+        text-shadow: 0 1px 0 #000
+
+      .sub-heading
+        text-shadow: 0 1px 0 rgba(#000, 0.7)
+
+        div
+          display: inline-block
+
+        .metric
+          font-weight: 700
+
+    p
+      text-shadow: 0 1px 0 rgba(#000, 0.7)
+
+    .candidate-list
+      clearfix()
+      margin: 20px 0
+
+      .candidate
+        float: left
         
+        width: 33%
+        min-height: 200px 
+        &.final
+          text-align: center
+
+        .candidate-header
+          font-size: 16px
+          margin-left: 10px
+
         img
-          border-radius 50%
-          display block
-        
-        #lenstoyholder
-          position absolute
-          top -28px
-          left -38px
+          border: 2px solid #fff
+          box-shadow: 0 1px 3px 1px rgba(#000, 0.5)
+          float: left
+          width: 130px
+          margin: 10px
 
-    .site-actions
-      @extends #semantic-list
-      padding 0 0 0 100px
 
-      figure
-        background #000
-        border 4px solid #02477e
-        border-radius 65px
-        left -85px
-        padding 10px
-        position absolute
-        height 40px
-        width 40px
+        .observers
+          font-size: 12px
+          line-height: 1.5em
+          max-height: 100%
+          overflow-x: hidden
+          padding: 0 0 0 5px
 
-      img
-        vertical-align middle
-        padding-top 2px
+          .chunk 
+            display: none 
+            &.showme 
+              display: block
+
+    .project-footer
+      .project-header
+        text-align: center
+
+      .project-list
+        .project
+          display: inline-block
+          margin: 0 5px 0 0
+          width: 23%
+
+        a
+          font-size: 13px
+          font-weight: 700
+          text-decoration: none
+          text-shadow: 0 1px 3px rgba(#000, 0.7)
+
+        .image
+          background-position: center
+          border: 1px solid rgba(#000, 0.7)
+          border-radius: 5px
+          height: 70px
+          line-height: 70px
+          position: relative
+          text-align: center
+
+          span
+            position: relative
+            z-index: 1
+
+          &:before
+            background-color: rgba(#01a0e2, 0.75)
+            content: ""
+            height: 100%
+            left: 0
+            position: absolute
+            transition: all 0.6s cubic-bezier(.03,.22,.07,.99)
+            top: 0
+            width: 100%
+            z-index: 0
+
+          &:hover:before
+            background-color: transparent
+
+    .social-icons
+      list-style: none
+      margin: 10px 0 0 0
+      padding: 0
 
       li
-        margin 0 0 40px 0
-        position relative
+        display: inline-block
+        width: 30px
+
+        img
+          border-bottom: 1px solid transparent
+          max-width: 100%
+
+          &:hover
+            border-bottom-color: #fff
+
+    $bubbleSize = 260px
+    .bubble
+      background: url(SW_field_440x440.png)
+      border-radius: 50%
+      box-sizing: border-box
+      display: table
+      height: $bubbleSize
+      margin: 0 auto
+      width: $bubbleSize
+
+      .bubble-content
+        display: table-cell
+        vertical-align: middle
+
+        .metric
+          font-size: 33px
+          font-weight: 700
+
+        .gap
+          height: 26px
+
+        .sub-head
+          font-size: 16px
+          font-weight: 300
+          margin: 0 0 8px 0
+
+  &.faq
+
+    h3
+      font-size: 16px
+      padding: 0 0 8px 0
+      text-shadow: 1px 1px 2px rgba(#000, 0.5)
+      text-transform: none
+      
+      &:before
+        content "Q:"
+        padding-right 10px
+
+    p
+      margin: 8px 0 24px 0
+    
+      &:before
+        font-weight 700
+        content "A:"
+        padding-right 10px
 
   .content
     color #EFEFEF
@@ -71,36 +185,21 @@
       font-weight 600
       text-shadow 0px 1px 0px rgba(255, 255, 255, 0.25)
       text-transform uppercase
-      padding 30px 0
-      border-bottom 1px solid #003461
-      box-shadow 0px 1px 0px #0072C9
+      padding 10px 0
+      border-bottom 1px solid $boxline
+      box-shadow 0px 1px 0px $boxlineshadow
     
-    .q
-      font-weight 700
-      font-size 14px
-      
-      &:before
-        content "Q:"
-        padding-right 10px
-    
-    .a
-      padding-bottom 10px
-      font-size 14px
-    
-      &:before
-        font-weight 700
-        content "A:"
-        padding-right 10px
-    
-    .guide-menu
+    .guide-menu,
+    .page-menu,
+    .project-results-menu
       @extends #clearfix
       @extends #semantic-list
       border-bottom 5px solid black
 
       li
+        background-color $tabbackground
         box-sizing border-box
-        color rgb(46, 130, 191)
-        background-color rgb(3, 71, 119)
+        color $tabtext
         cursor pointer
         float left
         font-weight 700
@@ -111,9 +210,19 @@
         width 150px
 
         &.show
-          color #FFF
+          color white
           background-color black
-          text-shadow 0 1px 0 #013a66
+          text-shadow 0 1px 0 $textshadow
+
+        a
+          display block
+          margin: 0 -10px // sigh
+          text-decoration none
+
+          &.show
+            color white
+            background-color black
+            text-shadow 0 1px 0 $textshadow
     
     &:last-child
       padding 1px 0 50px 0

@@ -1,17 +1,27 @@
 {
   "name": "spacewarps",
   "version": "0.0.1",
+  "engines": {
+    "node": "0.10.x"
+  }
   "dependencies": {
-    "serveup": "~0.0.5",
     "hem": "~0.2.7",
     "t7e": "~0.2.1",
     "es5-shimify": "~0.0.1",
     "json2ify": "~0.0.1",
-    "jqueryify": "~0.0.1",
-    "spine": "1.0.8",
+    "spine": "1.3.2",
     "underscore": "~1.4.2",
-	"zooniverse": "git://github.com/zooniverse/Zooniverse.git#no-deps",
-	"zootorial": "git://github.com/brian-c/zootorial.git#new-features",
-    "nib": "~0.9.1"
+    "zootorial": "~0.3.4",
+    "nib": "~0.9.1",
+    "zooniverse": "0.2.3",
+    "publisssh": "0.2.6",
+    "coffee-script": "~1.6.3",
+    "stack-of-pages": "^0.1.5"
+  },
+  "scripts": {
+    "start": "hem server --includeCss",
+    "deploy-to-production": "ruby build.rb && publisssh build zooniverse-static/spacewarps.org && rm -rf ./build",
+    "deploy-to-beta": "ruby build.rb && publisssh build zooniverse-static/spacewarps.org/beta && rm -rf ./build",
+    "deploy-to-demo": "ruby build.rb && publisssh build zooniverse-demo/spacewarps-z8e && rm -rf ./build"
   }
 }

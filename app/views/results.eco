@@ -1,0 +1,15 @@
+<% translate = require 't7e' %>
+
+<div class="content">
+  <div class="content-header">
+    <%- translate 'h1', 'results.title' %>
+  </div>
+
+  <ul class="page-menu">
+    <% for project, i in @projects: %>
+      <li class="<%- if i == 0 then 'show' else '' %>" data-type="<%- project %>"><a href="#/projects/<%- project %>/summary"><%- project %></a></li>
+    <% end %>
+  </ul>
+
+  <div id="results-stack"></div>
+</div>

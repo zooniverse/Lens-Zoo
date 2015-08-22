@@ -1,0 +1,295 @@
+<% translate = require 't7e' %>
+
+<div class="content">
+  <header>
+    <%- translate 'h1', 'guide.heading', class: '' %>
+    <%- translate 'p', 'guide.tagline', class: '' %>
+  </header>
+</div>
+
+<div class="guide-content">
+  <div class="content">
+    <ul class="guide-menu">
+      <%- translate 'li', 'guide.intro', 'data-type': 'intro', class: 'show' %>
+      <%- translate 'li', 'guide.real_lenses', 'data-type': 'real-lenses', class: '' %>
+      <%- translate 'li', 'guide.false_positives', 'data-type': 'false-positives', class: '' %>
+      <%- translate 'li', 'guide.artifacts', 'data-type': 'artifacts', class: '' %>
+    </ul>
+
+    <section data-type="intro" class='show'>
+        <%- translate 'p', 'guide.intro_VICS82_text_1' %>
+
+        <%- translate 'h2', 'guide.intro_VICS82_whats_all_this' %>
+
+        <%- translate 'p', 'guide.intro_VICS82_text_2' %>
+
+        <img class='lazy' src='' data-original='images/guide/lenses/cluster-galaxy/VICS82_5000179_iJK.png' width='226' height='226'>
+        <img class='lazy' src='' data-original='images/guide/lenses/elliptical-galaxy/VICS82_5000326_iJK.png' width='226' height='226'>
+        <img class='lazy' src='' data-original='images/guide/lenses/cluster-galaxy/VICS82_5003998_iJK.png' width='226' height='226'>
+
+        <%- translate 'p', 'guide.intro_VICS82_text_3' %>
+        <%- translate 'p', 'guide.intro_VICS82_text_4' %>
+
+        <%- translate 'h2', 'guide.intro_VICS82_hows_it_different' %>
+        <%- translate 'p', 'guide.intro_VICS82_text_5' %>
+        <%- translate 'p', 'guide.intro_VICS82_text_6' %>
+        <%- translate 'p', 'guide.intro_VICS82_text_7' %>
+    </section>
+
+    <section data-type="real-lenses" class=''>
+      <ul class="menu">
+        <%- translate 'li', 'guide.lensed_galaxies', 'data-type': 'lensed-galaxies', class: 'show' %>
+        <%- translate 'li', 'guide.lensed_quasars', 'data-type': 'lensed-quasars' %>
+        <%- translate 'li', 'guide.group_lenses', 'data-type': 'lensing-clusters' %>
+      </ul>
+
+      <section data-type="lensed-galaxies" class='show'>
+        <%- translate 'p', 'guide.lensed_galaxies_text_1' %>
+        <%- translate 'p', 'guide.lensed_galaxies_text_2' %>
+        <%- translate 'p', 'guide.lensed_galaxies_text_3' %>
+        <%- translate 'p', 'guide.lensed_galaxies_text_4' %>
+
+        <img class='lazy' src='' data-original='images/guide/lenses/lensed-galaxy/VICS82_7008306_iJKs.png' width='340' height='340'>
+        <img class='lazy' src='' data-original='images/guide/lenses/lensed-galaxy/VICS82_7008306_iJKs_zoom_ann.png' width='340' height='340'>
+
+        <%- translate 'p', 'guide.lensed_galaxies_text_5' %>
+
+        <img class='lazy' src='' data-original='images/guide/lenses/lensed-galaxy/VICS82_7008406_iJKs.png' width='340' height='340'>
+        <img class='lazy' src='' data-original='images/guide/lenses/lensed-galaxy/VICS82_7008406_iJKs_zoom.png' width='340' height='340'>
+
+        <%- translate 'p', 'guide.lensed_galaxies_text_6' %>
+
+        <img class='lazy' src='' data-original='images/guide/lenses/lensed-galaxy/VICS82_7009145_iJKs.png' width='340' height='340'>
+        <img class='lazy' src='' data-original='images/guide/lenses/lensed-galaxy/VICS82_7009145_iJKs_zoom_ann.png' width='340' height='340'>
+
+        <img class='lazy' src='' data-original='images/guide/lenses/lensed-galaxy/VICS82_7010810_iJKs.png' width='340' height='340'>
+        <img class='lazy' src='' data-original='images/guide/lenses/lensed-galaxy/VICS82_7010810_iJKs_zoom_ann.png' width='340' height='340'>
+
+        <%- translate 'p', 'guide.lensed_galaxies_text_7' %>
+
+        <img class='lazy' src='' data-original='images/guide/lenses/lensed-galaxy/VICS82_7001368_iJKs.png' width='340' height='340'>
+        <img class='lazy' src='' data-original='images/guide/lenses/lensed-galaxy/VICS82_7001368_iJKs_zoom.png' width='340' height='340'>
+        <img class='lazy' src='' data-original='images/guide/lenses/lensed-galaxy/VICS82_7010396_iJKs.png' width='340' height='340'>
+        <img class='lazy' src='' data-original='images/guide/lenses/lensed-galaxy/VICS82_7010396_iJKs_zoom.png' width='340' height='340'>
+
+        <%- translate 'p', 'guide.lensed_galaxies_text_8' %>
+
+        <img class='lazy' src='' data-original='images/guide/lenses/lensed-galaxy/VICS82_7011015_iJKs.png' width='340' height='340'>
+        <img class='lazy' src='' data-original='images/guide/lenses/lensed-galaxy/VICS82_7011015_iJKs_zoom_ann.png' width='340' height='340'>
+
+        <%- translate 'p', 'guide.lensed_galaxies_text_9' %>
+
+      </section>
+
+      <section data-type='lensed-quasars'>
+        <%- translate 'p', 'guide.lensed_quasars_VICS82_text_1' %>
+
+        <%- translate 'h2', 'guide.double' %>
+        <img class='lazy' src='' data-original='images/guide/lenses/lensed-quasar/VICS82_7001789_iJKs.png' width='340' height='340'>
+        <img class='lazy' src='' data-original='images/guide/lenses/lensed-quasar/VICS82_7001789_iJKs_zoom.png' width='340' height='340'>
+
+        <%- translate 'p', 'guide.lensed_quasars_VICS82_text_2' %>
+
+        <img class='lazy' src='' data-original='images/guide/lenses/lensed-quasar/VICS82_7007297_iJKs.png' width='340' height='340'>
+        <img class='lazy' src='' data-original='images/guide/lenses/lensed-quasar/VICS82_7007297_iJKs_zoom.png' width='340' height='340'>
+
+        <%- translate 'p', 'guide.lensed_quasars_VICS82_text_3' %>
+
+        <%- translate 'h2', 'guide.quad' %>
+        <img class='lazy' src='' data-original='images/guide/lenses/lensed-quasar/VICS82_7009093_iJKs.png' width='340' height='340'>
+        <img class='lazy' src='' data-original='images/guide/lenses/lensed-quasar/VICS82_7009093_iJKs_zoom.png' width='340' height='340'>
+        <img class='lazy' src='' data-original='images/guide/lenses/lensed-quasar/VICS82_7009427_iJKs.png' width='340' height='340'>
+        <img class='lazy' src='' data-original='images/guide/lenses/lensed-quasar/VICS82_7009427_iJKs_zoom.png' width='340' height='340'>
+        <img class='lazy' src='' data-original='images/guide/lenses/lensed-quasar/VICS82_7008189_iJKs.png' width='340' height='340'>
+        <img class='lazy' src='' data-original='images/guide/lenses/lensed-quasar/VICS82_7008189_iJKs_zoom.png' width='340' height='340'>
+
+        <%- translate 'p', 'guide.lensed_quasars_VICS82_text_4' %>
+        <%- translate 'p', 'guide.lensed_quasars_VICS82_text_5' %>
+        <%- translate 'p', 'guide.lensed_quasars_VICS82_text_6' %>
+
+      </section>
+
+      <section data-type='lensing-clusters'>
+
+        <%- translate 'p', 'guide.group_lenses_text_1' %>
+
+        <img class='lazy' src='' data-original='images/guide/lenses/lensing-group/VICS82_5008231_iJKs.png' width='340' height='340'>
+        <img class='lazy' src='' data-original='images/guide/lenses/lensing-group/VICS82_5008231_iJKs_zoom.png' width='340' height='340'>
+
+        <%- translate 'p', 'guide.group_lenses_text_2' %>
+
+        <img class='lazy' src='' data-original='images/guide/lenses/lensing-group/VICS82_5004036_iJKs.png' width='340' height='340'>
+        <img class='lazy' src='' data-original='images/guide/lenses/lensing-group/VICS82_5004036_iJKs_zoom.png' width='340' height='340'>
+
+        <%- translate 'p', 'guide.group_lenses_text_3' %>
+
+        <img class='lazy' src='' data-original='images/guide/lenses/lensing-group/VICS82_5006800_iJKs.png' width='340' height='340'>
+        <img class='lazy' src='' data-original='images/guide/lenses/lensing-group/VICS82_5006800_iJKs_ann.png' width='340' height='340'>
+
+        <%- translate 'p', 'guide.group_lenses_text_4' %>
+
+        <img class='lazy' src='' data-original='images/guide/lenses/lensing-group/VICS82_5006961_iJKs.png' width='340' height='340'>
+        <img class='lazy' src='' data-original='images/guide/lenses/lensing-group/VICS82_5006961_iJKs_ann.png' width='340' height='340'>
+
+        <%- translate 'p', 'guide.group_lenses_text_5' %>
+
+        <img class='lazy' src='' data-original='images/guide/lenses/cluster-galaxy/VICS82_5003998_iJK.png' width='340' height='340'>
+        <img class='lazy' src='' data-original='images/guide/lenses/cluster-galaxy/VICS82_5003998_iJK_zoom.png' width='340' height='340'>
+
+        <%- translate 'p', 'guide.group_lenses_text_6' %>
+
+      </section>
+
+    </section>
+
+    <section data-type="false-positives">
+      <ul class="menu">
+        <%- translate 'li', 'guide.rings_spirals', 'data-type': 'rings-spirals', class: 'show' %>
+        <%- translate 'li', 'guide.loners', 'data-type': 'loners' %>
+        <%- translate 'li', 'guide.mergers_neighbors', 'data-type': 'mergers-neighbors' %>
+        <%- translate 'li', 'guide.groups', 'data-type': 'groups' %>
+        <%- translate 'li', 'guide.stars', 'data-type': 'stars' %>
+      </ul>
+
+      <section data-type="rings-spirals" class="show">
+        <%- translate 'p', 'guide.rings_spirals_VICS82_text_1' %>
+
+        <%- translate 'h2', 'guide.face' %>
+
+        <img class='lazy' src='' data-original='images/guide/non-lenses/spirals-rings/VICS82_2070266_iJKs_zoom.png' width='340' height='340'>
+        <img class='lazy' src='' data-original='images/guide/non-lenses/spirals-rings/VICS82_2090795_iJKs_zoom.png' width='340' height='340'>
+
+        <%- translate 'p', 'guide.rings_spirals_VICS82_text_2' %>
+
+        <%- translate 'h2', 'guide.edge' %>
+
+        <img class='lazy' src='' data-original='images/guide/non-lenses/spirals-rings/VICS82_4010174_iJKs_zoom.png' width='340' height='340'>
+
+        <%- translate 'p', 'guide.rings_spirals_VICS82_text_3' %>
+
+      </section>
+
+      <section data-type="loners">
+        <%- translate 'p', 'guide.loners_text_1' %>
+
+        <img class='lazy' src='' data-original='images/guide/non-lenses/loners/VICS82_4010226_iJKs.png' width='340' height='340'>
+        <img class='lazy' src='' data-original='images/guide/non-lenses/loners/VICS82_4010226_iJKs_zoom.png' width='340' height='340'>
+
+        <%- translate 'p', 'guide.loners_text_2' %>
+
+        <img class='lazy' src='' data-original='images/guide/non-lenses/lightweights/VICS82_3010235_iJKs.png' width='340' height='340'>
+        <img class='lazy' src='' data-original='images/guide/non-lenses/lightweights/VICS82_3010235_iJKs_zoom.png' width='340' height='340'>
+
+        <%- translate 'p', 'guide.loners_text_3' %>
+
+      </section>
+
+      <section data-type="mergers-neighbors">
+        <%- translate 'p', 'guide.mergers_neighbors_text_1' %>
+
+	<img class='lazy' src='' data-original='images/guide/non-lenses/neighbours/VICS82_3010391_iJKs.png' width='340' height='340'>
+	<img class='lazy' src='' data-original='images/guide/non-lenses/neighbours/VICS82_3010391_iJKs_zoom.png' width='340' height='340'>
+
+        <%- translate 'p', 'guide.mergers_neighbors_text_2' %>
+
+	<img class='lazy' src='' data-original='images/guide/non-lenses/neighbours/VICS82_3010226_iJKs.png' width='220' height='220'>
+	<img class='lazy' src='' data-original='images/guide/non-lenses/neighbours/VICS82_3010386_iJKs.png' width='220' height='220'>
+	<img class='lazy' src='' data-original='images/guide/non-lenses/neighbours/VICS82_2090372_iJKs.png' width='220' height='220'>
+
+        <%- translate 'p', 'guide.mergers_neighbors_text_3' %>
+
+	<img class='lazy' src='' data-original='images/guide/non-lenses/neighbours/VICS82_3010378_iJKs.png' width='340' height='340'>
+	<img class='lazy' src='' data-original='images/guide/non-lenses/neighbours/VICS82_1000747_iJKs.png' width='340' height='340'>
+
+        <%- translate 'p', 'guide.mergers_neighbors_text_4' %>
+
+      </section>
+
+      <section data-type="groups">
+        <%- translate 'p', 'guide.groups_text_2' %>
+
+	<img class='lazy' src='' data-original='images/guide/non-lenses/groups/VICS82_3000813_iJKs.png' width='340' height='340'>
+	<img class='lazy' src='' data-original='images/guide/non-lenses/groups/VICS82_3000813_iJKs_zoom.png' width='340' height='340'>
+
+        <%- translate 'p', 'guide.groups_text_3' %>
+
+	<img class='lazy' src='' data-original='images/guide/non-lenses/groups/VICS82_1000452_iJKs.png' width='340' height='340'>
+	<img class='lazy' src='' data-original='images/guide/non-lenses/groups/VICS82_1000452_iJKs_zoom.png' width='340' height='340'>
+
+      </section>
+
+      <section data-type="stars">
+        <%- translate 'p', 'guide.stars_text_1' %>
+
+        <img class='lazy' src='' data-original='images/guide/non-lenses/stars/ST_colhalo.png' width='340' height='340'>
+        <img class='lazy' src='' data-original='images/guide/non-lenses/stars/ST_colhalo_annot.png' width='340' height='340'>
+        <%- translate 'p', 'guide.stars_text_2' %>
+
+        <img class='lazy' src='' data-original='images/guide/non-lenses/stars/ST_vsaturated.png' width='340' height='340'>
+        <%- translate 'p', 'guide.stars_text_3' %>
+
+        <img class='lazy' src='' data-original='images/guide/non-lenses/stars/ST_bright_trio.png' width='340' height='340'>
+        <%- translate 'p', 'guide.stars_text_4' %>
+
+        <img class='lazy' src='' data-original='images/guide/non-lenses/stars/ST_bluehalo.png' width='340' height='340'>
+        <img class='lazy' src='' data-original='images/guide/non-lenses/stars/ST_bluehalo_annot.png' width='340' height='340'>
+        <%- translate 'p', 'guide.stars_text_5' %>
+
+        <img class='lazy' src='' data-original='images/guide/non-lenses/stars/black_square.png' width='340' height='340'>
+        <%- translate 'p', 'guide.stars_text_6' %>
+
+      </section>
+
+
+    </section>
+
+    <section data-type="artifacts">
+
+      <%- translate 'p', 'guide.artifacts_VICS82_text' %>
+      <ul class="menu">
+        <%- translate 'li', 'guide.noise', 'data-type': 'noise', class: 'show' %>
+        <%- translate 'li', 'guide.offsets', 'data-type': 'offsets' %>
+        <%- translate 'li', 'guide.asteroids', 'data-type': 'asteroids' %>
+        <%- translate 'li', 'guide.bad', 'data-type': 'bad' %>
+      </ul>
+
+      <section data-type="noise" class="show">
+        <img class='lazy' src='' data-original='images/guide/artifacts/noise/VICS82_1001584_iJKs.png' width='226' height='226'>
+        <img class='lazy' src='' data-original='images/guide/artifacts/noise/VICS82_1001584_iJKs_zoom-noise.png' width='226' height='226'>
+        <img class='lazy' src='' data-original='images/guide/artifacts/noise/VICS82_1001584_iJKs_zoom.png' width='226' height='226'>
+        <%- translate 'p', 'guide.noise_VICS82_text_1' %>
+        <%- translate 'p', 'guide.noise_VICS82_text_2' %>
+      </section>
+
+      <section data-type="offsets">
+        <img class='lazy' src='' data-original='images/guide/artifacts/offsets/VICS82_1000232_iJKs.png' width='340' height='340'>
+        <img class='lazy' src='' data-original='images/guide/artifacts/offsets/VICS82_1000317_iJKs.png' width='340' height='340'>
+        <%- translate 'p', 'guide.offsets_VICS82_text_1' %>
+      </section>
+
+      <section data-type="asteroids">
+        <%- translate 'h2', 'guide.fast_moving' %>
+        <img class='lazy' src='' data-original='images/guide/artifacts/AT_satellite_green.png' width='340' height='340'>
+        <img class='lazy' src='' data-original='images/guide/artifacts/AT_satellite_blue_annot.png' width='340' height='340'>
+        <%- translate 'p', 'guide.asteroids_VICS82_text_1' %>
+
+        <%- translate 'h2', 'guide.slow_moving' %>
+        <img class='lazy' src='' data-original='images/guide/artifacts/AT_asteroid_n_zoom.png' width='340' height='340'>
+        <img class='lazy' src='' data-original='images/guide/artifacts/AT_asteroid_r_annot.png' width='340' height='340'>
+        <%- translate 'p', 'guide.asteroids_VICS82_text_2' %>
+        <%- translate 'p', 'guide.asteroids_VICS82_text_3' %>
+      </section>
+
+      <section data-type="bad">
+        <img class='lazy' src='' data-original='images/guide/artifacts/bad/VICS82_3000818_iJKs.png' width='340' height='340'>
+        <img class='lazy' src='' data-original='images/guide/artifacts/bad/VICS82_3000911_iJKs.png' width='340' height='340'>
+        <%- translate 'p', 'guide.bad_VICS82_text_1' %>
+        <%- translate 'p', 'guide.bad_VICS82_text_2' %>
+      </section>
+
+    </section>
+
+
+
+  </div>
+</div>
