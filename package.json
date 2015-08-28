@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "engines": {
     "node": "0.10.x"
-  }
+},
   "dependencies": {
     "hem": "~0.2.7",
     "t7e": "~0.2.1",
