@@ -467,6 +467,22 @@ class Classifier extends Controller
 
       # Load current subject
       @viewer.load(@classification.subject.metadata.id)
+
+      # BUG: the above line fails on the data available to me locally,
+      # when I do a "npm run-script start" . I think the images are
+      # coming from beta.spacewarps.org instead of spacewarps.org
+      #
+      # Error message is:
+      # Uncaught TypeError: Cannot read property 'metadata' of undefined
+      #   Classifier.onDashboard @ application.js:10524
+      #   (anonymous function)   @ application.js:5871
+      #   x.event.dispatch       @ jquery.min.js:5
+      #   v.handle               @ jquery.min.js:5
+
+      # This must be related to an earlier error, on the loading 
+      # of the subject:
+      # Uncaught TypeError: Cannot read property 'id' of undefined
+
     else
       alert "Sorry this feature is not supported on IE."
 
