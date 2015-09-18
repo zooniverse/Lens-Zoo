@@ -21,12 +21,13 @@ class QuickGuide extends Controller
     @show = not @show
 
   onClick: (e) =>
+    window.location.hash = '/guide'
+
     type = e.target.dataset.type
-    @navigate('/guide')
 
     if type in ['lensing-clusters', 'lensed-galaxies', 'lensed-quasars']
       sectionType = 'real-lenses'
-    if type in ['noise', 'offsets']
+    else if type in ['noise', 'offsets']
       sectionType = 'artifacts'
     else
       sectionType = 'false-positives'
