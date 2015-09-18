@@ -6,7 +6,7 @@ class QuickDashboard extends Controller
   dimension: 441
   # VICS82:
   bands:  ['i', 'J', 'Ks']
-  source: 'http://spacewarps.org.s3.amazonaws.com/subjects/raw/'
+  source: 'http://spacewarps.org/subjects/raw/'
 
   cache: {}
   prefix: null
