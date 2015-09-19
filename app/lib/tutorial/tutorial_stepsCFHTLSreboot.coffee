@@ -51,12 +51,12 @@ module.exports =
     number: 5
     header: translate 'span', 'tutorial.identify.header'
     details: translate 'span', 'tutorial.identify.details'
-    attachment: 'left center .primary 0.7 center'
+    attachment: 'left center .primary 0.74 0.73'
     block: '.annotation, .controls:first'
     className: 'arrow-left'
     onEnter: ->
       bounding = document.createElementNS('http://www.w3.org/2000/svg', "circle")
-      bounding.setAttribute("transform", "translate(#{220}, #{220})")
+      bounding.setAttribute("transform", "translate(#{258}, #{324})")
       bounding.setAttribute("class", "outline")
       bounding.setAttribute("stroke", 'white')
       bounding.setAttribute("stroke-width", 2)
@@ -70,7 +70,7 @@ module.exports =
     number: 6
     header: translate 'span', 'tutorial.mark.header'
     details: translate 'span', 'tutorial.mark.details'
-    attachment: 'left center .primary 0.7 center'
+    attachment: 'left center .primary 0.74 0.73'
     block: '.controls:first'
     className: 'arrow-left'
     onEnter: (tutorial) ->
@@ -91,7 +91,7 @@ module.exports =
   good_job: new Step
     header: translate 'span', 'tutorial.good_job.header'
     details: translate 'span', 'tutorial.good_job.details'
-    attachment: 'left center .primary 0.7 center'
+    attachment: 'left center .primary 0.74 0.73'
     block: '.controls'
     className: 'arrow-left'
     next: 'training'
@@ -99,7 +99,7 @@ module.exports =
   try_again: new Step
     header: translate 'span', 'tutorial.try_again.header'
     details: translate 'span', 'tutorial.try_again.details'
-    attachment: 'left center .primary 0.7 center'
+    attachment: 'left center .primary 0.74 0.73'
     className: 'arrow-left'
     blocks: '.controls:first'
     next:

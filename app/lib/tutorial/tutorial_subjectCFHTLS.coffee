@@ -1,4 +1,3 @@
-
 Subject = require 'zooniverse/models/subject'
 
 module.exports =
@@ -49,4 +48,3 @@ module.exports =
         id: 'CFHTLS_171_0493'
       tutorial: true
       zooniverse_id: 'ASW0000fgj'
-    

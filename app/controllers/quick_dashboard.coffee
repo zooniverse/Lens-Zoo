@@ -4,7 +4,8 @@ browserDialog = require 'zooniverse/controllers/browser-dialog'
 
 class QuickDashboard extends Controller
   dimension: 441
-  source: 'http://spacewarps.org.s3.amazonaws.com/subjects/raw/'
+  source: 'http://spacewarps.org/subjects/raw/'
+
   cache: {}
   prefix: null
 

@@ -225,7 +225,7 @@ class Classifier extends Controller
     @tutorial.el.bind('end-tutorial', @onTutorialEnd)
 
     # Set first tutorial subject
-    subject = TutorialSubject.first
+    subject = TutorialSubject.main
 
     # Create classification object
     @classification = new Classification {subject}
@@ -263,7 +263,7 @@ class Classifier extends Controller
     Subject.queueLength = 5
 
     # Insert tutorial subjects into queue
-    # Subject.instances.splice(1, 0, TutorialSubject.second)
+    # Subject.instances.splice(1, 0, TutorialSubject.main)
 
     # Append remaining subjects to DOM
     @appendSubjects(null, Subject.instances)
@@ -274,7 +274,6 @@ class Classifier extends Controller
 
   # Append subject(s) to DOM
   appendSubjects: (e, subjects) =>
-
     # Check what is on the DOM
     images = $(".subjects .image img")
     ids = _.map(images, (d) ->
@@ -596,7 +595,8 @@ class Classifier extends Controller
     baseLevel = Math.floor(nClassified / 30) + 1
     @level = Math.min(baseLevel, 3)
     denominator = (5 * Math.pow(Math.sqrt(2), @level - 1))
-    @simRatio = 2 / denominator
+    @simRatio = 1 / denominator
+    
     Subject.group = if @simRatio > Math.random() then @simulationGroup else @subjectGroup
 
     # Update sim freq text
@@ -637,7 +637,7 @@ class Classifier extends Controller
     # Record various bits
     @classification.annotate
       language: localStorage.preferredLanguage
-      project: "VICS82"
+      project: Configuration.currentSurvey
       stage: 1
 
     @classification.send()

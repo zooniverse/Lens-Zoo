@@ -37,6 +37,7 @@ VICS82DivertHomeTemplate = require 'views/home/celebrate-VICS82-then-divert'
 CFHTLSRebootHomeTemplate =require 'views/home/landingCFHTLSreboot'
 
 module.exports =
+  currentSurvey: 'CFHTLS'
   TutorialSteps: CFHTLSRebootTutorialSteps
   TutorialSubject: CFHTLSTutorialSubject
   CreateFeedback: CFHTLSStage2CreateFeedback
