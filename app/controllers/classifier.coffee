@@ -620,7 +620,7 @@ class Classifier extends Controller
     # Record various bits
     @classification.annotate
       language: localStorage.preferredLanguage
-      project: "CFHTLS"
+      project: Configuration.currentSurvey
       stage: 1
 
     @classification.send()
