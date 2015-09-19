@@ -579,7 +579,8 @@ class Classifier extends Controller
     baseLevel = Math.floor(nClassified / 30) + 1
     @level = Math.min(baseLevel, 3)
     denominator = (5 * Math.pow(Math.sqrt(2), @level - 1))
-    @simRatio = 2 / denominator
+    @simRatio = 1 / denominator
+    
     Subject.group = if @simRatio > Math.random() then @simulationGroup else @subjectGroup
 
     # Update sim freq text
