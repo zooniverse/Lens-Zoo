@@ -478,7 +478,7 @@ class Classifier extends Controller
       #   x.event.dispatch       @ jquery.min.js:5
       #   v.handle               @ jquery.min.js:5
 
-      # This must be related to an earlier error, on the loading 
+      # This must be related to an earlier error, on the loading
       # of the subject:
       # Uncaught TypeError: Cannot read property 'id' of undefined
 
@@ -596,7 +596,7 @@ class Classifier extends Controller
     @level = Math.min(baseLevel, 3)
     denominator = (5 * Math.pow(Math.sqrt(2), @level - 1))
     @simRatio = 1 / denominator
-    
+
     Subject.group = if @simRatio > Math.random() then @simulationGroup else @subjectGroup
 
     # Update sim freq text
@@ -695,8 +695,8 @@ class Classifier extends Controller
         trainingType = trainingType.replace ' ', '_'
 
         # Get the location for the dialog
-        x = (training.x + 200) / @subjectDimension
-        y = 1 - 2.25 * (training.y / @subjectDimension)
+        x = (training.x + 25) / @subjectDimension
+        y = (@subjectDimension - training.y) / @subjectDimension
 
         # Check if any annotation over lens
         for index, annotation of @annotations
