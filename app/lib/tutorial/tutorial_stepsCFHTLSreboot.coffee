@@ -1,16 +1,6 @@
 { Tutorial, Step } = require 'zootorial'
 translate = require 't7e'
 
-ctx = null
-
-getMaskValue = (e) ->
-  position = $('.current .image').position()
-  x = e.pageX - position.left
-  y = e.pageY - position.top - 10 # Subtract the radius 10 from the coordinate
-
-  pixel = ctx.getImageData(x, y, 1, 1)
-  return pixel.data[3]
-
 module.exports =
   length: 8
 
@@ -73,20 +63,12 @@ module.exports =
     attachment: 'left center .primary 0.74 0.73'
     block: '.controls:first'
     className: 'arrow-left'
-    onEnter: (tutorial) ->
-      canvas = document.createElement('canvas')
-      ctx = canvas.getContext('2d')
-      img = new Image()
-      img.onload = (e) =>
-        viewportSize = 441
-        canvas.width = viewportSize
-        canvas.height = viewportSize
-        ctx.drawImage img, 0, 0, viewportSize, viewportSize
-      img.src = $('.current .image img').attr('src')
     next:
       'mouseup .annotation': (e, tutorial, step) ->
-        mask = getMaskValue(e)
-        return if mask is 255 then 'good_job' else 'try_again'
+        return if e.offsetX > 240 and e.offsetX < 265 and e.offsetY > 320 and e.offsetY < 340
+          'good_job'
+        else
+          return 'try_again'
 
   good_job: new Step
     header: translate 'span', 'tutorial.good_job.header'
@@ -104,8 +86,10 @@ module.exports =
     blocks: '.controls:first'
     next:
       'mouseup .annotation': (e, tutorial, step) ->
-        mask = getMaskValue(e)
-        return if mask is 255 then 'good_job' else false
+        return if e.offsetX > 240 and e.offsetX < 265 and e.offsetY > 320 and e.offsetY < 340
+          'good_job'
+        else
+          return false
 
   training: new Step
     number: 7
