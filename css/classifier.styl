@@ -4,7 +4,7 @@
 
   100%
     background-position: 50px 0
-    
+
 $margin-top = 30px
 
 .classifier
@@ -14,7 +14,7 @@ $margin-top = 30px
   -ms-user-select none
   -o-user-select none
   user-select none
-  
+
   .mask
     display none
     position absolute
@@ -24,20 +24,20 @@ $margin-top = 30px
     bottom 0
     background #000
     z-index 2
-    
+
     &.show
       display block
       opacity 0.9
-    
+
     &.loading
       animation 0.5s progress linear infinite
       background linear-gradient(left top, #101010 25%, #000 25%, #000 50%, #101010 50%, #101010 75%, #000 75%)
       background-size 25px 25px
-  
+
   @media only screen and (min-device-width : 768px) and (max-device-width : 1024px)
     .side-mask
       display none
-  
+
   .side-mask
     position absolute
     top 0
@@ -48,7 +48,7 @@ $margin-top = 30px
     background -moz-linear-gradient(right, rgba(10, 10, 10, 255), rgba(0, 0, 0, 0))
     background -ms-linear-gradient(right, rgba(10, 10, 10, 255), rgba(0, 0, 0, 0))
     z-index 2
-  
+
   .remove-all
     display none
     position absolute
@@ -57,13 +57,13 @@ $margin-top = 30px
     font-size 12px
     z-index 4
     padding 6px
-    
+
     &.show
       display block
-      
+
     &:hover
       cursor pointer
-      
+
   .annotation
     position absolute
     background-color rgba(0, 0, 0, 0.0001)
@@ -72,19 +72,19 @@ $margin-top = 30px
     margin-top $margin-top
     z-index 3
     cursor crosshair
-    
+
     svg
       position absolute
       width $img-dim
       height $img-dim
-  
+
   .viewer
     display none
     position absolute
     width $img-dim
     margin-top $margin-top
     font-size 11px
-    
+
     .download
       clear both
       margin-top 10px
@@ -92,61 +92,61 @@ $margin-top = 30px
       float right
       a
         text-decoration none
-    
+
     .flag
       clear both
       font-weight 700
       margin-top 10px
       float right
       cursor pointer
-      
+
       &:hover ~ .instructions
         display block
-      
+
     .instructions
       display none
       margin-top 10px
-      
-    
+
+
     &.show
       display block
       z-index 2
-  
+
   .overflow
     width 100%
     overflow hidden
     padding 0
-    
+
     .subjects
       width 400%
       margin-top $margin-top
       white-space nowrap
       z-index 0
       padding 0
-      
+
       .subject
         display inline-block
         width $img-dim
         height $img-dim + 60
         margin-right 220px
-        
+
         transition margin-left 450ms cubic-bezier(0.770, 0.000, 0.175, 1.000)
         -webkit-transition-timing-function cubic-bezier(0.770, 0.000, 0.175, 1.000)
         -moz-transition-timing-function cubic-bezier(0.770, 0.000, 0.175, 1.000)
         transition-timing-function cubic-bezier(0.770, 0.000, 0.175, 1.000)
-        
+
         &.current
           margin-left 0
           z-index 1
-        
+
         &.removing
           margin-left -1 * $img-dim - 100px
-        
+
         .image
           position relative
           width $img-dim
           height $img-dim
-        
+
         svg, img
           position absolute
           width 100%
@@ -155,3 +155,6 @@ $margin-top = 30px
           left 0
         svg
           z-index 2
+
+          circle
+            pointer-events: none

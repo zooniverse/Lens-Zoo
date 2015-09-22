@@ -1,6 +1,12 @@
 { Tutorial, Step } = require 'zootorial'
 translate = require 't7e'
 
+isWithinLens = (x, y) ->
+  if x > 230 and x < 265 and y > 325 and y < 350
+    'good_job'
+  else
+    'try_again'
+
 module.exports =
   length: 8
 
@@ -65,10 +71,10 @@ module.exports =
     className: 'arrow-left'
     next:
       'mouseup .annotation': (e, tutorial, step) ->
-        return if e.offsetX > 240 and e.offsetX < 265 and e.offsetY > 320 and e.offsetY < 340
-          'good_job'
-        else
-          return 'try_again'
+        offsetX  = e.pageX - $('.subject.current .image').offset().left
+        offsetY = e.pageY - $('.subject.current .image').offset().top
+
+        isWithinLens offsetX, offsetY
 
   good_job: new Step
     header: translate 'span', 'tutorial.good_job.header'
@@ -86,10 +92,10 @@ module.exports =
     blocks: '.controls:first'
     next:
       'mouseup .annotation': (e, tutorial, step) ->
-        return if e.offsetX > 240 and e.offsetX < 265 and e.offsetY > 320 and e.offsetY < 340
-          'good_job'
-        else
-          return false
+        offsetX  = e.pageX - $('.subject.current .image').offset().left
+        offsetY = e.pageY - $('.subject.current .image').offset().top
+
+        isWithinLens offsetX, offsetY
 
   training: new Step
     number: 7
