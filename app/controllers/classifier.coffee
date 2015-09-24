@@ -457,6 +457,8 @@ class Classifier extends Controller
 
   # Set up inline dashboard with current subject
   onDashboard: (e) ->
+    return false
+
     e.preventDefault()
 
     if @viewer?

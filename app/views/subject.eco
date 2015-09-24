@@ -8,7 +8,7 @@
   <div class='controls'>
     <%- translate 'a', '<div class="icon" data-icon="heart"></div>', href: '', "data-type": "heart", "title": "classifier.favorite", class: '' %>
     <a target="_blank" title="Discuss this image in Talk." href='http://talk.spacewarps.org/#/subjects/<%- @zooId %>' data-type='talk'><div class='icon' data-icon='discuss'></div></a>
-    <%- translate 'a', '<!--<div class="icon" data-icon="dashboard"></div>-->', href: '', "data-type": "dashboard", "title": "classifier.dashboard", class: '' %>
+    <%- translate 'a.dashboard', '<div class="icon" data-icon="dashboard"></div>', href: '', "data-type": "dashboard", "title": "classifier.dashboard", class: 'disabled dashboard' %>
     <%- translate 'a', 'classifier.next', class: 'last', href: '', "data-type": 'finish' %>
   </div>
 </div>
