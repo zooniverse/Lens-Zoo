@@ -326,12 +326,12 @@ class Classifier extends Controller
       require('zooniverse/controllers/signup-dialog').show()
 
     # Prompt Dashboard message
-    if nClassified is 3
-      tutorial = new Tutorial
-        id: 'dashboard'
-        firstStep: 'dashboard'
-        steps: TutorialDashboard
-        parent: @el[0]
+    # if nClassified is 3
+    #   tutorial = new Tutorial
+    #     id: 'dashboard'
+    #     firstStep: 'dashboard'
+    #     steps: TutorialDashboard
+    #     parent: @el[0]
 
     # Prompt Talk message
     if nClassified is 7
