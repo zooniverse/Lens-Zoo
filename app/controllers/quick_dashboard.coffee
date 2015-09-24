@@ -20,15 +20,18 @@ class QuickDashboard extends Controller
     0:
       alpha: 0.09
       Q: 1.0
-      scales: [0.4, 0.6, 1.7]
+      # scales: [0.4, 0.6, 1.7]
+      scales: [1.7, 0.6, 0.4]
     1:
       alpha: 0.17
       Q: 1.0
-      scales: [0.4, 0.6, 1.7]
+      # scales: [0.4, 0.6, 1.7]
+      scales: [1.7, 0.6, 0.4]
     2:
       alpha: 0.11
-      Q: 2
-      scales: [0.4, 0.6, 2.5]
+      Q: 2.0
+      # scales: [0.4, 0.6, 2.5]
+      scales: [2.5, 0.6, 0.4]
 
     # VICS82 VISTA IR data, PROV = 'V':
     # 0:
@@ -179,7 +182,10 @@ class QuickDashboard extends Controller
 
   # NOTE: Using exposure time = 1.0
   getCalibration: (header) ->
-    zeroPoint = header.get('MZP_AB')
+    # CFHTLS:
+    zeroPoint = 30.0
+    # VICS82:
+    # zeroPoint = header.get('MZP_AB')
     return Math.pow(10, 0.4*(30.0 - zeroPoint))
 
   # VICS82:
@@ -268,13 +274,20 @@ class QuickDashboard extends Controller
     # console.log "preset, @parameters = ",preset,@parameters
 
     # CFHTLS:
-    @wfits.setCalibrations(1, 1, 1)
+    # @wfits.setCalibrations(1, 1, 1)
+    @wfits.setCalibrations(@calibrations['g'],@calibrations['r'],@calibrations['i'])
 
     # VICS82: not sure this is the best way to pass down the calibrations array but it works:
     # @wfits.setCalibrations(@calibrations['Ks'],@calibrations['J'],@calibrations['i'])
-    # @wfits.setScales.apply(@wfits, parameters.scales)
-    # @wfits.setAlpha(parameters.alpha)
-    # @wfits.setQ(parameters.Q)
+
+    @wfits.setScales.apply(@wfits, parameters.scales)
+    @wfits.setAlpha(parameters.alpha)
+    @wfits.setQ(parameters.Q)
+
+    # CFHTLS:
+    @wfits.drawColor('g', 'r', 'i')
+
+    # VICS82:
     # @wfits.drawColor('Ks', 'J', 'i')
 
   teardown: =>
