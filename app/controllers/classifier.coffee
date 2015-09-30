@@ -703,8 +703,10 @@ class Classifier extends Controller
         # Check if any annotation over lens
         for index, annotation of @annotations
           if trainingType is 'lensed_galaxy'
-            r2 = (annotation.x - 220)*(annotation.x - 220) + (annotation.y - 220)*(annotation.y - 220)
-            @isLensMarked = if r2 < 900 then true else false
+            @isLensMarked = if Math.abs(training.x - annotation.x) < 30 && Math.abs(@subjectDimension - training.y - annotation.y) < 30
+               true
+             else
+               false
           else
             @isLensMarked = @checkImageMask(annotation.x, annotation.y)
 
