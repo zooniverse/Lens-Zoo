@@ -11,7 +11,10 @@ TopBar = require 'zooniverse/controllers/top-bar'
 User = require 'zooniverse/models/user'
 Recent = require 'zooniverse/models/recent'
 
-api = new Api project: 'spacewarp'
+api = if window.location.hostname is 'spacewarps.org'
+  new Api project: 'spacewarp', host: 'http://spacewarps.org', path: '/_ouroboros_api/proxy'
+else
+  new Api project: 'spacewarp'
 
 # Initialize Counter model
 new Counter({classified: 0, potentials: 0, favorites: 0}).save()
