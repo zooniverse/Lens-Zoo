@@ -12,7 +12,7 @@ User = require 'zooniverse/models/user'
 Recent = require 'zooniverse/models/recent'
 
 api = if window.location.hostname is 'spacewarps.org'
-  new Api project: 'spacewarp', host: 'http://spacewarps.org', path: '/_ouroboros_api/proxy'
+  new Api project: 'spacewarp', host: 'https://spacewarps.org', path: '/_ouroboros_api/proxy'
 else
   new Api project: 'spacewarp'
 
