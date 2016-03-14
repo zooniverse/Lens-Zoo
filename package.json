@@ -14,7 +14,7 @@
     "zootorial": "~0.3.4",
     "nib": "~0.9.1",
     "zooniverse": "0.2.3",
-    "publisssh": "0.2.6",
+    "publisssh": "1.1.0",
     "coffee-script": "~1.6.3",
     "stack-of-pages": "^0.1.5"
   },
