@@ -20,8 +20,8 @@
   },
   "scripts": {
     "start": "hem server --includeCss",
-    "deploy-to-production": "ruby build.rb && publisssh build zooniverse-static/spacewarps.org && rm -rf ./build",
-    "deploy-to-beta": "ruby build.rb && publisssh build zooniverse-static/spacewarps.org/beta && rm -rf ./build",
-    "deploy-to-demo": "ruby build.rb && publisssh build zooniverse-demo/spacewarps-z8e && rm -rf ./build"
+    "deploy-to-production": "ruby build.rb && publisssh build zooniverse-static/spacewarps.org --force && rm -rf ./build",
+    "deploy-to-beta": "ruby build.rb && publisssh build zooniverse-static/spacewarps.org/beta --force && rm -rf ./build",
+    "deploy-to-demo": "ruby build.rb && publisssh build zooniverse-demo/spacewarps-z8e --force && rm -rf ./build"
   }
 }
