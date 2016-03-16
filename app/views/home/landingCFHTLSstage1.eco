@@ -26,8 +26,8 @@
           <%- translate 'p', 'home.learn_snippet', class: '' %>
         </li>
         <li>
-          <figure><a target="_blank" href='http://talk.spacewarps.org/#/boards/BSW0000007'><img class="explore" src="images/dashboard.png"></a></figure>
-          <h4><%- translate 'a', 'home.news', href: 'http://talk.spacewarps.org/#/boards/BSW0000007', class: '' %></h4>
+          <figure><a target="_blank" href='https://talk.spacewarps.org/#/boards/BSW0000007'><img class="explore" src="images/dashboard.png"></a></figure>
+          <h4><%- translate 'a', 'home.news', href: 'https://talk.spacewarps.org/#/boards/BSW0000007', class: '' %></h4>
           <%- translate 'p', 'home.news_snippet', class: '' %>
         </li>
       </ul>

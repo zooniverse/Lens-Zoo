@@ -345,7 +345,7 @@ module.exports =
         <h3>The images are really small! Can I make them bigger?</h3>
         <p>Yes. Click on the Quick Dashboard, and scroll with your mouse to zoom in. You can move around in the image by dragging it with your cursor.</p>
         <h3>I found something interesting! What do I do?</h3>
-        <p>The markers are only for lensed features, but you can add any image, whether you think it has a lens in it or not, to your favourites using the button. This will appear in your favourites list on your profile page. You can then click on that image to take it to <a href='http://talk.spacewarps.org/'>Talk</a>, where you can discuss it with with other people.</p>
+        <p>The markers are only for lensed features, but you can add any image, whether you think it has a lens in it or not, to your favourites using the button. This will appear in your favourites list on your profile page. You can then click on that image to take it to <a href='https://talk.spacewarps.org/'>Talk</a>, where you can discuss it with with other people.</p>
         <h3>Sometimes a vertical/horizontal section of the image looks completely dark. Why is that?</h3>
         <p>Nothing to worry about. These images are at the edges of the survey region where the telescope did not collect data. Since there's no data, these sections look dark.</p>
         <h3>I can't see some pages on the website. What internet browser should I use?</h3>
@@ -377,7 +377,7 @@ module.exports =
         <p>How a lens system will look like in the sky depends on several factors relating to properties of the foreground and the background object. There is enough complexity in these lens systems that the process of detection has not been fully automated till date. One of the major problems is contamination from lens-like systems e.g., spiral galaxies, ring galaxies and other artefacts in the images that mimic arc-like shapes. Human beings are better at processing and filtering objects that have multiple levels of complexities even if they are non-standard. Lens systems fall in this category and we need your help both in discovering newer types of lenses and building better algorithms.</p>
 
         <h3>How do I know what's a lens and what isn't?</h3>
-        <p>We've put up some examples of lenses, and non-lenses, in the <a href=\"#/guide\">Spotter's Guide</a>. You can see these examples on the main classification page (on the pull-out tab on the right hand side), and you can click on them to read more about them in the Guide page. You can also go to <a href='http://talk.spacewarps.org/'>Talk</a> and see what other people have found.</p>
+        <p>We've put up some examples of lenses, and non-lenses, in the <a href=\"#/guide\">Spotter's Guide</a>. You can see these examples on the main classification page (on the pull-out tab on the right hand side), and you can click on them to read more about them in the Guide page. You can also go to <a href='https://talk.spacewarps.org/'>Talk</a> and see what other people have found.</p>
 
         <h3>What are simulated lens systems?</h3>
         <p>Simulated lens systems are computer generated images of gravitational lens systems using standard models for a foreground galaxy (or galaxy group) and a background galaxy (or a quasar). These simulated lenses are then added to the real images of the sky observed with a telescope.</p>

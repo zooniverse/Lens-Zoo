@@ -376,22 +376,22 @@
   </div>
 
   <div class="project-footer">
-    <p class="project-header">Other <a href="http://www.zooniverse.org/"><b>Zooniverse</b></a> science teams need your help!</p>
+    <p class="project-header">Other <a href="https://www.zooniverse.org/"><b>Zooniverse</b></a> science teams need your help!</p>
     <div class="project-list">
       <div class="project">
-        <a href="http://www.planetfour.org/"><div class="image" style="background-image:url(images/logos/planet-four.jpg)"><span>Planet Four</span></div></a>
+        <a href="https://www.planetfour.org/"><div class="image" style="background-image:url(images/logos/planet-four.jpg)"><span>Planet Four</span></div></a>
         <p>Measure dust features on the surface of Mars to gain new insights into Martian weather.</p>
       </div>
       <div class="project">
-        <a href="http://www.planktonportal.org/"><div class="image" style="background-image:url(images/logos/plankton-portal.jpg)"><span>Plankton Portal</span></div></a>
+        <a href="https://www.planktonportal.org/"><div class="image" style="background-image:url(images/logos/plankton-portal.jpg)"><span>Plankton Portal</span></div></a>
         <p>Measure and identify different species of plankton to assess the health of the ocean.</p>
       </div>
       <div class="project">
-        <a href="http://radio.galaxyzoo.org/"><div class="image" style="background-image:url(images/logos/radio-galaxy-zoo.jpg)"><span>Radio Galaxy Zoo</span></div></a>
+        <a href="https://radio.galaxyzoo.org/"><div class="image" style="background-image:url(images/logos/radio-galaxy-zoo.jpg)"><span>Radio Galaxy Zoo</span></div></a>
         <p>Compare infrared and radio telescope data to discover black holes in the Universe.</p>
       </div>
       <div class="project">
-        <a href="http://www.cyclonecenter.org/"><div class="image" style="background-image:url(images/logos/cyclone-center.jpg)"><span>Cyclone Center</span></div></a>
+        <a href="https://www.cyclonecenter.org/"><div class="image" style="background-image:url(images/logos/cyclone-center.jpg)"><span>Cyclone Center</span></div></a>
         <p>Unify the global record of tropical cyclone intensity by analyzing storm images.</p>
       </div>
     </div>
