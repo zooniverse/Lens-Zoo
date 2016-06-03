@@ -23,7 +23,8 @@
   ],
   "libs": [
     "node_modules/zooniverse/vendor/base64.js",
-    "./app/lib/jquery.lazyload.js"
+    "./app/lib/jquery.lazyload.js",
+    "node_modules/t7e/node_modules/dompurify/dist/purify.min.js"
   ]
 }
 
